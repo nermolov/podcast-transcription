@@ -1,0 +1,13 @@
+[project]
+name = "transcribe-episode"
+version = "0.1.0"
+description = "Podcast transcription: VibeVoice-ASR (text+speakers) + Parakeet (word timestamps) on MLX"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+  "mlx-audio==0.6.5",
+  "parakeet-mlx==0.7.0",
+  "numpy",
+]
+
+[tool.uv]
+package = false

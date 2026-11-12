@@ -1,0 +1,20 @@
+[Profiling] Segmentation timings: windows=300 prepareTotal=12.63ms (perWindow=0.0421ms) predictionTotal=1271.07ms (perWindow=4.2369ms)
+[Profiling] Embedding timings: fbankTotal=227.64ms (perWindow=0.759ms), maskPrepTotal=0.55ms (perEval=0.001ms), resampleTotal=0.02ms (perValid=0.000ms), embeddingTotal=1386.36ms (perValid=3.894ms), pldaTotal=7.26ms (perValid=0.020ms), batches(fbank=10, plda=12)
+        1.97 real         2.18 user         0.23 sys
+           347160576  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               43593  page reclaims
+                1211  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                  40  voluntary context switches
+               10933  involuntary context switches
+         31868230614  instructions retired
+          8560202848  cycles elapsed
+           842662752  peak memory footprint

@@ -1,0 +1,272 @@
+[
+ {
+  "start": 0,
+  "end": 9.14,
+  "speaker": "SPEAKER_00",
+  "text": "QBasic and just, like, digging into, you know, an exciting old DOS machine into doing software engineering kind of in a more serious way."
+ },
+ {
+  "start": 9.14,
+  "end": 32.89,
+  "speaker": "SPEAKER_01",
+  "text": "Yeah, I think, like, a lot of people were interested in making games. This is, I think, a pretty common introduction to programming. People are like, oh, I want to make my own game and that's what I want to do. For some reason, all I wanted to do was recreate DOS. Like, that's the thing I wanted to do. So I spent a lot of time, uh, making my own, essentially, CLI that would replace the normal prompt. I later realized that maybe that I was interested in."
+ },
+ {
+  "start": 32.89,
+  "end": 41.47,
+  "speaker": "SPEAKER_00",
+  "text": "This is a great origin story for getting into developer tools. Like, the first thing you want to do is a metacircular interpreter. You want to, like, write DOS in DOS."
+ },
+ {
+  "start": 41.47,
+  "end": 57.47,
+  "speaker": "SPEAKER_01",
+  "text": "And I think at the time I had, like, watched Pirates of Silicon Valley enough times that I was like, I need to make my own, uh, operating system. This was, like, all I wanted to do. So I would make, like, operating systems. I would give them little toy names. I would kind of work on them for, uh, a couple months, and then I would stop and start over."
+ },
+ {
+  "start": 57.47,
+  "end": 61.62,
+  "speaker": "SPEAKER_00",
+  "text": "Like, when you say operating systems, like, were you writing your own device drivers? Like, how, how serious was this?"
+ },
+ {
+  "start": 61.62,
+  "end": 73.04,
+  "speaker": "SPEAKER_01",
+  "text": "Not very serious at the time, but then when I went, when I went into university, I did spend, I, like, went down the course a little bit of, uh, do I want to be an operating system developer until I realized that, that no, I do not want to."
+ },
+ {
+  "start": 73.04,
+  "end": 82.64,
+  "speaker": "SPEAKER_00",
+  "text": "There's also a weird degree to which we just kind of don't do that anymore. Like, I mean, there is still research on operating system kernels, but, like, we've all just kind of accepted that Linux is our operating system now."
+ },
+ {
+  "start": 82.64,
+  "end": 88.75,
+  "speaker": "SPEAKER_01",
+  "text": "That's right. It was a little less clear for a bit. There were a lot of new things coming out. There was, like, a QNX, I think, was a thing."
+ },
+ {
+  "start": 88.75,
+  "end": 90.83,
+  "speaker": "SPEAKER_00",
+  "text": "Sure. And it still is in some ways."
+ },
+ {
+  "start": 90.83,
+  "end": 97.2,
+  "speaker": "SPEAKER_01",
+  "text": "And there was, like, all the, um, there was a lot of development happening in, like, the BSD variants that, uh, was also very interesting at the time."
+ },
+ {
+  "start": 97.2,
+  "end": 98.56,
+  "speaker": "SPEAKER_00",
+  "text": "Which are still not dead."
+ },
+ {
+  "start": 98.56,
+  "end": 99.36,
+  "speaker": "SPEAKER_01",
+  "text": "Yeah, they're still there."
+ },
+ {
+  "start": 99.36,
+  "end": 109.12,
+  "speaker": "SPEAKER_00",
+  "text": "Lest the BSD people get angry at us, you know. Great security record still exists. Okay. And then, and then, so you went and studied in college. You studied computer science?"
+ },
+ {
+  "start": 109.12,
+  "end": 146.09,
+  "speaker": "SPEAKER_01",
+  "text": "Studied computer science. Kind of got lucky that I, this is always the thing that I wanted to do. I wanted to, uh, write code. I just, I didn't even really know that it was a thing, right? Like, I was just doing it. I was, uh, I remember in high school developing web pages or, or different things that I wanted. I made a poetry website at some point. And then, uh, you know, I went to college and I was like. Let me learn a little bit more about this. Then I got my first job and kind of just have continued since then. But it was always kind of with a, an eye on, you know, the thing that I really want to do is I want to write code. And as a result, a lot of my work has moved in the direction of trying to make it easier and better experience for people writing code."
+ },
+ {
+  "start": 146.09,
+  "end": 148.19,
+  "speaker": "SPEAKER_00",
+  "text": "And then professionally, what do you end up doing?"
+ },
+ {
+  "start": 148.19,
+  "end": 156.24,
+  "speaker": "SPEAKER_01",
+  "text": "So I worked at a couple startups. Uh, I tried to start a few of my own. They did not pan out, uh, for various reasons. And then I."
+ },
+ {
+  "start": 156.24,
+  "end": 158.97,
+  "speaker": "SPEAKER_00",
+  "text": "That is, like, the modal experience of a startup is it doesn't work."
+ },
+ {
+  "start": 158.97,
+  "end": 159.72,
+  "speaker": "SPEAKER_01",
+  "text": "It does not pan out."
+ },
+ {
+  "start": 159.72,
+  "end": 163.22,
+  "speaker": "SPEAKER_00",
+  "text": "That's right. That's why the upside is so good is, like, the median case is not great."
+ },
+ {
+  "start": 163.28,
+  "end": 177.15,
+  "speaker": "SPEAKER_01",
+  "text": "Yeah, some of them, some of them have had some success, but, and ultimately, like, uh, you know, I ended up looking for different jobs and I did end up working at, uh, companies like Square and then eventually I found myself at GitHub, which is where I was right before this."
+ },
+ {
+  "start": 177.15,
+  "end": 181.7,
+  "speaker": "SPEAKER_00",
+  "text": "And so GitHub is obviously, like, a developer tool, tooling place. What kind of work did you end up doing there?"
+ },
+ {
+  "start": 181.7,
+  "end": 221.17,
+  "speaker": "SPEAKER_01",
+  "text": "Yeah, I did all kinds of things at GitHub. I worked on, uh, mostly, like, contributor pages and developer tooling. So this is, like, I worked on, uh, the contribution graph for a bit. I worked on the merge queue implementation. I worked on, uh, the early versions of Codespaces. I, I kind of just did everything. I really liked working there. I used to say that when, so I, another place I worked at in the past was I worked at Tumblr. And one thing that was really neat is, I know, I'm old. One thing that's really neat is I would, like, you know, I would maybe have a rough day at work and I would walk down the subway and I would see people, like, using the Tumblr app and I'd be like, okay, well, that's, that's pretty neat."
+ },
+ {
+  "start": 221.17,
+  "end": 244.16,
+  "speaker": "SPEAKER_01",
+  "text": "People are using that. Or I worked at Square and I would go into businesses and see people, like, conducting business with, with the terminal, right? And, oh, that's pretty cool. Um, but you never really, it's like a different feeling to build something that you use. And GitHub was my first real experience being like, The point of this company is to make people like me have a better experience with their work. And that's just, like, a totally different kind of satisfaction for me."
+ },
+ {
+  "start": 244.16,
+  "end": 253.4,
+  "speaker": "SPEAKER_00",
+  "text": "That's interesting. Like, you can imagine that, like, cutting both ways, right? Because it's, the cool thing about Tumblr is who uses it? Everybody uses Tumblr. I mean, not anymore, but."
+ },
+ {
+  "start": 253.4,
+  "end": 267.6,
+  "speaker": "SPEAKER_01",
+  "text": "Well, GitHub's this nice, like, middle ground, right? Because it's, like, a lot of people use it, right? So you get kind of the feeling of, uh, you're benefiting the whole world in your work. Um, but also. The people are mostly developers. Right?"
+ },
+ {
+  "start": 267.6,
+  "end": 269.49,
+  "speaker": "SPEAKER_01",
+  "text": "So, I think it's, like, it's a nice middle ground."
+ },
+ {
+  "start": 269.49,
+  "end": 272.08,
+  "speaker": "SPEAKER_00",
+  "text": "Or you can live in Silicon Valley and then it feels like everyone is using it."
+ },
+ {
+  "start": 272.08,
+  "end": 272.96,
+  "speaker": "SPEAKER_01",
+  "text": "Everyone is using it, that's right."
+ },
+ {
+  "start": 272.96,
+  "end": 275.83,
+  "speaker": "SPEAKER_00",
+  "text": "All of the ads in the subway are about software engineering."
+ },
+ {
+  "start": 275.83,
+  "end": 281.15,
+  "speaker": "SPEAKER_01",
+  "text": "Yeah, you just gotta stick to the Silicon Valley coffee shops. It'll be just like Tumblr."
+ },
+ {
+  "start": 281.15,
+  "end": 297.08,
+  "speaker": "SPEAKER_00",
+  "text": "Right, and now you're working on developer tools at Jane Street, which is, like, in some ways, an even more focused version of that experience, right? Like, GitHub is used by many millions of people and the tools you build at Jane Street are used by hundreds, a few thousand people."
+ },
+ {
+  "start": 297.26,
+  "end": 299.15,
+  "speaker": "SPEAKER_00",
+  "text": "Like, how does that feel different?"
+ },
+ {
+  "start": 299.15,
+  "end": 338.46,
+  "speaker": "SPEAKER_01",
+  "text": "I think one difference is the depth that you can go to, and that's, I think, why I ended up here mostly, is that you, at GitHub, you're building things for a lot of people, but a lot of times you're building things kind of to the greatest common denominator use case, right? Like, you're making things that work in all the programming languages because people use different ones. You're making things that work with, uh, maybe the most mainstream build systems or the most mainstream test setups. Like, maybe you'll support, um, the most common Java testing libraries or Ruby ones because GitHub is built in Ruby. Um, but maybe all of the other ones, not so much. What's neat here is that we can really go deep on all of our implementations."
+ },
+ {
+  "start": 338.46,
+  "end": 364.73,
+  "speaker": "SPEAKER_01",
+  "text": "So we can build things that, like, really make some general assumptions about the way that people are working. We can assume that they're using the build system that is the build system pretty much everyone uses here. We can assume they're pretty much using OCaml, uh, and Python. Uh, and we can make assumptions about, uh, I don't know, what code review tool they're using or how they're getting their code merged to production. That, uh, means that we can make things, uh, work better and be more seamless for people."
+ },
+ {
+  "start": 364.73,
+  "end": 370.92,
+  "speaker": "SPEAKER_00",
+  "text": "So essentially you can just build better end-to-end integrations because you know what are the things that people are actually using."
+ },
+ {
+  "start": 371.04,
+  "end": 385.57,
+  "speaker": "SPEAKER_00",
+  "text": "Is there, like, a downside to that of that encourages you to, like, lock into the particular ways things work now, and if we want to do more general things, like, like, I worry a little bit about a kind of, like, like, premature concretization of the workflows."
+ },
+ {
+  "start": 385.57,
+  "end": 395.73,
+  "speaker": "SPEAKER_01",
+  "text": "That's an interesting question. So, are you asking, like, when you, when you start building something, do you end up stuck because of choices that were made previously?"
+ },
+ {
+  "start": 395.73,
+  "end": 430.5,
+  "speaker": "SPEAKER_00",
+  "text": "Yeah, like, like, just to give, like, a good concrete example, almost all of, almost all of our programming is in OCaml and Python, right? And there's a couple of other languages. We have, like, another fun internal language for, like, a kind of big, complicated modeling thing called Webs that does, like, think of it as, like, a weird alternate universe version of Excel. But sometimes we want to do new things, right? So, you know, at some point we didn't used to use very much Python and then we started doing a lot more of it. We've recently started doing a lot more GPU programming. And, like, boy, there's, like, a lot of different programming languages and, like, all the tooling around it is pretty different."
+ },
+ {
+  "start": 430.5,
+  "end": 449.44,
+  "speaker": "SPEAKER_00",
+  "text": "To what degree does this specialization have a downside of you can end up hyper-specializing on the particular things that we do in a way that might lead you to build things that are too inflexible so that when you want to do new things, you can kind of get tied up in having, like, overly supported the kind of particularity, the particularities of the internal infrastructure?"
+ },
+ {
+  "start": 449.44,
+  "end": 482.63,
+  "speaker": "SPEAKER_01",
+  "text": "Yeah, I feel like there's a balance between trying to go really deep but still trying to leave enough doors open to changes that might come in the future. Um, it's also worth saying, as you know, because you, you lead the group, that we have this whole, uh, department called tools and compilers, which is mostly focused on, uh, making these developer tools. So, in a way, we've made decisions that, um, I think get us the depth, but at the cost of some inflexibility, but we also have a team that kind of works to take us out of that when we need to. I think we're pretty robust to change, but I think it's a good question."
+ },
+ {
+  "start": 482.63,
+  "end": 497.55,
+  "speaker": "SPEAKER_00",
+  "text": "Yeah, and I do think part of doing a good job of this is just picking good abstractions, like, both making it so you can take advantage of the particularities, but also trying to, like, put the joints in the right place so that when you want to replace pieces of it, it's not, like, a complete disaster."
+ },
+ {
+  "start": 497.55,
+  "end": 523.39,
+  "speaker": "SPEAKER_01",
+  "text": "Yeah, I think some of this takes real work. Like, for example, we are using a lot more Python, right? And Python is getting integrated into a lot more of our systems, but I think it'd be an overstatement to say that it's integrated everywhere in the same way that OCaml is, right? Like, it doesn't, um, not all of the Python code that we write is, like, checked into version control in the same way as our OCaml code, or not all of the, uh, Python code that we write works well with the build system that we have. And this is, like, real stuff that we have to work on to make better."
+ },
+ {
+  "start": 523.39,
+  "end": 562.92,
+  "speaker": "SPEAKER_00",
+  "text": "So I want to jump back for a second to a thing you mentioned about GitHub, which is that, like, GitHub was a Ruby shop. I had, like, you know, you're a serious, like, Ruby guy and, like, you worked a lot on Ruby at GitHub, gone to conferences, given talks, and now you've spent a few years in a very different ecosystem working in OCaml, which is just, like, a much more, you know, I mean, this is technical difference of, like, Ruby is a dynamically typed language and OCaml is a statically typed language, but just, like, the orientation is very different. OCaml's language is very focused on kind of static controls and guarantees of various different kinds. And, like, Ruby, not so much. It's, like, a very different approach to engineering and a very different development environment."
+ },
+ {
+  "start": 562.92,
+  "end": 572.34,
+  "speaker": "SPEAKER_00",
+  "text": "I'm curious just what you've learned from the process of, like, having shifted from very much being on one kind of technology to now using a very different set of tools."
+ },
+ {
+  "start": 572.34,
+  "end": 600.0,
+  "speaker": "SPEAKER_01",
+  "text": "Uh, so, I think, I, just to start by saying, I love Ruby. I've not, I've not traded off on my position here. Um, but I do think that, uh, when I first started working with OCaml, uh, it struck me that I felt slower. I felt like everything was moving slower. Um, I think it is true that, uh, Ruby and Rails results in, uh, less code written more quickly. Um, and the differences feel like they're really about."
+ }
+]

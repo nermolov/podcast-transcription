@@ -1,0 +1,20 @@
+[2026-11-11 00:19:28.866] [ctranslate2] [thread 16205575] [warning] Tip: experimental MPS backend is available and often 2x+ faster than CPU on Apple Silicon (varies by workload and hardware). Try device="mps".
+Lightning automatically upgraded your loaded checkpoint from v1.5.4 to v2.6.6. To apply the upgrade to your files permanently, run `python -m lightning.pytorch.utilities.upgrade_checkpoint .venv/lib/python3.12/site-packages/whisperx/assets/pytorch_model.bin`
+      581.21 real      1917.89 user       198.08 sys
+          9614016512  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            11299965  page reclaims
+                 341  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                  21  messages sent
+                  43  messages received
+                   0  signals received
+                 183  voluntary context switches
+            25909063  involuntary context switches
+            23063306  instructions retired
+             8803539  cycles elapsed
+             1474968  peak memory footprint

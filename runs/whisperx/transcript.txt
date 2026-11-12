@@ -1,0 +1,155 @@
+[00:00.5 - 00:09.1] SPEAKER_01: QBasic and just like digging into you know an exciting old DOS machine into doing software engineering in a more serious way.
+[00:09.4 - 00:12.8] SPEAKER_00: Yeah, I think a lot of people were interested in making games.
+[00:12.8 - 00:15.5] SPEAKER_00: This is, I think, a pretty common introduction to programming.
+[00:15.5 - 00:18.2] SPEAKER_00: People are like, oh, I want to make my own game, and that's what I want to do.
+[00:18.6 - 00:21.6] SPEAKER_00: For some reason, all I wanted to do was recreate DOS.
+[00:21.6 - 00:23.3] SPEAKER_00: That's the thing I wanted to do.
+[00:23.7 - 00:30.7] SPEAKER_00: So I spent a lot of time making my own, essentially, CLI that would replace the normal prompt.
+[00:31.0 - 00:32.9] SPEAKER_00: I later realized that maybe what I was interested in...
+[00:32.9 - 00:36.7] SPEAKER_01: This is a great origin story for getting into developer tools.
+[00:36.7 - 00:39.0] SPEAKER_01: Like, the first thing you want to do is the metacircular interpreter.
+[00:39.1 - 00:40.9] SPEAKER_01: You want to, like, write DOS in DOS.
+[00:41.0 - 00:42.4] SPEAKER_00: Yeah.
+[00:42.6 - 00:49.1] SPEAKER_00: And I think at the time, I had, like, watched Pirates of Silicon Valley enough times that I was like, I need to make my own operating system.
+[00:49.2 - 00:50.4] SPEAKER_00: This was, like, all I wanted to do.
+[00:50.8 - 00:52.3] SPEAKER_00: So I would make, like, operating systems.
+[00:52.3 - 00:53.5] SPEAKER_00: I would give them little toy names.
+[00:53.6 - 00:57.4] SPEAKER_00: I'd kind of work on them for a couple months, and then I would stop and start over.
+[00:57.5 - 01:00.2] SPEAKER_01: Like when you say operating systems, like were you writing your own device drivers?
+[01:00.2 - 01:01.5] SPEAKER_01: Like how serious was this?
+[01:01.8 - 01:03.4] SPEAKER_00: Not very serious at the time.
+[01:03.4 - 01:12.9] SPEAKER_00: But then when I went into university, I did spend, I like went down the course a little bit of do I want to be an operating system developer until I realized that no, I do not want to.
+[01:13.3 - 01:16.2] SPEAKER_01: There's also a weird degree to which we just kind of don't do that anymore.
+[01:16.2 - 01:16.8] SPEAKER_00: Yeah.
+[01:17.0 - 01:17.2] SPEAKER_01: Right?
+[01:17.2 - 01:22.6] SPEAKER_01: Like, I mean, there is still research on operating system kernels, but, like, we've all just kind of accepted that Linux is our operating system now.
+[01:22.8 - 01:23.3] SPEAKER_00: That's right.
+[01:23.4 - 01:25.0] SPEAKER_00: It was a little less clear for a bit.
+[01:25.2 - 01:26.5] SPEAKER_00: There were a lot of new things coming out.
+[01:26.5 - 01:28.7] SPEAKER_00: There was, like, a QNX, I think, was a thing.
+[01:29.0 - 01:29.3] SPEAKER_00: Sure.
+[01:29.3 - 01:30.7] SPEAKER_00: I mean, it still is in some ways.
+[01:31.3 - 01:37.1] SPEAKER_00: And there was, like, all the, there was a lot of development happening in, like, the BSD variants that was also very interesting at the time.
+[01:37.2 - 01:37.3] SPEAKER_00: Right.
+[01:37.5 - 01:38.5] SPEAKER_01: Which are still not dead.
+[01:38.7 - 01:39.3] SPEAKER_01: Yes, they're still there.
+[01:39.5 - 01:41.8] SPEAKER_01: Lest the BSD people get angry at us.
+[01:42.4 - 01:43.3] SPEAKER_01: Great security record.
+[01:43.5 - 01:44.0] SPEAKER_01: Still exists.
+[01:45.2 - 01:47.6] SPEAKER_01: Okay, and then, so you went and studied in college?
+[01:48.1 - 01:49.2] SPEAKER_01: You studied computer science?
+[01:49.2 - 01:50.1] SPEAKER_00: Studied computer science.
+[01:50.4 - 01:52.8] SPEAKER_00: Kind of got lucky that this is always the thing that I wanted to do.
+[01:53.0 - 01:55.1] SPEAKER_00: I wanted to write code.
+[01:55.3 - 01:57.6] SPEAKER_00: I didn't even really know that it was a thing, right?
+[01:57.6 - 01:58.6] SPEAKER_00: Like, I was just doing it.
+[01:58.7 - 02:03.3] SPEAKER_00: I was, I remember in high school, developing webpages or different things that I wanted.
+[02:03.4 - 02:05.3] SPEAKER_00: I made a poetry website at some point.
+[02:05.9 - 02:10.8] SPEAKER_00: And then I went to college and I was like, let me learn a little bit more about this.
+[02:11.1 - 02:13.8] SPEAKER_00: Then I got my first job and kind of just have continued since then.
+[02:13.9 - 02:19.1] SPEAKER_00: But it was always kind of with an eye on the thing that I really want to do is I want to write code.
+[02:19.7 - 02:25.9] SPEAKER_00: And as a result, a lot of my work has moved in the direction of trying to make it easier and better experience for people writing code.
+[02:26.1 - 02:26.3] SPEAKER_00: Got it.
+[02:26.3 - 02:28.1] SPEAKER_00: And then professionally, what do you end up doing?
+[02:28.6 - 02:30.2] SPEAKER_00: So I worked at a couple of startups.
+[02:31.1 - 02:32.3] SPEAKER_00: I tried to start a few of my own.
+[02:32.5 - 02:35.7] SPEAKER_00: They did not pan out for various reasons.
+[02:35.8 - 02:39.1] SPEAKER_00: And then I... That is like the modal experience of a startup is it doesn't work.
+[02:39.1 - 02:39.9] SPEAKER_00: It does not pan out.
+[02:39.9 - 02:40.1] SPEAKER_00: That's right.
+[02:40.2 - 02:42.8] SPEAKER_01: That's why the upside is so good is like the median case is not great.
+[02:44.1 - 02:49.9] SPEAKER_00: Yeah, some of them have had some success, but ultimately I ended up looking for different jobs.
+[02:50.5 - 02:57.0] SPEAKER_00: And I did end up working at companies like Square, and then eventually I found myself at GitHub, which is where I was right before this.
+[02:57.4 - 03:00.3] SPEAKER_01: And so GitHub is obviously like a developer tooling place.
+[03:00.4 - 03:01.6] SPEAKER_01: What kind of work did you end up doing there?
+[03:02.1 - 03:04.8] SPEAKER_00: Yeah, I did all kinds of things at GitHub.
+[03:04.8 - 03:10.2] SPEAKER_00: I worked on mostly like contributor pages and developer tooling.
+[03:10.3 - 03:14.0] SPEAKER_00: So this is like, I worked on the contribution graph for a bit.
+[03:14.0 - 03:15.8] SPEAKER_00: I worked on the merge queue implementation.
+[03:15.8 - 03:19.7] SPEAKER_00: I worked on the early versions of code spaces.
+[03:19.7 - 03:21.5] SPEAKER_00: I kind of just did everything.
+[03:22.0 - 03:22.9] SPEAKER_00: I really liked working there.
+[03:22.9 - 03:26.8] SPEAKER_00: I used to say that when, so another place I worked at in the past was I worked at Tumblr.
+[03:27.5 - 03:29.9] SPEAKER_00: And one thing that was really neat is, I know, I'm old.
+[03:31.0 - 03:39.5] SPEAKER_00: One thing that's really neat is I would like, you know, I would maybe have a rough day at work and I would walk down the subway and I would see people like using the Tumblr app.
+[03:39.5 - 03:41.2] SPEAKER_00: And I'd be like, okay, well, that's pretty neat.
+[03:41.2 - 03:42.0] SPEAKER_00: People are using that.
+[03:42.5 - 03:48.3] SPEAKER_00: Or I worked at Square and I would go into businesses and see people like conducting business with the terminal, right?
+[03:48.5 - 03:50.0] SPEAKER_00: Oh, that's pretty cool.
+[03:50.2 - 03:53.2] SPEAKER_00: But you never really, it's like a different feeling to build something that you use.
+[03:53.4 - 04:00.7] SPEAKER_00: And GitHub was my first real experience being like, the point of this company is to make people like me have a better experience with their work.
+[04:01.2 - 04:04.1] SPEAKER_00: And that's just like a totally different kind of satisfaction for me.
+[04:04.3 - 04:05.3] SPEAKER_01: That's interesting.
+[04:05.4 - 04:07.3] SPEAKER_01: You can imagine that like cutting both ways, right?
+[04:07.3 - 04:07.7] SPEAKER_01: Because it's...
+[04:08.4 - 04:10.2] SPEAKER_01: The cool thing about Tumblr is who uses it?
+[04:10.9 - 04:12.3] SPEAKER_01: Everybody uses Tumblr.
+[04:12.4 - 04:13.3] SPEAKER_00: I mean, not anymore.
+[04:13.5 - 04:15.5] SPEAKER_00: Well, GitHub's this nice middle ground, right?
+[04:15.6 - 04:18.5] SPEAKER_00: Because a lot of people use it, right?
+[04:18.6 - 04:27.7] SPEAKER_00: So you get kind of the feeling of you're benefiting the whole world in your work, but also the people are mostly developers, right?
+[04:27.7 - 04:29.4] SPEAKER_00: So I think it's a nice middle ground.
+[04:29.7 - 04:32.3] SPEAKER_01: Or you can live in Silicon Valley and then it feels like everyone is using it.
+[04:32.4 - 04:32.9] SPEAKER_00: Everyone's using it.
+[04:33.0 - 04:36.1] SPEAKER_01: All of the ads in the subway are about software engineering.
+[04:36.1 - 04:38.3] SPEAKER_00: Yeah, you just got to stick to the Silicon Valley coffee shops.
+[04:40.1 - 04:41.1] SPEAKER_01: It'll be just like Tumblr.
+[04:41.3 - 04:41.5] SPEAKER_01: Right.
+[04:41.5 - 04:48.7] SPEAKER_01: And now you're working on developer tools at Jane Street, which is like, in some sense, an even more focused version of that experience, right?
+[04:48.8 - 04:53.9] SPEAKER_01: Like GitHub is used by many millions of people and the tools you build at Jane Street are used by...
+[04:54.9 - 04:56.6] SPEAKER_01: Hundreds, a few thousand people.
+[04:56.9 - 04:57.5] SPEAKER_00: Yep.
+[04:58.1 - 04:59.2] SPEAKER_00: Like, how does that feel different?
+[04:59.4 - 05:02.2] SPEAKER_00: I think one difference is the depth that you can go to.
+[05:02.2 - 05:08.8] SPEAKER_00: And that's, I think, why I ended up here mostly is that you at GitHub, you're building things for a lot of people.
+[05:08.8 - 05:13.7] SPEAKER_00: But a lot of times you're building things kind of to the greatest common denominator use case, right?
+[05:13.7 - 05:14.9] SPEAKER_00: Like you're making things that...
+[05:15.3 - 05:18.3] SPEAKER_00: work in all the programming languages because people use different ones.
+[05:18.4 - 05:24.8] SPEAKER_00: You're making things that work with maybe the most mainstream build systems or the most mainstream test setups.
+[05:25.0 - 05:34.6] SPEAKER_00: Like maybe you'll support the most common Java testing libraries or Ruby ones because GitHub is built in Ruby, but maybe all of the other ones not so much.
+[05:34.8 - 05:38.6] SPEAKER_00: What's neat here is that we can really go deep on all of our implementations.
+[05:38.6 - 05:39.9] SPEAKER_00: So we can build things that like...
+[05:40.4 - 05:43.8] SPEAKER_00: really make some general assumptions about the way that people are working.
+[05:44.0 - 05:48.4] SPEAKER_00: We can assume that they're using the build system that is the build system pretty much everyone uses here.
+[05:48.9 - 05:52.1] SPEAKER_00: We can assume they're pretty much using OCaml and Python.
+[05:53.3 - 05:59.1] SPEAKER_00: And we can make assumptions about, I don't know, what code review tool they're using or how they're getting their code merged to production.
+[05:59.5 - 06:04.4] SPEAKER_00: That means that we can make things work better and be more seamless for people.
+[06:04.9 - 06:10.5] SPEAKER_01: Right, so essentially you can just build better end-to-end integrations because you know what are the things that people are actually using.
+[06:10.8 - 06:11.1] SPEAKER_01: Exactly.
+[06:11.9 - 06:20.1] SPEAKER_01: Is there like a downside to that that encourages you to like lock into the particular ways things work now and when you want to do more general things?
+[06:20.8 - 06:25.4] SPEAKER_01: Like I worry a little bit about a kind of like premature concretization of the workflows.
+[06:26.0 - 06:27.7] SPEAKER_00: That's an interesting question.
+[06:28.1 - 06:35.7] SPEAKER_00: So are you asking, like, when you start building something, do you end up stuck because of choices that were made previously?
+[06:36.1 - 06:43.4] SPEAKER_01: Yeah, like, just to give, like, a good concrete example, almost all of our programming is in OCaml and Python, right?
+[06:44.3 - 07:04.5] SPEAKER_01: and there's a couple of other languages we have like another fun internal language for like a kind of big complicated modeling thing called webs it does like think of it as like a weird alternate universe version of excel but sometimes we want to do new things right so you know at some point we didn't use to use very much python and then we started doing a lot more of it we've recently started doing a lot more gpu programming
+[07:04.9 - 07:10.4] SPEAKER_01: And like, boy, there's like a lot of different programming languages and like all the tooling around it is pretty different.
+[07:10.9 - 07:29.4] SPEAKER_01: To what degree does this specialization have a downside of you can end up hyper-specializing on the particular things that we do in a way that might lead you to build things that are too inflexible so that when you want to do new things, you can kind of get tied up in having like overly supported the kind of particularity, the particularities of the internal infrastructure.
+[07:30.0 - 07:37.1] SPEAKER_00: Yeah, I feel like there's a balance between trying to go really deep, but still trying to leave enough doors open to changes that might come in the future.
+[07:37.8 - 07:48.0] SPEAKER_00: It's also worth saying, as you know, because you lead the group, that we have this whole department called Tools and Compilers, which is mostly focused on making these developer tools.
+[07:48.0 - 07:54.8] SPEAKER_00: So in a way, we've made decisions that I think get us the depth, but at the cost of some inflexibility.
+[07:54.8 - 07:58.7] SPEAKER_00: But we also have a team that kind of works to take us out of that when we need to.
+[07:59.0 - 08:02.3] SPEAKER_00: I think we're pretty robust to change, but I think it's a good question.
+[08:03.3 - 08:17.6] SPEAKER_01: Yeah, and I do think part of doing a good job of this is just picking good abstractions, like both making it so you can take advantage of the particularities, but also trying to put the joints in the right place so that when you want to replace pieces of it, it's not like a complete disaster.
+[08:17.9 - 08:19.7] SPEAKER_00: Yeah, I think some of this takes real work.
+[08:19.7 - 08:22.0] SPEAKER_00: Like, for example, we're using a lot more Python.
+[08:22.8 - 08:25.3] SPEAKER_00: And Python is getting integrated into a lot more of our systems.
+[08:25.3 - 08:30.8] SPEAKER_00: But I think it'd be an overstatement to say that it's integrated everywhere in the same way that OCaml is.
+[08:32.1 - 08:36.8] SPEAKER_00: Not all of the Python code that we write is checked into version control in the same way as our OCaml code.
+[08:36.8 - 08:41.0] SPEAKER_00: Or not all of the Python code that we write works well with the build system that we have.
+[08:41.0 - 08:43.4] SPEAKER_00: And this is real stuff that we have to work on to make better.
+[08:43.8 - 08:48.0] SPEAKER_01: So I want to jump back for a second to a thing you mentioned about GitHub, which is that GitHub was a Ruby shop.
+[08:48.2 - 08:54.7] SPEAKER_01: I had like, you know, you're a serious like Ruby guy and like you worked a lot on Ruby at GitHub, gone to conferences, given talks.
+[08:55.2 - 09:03.3] SPEAKER_01: And now you spent a few years in a very different ecosystem working in OCaml, which is just like a much more, you know, I mean, this is.
+[09:04.0 - 09:08.0] SPEAKER_01: technical difference of like Ruby is a dynamically type language and OCaml is a statically type language.
+[09:08.3 - 09:10.3] SPEAKER_01: But just like the orientation is very different.
+[09:10.3 - 09:16.6] SPEAKER_01: OCaml's language is very focused on kind of static controls and guarantees of various different kinds.
+[09:17.0 - 09:18.8] SPEAKER_01: And like Ruby, not so much.
+[09:18.8 - 09:23.1] SPEAKER_01: It's like a very different approach to engineering and a very different development environment.
+[09:23.1 - 09:32.0] SPEAKER_01: I'm curious just what you've learned from the process of like having shifted from very much being on one kind of technology to now using a very different set of tools.
+[09:32.4 - 09:33.2] SPEAKER_00: Yeah.
+[09:33.3 - 09:36.5] SPEAKER_00: So I think I should start by saying I love Ruby.
+[09:37.2 - 09:39.5] SPEAKER_00: I've not traded up on my position here.
+[09:40.2 - 09:46.8] SPEAKER_00: But I do think that when I first started working with OCaml, it struck me that I felt slower.
+[09:47.0 - 09:48.6] SPEAKER_00: I felt like everything was moving slower.
+[09:48.6 - 09:56.9] SPEAKER_00: I think it is true that Ruby and Rails results in less code written more quickly.
+[09:58.1 - 09:59.9] SPEAKER_00: And the differences feel like they're really a

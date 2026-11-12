@@ -1,0 +1,20 @@
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 4210.09it/s]
+{'start': 5400.0, 'dur': 1109.112, 'load': 2.5954599380493164, 'gen': 272.50617504119873, 'rtf': 0.24569761668902573, 'gen_tokens': 6367, 'prompt_tokens': 8396, 'nseg': 54, 'last_end': None, 'speakers': [None], 'rss_gb': 10.739400704, 'mlx_peak_gb': 18.599825764}
+      275.44 real        87.66 user        38.17 sys
+         10739400704  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              674119  page reclaims
+                  35  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                  18  messages sent
+                  49  messages received
+                   0  signals received
+                3981  voluntary context switches
+             1085301  involuntary context switches
+        323916827500  instructions retired
+        149014998518  cycles elapsed
+         33578983680  peak memory footprint

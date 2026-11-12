@@ -1,0 +1,23 @@
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 3914.42it/s]
+raw text head: [{"Start":0,"End":9.14,"Speaker":0,"Content":"QBasic and just, like, digging into, you know, an exciting old DOS machine into doing software engineering kind of in a more serious way."},{"Start":9.14,"End":32.89,"Speaker":1,"Content":"Yeah, I think, like, a lot of people were interested in making ga
+nseg 45 gen tokens 3882
+load 1.5s gen 156.6s dur 600.0s RTF 0.261 peakRSS 10.0GB mlx_peak 15.2GB
+      158.40 real        49.87 user        20.74 sys
+         10040016896  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              632868  page reclaims
+                  37  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   8  messages sent
+                  35  messages received
+                   0  signals received
+                2491  voluntary context switches
+              561772  involuntary context switches
+            23081264  instructions retired
+             9664877  cycles elapsed
+             1458584  peak memory footprint
+done

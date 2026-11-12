@@ -1,0 +1,13 @@
+# VibeVoice text/turns + Parakeet word timestamps (10-min clip)
+
+Files: words.py (Parakeet tdt-0.6b-v3 -> words.json, 2250 words), merge.py (merge), merged.json / merged.txt / subtitles.txt.
+Run: `.venv/bin/python -I merge.py ../vibevoice/transcript.json words.json ""` (prefix = output path prefix).
+
+Method: normalise (lowercase, strip punctuation; fillers uh/um/mm excluded from matching). One global difflib.SequenceMatcher alignment of all VibeVoice words vs all Parakeet words (monotone), then keep an anchor only if the Parakeet word lies inside the VV turn window +/-1.0s (stops neighbouring turns stealing words). Same-count gaps between anchors rescued by fuzzy ratio>=0.6. Unmatched words: linear interpolation between neighbouring anchors (clamped to turn bounds). First version aligned per turn with +/-3s margin and cursor; it let turn 26 steal turn 27's words and gave one non-monotonic timestamp, hence the global approach.
+
+Results: 2219 VV words (45 turns). Matched 2147 (96.8%), interpolated 72 (3.2%); longest interpolated run 3 words. Interpolated words are mostly fillers VV kept but Parakeet dropped (uh 30, um 11), plus a few real mismatches (is, ways, QBasic/"Q Basic", metacircular, Codespaces). 0 non-monotonic words, 0 negative durations.
+Failed/weak turns: turn 27 (0.9s "Everyone is using it, that's right." overlapped/duplicated content of turn 26; only 2/6 matched, rest interpolated inside its 0.9s window), turn 8 (8 words, 75%), turn 44 (80 words, 86%). No turn drifted.
+Turn boundaries vs aligned first/last word: start offset (first word - VV start) mean +0.26s, median +0.22, range -0.08..+1.06 (turn 0: VV says 0.0, speech starts 1.06; clip begins mid-speech). End offset mean +0.04s, median +0.01, range -0.35..+0.41. So VV boundaries are good to ~0.3s, VV starts are slightly early (they include the preceding gap; boundaries are shared between adjacent turns). Long turns (34-40s, six of them: turns 13,21,32,37,39,42) are fine: start +0.08..+0.40, end -0.05..+0.41; no accumulated drift because only the boundaries are coarse - the text inside is not time-warped.
+Subtitle splitting: yes. Splitting at <=6s / <=14 words / pauses>0.5s / sentence ends gives 199 pieces, mean 2.9s, max 6.0s (subtitles.txt). Per-word times are word-accurate to Parakeet's ~80ms frame grid; interpolated words are +/-~0.3s at worst.
+Timing: merge step 0.05s wall, 0.04s user, 19 MB max RSS (/usr/bin/time -l). Parakeet word extraction ~9s (separate).
+Caveat: only checked on one clip; no human-labelled ground truth, metrics are self-consistency (match rate, monotonicity, boundary agreement).

@@ -1,0 +1,18 @@
+# environments, caches, models
+.venv/
+**/.venv/
+__pycache__/
+*.pyc
+cache/
+models/
+**/models/
+.build/
+**/repo/
+# audio and large outputs
+*.mp3
+*.wav
+*.m4a
+output/
+episode/
+# swift/tooling noise
+.DS_Store

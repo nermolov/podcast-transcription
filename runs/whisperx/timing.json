@@ -1,0 +1,15 @@
+{
+ "audio_sec": 600.0,
+ "timings_sec": {
+  "asr_load": 2.0687692165374756,
+  "vad_plus_asr": 230.06367087364197,
+  "align": 7.45884108543396,
+  "diarize": 338.9918940067291,
+  "total": 578.6878478527069
+ },
+ "rtf": 0.9644797464211782,
+ "peak_rss_GB": 9.614016512,
+ "asr_model": "large-v3",
+ "diar_device": "cpu",
+ "n_speakers": 2
+}

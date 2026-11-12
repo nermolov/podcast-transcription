@@ -1,0 +1,932 @@
+[
+ {
+  "start": 0.53,
+  "end": 9.06,
+  "speaker": "SPEAKER_01",
+  "text": "QBasic and just like digging into you know an exciting old DOS machine into doing software engineering in a more serious way."
+ },
+ {
+  "start": 9.37,
+  "end": 12.77,
+  "speaker": "SPEAKER_00",
+  "text": "Yeah, I think a lot of people were interested in making games."
+ },
+ {
+  "start": 12.81,
+  "end": 15.49,
+  "speaker": "SPEAKER_00",
+  "text": "This is, I think, a pretty common introduction to programming."
+ },
+ {
+  "start": 15.54,
+  "end": 18.2,
+  "speaker": "SPEAKER_00",
+  "text": "People are like, oh, I want to make my own game, and that's what I want to do."
+ },
+ {
+  "start": 18.6,
+  "end": 21.6,
+  "speaker": "SPEAKER_00",
+  "text": "For some reason, all I wanted to do was recreate DOS."
+ },
+ {
+  "start": 21.64,
+  "end": 23.3,
+  "speaker": "SPEAKER_00",
+  "text": "That's the thing I wanted to do."
+ },
+ {
+  "start": 23.74,
+  "end": 30.74,
+  "speaker": "SPEAKER_00",
+  "text": "So I spent a lot of time making my own, essentially, CLI that would replace the normal prompt."
+ },
+ {
+  "start": 31.0,
+  "end": 32.9,
+  "speaker": "SPEAKER_00",
+  "text": "I later realized that maybe what I was interested in..."
+ },
+ {
+  "start": 32.92,
+  "end": 36.67,
+  "speaker": "SPEAKER_01",
+  "text": "This is a great origin story for getting into developer tools."
+ },
+ {
+  "start": 36.69,
+  "end": 39.03,
+  "speaker": "SPEAKER_01",
+  "text": "Like, the first thing you want to do is the metacircular interpreter."
+ },
+ {
+  "start": 39.07,
+  "end": 40.87,
+  "speaker": "SPEAKER_01",
+  "text": "You want to, like, write DOS in DOS."
+ },
+ {
+  "start": 41.05,
+  "end": 42.37,
+  "speaker": "SPEAKER_00",
+  "text": "Yeah."
+ },
+ {
+  "start": 42.57,
+  "end": 49.12,
+  "speaker": "SPEAKER_00",
+  "text": "And I think at the time, I had, like, watched Pirates of Silicon Valley enough times that I was like, I need to make my own operating system."
+ },
+ {
+  "start": 49.16,
+  "end": 50.36,
+  "speaker": "SPEAKER_00",
+  "text": "This was, like, all I wanted to do."
+ },
+ {
+  "start": 50.8,
+  "end": 52.28,
+  "speaker": "SPEAKER_00",
+  "text": "So I would make, like, operating systems."
+ },
+ {
+  "start": 52.3,
+  "end": 53.54,
+  "speaker": "SPEAKER_00",
+  "text": "I would give them little toy names."
+ },
+ {
+  "start": 53.64,
+  "end": 57.44,
+  "speaker": "SPEAKER_00",
+  "text": "I'd kind of work on them for a couple months, and then I would stop and start over."
+ },
+ {
+  "start": 57.54,
+  "end": 60.16,
+  "speaker": "SPEAKER_01",
+  "text": "Like when you say operating systems, like were you writing your own device drivers?"
+ },
+ {
+  "start": 60.24,
+  "end": 61.54,
+  "speaker": "SPEAKER_01",
+  "text": "Like how serious was this?"
+ },
+ {
+  "start": 61.82,
+  "end": 63.42,
+  "speaker": "SPEAKER_00",
+  "text": "Not very serious at the time."
+ },
+ {
+  "start": 63.44,
+  "end": 72.87,
+  "speaker": "SPEAKER_00",
+  "text": "But then when I went into university, I did spend, I like went down the course a little bit of do I want to be an operating system developer until I realized that no, I do not want to."
+ },
+ {
+  "start": 73.34,
+  "end": 76.16,
+  "speaker": "SPEAKER_01",
+  "text": "There's also a weird degree to which we just kind of don't do that anymore."
+ },
+ {
+  "start": 76.18,
+  "end": 76.84,
+  "speaker": "SPEAKER_00",
+  "text": "Yeah."
+ },
+ {
+  "start": 76.98,
+  "end": 77.18,
+  "speaker": "SPEAKER_01",
+  "text": "Right?"
+ },
+ {
+  "start": 77.22,
+  "end": 82.6,
+  "speaker": "SPEAKER_01",
+  "text": "Like, I mean, there is still research on operating system kernels, but, like, we've all just kind of accepted that Linux is our operating system now."
+ },
+ {
+  "start": 82.84,
+  "end": 83.32,
+  "speaker": "SPEAKER_00",
+  "text": "That's right."
+ },
+ {
+  "start": 83.4,
+  "end": 85.0,
+  "speaker": "SPEAKER_00",
+  "text": "It was a little less clear for a bit."
+ },
+ {
+  "start": 85.22,
+  "end": 86.51,
+  "speaker": "SPEAKER_00",
+  "text": "There were a lot of new things coming out."
+ },
+ {
+  "start": 86.55,
+  "end": 88.65,
+  "speaker": "SPEAKER_00",
+  "text": "There was, like, a QNX, I think, was a thing."
+ },
+ {
+  "start": 89.01,
+  "end": 89.27,
+  "speaker": "SPEAKER_00",
+  "text": "Sure."
+ },
+ {
+  "start": 89.29,
+  "end": 90.69,
+  "speaker": "SPEAKER_00",
+  "text": "I mean, it still is in some ways."
+ },
+ {
+  "start": 91.29,
+  "end": 97.14,
+  "speaker": "SPEAKER_00",
+  "text": "And there was, like, all the, there was a lot of development happening in, like, the BSD variants that was also very interesting at the time."
+ },
+ {
+  "start": 97.16,
+  "end": 97.31,
+  "speaker": "SPEAKER_00",
+  "text": "Right."
+ },
+ {
+  "start": 97.49,
+  "end": 98.55,
+  "speaker": "SPEAKER_01",
+  "text": "Which are still not dead."
+ },
+ {
+  "start": 98.67,
+  "end": 99.35,
+  "speaker": "SPEAKER_01",
+  "text": "Yes, they're still there."
+ },
+ {
+  "start": 99.47,
+  "end": 101.83,
+  "speaker": "SPEAKER_01",
+  "text": "Lest the BSD people get angry at us."
+ },
+ {
+  "start": 102.42,
+  "end": 103.3,
+  "speaker": "SPEAKER_01",
+  "text": "Great security record."
+ },
+ {
+  "start": 103.5,
+  "end": 104.04,
+  "speaker": "SPEAKER_01",
+  "text": "Still exists."
+ },
+ {
+  "start": 105.22,
+  "end": 107.64,
+  "speaker": "SPEAKER_01",
+  "text": "Okay, and then, so you went and studied in college?"
+ },
+ {
+  "start": 108.06,
+  "end": 109.16,
+  "speaker": "SPEAKER_01",
+  "text": "You studied computer science?"
+ },
+ {
+  "start": 109.2,
+  "end": 110.1,
+  "speaker": "SPEAKER_00",
+  "text": "Studied computer science."
+ },
+ {
+  "start": 110.36,
+  "end": 112.78,
+  "speaker": "SPEAKER_00",
+  "text": "Kind of got lucky that this is always the thing that I wanted to do."
+ },
+ {
+  "start": 113.02,
+  "end": 115.08,
+  "speaker": "SPEAKER_00",
+  "text": "I wanted to write code."
+ },
+ {
+  "start": 115.28,
+  "end": 117.58,
+  "speaker": "SPEAKER_00",
+  "text": "I didn't even really know that it was a thing, right?"
+ },
+ {
+  "start": 117.6,
+  "end": 118.58,
+  "speaker": "SPEAKER_00",
+  "text": "Like, I was just doing it."
+ },
+ {
+  "start": 118.7,
+  "end": 123.34,
+  "speaker": "SPEAKER_00",
+  "text": "I was, I remember in high school, developing webpages or different things that I wanted."
+ },
+ {
+  "start": 123.36,
+  "end": 125.32,
+  "speaker": "SPEAKER_00",
+  "text": "I made a poetry website at some point."
+ },
+ {
+  "start": 125.88,
+  "end": 130.79,
+  "speaker": "SPEAKER_00",
+  "text": "And then I went to college and I was like, let me learn a little bit more about this."
+ },
+ {
+  "start": 131.05,
+  "end": 133.81,
+  "speaker": "SPEAKER_00",
+  "text": "Then I got my first job and kind of just have continued since then."
+ },
+ {
+  "start": 133.89,
+  "end": 139.07,
+  "speaker": "SPEAKER_00",
+  "text": "But it was always kind of with an eye on the thing that I really want to do is I want to write code."
+ },
+ {
+  "start": 139.65,
+  "end": 145.9,
+  "speaker": "SPEAKER_00",
+  "text": "And as a result, a lot of my work has moved in the direction of trying to make it easier and better experience for people writing code."
+ },
+ {
+  "start": 146.08,
+  "end": 146.3,
+  "speaker": "SPEAKER_00",
+  "text": "Got it."
+ },
+ {
+  "start": 146.32,
+  "end": 148.12,
+  "speaker": "SPEAKER_00",
+  "text": "And then professionally, what do you end up doing?"
+ },
+ {
+  "start": 148.62,
+  "end": 150.22,
+  "speaker": "SPEAKER_00",
+  "text": "So I worked at a couple of startups."
+ },
+ {
+  "start": 151.1,
+  "end": 152.35,
+  "speaker": "SPEAKER_00",
+  "text": "I tried to start a few of my own."
+ },
+ {
+  "start": 152.53,
+  "end": 155.65,
+  "speaker": "SPEAKER_00",
+  "text": "They did not pan out for various reasons."
+ },
+ {
+  "start": 155.75,
+  "end": 159.06,
+  "speaker": "SPEAKER_00",
+  "text": "And then I... That is like the modal experience of a startup is it doesn't work."
+ },
+ {
+  "start": 159.08,
+  "end": 159.86,
+  "speaker": "SPEAKER_00",
+  "text": "It does not pan out."
+ },
+ {
+  "start": 159.88,
+  "end": 160.14,
+  "speaker": "SPEAKER_00",
+  "text": "That's right."
+ },
+ {
+  "start": 160.18,
+  "end": 162.78,
+  "speaker": "SPEAKER_01",
+  "text": "That's why the upside is so good is like the median case is not great."
+ },
+ {
+  "start": 164.06,
+  "end": 169.87,
+  "speaker": "SPEAKER_00",
+  "text": "Yeah, some of them have had some success, but ultimately I ended up looking for different jobs."
+ },
+ {
+  "start": 170.51,
+  "end": 177.01,
+  "speaker": "SPEAKER_00",
+  "text": "And I did end up working at companies like Square, and then eventually I found myself at GitHub, which is where I was right before this."
+ },
+ {
+  "start": 177.38,
+  "end": 180.32,
+  "speaker": "SPEAKER_01",
+  "text": "And so GitHub is obviously like a developer tooling place."
+ },
+ {
+  "start": 180.38,
+  "end": 181.6,
+  "speaker": "SPEAKER_01",
+  "text": "What kind of work did you end up doing there?"
+ },
+ {
+  "start": 182.09,
+  "end": 184.81,
+  "speaker": "SPEAKER_00",
+  "text": "Yeah, I did all kinds of things at GitHub."
+ },
+ {
+  "start": 184.83,
+  "end": 190.25,
+  "speaker": "SPEAKER_00",
+  "text": "I worked on mostly like contributor pages and developer tooling."
+ },
+ {
+  "start": 190.27,
+  "end": 193.96,
+  "speaker": "SPEAKER_00",
+  "text": "So this is like, I worked on the contribution graph for a bit."
+ },
+ {
+  "start": 194.03,
+  "end": 195.8,
+  "speaker": "SPEAKER_00",
+  "text": "I worked on the merge queue implementation."
+ },
+ {
+  "start": 195.82,
+  "end": 199.72,
+  "speaker": "SPEAKER_00",
+  "text": "I worked on the early versions of code spaces."
+ },
+ {
+  "start": 199.74,
+  "end": 201.5,
+  "speaker": "SPEAKER_00",
+  "text": "I kind of just did everything."
+ },
+ {
+  "start": 202.0,
+  "end": 202.9,
+  "speaker": "SPEAKER_00",
+  "text": "I really liked working there."
+ },
+ {
+  "start": 202.92,
+  "end": 206.75,
+  "speaker": "SPEAKER_00",
+  "text": "I used to say that when, so another place I worked at in the past was I worked at Tumblr."
+ },
+ {
+  "start": 207.51,
+  "end": 209.87,
+  "speaker": "SPEAKER_00",
+  "text": "And one thing that was really neat is, I know, I'm old."
+ },
+ {
+  "start": 211.03,
+  "end": 219.46,
+  "speaker": "SPEAKER_00",
+  "text": "One thing that's really neat is I would like, you know, I would maybe have a rough day at work and I would walk down the subway and I would see people like using the Tumblr app."
+ },
+ {
+  "start": 219.5,
+  "end": 221.22,
+  "speaker": "SPEAKER_00",
+  "text": "And I'd be like, okay, well, that's pretty neat."
+ },
+ {
+  "start": 221.24,
+  "end": 222.04,
+  "speaker": "SPEAKER_00",
+  "text": "People are using that."
+ },
+ {
+  "start": 222.5,
+  "end": 228.32,
+  "speaker": "SPEAKER_00",
+  "text": "Or I worked at Square and I would go into businesses and see people like conducting business with the terminal, right?"
+ },
+ {
+  "start": 228.52,
+  "end": 230.0,
+  "speaker": "SPEAKER_00",
+  "text": "Oh, that's pretty cool."
+ },
+ {
+  "start": 230.24,
+  "end": 233.18,
+  "speaker": "SPEAKER_00",
+  "text": "But you never really, it's like a different feeling to build something that you use."
+ },
+ {
+  "start": 233.4,
+  "end": 240.69,
+  "speaker": "SPEAKER_00",
+  "text": "And GitHub was my first real experience being like, the point of this company is to make people like me have a better experience with their work."
+ },
+ {
+  "start": 241.19,
+  "end": 244.13,
+  "speaker": "SPEAKER_00",
+  "text": "And that's just like a totally different kind of satisfaction for me."
+ },
+ {
+  "start": 244.31,
+  "end": 245.35,
+  "speaker": "SPEAKER_01",
+  "text": "That's interesting."
+ },
+ {
+  "start": 245.45,
+  "end": 247.27,
+  "speaker": "SPEAKER_01",
+  "text": "You can imagine that like cutting both ways, right?"
+ },
+ {
+  "start": 247.29,
+  "end": 247.69,
+  "speaker": "SPEAKER_01",
+  "text": "Because it's..."
+ },
+ {
+  "start": 248.45,
+  "end": 250.21,
+  "speaker": "SPEAKER_01",
+  "text": "The cool thing about Tumblr is who uses it?"
+ },
+ {
+  "start": 250.95,
+  "end": 252.27,
+  "speaker": "SPEAKER_01",
+  "text": "Everybody uses Tumblr."
+ },
+ {
+  "start": 252.37,
+  "end": 253.33,
+  "speaker": "SPEAKER_00",
+  "text": "I mean, not anymore."
+ },
+ {
+  "start": 253.51,
+  "end": 255.53,
+  "speaker": "SPEAKER_00",
+  "text": "Well, GitHub's this nice middle ground, right?"
+ },
+ {
+  "start": 255.55,
+  "end": 258.53,
+  "speaker": "SPEAKER_00",
+  "text": "Because a lot of people use it, right?"
+ },
+ {
+  "start": 258.55,
+  "end": 267.66,
+  "speaker": "SPEAKER_00",
+  "text": "So you get kind of the feeling of you're benefiting the whole world in your work, but also the people are mostly developers, right?"
+ },
+ {
+  "start": 267.68,
+  "end": 269.42,
+  "speaker": "SPEAKER_00",
+  "text": "So I think it's a nice middle ground."
+ },
+ {
+  "start": 269.74,
+  "end": 272.32,
+  "speaker": "SPEAKER_01",
+  "text": "Or you can live in Silicon Valley and then it feels like everyone is using it."
+ },
+ {
+  "start": 272.36,
+  "end": 272.92,
+  "speaker": "SPEAKER_00",
+  "text": "Everyone's using it."
+ },
+ {
+  "start": 273.0,
+  "end": 276.06,
+  "speaker": "SPEAKER_01",
+  "text": "All of the ads in the subway are about software engineering."
+ },
+ {
+  "start": 276.14,
+  "end": 278.3,
+  "speaker": "SPEAKER_00",
+  "text": "Yeah, you just got to stick to the Silicon Valley coffee shops."
+ },
+ {
+  "start": 280.06,
+  "end": 281.1,
+  "speaker": "SPEAKER_01",
+  "text": "It'll be just like Tumblr."
+ },
+ {
+  "start": 281.32,
+  "end": 281.49,
+  "speaker": "SPEAKER_01",
+  "text": "Right."
+ },
+ {
+  "start": 281.5,
+  "end": 288.71,
+  "speaker": "SPEAKER_01",
+  "text": "And now you're working on developer tools at Jane Street, which is like, in some sense, an even more focused version of that experience, right?"
+ },
+ {
+  "start": 288.75,
+  "end": 293.87,
+  "speaker": "SPEAKER_01",
+  "text": "Like GitHub is used by many millions of people and the tools you build at Jane Street are used by..."
+ },
+ {
+  "start": 294.95,
+  "end": 296.63,
+  "speaker": "SPEAKER_01",
+  "text": "Hundreds, a few thousand people."
+ },
+ {
+  "start": 296.92,
+  "end": 297.51,
+  "speaker": "SPEAKER_00",
+  "text": "Yep."
+ },
+ {
+  "start": 298.12,
+  "end": 299.18,
+  "speaker": "SPEAKER_00",
+  "text": "Like, how does that feel different?"
+ },
+ {
+  "start": 299.42,
+  "end": 302.18,
+  "speaker": "SPEAKER_00",
+  "text": "I think one difference is the depth that you can go to."
+ },
+ {
+  "start": 302.2,
+  "end": 308.75,
+  "speaker": "SPEAKER_00",
+  "text": "And that's, I think, why I ended up here mostly is that you at GitHub, you're building things for a lot of people."
+ },
+ {
+  "start": 308.79,
+  "end": 313.67,
+  "speaker": "SPEAKER_00",
+  "text": "But a lot of times you're building things kind of to the greatest common denominator use case, right?"
+ },
+ {
+  "start": 313.69,
+  "end": 314.93,
+  "speaker": "SPEAKER_00",
+  "text": "Like you're making things that..."
+ },
+ {
+  "start": 315.31,
+  "end": 318.33,
+  "speaker": "SPEAKER_00",
+  "text": "work in all the programming languages because people use different ones."
+ },
+ {
+  "start": 318.39,
+  "end": 324.75,
+  "speaker": "SPEAKER_00",
+  "text": "You're making things that work with maybe the most mainstream build systems or the most mainstream test setups."
+ },
+ {
+  "start": 325.01,
+  "end": 334.56,
+  "speaker": "SPEAKER_00",
+  "text": "Like maybe you'll support the most common Java testing libraries or Ruby ones because GitHub is built in Ruby, but maybe all of the other ones not so much."
+ },
+ {
+  "start": 334.84,
+  "end": 338.58,
+  "speaker": "SPEAKER_00",
+  "text": "What's neat here is that we can really go deep on all of our implementations."
+ },
+ {
+  "start": 338.62,
+  "end": 339.9,
+  "speaker": "SPEAKER_00",
+  "text": "So we can build things that like..."
+ },
+ {
+  "start": 340.44,
+  "end": 343.78,
+  "speaker": "SPEAKER_00",
+  "text": "really make some general assumptions about the way that people are working."
+ },
+ {
+  "start": 344.02,
+  "end": 348.38,
+  "speaker": "SPEAKER_00",
+  "text": "We can assume that they're using the build system that is the build system pretty much everyone uses here."
+ },
+ {
+  "start": 348.95,
+  "end": 352.05,
+  "speaker": "SPEAKER_00",
+  "text": "We can assume they're pretty much using OCaml and Python."
+ },
+ {
+  "start": 353.31,
+  "end": 359.07,
+  "speaker": "SPEAKER_00",
+  "text": "And we can make assumptions about, I don't know, what code review tool they're using or how they're getting their code merged to production."
+ },
+ {
+  "start": 359.47,
+  "end": 364.42,
+  "speaker": "SPEAKER_00",
+  "text": "That means that we can make things work better and be more seamless for people."
+ },
+ {
+  "start": 364.94,
+  "end": 370.46,
+  "speaker": "SPEAKER_01",
+  "text": "Right, so essentially you can just build better end-to-end integrations because you know what are the things that people are actually using."
+ },
+ {
+  "start": 370.78,
+  "end": 371.14,
+  "speaker": "SPEAKER_01",
+  "text": "Exactly."
+ },
+ {
+  "start": 371.9,
+  "end": 380.06,
+  "speaker": "SPEAKER_01",
+  "text": "Is there like a downside to that that encourages you to like lock into the particular ways things work now and when you want to do more general things?"
+ },
+ {
+  "start": 380.75,
+  "end": 385.45,
+  "speaker": "SPEAKER_01",
+  "text": "Like I worry a little bit about a kind of like premature concretization of the workflows."
+ },
+ {
+  "start": 386.04,
+  "end": 387.72,
+  "speaker": "SPEAKER_00",
+  "text": "That's an interesting question."
+ },
+ {
+  "start": 388.14,
+  "end": 395.68,
+  "speaker": "SPEAKER_00",
+  "text": "So are you asking, like, when you start building something, do you end up stuck because of choices that were made previously?"
+ },
+ {
+  "start": 396.14,
+  "end": 403.35,
+  "speaker": "SPEAKER_01",
+  "text": "Yeah, like, just to give, like, a good concrete example, almost all of our programming is in OCaml and Python, right?"
+ },
+ {
+  "start": 404.31,
+  "end": 424.46,
+  "speaker": "SPEAKER_01",
+  "text": "and there's a couple of other languages we have like another fun internal language for like a kind of big complicated modeling thing called webs it does like think of it as like a weird alternate universe version of excel but sometimes we want to do new things right so you know at some point we didn't use to use very much python and then we started doing a lot more of it we've recently started doing a lot more gpu programming"
+ },
+ {
+  "start": 424.92,
+  "end": 430.38,
+  "speaker": "SPEAKER_01",
+  "text": "And like, boy, there's like a lot of different programming languages and like all the tooling around it is pretty different."
+ },
+ {
+  "start": 430.88,
+  "end": 449.39,
+  "speaker": "SPEAKER_01",
+  "text": "To what degree does this specialization have a downside of you can end up hyper-specializing on the particular things that we do in a way that might lead you to build things that are too inflexible so that when you want to do new things, you can kind of get tied up in having like overly supported the kind of particularity, the particularities of the internal infrastructure."
+ },
+ {
+  "start": 449.97,
+  "end": 457.1,
+  "speaker": "SPEAKER_00",
+  "text": "Yeah, I feel like there's a balance between trying to go really deep, but still trying to leave enough doors open to changes that might come in the future."
+ },
+ {
+  "start": 457.76,
+  "end": 467.96,
+  "speaker": "SPEAKER_00",
+  "text": "It's also worth saying, as you know, because you lead the group, that we have this whole department called Tools and Compilers, which is mostly focused on making these developer tools."
+ },
+ {
+  "start": 468.0,
+  "end": 474.79,
+  "speaker": "SPEAKER_00",
+  "text": "So in a way, we've made decisions that I think get us the depth, but at the cost of some inflexibility."
+ },
+ {
+  "start": 474.81,
+  "end": 478.71,
+  "speaker": "SPEAKER_00",
+  "text": "But we also have a team that kind of works to take us out of that when we need to."
+ },
+ {
+  "start": 479.03,
+  "end": 482.31,
+  "speaker": "SPEAKER_00",
+  "text": "I think we're pretty robust to change, but I think it's a good question."
+ },
+ {
+  "start": 483.33,
+  "end": 497.61,
+  "speaker": "SPEAKER_01",
+  "text": "Yeah, and I do think part of doing a good job of this is just picking good abstractions, like both making it so you can take advantage of the particularities, but also trying to put the joints in the right place so that when you want to replace pieces of it, it's not like a complete disaster."
+ },
+ {
+  "start": 497.91,
+  "end": 499.67,
+  "speaker": "SPEAKER_00",
+  "text": "Yeah, I think some of this takes real work."
+ },
+ {
+  "start": 499.71,
+  "end": 501.99,
+  "speaker": "SPEAKER_00",
+  "text": "Like, for example, we're using a lot more Python."
+ },
+ {
+  "start": 502.81,
+  "end": 505.29,
+  "speaker": "SPEAKER_00",
+  "text": "And Python is getting integrated into a lot more of our systems."
+ },
+ {
+  "start": 505.33,
+  "end": 510.84,
+  "speaker": "SPEAKER_00",
+  "text": "But I think it'd be an overstatement to say that it's integrated everywhere in the same way that OCaml is."
+ },
+ {
+  "start": 512.08,
+  "end": 516.78,
+  "speaker": "SPEAKER_00",
+  "text": "Not all of the Python code that we write is checked into version control in the same way as our OCaml code."
+ },
+ {
+  "start": 516.8,
+  "end": 520.95,
+  "speaker": "SPEAKER_00",
+  "text": "Or not all of the Python code that we write works well with the build system that we have."
+ },
+ {
+  "start": 521.01,
+  "end": 523.37,
+  "speaker": "SPEAKER_00",
+  "text": "And this is real stuff that we have to work on to make better."
+ },
+ {
+  "start": 523.81,
+  "end": 528.03,
+  "speaker": "SPEAKER_01",
+  "text": "So I want to jump back for a second to a thing you mentioned about GitHub, which is that GitHub was a Ruby shop."
+ },
+ {
+  "start": 528.21,
+  "end": 534.68,
+  "speaker": "SPEAKER_01",
+  "text": "I had like, you know, you're a serious like Ruby guy and like you worked a lot on Ruby at GitHub, gone to conferences, given talks."
+ },
+ {
+  "start": 535.16,
+  "end": 543.33,
+  "speaker": "SPEAKER_01",
+  "text": "And now you spent a few years in a very different ecosystem working in OCaml, which is just like a much more, you know, I mean, this is."
+ },
+ {
+  "start": 543.97,
+  "end": 547.99,
+  "speaker": "SPEAKER_01",
+  "text": "technical difference of like Ruby is a dynamically type language and OCaml is a statically type language."
+ },
+ {
+  "start": 548.33,
+  "end": 550.29,
+  "speaker": "SPEAKER_01",
+  "text": "But just like the orientation is very different."
+ },
+ {
+  "start": 550.31,
+  "end": 556.62,
+  "speaker": "SPEAKER_01",
+  "text": "OCaml's language is very focused on kind of static controls and guarantees of various different kinds."
+ },
+ {
+  "start": 557.03,
+  "end": 558.8,
+  "speaker": "SPEAKER_01",
+  "text": "And like Ruby, not so much."
+ },
+ {
+  "start": 558.84,
+  "end": 563.1,
+  "speaker": "SPEAKER_01",
+  "text": "It's like a very different approach to engineering and a very different development environment."
+ },
+ {
+  "start": 563.12,
+  "end": 571.95,
+  "speaker": "SPEAKER_01",
+  "text": "I'm curious just what you've learned from the process of like having shifted from very much being on one kind of technology to now using a very different set of tools."
+ },
+ {
+  "start": 572.41,
+  "end": 573.25,
+  "speaker": "SPEAKER_00",
+  "text": "Yeah."
+ },
+ {
+  "start": 573.31,
+  "end": 576.45,
+  "speaker": "SPEAKER_00",
+  "text": "So I think I should start by saying I love Ruby."
+ },
+ {
+  "start": 577.25,
+  "end": 579.46,
+  "speaker": "SPEAKER_00",
+  "text": "I've not traded up on my position here."
+ },
+ {
+  "start": 580.22,
+  "end": 586.84,
+  "speaker": "SPEAKER_00",
+  "text": "But I do think that when I first started working with OCaml, it struck me that I felt slower."
+ },
+ {
+  "start": 587.04,
+  "end": 588.58,
+  "speaker": "SPEAKER_00",
+  "text": "I felt like everything was moving slower."
+ },
+ {
+  "start": 588.6,
+  "end": 596.89,
+  "speaker": "SPEAKER_00",
+  "text": "I think it is true that Ruby and Rails results in less code written more quickly."
+ },
+ {
+  "start": 598.09,
+  "end": 599.93,
+  "speaker": "SPEAKER_00",
+  "text": "And the differences feel like they're really a"
+ }
+]
