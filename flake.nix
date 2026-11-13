@@ -52,6 +52,9 @@
 
       pythonEnv = pythonSet.mkVirtualEnv "transcribe-episode-env" workspace.deps.default;
 
+      # dev shell additionally gets the dev dependency group (pytest, httpx)
+      devEnv = pythonSet.mkVirtualEnv "transcribe-episode-dev-env" workspace.deps.all;
+
       ffmpeg = pkgs.ffmpeg-headless;
 
       # CLI script + importable `transcriber` package (the worker subprocess runs `python -m transcriber.worker`).
@@ -68,25 +71,43 @@
           exec ${pythonEnv}/bin/python ${src}/transcribe_episode.py "$@"
         '';
       };
+
+      # HTTP job service (STATE_DIR, HOST, PORT, API_TOKEN from the environment).
+      transcribe-server = pkgs.writeShellApplication {
+        name = "transcribe-server";
+        runtimeInputs = [ ffmpeg ];
+        text = ''
+          export HF_HOME="''${HF_HOME:-$HOME/.cache/huggingface}"
+          export PYTHONPATH="${src}"
+          exec ${pythonEnv}/bin/python -m transcriber.server "$@"
+        '';
+      };
     in
     {
       packages.${system} = {
         default = transcribe-episode;
-        inherit transcribe-episode;
+        server = transcribe-server;
+        inherit transcribe-episode transcribe-server;
       };
 
-      apps.${system}.default = {
-        type = "app";
-        program = "${transcribe-episode}/bin/transcribe-episode";
+      apps.${system} = {
+        default = {
+          type = "app";
+          program = "${transcribe-episode}/bin/transcribe-episode";
+        };
+        server = {
+          type = "app";
+          program = "${transcribe-server}/bin/transcribe-server";
+        };
       };
 
       devShells.${system}.default = pkgs.mkShell {
-        packages = [ pythonEnv ffmpeg pkgs.uv ];
+        packages = [ devEnv ffmpeg pkgs.uv ];
         env = {
           # Nix provides the interpreter/deps; stop uv from creating or syncing a venv.
           UV_NO_SYNC = "1";
           UV_PYTHON_DOWNLOADS = "never";
-          UV_PYTHON = "${pythonEnv}/bin/python";
+          UV_PYTHON = "${devEnv}/bin/python";
         };
         shellHook = ''
           export HF_HOME="''${HF_HOME:-$HOME/.cache/huggingface}"
