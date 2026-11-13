@@ -25,6 +25,13 @@ Flags: `--chunk-minutes`, `--overlap-seconds`, `--model`, `--context` (hotwords/
 Notes: VibeVoice-ASR supports at most ~59 min per pass in mlx-audio; MLX peak is ~31 GB at 50 min, ~19 GB at 20 min.
 Speed is about RTF 0.28 (about 30 min for a 108 min episode on an M4 Pro).
 
+## Code layout
+
+`transcribe_episode.py` is a thin CLI over the `transcriber` package: `transcriber.pipeline.run(input, outdir, *, chunk_minutes, overlap_seconds,
+model, context, max_tokens, words, keep_intermediate, progress)` returns the stats dict and raises `TranscribeError` on expected failures;
+`progress(stage, fraction, message)` is called for `prepare`, `vibevoice` (per chunk), `parakeet`, `align`, `write`.
+`transcriber/worker.py` is the per-chunk subprocess (`python -m transcriber.worker`). Tests of the pure functions: `python tests/test_pure.py`.
+
 ## Nix
 
 A flake (aarch64-darwin only) provides the full toolchain from the pins in `uv.lock` (uv2nix; Python 3.13, mlx 0.32.4,

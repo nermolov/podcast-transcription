@@ -54,12 +54,18 @@
 
       ffmpeg = pkgs.ffmpeg-headless;
 
+      # CLI script + importable `transcriber` package (the worker subprocess runs `python -m transcriber.worker`).
+      src = lib.fileset.toSource {
+        root = ./.;
+        fileset = lib.fileset.unions [ ./transcribe_episode.py ./transcriber ];
+      };
+
       transcribe-episode = pkgs.writeShellApplication {
         name = "transcribe-episode";
         runtimeInputs = [ ffmpeg ];
         text = ''
           export HF_HOME="''${HF_HOME:-$HOME/.cache/huggingface}"
-          exec ${pythonEnv}/bin/python ${./transcribe_episode.py} "$@"
+          exec ${pythonEnv}/bin/python ${src}/transcribe_episode.py "$@"
         '';
       };
     in
@@ -85,6 +91,7 @@
         shellHook = ''
           export HF_HOME="''${HF_HOME:-$HOME/.cache/huggingface}"
           unset PYTHONPATH
+          export PYTHONPATH="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"  # make `transcriber` importable
         '';
       };
     };
