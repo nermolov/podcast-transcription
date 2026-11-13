@@ -24,3 +24,17 @@ Flags: `--chunk-minutes`, `--overlap-seconds`, `--model`, `--context` (hotwords/
 
 Notes: VibeVoice-ASR supports at most ~59 min per pass in mlx-audio; MLX peak is ~31 GB at 50 min, ~19 GB at 20 min.
 Speed is about RTF 0.28 (about 30 min for a 108 min episode on an M4 Pro).
+
+## Nix
+
+A flake (aarch64-darwin only) provides the full toolchain from the pins in `uv.lock` (uv2nix; Python 3.13, mlx 0.32.4,
+ffmpeg-headless). Nix is installed but not on PATH by default:
+
+```sh
+export PATH=/nix/var/nix/profiles/default/bin:$PATH   # fish: fish_add_path /nix/var/nix/profiles/default/bin
+nix develop                         # shell with python env, ffmpeg, uv; HF_HOME defaults to ~/.cache/huggingface
+nix run . -- <audio-or-url> ...     # runs transcribe_episode.py as `transcribe-episode` (ffmpeg on PATH)
+nix build                           # ./result/bin/transcribe-episode
+```
+
+Flake files must be git-tracked for nix to see them. After changing deps, run `uv lock` and re-enter the shell.

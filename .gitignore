@@ -16,3 +16,7 @@ output/
 episode/
 # swift/tooling noise
 .DS_Store
+
+# nix
+result
+result-*
