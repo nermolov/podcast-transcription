@@ -19,4 +19,4 @@ Caveats:
 
 Same stretch (~02:26) across systems: the host asks "what do you end up doing?" and the guest answers.
 VibeVoice split host/guest turns most cleanly. WhisperX labelled both as SPEAKER_00. FluidAudio merged them into one segment.
-See each `runs/<name>/NOTES.md` for details.
+See each `research/runs/<name>/NOTES.md` for details.
