@@ -76,3 +76,33 @@ curl -H "$H" localhost:8000/jobs/3f2a...                                        
 curl -H "$H" "localhost:8000/jobs/3f2a.../result?format=srt" -o episode.srt
 curl -H "$H" -X DELETE localhost:8000/jobs/3f2a...
 ```
+
+## Operations (launchd)
+
+Models: `nix run .#fetch-models` downloads VibeVoice-ASR-8bit and Parakeet-TDT v3 into `HF_HOME` (resumable via `huggingface_hub`; repos
+already in the cache are skipped without network access; `-- --check` only reports status). Do this once before the first job, since the
+service would otherwise download ~10 GB inside the first request.
+
+Install as a per-user LaunchAgent (builds `.#server`, keeps the store path alive with a GC root in `~/.local/share/<label>/server`, writes
+`~/Library/LaunchAgents/com.local.transcribe-service.plist` with `RunAtLoad` + `KeepAlive`, bootstraps it, waits for `/healthz`):
+
+```sh
+API_TOKEN=secret PORT=8000 deploy/install.sh      # re-run to upgrade/reconfigure (idempotent)
+deploy/uninstall.sh                               # stop + remove agent, plist and GC root; keeps state and logs
+PURGE=1 deploy/uninstall.sh                       # ... and delete STATE_DIR and logs
+tail -f ~/Library/Logs/transcribe-service/server.log
+launchctl print gui/$(id -u)/com.local.transcribe-service
+launchctl kickstart -k gui/$(id -u)/com.local.transcribe-service   # restart
+```
+
+Config env for install.sh (written into the plist): `STATE_DIR` (~/.local/state/transcribe-service), `HOST` (127.0.0.1), `PORT` (8000),
+`API_TOKEN` (empty = no auth; the plist is mode 600), `HF_HOME` (~/.cache/huggingface), `LOG_DIR` (~/Library/Logs/transcribe-service),
+`LABEL` (com.local.transcribe-service). The plist's PATH includes `/nix/var/nix/profiles/default/bin`. launchd runs the built binary directly,
+so boot needs no network or flake evaluation; run `deploy/install.sh` again after changing code.
+
+A LaunchAgent lives in the user's GUI session: it starts at login and stops at logout, so it only runs while the user is logged in
+(a LaunchDaemon would be needed for pre-login, but MLX/Metal work is best done in the user session). Enable auto-login for an unattended machine.
+
+Shutdown: on SIGTERM/SIGINT the server stops the active `transcriber.worker` child (own process group; also killed via `atexit`, and the worker
+exits on its own if its parent disappears, e.g. SIGKILL) and puts the running job back to `queued`; it resumes from the chunk cache on next start.
+The CLI kills its worker on SIGTERM/SIGINT/SIGHUP too. `stats.json` records the original upload filename or URL as `input`.

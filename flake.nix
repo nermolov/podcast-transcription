@@ -82,12 +82,22 @@
           exec ${pythonEnv}/bin/python -m transcriber.server "$@"
         '';
       };
+
+      # Download both models into HF_HOME (resumable; hf_hub skips files already cached). Model IDs come from the pipeline.
+      fetch-models = pkgs.writeShellApplication {
+        name = "fetch-models";
+        text = ''
+          export HF_HOME="''${HF_HOME:-$HOME/.cache/huggingface}"
+          export PYTHONPATH="${src}"
+          exec ${pythonEnv}/bin/python -m transcriber.fetch_models "$@"
+        '';
+      };
     in
     {
       packages.${system} = {
         default = transcribe-episode;
         server = transcribe-server;
-        inherit transcribe-episode transcribe-server;
+        inherit transcribe-episode transcribe-server fetch-models;
       };
 
       apps.${system} = {
@@ -98,6 +108,10 @@
         server = {
           type = "app";
           program = "${transcribe-server}/bin/transcribe-server";
+        };
+        fetch-models = {
+          type = "app";
+          program = "${fetch-models}/bin/fetch-models";
         };
       };
 

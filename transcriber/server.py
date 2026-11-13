@@ -3,7 +3,7 @@
 Env: STATE_DIR (default ~/.local/state/transcribe-service), HOST (127.0.0.1), PORT (8000), API_TOKEN (optional bearer auth).
 Layout: STATE_DIR/uploads/<id><ext>, STATE_DIR/jobs/<id>/ (pipeline outdir), STATE_DIR/jobs.db.
 """
-import json, os, queue, re, secrets, shutil, sqlite3, threading, time, traceback, uuid
+import atexit, json, os, queue, re, secrets, shutil, sqlite3, threading, time, traceback, uuid
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 
@@ -29,6 +29,8 @@ class Store:
         self.lock = threading.Lock()
         self.db.execute("""CREATE TABLE IF NOT EXISTS jobs (id TEXT PRIMARY KEY, status TEXT NOT NULL, stage TEXT, progress REAL,
             message TEXT, error TEXT, source TEXT NOT NULL, params TEXT NOT NULL, created_at REAL NOT NULL, started_at REAL, finished_at REAL)""")
+        if "name" not in [c["name"] for c in self.db.execute("PRAGMA table_info(jobs)")]:
+            self.db.execute("ALTER TABLE jobs ADD COLUMN name TEXT")  # original filename/url (migration for older DBs)
 
     def q(self, sql, args=()):
         with self.lock:
@@ -42,9 +44,9 @@ class Store:
         r = self.q(f"SELECT {COLS} FROM jobs WHERE id=?", (id,))
         return r[0] if r else None
 
-    def insert(self, id, source, params):
-        self.execute("INSERT INTO jobs (id,status,stage,source,params,created_at) VALUES (?,?,?,?,?,?)",
-                     (id, "queued", "queued", source, json.dumps(params), time.time()))
+    def insert(self, id, source, params, name=None):
+        self.execute("INSERT INTO jobs (id,status,stage,source,params,created_at,name) VALUES (?,?,?,?,?,?,?)",
+                     (id, "queued", "queued", source, json.dumps(params), time.time(), name))
 
 
 def public(r):
@@ -74,12 +76,16 @@ class Service:
     def start(self):
         self.thread = threading.Thread(target=self._loop, name="transcribe-worker", daemon=True); self.thread.start()
 
-    def shutdown(self):
+    def shutdown(self, timeout=15.0):
+        """Stop taking jobs, kill the active pipeline child; the interrupted job is put back to `queued` (see _run)."""
         self.stop.set(); self.queue.put(None)
+        from transcriber.pipeline import kill_children
+        kill_children()
+        if self.thread is not None and self.thread is not threading.current_thread(): self.thread.join(timeout)
 
-    def submit(self, source, params, id=None):
+    def submit(self, source, params, id=None, name=None):
         id = id or uuid.uuid4().hex[:12]
-        self.store.insert(id, source, params); self.queue.put(id)
+        self.store.insert(id, source, params, name); self.queue.put(id)
         return id
 
     def job_dir(self, id): return os.path.join(self.jobs, id)
@@ -104,12 +110,15 @@ class Service:
             self.store.execute("UPDATE jobs SET stage=?, progress=?, message=? WHERE id=? AND status='running'", (stage, fraction, message, id))
         try:
             self.run_fn(r["source"], outdir, chunk_minutes=p["chunk_minutes"], overlap_seconds=p["overlap_seconds"], context=p["context"],
-                        words=p["words"], progress=progress)
+                        words=p["words"], progress=progress, input_name=self.store.q("SELECT name FROM jobs WHERE id=?", (id,))[0]["name"])
             self.store.execute("UPDATE jobs SET status='done', stage='done', progress=1.0, message='finished', finished_at=? WHERE id=? AND status='running'", (time.time(), id))
             if not r["source"].startswith(("http://", "https://")):
                 try: os.remove(r["source"])  # upload no longer needed once done
                 except OSError: pass
         except BaseException as e:
+            if self.stop.is_set():  # interrupted by service shutdown (SIGTERM): resume on next start
+                self.store.execute("UPDATE jobs SET status='queued', stage='queued', message='re-queued after shutdown', started_at=NULL WHERE id=? AND status='running'", (id,))
+                return
             traceback.print_exc()
             msg = str(e) or type(e).__name__
             self.store.execute("UPDATE jobs SET status='failed', error=?, message=?, finished_at=? WHERE id=? AND status='running'", (msg, msg, time.time(), id))
@@ -150,6 +159,7 @@ def create_app(state_dir=None, run_fn=None, api_token=None, start_worker=True):
 
     app = FastAPI(title="transcribe service", lifespan=lifespan)
     app.state.service = svc
+    atexit.register(svc.shutdown, 5.0)  # last resort if the process exits without the lifespan running
 
     @app.get("/healthz")
     def healthz():
@@ -188,7 +198,7 @@ def create_app(state_dir=None, run_fn=None, api_token=None, start_worker=True):
             await upload.close()
         else:
             source = str(url)
-        svc.submit(source, params, id)
+        svc.submit(source, params, id, name=(upload.filename if upload is not None else source))
         return {"id": id, "status": "queued"}
 
     def need(id):

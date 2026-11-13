@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Podcast -> speaker-attributed transcript with word timestamps (VibeVoice-ASR + Parakeet, MLX)."""
 import argparse, sys
-from transcriber.pipeline import MODEL_DEFAULT, TranscribeError, run
+from transcriber.pipeline import MODEL_DEFAULT, TranscribeError, install_signal_handlers, run
 
 
 def main():
@@ -16,6 +16,7 @@ def main():
     ap.add_argument("--no-words", action="store_true", help="skip Parakeet word timestamps")
     ap.add_argument("--keep-intermediate", action="store_true", help="keep work/ (wav, download)")
     args = ap.parse_args()
+    install_signal_handlers()
     try:
         run(args.input, args.outdir, chunk_minutes=args.chunk_minutes, overlap_seconds=args.overlap_seconds, model=args.model,
             context=args.context, max_tokens=args.max_tokens, words=not args.no_words, keep_intermediate=args.keep_intermediate)

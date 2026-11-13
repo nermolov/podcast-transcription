@@ -1,5 +1,5 @@
 """Podcast -> speaker-attributed transcript with word timestamps (VibeVoice-ASR + Parakeet, MLX)."""
-import difflib, hashlib, json, math, os, re, resource, shutil, subprocess, sys, time, urllib.request, wave
+import atexit, difflib, hashlib, json, math, os, re, resource, shutil, signal, subprocess, sys, threading, time, urllib.request, wave
 
 MODEL_DEFAULT = "mlx-community/VibeVoice-ASR-8bit"
 PARAKEET = "mlx-community/parakeet-tdt-0.6b-v3"
@@ -10,6 +10,46 @@ log = lambda *a: print(time.strftime("%H:%M:%S"), *a, file=sys.stderr, flush=Tru
 
 class TranscribeError(Exception):
     """Expected failure (bad input, ffmpeg/worker failure); the CLI turns it into an exit message."""
+
+
+# ---------------------------------------------------------------- child process management
+_CHILDREN = set(); _CH_LOCK = threading.Lock()
+
+
+def kill_children(grace=5.0):
+    """SIGTERM (then SIGKILL after `grace` s) every live child started by run_child, including its process group."""
+    with _CH_LOCK: procs = list(_CHILDREN)
+    def sig(p, s):
+        try: os.killpg(p.pid, s)  # children lead their own session/group (start_new_session)
+        except (ProcessLookupError, PermissionError): pass
+    for p in procs: sig(p, signal.SIGTERM)
+    end = time.time() + grace
+    for p in procs:
+        try: p.wait(max(0.0, end - time.time()))
+        except subprocess.TimeoutExpired: sig(p, signal.SIGKILL); p.wait()
+
+
+atexit.register(kill_children, 2.0)
+
+
+def install_signal_handlers():
+    """For standalone use (CLI): on SIGTERM/SIGINT/SIGHUP kill tracked children, then die with the default action.
+    Main thread only. (uvicorn installs its own handlers; the server cleans up in its shutdown path + atexit.)"""
+    def h(signum, frame):
+        kill_children()
+        signal.signal(signum, signal.SIG_DFL); os.kill(os.getpid(), signum)
+    for sg in (signal.SIGTERM, signal.SIGINT, signal.SIGHUP): signal.signal(sg, h)
+
+
+def run_child(cmd, env=None):
+    """subprocess.run(check=False) that tracks the child so kill_children()/atexit can stop it; returns the exit code.
+    The child is in its own session, so a terminal Ctrl-C does not reach it directly (the parent's handler kills it)."""
+    p = subprocess.Popen(cmd, env=env, start_new_session=True)
+    with _CH_LOCK: _CHILDREN.add(p)
+    try: return p.wait()
+    except BaseException: kill_children(); raise
+    finally:
+        with _CH_LOCK: _CHILDREN.discard(p)
 
 
 # ---------------------------------------------------------------- input handling
@@ -58,8 +98,8 @@ def run_chunks(wav, plan, model, context, max_tokens, cache_dir, key, progress=l
             t = time.time()
             # run as a module with the package root on PYTHONPATH so it works from any cwd (dev shell and nix build)
             env = dict(os.environ, PYTHONPATH=os.pathsep.join(filter(None, [PKG_ROOT, os.environ.get("PYTHONPATH")])))
-            try: subprocess.run([sys.executable, "-m", "transcriber.worker", wav, str(st), str(du), model, context or "", str(max_tokens), out], check=True, env=env)
-            except subprocess.CalledProcessError as e: raise TranscribeError(f"VibeVoice worker failed on chunk {k+1}/{len(plan)} (exit {e.returncode})")
+            rc = run_child([sys.executable, "-m", "transcriber.worker", wav, str(st), str(du), model, context or "", str(max_tokens), out], env=env)
+            if rc != 0: raise TranscribeError(f"VibeVoice worker failed on chunk {k+1}/{len(plan)} (exit {rc})")
             d = json.load(open(out)); d["stats"]["cached"] = False
             log(f"chunk {k+1}/{len(plan)} done in {time.time()-t:.0f}s, RTF {d['stats']['rtf']:.3f}, {d['stats']['gen_tokens']} tokens, MLX peak {d['stats']['mlx_peak_gb']:.1f} GB")
             if d["stats"]["hit_max_tokens"]: log("WARNING: chunk hit max_tokens, output truncated; raise --max-tokens")
@@ -231,8 +271,9 @@ def even_words(t):
 
 
 def run(input, outdir, *, chunk_minutes=50, overlap_seconds=60, model=MODEL_DEFAULT, context="", max_tokens=40000, words=True,
-        keep_intermediate=False, progress=None):
+        keep_intermediate=False, progress=None, input_name=None):
     """Transcribe `input` (file, mp3 URL or RSS URL) into `outdir`; returns the stats dict (also written to stats.json).
+    `input_name` overrides the `input` recorded in stats.json (e.g. original upload name).
     progress(stage, fraction|None, message) is called for stages prepare, vibevoice (per chunk), parakeet, align, write."""
     prog = progress or (lambda *a: None)
     out = os.path.abspath(outdir); work = os.path.join(out, "work"); os.makedirs(work, exist_ok=True)
@@ -246,7 +287,7 @@ def run(input, outdir, *, chunk_minutes=50, overlap_seconds=60, model=MODEL_DEFA
     t = time.time(); segs, infos = run_chunks(wav, plan, model, context, max_tokens, os.path.join(out, "chunks"), key, prog); T["vibevoice_s"] = time.time() - t
     t = time.time(); vv, flips = stitch(segs, plan, overlap_seconds); T["stitch_s"] = time.time() - t
     log(f"stitched {len(vv)} turns; boundaries with raw speaker-label flip fixed: {sum(f['raw_labels_flipped'] for f in flips)}/{len(flips)}")
-    stats = dict(input=input, model=model, audio_s=dur, chunk_plan=plan, chunks=infos, boundaries=flips, n_turns=len(vv),
+    stats = dict(input=input_name or input, model=model, audio_s=dur, chunk_plan=plan, chunks=infos, boundaries=flips, n_turns=len(vv),
                  speakers=sorted({s["speaker"] for s in vv}), vv_words=sum(len(s["text"].split()) for s in vv))
     if not words:
         turns = vv

@@ -17,5 +17,16 @@ def worker(wav, start, dur, model_id, context, max_tokens, out):
     os.replace(out + ".tmp", out)
 
 
+def die_with_parent():
+    """Exit if the parent goes away (e.g. SIGKILLed), so an orphaned worker never keeps holding ~30 GB of MLX memory."""
+    import threading
+    ppid = os.getppid()
+    def watch():
+        while os.getppid() == ppid: time.sleep(2)
+        os._exit(1)
+    threading.Thread(target=watch, daemon=True).start()
+
+
 if __name__ == "__main__":
+    die_with_parent()
     a = sys.argv[1:]; worker(a[0], float(a[1]), float(a[2]), a[3], a[4], int(a[5]), a[6])

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Template: deploy/install.sh substitutes the @PLACEHOLDERS@ and installs it into ~/Library/LaunchAgents. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>@LABEL@</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>@BIN@</string>
+  </array>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>ThrottleInterval</key><integer>10</integer>
+  <!-- launchd sends SIGTERM; the server needs a few seconds to stop its worker child and re-queue the running job -->
+  <key>ExitTimeOut</key><integer>30</integer>
+  <key>WorkingDirectory</key><string>@STATE_DIR@</string>
+  <key>StandardOutPath</key><string>@LOG_DIR@/server.log</string>
+  <key>StandardErrorPath</key><string>@LOG_DIR@/server.log</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key><string>/nix/var/nix/profiles/default/bin:/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <key>HOME</key><string>@HOME@</string>
+    <key>STATE_DIR</key><string>@STATE_DIR@</string>
+    <key>HOST</key><string>@HOST@</string>
+    <key>PORT</key><string>@PORT@</string>
+    <key>API_TOKEN</key><string>@API_TOKEN@</string>
+    <key>HF_HOME</key><string>@HF_HOME@</string>
+  </dict>
+</dict>
+</plist>

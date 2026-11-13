@@ -140,3 +140,62 @@ def test_restart_requeues(tmp_path):
     with TestClient(create_app(str(tmp_path), run_fn=fake_run)) as c:
         assert wait(c, "aaa")["status"] == "done" and wait(c, "bbb")["status"] == "done"
         assert len(c.get("/jobs").json()) == 2
+
+
+def test_stats_input_is_original_name(tmp_path):
+    seen = {}
+    def run(input, outdir, *, progress=None, **kw): seen.update(kw, input=input); return {}
+    with TestClient(create_app(str(tmp_path), run_fn=run)) as c:
+        id = c.post("/jobs", files={"file": ("My Episode.mp3", b"x", "audio/mpeg")}).json()["id"]
+        wait(c, id)
+    assert seen["input_name"] == "My Episode.mp3" and seen["input"].endswith(id + ".mp3")
+
+
+def _alive(pid):
+    try: os.kill(pid, 0); return True
+    except ProcessLookupError: return False
+
+
+def test_shutdown_kills_child_and_requeues(tmp_path):
+    from transcriber.pipeline import run_child
+    pidfile = tmp_path / "child.pid"
+    def slow(input, outdir, *, progress=None, **kw):
+        progress("vibevoice", 0.1, "chunk 1/1")
+        rc = run_child([sys.executable, "-c", f"import os,time; open({str(pidfile)!r},'w').write(str(os.getpid())); time.sleep(300)"])
+        raise TranscribeError(f"worker failed (exit {rc})")  # what the real pipeline does when the child is killed
+    with TestClient(create_app(str(tmp_path / "s"), run_fn=slow)) as c:
+        id = c.post("/jobs", data={"url": "http://example.com/a.mp3"}).json()["id"]
+        for _ in range(250):
+            if pidfile.exists() and pidfile.read_text(): break
+            time.sleep(0.02)
+        pid = int(pidfile.read_text()); assert _alive(pid)
+        svc = c.app.state.service
+    # leaving the context runs lifespan shutdown
+    for _ in range(100):
+        if not _alive(pid): break
+        time.sleep(0.05)
+    assert not _alive(pid)
+    row = svc.store.get(id)
+    assert row["status"] == "queued" and row["error"] is None
+    # next start picks it up again
+    done = []
+    with TestClient(create_app(str(tmp_path / "s"), run_fn=lambda *a, **k: done.append(1) or {})) as c2:
+        assert wait(c2, id)["status"] == "done"
+
+
+def test_atexit_kills_child_when_parent_dies(tmp_path):
+    import signal, subprocess
+    pidfile = tmp_path / "pid"
+    code = ("import sys,os,time,threading\nsys.path.insert(0,%r)\nfrom transcriber.pipeline import run_child, install_signal_handlers\ninstall_signal_handlers()\n"
+            "threading.Thread(target=lambda: run_child([sys.executable,'-c',\"import os,time;open(%r,'w').write(str(os.getpid()));time.sleep(300)\"]),daemon=True).start()\n"
+            "time.sleep(300)\n") % (os.path.dirname(os.path.dirname(os.path.abspath(__file__))), str(pidfile))
+    p = subprocess.Popen([sys.executable, "-c", code])
+    for _ in range(250):
+        if pidfile.exists() and pidfile.read_text(): break
+        time.sleep(0.04)
+    pid = int(pidfile.read_text()); assert _alive(pid)
+    p.send_signal(signal.SIGTERM); p.wait(10)  
+    for _ in range(100):
+        if not _alive(pid): break
+        time.sleep(0.05)
+    assert not _alive(pid)
