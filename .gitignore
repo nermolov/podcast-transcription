@@ -20,3 +20,8 @@ episode/
 # nix
 result
 result-*
+
+# streaming benchmark raw outputs (transcripts of third-party audio); summaries are committed
+research/streaming/runs*/**
+!research/streaming/runs*/*/
+!research/streaming/runs*/*/summary.json
