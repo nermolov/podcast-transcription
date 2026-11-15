@@ -89,18 +89,79 @@ Encode, prefill and Parakeet all have to finish before a chunk produces its firs
      - It doesn't depend on who speaks in the overlap.
    - **Exemplar roster** (a 10 s clip of each known speaker, prepended in global-ID order with 1 s of silence): the model labelled the clips 0, 1, … in roster order in every chunk, so its raw labels *are* the global IDs. It costs about 22 s of extra audio per chunk (about +2 s TTFP, and headroom fell to 0 with the 15-min second chunk). Prompt length grows with the number of speakers.
 
-## Recommendation
+## Separating the speaker methods: 3+ speakers (TrueAnon "Episode 587: Xanadu")
 
-- **Worker.** One persistent worker per job: both models loaded once, no subprocess per chunk. Memory peaks at 28.4 GB with a 40-min cap.
-- **Chunk plan.** 2 min, then 6 min, then 20 min, then 40-min chunks, with a 30 s overlap (`geo3`).
-- **Delivery.** Stream segments as their JSON closes. Expose a partial transcript through the API (for example, `GET /jobs/{id}/result?partial=1` returning the segments so far plus a `ready_until` timestamp). The client starts playback when `ready_until` covers the first segment, about 15 s on an idle M4 Pro.
-- **Speaker identity.** Map chunk-local labels to global IDs with speaker-embedding centroids, and keep overlap matching as a cross-check (flag disagreements).
-- **Stitching.** Replace `pipeline.stitch`'s cut rule with seam rule v2. The full-pass pipeline benefits too.
-- **Word timestamps.** Run Parakeet after each chunk's VibeVoice pass (or lagging behind it) rather than in front of it.
+Setup: 110.4 min, 5 voices (2 hosts, producer, guest, a cold-open clip), plus an on-air clip voice; dense crosstalk.
+
+Reference: no ground truth, so it is built from two independent long single passes (`replay.py --ref output/xanadu_ref_full.json`).
+
+- **Pass 1** covers 0–55.7 min (`--chunk-minutes 56`). VibeVoice labels speakers consistently *within* a pass.
+- **Pass 2** covers 51.7–110.4 min. It is linked to pass 1 through their 4-min overlap; embedding centroids confirm the link (cosine 0.87–0.97). Pass 2's extra voice (best cosine 0.56 with anyone) became speaker 5.
+- **Noise floor:** where the two passes overlap, they agree on speakers for **97.0%** of speech.
+- **Unreliable tail (97–110 min):** this is the end of pass 2. The reference's labels there match voice embeddings (centroids from the first half) for only 86% of speech, against 99.4% for `geo3`'s labels, so that tail is excluded from the scores.
+- **Lenient score:** treats the clip voice as the producer. It may be the producer doing a character voice, and in long chunks VibeVoice itself merges the two.
+
+Scores are speaker agreement over 0–97 min, from the production `Stitcher` replayed with each run's recorded timing (`replay.py`, `sweep.py`).
+
+| Run | Mapping | Speaker agreement | Lenient | Speakers found | Time to playback |
+|---|---|---|---|---|---|
+| fixed5 (5-min chunks, 21 seams) | overlap | 72.8 | 72.8 | 10 | 30.0 s |
+| fixed5_ex | exemplar roster | 92.2 | 92.2 | 8 | 28.6 s |
+| fixed5 | **embed** | **92.6** | **93.9** | 8 | 30.0 s |
+| geo3 (2, 6, 20, 40 min; 4 seams) | overlap | 90.0 | 91.4 | 5 | 17.8 s |
+| geo3 | **embed** | **96.6** | **98.0** | 5 | 17.8 s |
+| **production service run** (geo3 + embed, HTTP, idle) | embed | **97.0** | **98.4** | 5 | **20.1 s** (client view, 1 s polling) |
+
+On Signals and Threads (two speakers), every method still scores 99.2–99.3% with the production code, so embeddings cost nothing there.
+
+Text disagreement against the reference is 2.4–2.5% WER for every run, below the 3.3% noise floor measured on the other episode.
+
+What separated the methods:
+
+- **Overlap matching** falls back to elimination when the overlap holds fewer than all speakers. With three or more speakers that guess goes wrong: in `fixed5` it merged the guest into the producer and spawned 10 IDs.
+- **Exemplar roster:** with 4–5 prepended clips, the model no longer reliably labels them in roster order (one chunk dropped to 89%). It also adds about 50 s of audio per chunk.
+- **Embeddings** needed three refinements before they were robust here. Each came from a failure observed on this episode.
+  1. **Majority votes.** Each label's segments vote for their own best match, instead of using one label centroid. VibeVoice sometimes gives two people one label inside a chunk; that mixed centroid matched nobody, and the host was declared a new speaker mid-episode (71% → 93% on `fixed5`).
+  2. **Pure centroids.** Global centroids only absorb segments that match them, so mixed labels can't drift them.
+  3. **Short labels.** Labels with too little speech to embed (a 0.6 s "No.") take the overlap match instead of holding back finalization (+4.4 s time to playback before this fix). Any wait is capped at 30 s of audio.
+- **Thresholds:** a vote threshold of 0.45 is best (0.5–0.6 split speakers). Titanet-large separates voices no better than titanet-small (93.0% against 92.7% per-segment argmax accuracy) at 1.5× the CPU.
+- **Remaining error is inside chunks, not at seams.** Both mappers score the same in the final 43-min chunk, where VibeVoice merges the clip voice into the producer's label.
+
+### Decoding loops: a production risk found while building the reference
+
+- **First reference pass (56-min chunks):** its second chunk generated 40,000 tokens (`max_tokens`; 38 min of GPU) without ever closing the JSON array, so the old pipeline parsed **zero** segments for that half.
+- **Rerun as one 58.7-min pass:** it transcribed everything correctly up to the end of the audio, then generated junk to `max_tokens` instead of stopping. The streaming worker kept all 511 segments; the old parser would have lost them all.
+- **What the worker does now:**
+  - Ends a pass once a segment reaches the end of the audio.
+  - Treats 2,000 tokens without a closed segment, the same speaker and sentence 4× in a row, or time running backwards as a loop.
+  - Keeps what was streamed and re-decodes the rest of the chunk, up to 2 retries. Retry labels are offset by 1000 and mapped like new labels.
+- **No loops were seen in chunks of 40 min or less** (all benchmark and production runs). The 40-min cap keeps well away from the regime where they appeared.
+
+## Production validation
+
+The nix-built HTTP service was run on an idle machine, with `client_probe.py` uploading the 110-min episode and polling `GET /jobs/{id}/partial` every second.
+
+- **Time to playback:** the first turn appeared 20.1 s after the upload finished, and playback started then would never have stalled.
+- **Headroom:** each later chunk delivered at least 63.5 s ahead of the playhead (200 s, 988 s and 2512 s for chunks 3–5).
+- **Total:** 38.9 min (RTF 0.35; this episode decodes about 30% more tokens per minute than Signals and Threads).
+- **Resources:** MLX peak 29.2 GB, no loops.
+- **Quality:** speaker agreement 97.0% (lenient 98.4%) against a 97.0% noise floor; WER 2.4%.
+
+## What was implemented (transcriber/)
+
+- **Worker** (`worker.py`): one process per job, both models loaded once. Per chunk, it runs Parakeet on the new audio, then VibeVoice with token streaming. Each turn is emitted as a JSON line when its object closes. It handles loops and the end of audio as above, and caches each chunk for resume.
+- **Plan** (`progressive_plan`): 2, 6, 20 min, then `chunk_minutes` (default 40) of new audio per chunk, with a 30 s overlap. A short tail is folded into the last chunk, and `--fixed` keeps equal windows.
+  - Parakeet stays in front of each VibeVoice chunk, as benchmarked. With this plan its cost (5 s at chunk 2) is well inside the headroom, and words are available the moment a turn is final.
+- **Stitching** (`Stitcher`): incremental and append-only, with `ready_until`. It uses seam rule v2 with word de-duplication, and maps labels through a pluggable mapper: `EmbedMapper` (default) or `OverlapMapper`.
+- **Service:**
+  - `GET /jobs/{id}/partial?since=n` returns final turns (append-only) plus `ready_until`.
+  - Jobs report `ready_s`.
+  - New params `progressive` and `speakers` are part of the fingerprint; defaults are 40-min chunks and a 30 s overlap.
+- **Dependencies:** `sherpa-onnx`, `scipy` and the titanet-small model (`fetch-models`). The nix build merges `sherpa-onnx-core` into `sherpa-onnx`, the same split-wheel fix as for mlx.
 
 ## Caveats
 
-- One two-speaker episode. Speaker mapping hit the ceiling for every method; a three-or-more-speaker episode is needed to separate them.
-- The reference is a VibeVoice pass, not ground truth, so WER here measures disagreement and not accuracy.
-- Best-case idle numbers. Concurrent jobs or other GPU load will cut into the headroom.
-- The download step is not included (the input was a local mp3), and ffmpeg converted the whole file up front (4 s). Converting only the first chunk first would save about 3 s.
+- **Two episodes.** Speaker separation was tested on one 3+-speaker episode, and its reference is itself two VibeVoice passes. Its labels in the final 13 min were shown to be worse than the system's.
+- **Text quality isn't measured.** WER here is disagreement with a VibeVoice reference, not accuracy.
+- **Best-case idle numbers.** Concurrent jobs or other GPU load will cut into the headroom (at least 38 s on Signals and Threads, at least 63 s on Xanadu).
+- **Measured from upload completion.** Time to playback excludes upload and download time. ffmpeg converts the whole file up front (4 s); converting only the first chunk first would save about 3 s.

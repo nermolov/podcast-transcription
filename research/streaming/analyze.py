@@ -227,6 +227,7 @@ def speaker_agreement(final, ref, dur, lo=0.0, hi=None):
     sl = slice(int(lo / 0.25), int((hi or dur) / 0.25))
     h, r = h[sl], r[sl]
     m = (h >= 0) & (r >= 0)
+    if not m.any(): return float("nan"), {}  # no reference in this range
     hs, rs = sorted(set(h[m])), sorted(set(r[m]))
     C = np.array([[np.sum((h[m] == a) & (r[m] == b)) for b in rs] for a in hs])
     i, j = linear_sum_assignment(-C)

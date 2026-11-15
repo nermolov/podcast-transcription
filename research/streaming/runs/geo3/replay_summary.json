@@ -1,0 +1,61 @@
+{
+ "overlap": {
+  "time_to_playback_s": 14.1,
+  "first_final_t": 16.425,
+  "speaker_agree_pct": 99.24,
+  "relabel": {
+   "0": 0,
+   "1": 1
+  },
+  "min_chunk_agree": 98.07,
+  "chunks_below_95": 0.0,
+  "n_speakers": 2,
+  "text_vs_ref": {
+   "wer": 0.84,
+   "sub": 75,
+   "ins": 66,
+   "dele": 52,
+   "ref_words": 23000,
+   "hyp_words": 23014
+  },
+  "seams": {
+   "start": 3,
+   "start-unmatched": 0,
+   "dedupe": 1
+  },
+  "overlap_disagreements": 0,
+  "low_share": []
+ },
+ "embed": {
+  "time_to_playback_s": 14.1,
+  "first_final_t": 16.425,
+  "speaker_agree_pct": 99.24,
+  "relabel": {
+   "0": 0,
+   "1": 1
+  },
+  "min_chunk_agree": 98.07,
+  "chunks_below_95": 0.0,
+  "n_speakers": 2,
+  "text_vs_ref": {
+   "wer": 0.84,
+   "sub": 75,
+   "ins": 66,
+   "dele": 52,
+   "ref_words": 23000,
+   "hyp_words": 23014
+  },
+  "seams": {
+   "start": 3,
+   "start-unmatched": 0,
+   "dedupe": 1
+  },
+  "overlap_disagreements": 0,
+  "low_share": [
+   0.858,
+   1.0,
+   1.0,
+   1.0
+  ]
+ }
+}

@@ -25,3 +25,5 @@ result-*
 research/streaming/runs*/**
 !research/streaming/runs*/*/
 !research/streaming/runs*/*/summary.json
+!research/streaming/runs*/*/replay_summary.json
+!research/streaming/runs_xanadu/service_probe.json
