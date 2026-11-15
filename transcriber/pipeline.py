@@ -211,7 +211,10 @@ class EmbedMapper(OverlapMapper):
             for i, j in zip(*linear_sum_assignment(-S)):
                 sims[L[i]] = round(S[i, j], 3)
                 if S[i, j] >= self.thr: mp[L[i]] = gids[j]
-        info.update(cos=sims, overlap_map=ov, overlap_disagrees=sorted(l for l in ov if l in mp and ov[l] != mp[l]))
+        # labels with too little speech to embed yet (backchannels) take the overlap match when it does not conflict
+        via = {l: g for l, g in ov.items() if l not in mp and l not in L and g not in mp.values()}
+        mp.update(via)
+        info.update(cos=sims, overlap_map=ov, via_overlap=sorted(via), overlap_disagrees=sorted(l for l in ov if l in mp and ov[l] != mp[l]))
         return mp, info
 
     def decide_late(self, k, segs, used, prev, force):
@@ -288,8 +291,8 @@ class Stitcher:
       that segment repeating chunk k-1's tail are removed (last difflib match of >= 2 words), so text is neither lost nor doubled.
     - Segments of chunk k starting before chunk k+1's audio are final as soon as their label is mapped; later ones wait for the seam.
     """
-    def __init__(self, plan, mapper):
-        self.plan, self.mapper = plan, mapper
+    def __init__(self, plan, mapper, max_wait_s=30.0):
+        self.plan, self.mapper, self.max_wait_s = plan, mapper, max_wait_s
         self.raw = [[] for _ in plan]; self.maps = [None] * len(plan); self.cuts = [None] * len(plan); self.done = [False] * len(plan)
         self.final, self.boundaries = [], []
         self.fk, self.fi = 0, 0  # next raw segment to finalize
@@ -324,7 +327,9 @@ class Stitcher:
     def _late(self, k, label, force=False):
         if k == 0: return self.mapper.new()
         segs = [s for s in self.raw[k] if s["local"] == label]
-        return self.mapper.decide_late(k, segs, set(self.maps[k].values()), self._mapped(k - 1), force or self.done[k])
+        # waiting stalls finalization: after max_wait_s of later audio, decide with what there is
+        force = force or self.done[k] or self.raw[k][-1]["end"] - segs[0]["start"] > self.max_wait_s
+        return self.mapper.decide_late(k, segs, set(self.maps[k].values()), self._mapped(k - 1), force)
 
     def _mapped(self, k):
         return [dict(s, speaker=self.maps[k][s["local"]]) for s in self.raw[k] if s["local"] in self.maps[k]]

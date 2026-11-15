@@ -126,6 +126,20 @@ def test_embed_mapper_new_speaker_and_short_labels_wait():
     assert [f["speaker"] for f in st.final] == [0, 1, 1, 2, 2, 0]
 
 
+def test_embed_mapper_backchannel_label_uses_overlap_instead_of_waiting():
+    # speaker C only says a 0.6 s "No." inside the overlap: too short to embed, but both chunks agree on it there,
+    # so its label is mapped at once and later turns are not held back
+    truth = [(0, 50, 0), (50, 109, 1), (109, 110, 2), (110, 200, 1)]
+    plan = [(0.0, 0.0, 120.0), (90.0, 120.0, 200.0)]
+    st = Stitcher(plan, EmbedMapper(FakeEmbed(truth)))
+    for s in (S(0, 50, 0, "a"), S(50, 60, 1, "b"), S(60, 100, 1, "c"), S(100, 109, 1, "d"), S(109, 109.6, 2, "No."), S(110, 120, 1, "e")): st.add(0, s)
+    st.chunk_done(0)
+    # chunk 1 local: 0 = B, 1 = C; first segment past new_start decides
+    for s in (S(10, 19, 0, "d"), S(19, 19.6, 1, "No."), S(20, 35, 0, "e f")): st.add(1, s)
+    assert st.maps[1] == {0: 1, 1: 2} and st.boundaries[0]["via_overlap"] == [1]
+    assert st.add(1, S(35, 35.5, 1, "Yeah.")) != []  # mapped label: final immediately, no waiting
+
+
 if __name__ == "__main__":
     for k, f in list(globals().items()):
         if k.startswith("test_"): f(); print("ok", k)
