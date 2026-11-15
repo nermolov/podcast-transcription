@@ -329,7 +329,10 @@ class Stitcher:
         segs = [s for s in self.raw[k] if s["local"] == label]
         # waiting stalls finalization: after max_wait_s of later audio, decide with what there is
         force = force or self.done[k] or self.raw[k][-1]["end"] - segs[0]["start"] > self.max_wait_s
-        return self.mapper.decide_late(k, segs, set(self.maps[k].values()), self._mapped(k - 1), force)
+        # one-to-one within a pass only: after a decoding loop the worker re-runs the rest of a chunk with labels offset by
+        # 1000 (worker.LABEL_STRIDE), and that pass may label the same people again
+        used = {g for l, g in self.maps[k].items() if l // 1000 == label // 1000}
+        return self.mapper.decide_late(k, segs, used, self._mapped(k - 1), force)
 
     def _mapped(self, k):
         return [dict(s, speaker=self.maps[k][s["local"]]) for s in self.raw[k] if s["local"] in self.maps[k]]

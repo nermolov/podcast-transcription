@@ -1,5 +1,5 @@
 """Tests for pure functions. Run with `python tests/test_pure.py` (or pytest, if available)."""
-import os, sys
+import json, os, sys
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 from transcriber.pipeline import EmbedMapper, OverlapMapper, Stitcher, align, fixed_plan, plan_chunks, progressive_plan, split_turn, srt_ts, stitch
 
@@ -138,6 +138,64 @@ def test_embed_mapper_backchannel_label_uses_overlap_instead_of_waiting():
     for s in (S(10, 19, 0, "d"), S(19, 19.6, 1, "No."), S(20, 35, 0, "e f")): st.add(1, s)
     assert st.maps[1] == {0: 1, 1: 2} and st.boundaries[0]["via_overlap"] == [1]
     assert st.add(1, S(35, 35.5, 1, "Yeah.")) != []  # mapped label: final immediately, no waiting
+
+
+def test_retry_pass_labels_can_reuse_speakers_of_the_same_chunk():
+    truth = [(0, 100, 0), (100, 140, 1), (140, 200, 0)]
+    plan = [(0.0, 0.0, 120.0), (90.0, 120.0, 200.0)]
+    st = Stitcher(plan, EmbedMapper(FakeEmbed(truth)))
+    for s in (S(0, 100, 0, "a"), S(100, 120, 1, "b")): st.add(0, s)
+    st.chunk_done(0)
+    for s in (S(10, 50, 1, "b2"), S(50, 60, 0, "a2"), S(60, 110, 1000, "a3 after a loop, relabelled by the rerun")): st.add(1, s)
+    st.chunk_done(1); st.finish()
+    assert [f["speaker"] for f in st.final] == [0, 1, 0, 0]
+
+
+class FakeVV:
+    """Stands in for the VibeVoice model: the token stream for each pass comes from `script(audio_seconds)` as text pieces."""
+    def __init__(self, script): self.script = script; self.passes = []
+
+    class tokenizer:
+        pieces = []
+        @classmethod
+        def decode(cls, toks): return "".join(cls.pieces[t] for t in toks)
+
+    def _preprocess_audio(self, a, sampling_rate): self.n = a.shape[0] / sampling_rate; return a.reshape(1, -1)
+    def encode_speech(self, at): return at
+    def _build_prompt_tokens(self, feats, dur, ctx):
+        import mlx.core as mx
+        return mx.zeros((1, 3)), None
+    def stream_generate(self, **kw):
+        self.passes.append(round(self.n))
+        for piece in self.script(round(self.n)):
+            FakeVV.tokenizer.pieces.append(piece); yield len(FakeVV.tokenizer.pieces) - 1, None
+
+
+def seg_json(s, e, spk, text): return json.dumps({"Start": s, "End": e, "Speaker": spk, "Content": text})
+
+
+def test_worker_detects_decoding_loop_and_reruns_the_rest(tmp_path=None):
+    import pathlib, tempfile, wave
+    from transcriber import worker
+    tmp_path = pathlib.Path(tmp_path or tempfile.mkdtemp()); (tmp_path / "b").mkdir()
+    wav = str(tmp_path / "a.wav")
+    with wave.open(wav, "wb") as o: o.setnchannels(1); o.setsampwidth(2); o.setframerate(16000); o.writeframes(b"\0\0" * 16000 * 100)
+    def script(n):
+        if n == 100:  # first pass: two turns, then a repetition loop that never closes a segment
+            return ["[", seg_json(0, 10, 0, "hello there"), ",", seg_json(10, 20, 1, "hi")] + [" la"] * (worker.LOOP_TOKENS + 50)
+        return ["[", seg_json(0, 30, 0, "rest of it"), ",", seg_json(30, 80, 1, "the end"), "]"]  # rerun of the last 80 s
+    fake = FakeVV(script); events = []
+    worker.stream(wav, [[0.0, 0.0, 100.0]], "fake", "", 40000, str(tmp_path), "k", False, lambda **e: events.append(e), m=fake)
+    segs = [e["seg"] for e in events if e["ev"] == "seg"]
+    assert fake.passes == [100, 80]
+    assert [(x["start"], x["end"], x["speaker_id"]) for x in segs] == [(0, 10, 0), (10, 20, 1), (20, 50, 1000), (50, 100, 1001)]
+    st = [e for e in events if e["ev"] == "chunk_end"][0]["stats"]
+    assert st["looped"] and len(st["passes"]) == 2 and st["passes"][0]["gen_tokens"] < 40000
+    # a loop that keeps closing the same segment is caught too
+    fake = FakeVV(lambda n: ["["] + [seg_json(5, 6, 0, "same words again and again"), ","] * 6 if n == 100 else ["[", seg_json(0, 80, 0, "ok"), "]"])
+    events = []
+    worker.stream(wav, [[0.0, 0.0, 100.0]], "fake", "", 40000, str(tmp_path / "b"), "k", False, lambda **e: events.append(e), m=fake)
+    assert fake.passes == [100, 94] and [e["seg"]["text"] for e in events if e["ev"] == "seg"] == ["same words again and again"] * 3 + ["ok"]
 
 
 if __name__ == "__main__":
