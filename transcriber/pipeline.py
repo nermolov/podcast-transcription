@@ -2,6 +2,7 @@
 import atexit, difflib, hashlib, json, math, os, re, resource, shutil, signal, subprocess, sys, threading, time, urllib.request, wave
 
 MODEL_DEFAULT = "mlx-community/VibeVoice-ASR-8bit"
+PIPELINE_VERSION = 1
 PARAKEET = "mlx-community/parakeet-tdt-0.6b-v3"
 PKG_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FILL = {"uh", "um", "uhm", "mm", "hmm", "mhm", "erm", "ah"}
@@ -271,8 +272,9 @@ def even_words(t):
 
 
 def run(input, outdir, *, chunk_minutes=50, overlap_seconds=60, model=MODEL_DEFAULT, context="", max_tokens=40000, words=True,
-        keep_intermediate=False, progress=None, input_name=None):
+        keep_intermediate=False, progress=None, input_name=None, cache_dir=None):
     """Transcribe `input` (file, mp3 URL or RSS URL) into `outdir`; returns the stats dict (also written to stats.json).
+    `cache_dir` is where VibeVoice chunk results are cached (default <outdir>/chunks; the server shares one per audio sha256).
     `input_name` overrides the `input` recorded in stats.json (e.g. original upload name).
     progress(stage, fraction|None, message) is called for stages prepare, vibevoice (per chunk), parakeet, align, write."""
     prog = progress or (lambda *a: None)
@@ -284,7 +286,7 @@ def run(input, outdir, *, chunk_minutes=50, overlap_seconds=60, model=MODEL_DEFA
     key = hashlib.sha1(open(wav, "rb").read()).hexdigest()[:10] + "_" + hashlib.sha1(f"{model}|{context}".encode()).hexdigest()[:6]
     plan = plan_chunks(dur, chunk_minutes * 60, overlap_seconds)
     log("chunk plan:", [(round(a), round(a + b)) for a, b in plan])
-    t = time.time(); segs, infos = run_chunks(wav, plan, model, context, max_tokens, os.path.join(out, "chunks"), key, prog); T["vibevoice_s"] = time.time() - t
+    t = time.time(); segs, infos = run_chunks(wav, plan, model, context, max_tokens, cache_dir or os.path.join(out, "chunks"), key, prog); T["vibevoice_s"] = time.time() - t
     t = time.time(); vv, flips = stitch(segs, plan, overlap_seconds); T["stitch_s"] = time.time() - t
     log(f"stitched {len(vv)} turns; boundaries with raw speaker-label flip fixed: {sum(f['raw_labels_flipped'] for f in flips)}/{len(flips)}")
     stats = dict(input=input_name or input, model=model, audio_s=dur, chunk_plan=plan, chunks=infos, boundaries=flips, n_turns=len(vv),

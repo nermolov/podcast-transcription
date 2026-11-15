@@ -1,10 +1,10 @@
 """Server tests with a fake pipeline: `python -m pytest tests/test_server.py` (inside `nix develop`)."""
-import json, os, sys, threading, time
+import hashlib, json, os, sqlite3, sys, threading, time
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import pytest
 from fastapi.testclient import TestClient
 from transcriber.pipeline import TranscribeError
-from transcriber.server import create_app
+from transcriber.server import create_app as _create_app
 
 P = dict(chunk_minutes=50.0, overlap_seconds=60.0, context="", words=True)
 
@@ -20,6 +20,22 @@ def fake_run(input, outdir, *, progress=None, **kw):
     open(os.path.join(outdir, "subtitles.srt"), "w").write("1\n00:00:00,000 --> 00:00:01,000\nhello\n")
     json.dump({"n_turns": 0}, open(os.path.join(outdir, "stats.json"), "w"))
     return {}
+
+
+def fake_fetch(url, work):
+    if "FAIL" in url: raise TranscribeError("bad audio")
+    if "BOOM" in url: raise RuntimeError("boom")
+    os.makedirs(work, exist_ok=True)
+    path = os.path.join(work, "download.audio")
+    open(path, "wb").write(url.encode())
+    return path
+
+
+def create_app(*a, **kw):
+    return _create_app(*a, **{"fetch_fn": fake_fetch, **kw})
+
+
+def sha(b): return hashlib.sha256(b).hexdigest()
 
 
 def wait(c, id, want=("done", "failed"), h=None):
@@ -114,9 +130,10 @@ def test_cancel_and_delete(tmp_path):
         assert c.get(f"/jobs/{b}").status_code == 404 and os.listdir(tmp_path / "uploads") == []
         gate.set()
         assert wait(c, a)["status"] == "done"
-        assert os.path.isdir(tmp_path / "jobs" / a)
+        tid = c.get(f"/jobs/{a}").json()["transcript_id"]
+        assert os.path.isdir(tmp_path / "transcripts" / tid)
         assert c.delete(f"/jobs/{a}").status_code == 200
-        assert not os.path.exists(tmp_path / "jobs" / a) and c.get("/jobs").json() == []
+        assert os.path.isdir(tmp_path / "transcripts" / tid) and c.get("/jobs").json() == []
 
 
 def test_one_at_a_time(tmp_path):
@@ -149,6 +166,7 @@ def test_stats_input_is_original_name(tmp_path):
         id = c.post("/jobs", files={"file": ("My Episode.mp3", b"x", "audio/mpeg")}).json()["id"]
         wait(c, id)
     assert seen["input_name"] == "My Episode.mp3" and seen["input"].endswith(id + ".mp3")
+    assert seen["cache_dir"].endswith(os.path.join("cache", "chunks", sha(b"x")))
 
 
 def _alive(pid):
@@ -199,3 +217,185 @@ def test_atexit_kills_child_when_parent_dies(tmp_path):
         if not _alive(pid): break
         time.sleep(0.05)
     assert not _alive(pid)
+
+
+def up(c, data=b"audio-1", **kw):
+    f = kw.pop("data_fields", {})
+    return c.post("/jobs", files={"file": ("ep.mp3", data, "audio/mpeg")}, data=f, **kw)
+
+
+def test_duplicate_upload_returns_cached_done(client, tmp_path):
+    runs = []
+    client.app.state.service.run_fn = lambda *a, **k: runs.append(1) or fake_run(*a, **k)
+    first = up(client, data_fields={"key": "k1"}).json(); j = wait(client, first["id"])
+    r = up(client, data_fields={"key": "k2"})
+    b = r.json()
+    assert r.status_code == 200 and b["cached"] is True and b["status"] == "done" and b["id"] != first["id"] and b["transcript_id"] == j["transcript_id"]
+    j2 = client.get(f"/jobs/{b['id']}").json()
+    assert j2["cached"] is True and j2["overall_progress"] == 1.0 and j2["sha256"] == sha(b"audio-1") and j2["key"] == "k2" and j2["audio_s"] is None
+    assert client.get(f"/jobs/{b['id']}/result?format=txt").text == "hello\n"
+    assert len(runs) == 1 and os.listdir(tmp_path / "uploads") == []
+    assert client.get("/transcripts", params={"key": "k2"}).json()["transcript_id"] == j["transcript_id"]
+
+
+def test_duplicate_while_queued_returns_active_job(tmp_path):
+    gate = threading.Event()
+    def slow(input, outdir, **kw):
+        gate.wait(5); return fake_run(input, outdir, **kw)
+    with TestClient(create_app(str(tmp_path), run_fn=slow)) as c:
+        a = up(c, b"first").json()
+        wait(c, a["id"], want=("running",))
+        b = up(c, b"second").json()
+        assert client_status(c, b["id"]) == "queued" and c.get(f"/jobs/{b['id']}").json()["queue_position"] == 1
+        assert c.get(f"/jobs/{a['id']}").json()["queue_position"] is None
+        r = up(c, b"second"); assert r.status_code == 200 and r.json() == {"id": b["id"], "status": "queued", "cached": True}
+        r = up(c, b"first"); assert r.json()["id"] == a["id"] and r.json()["status"] == "running"
+        assert len(c.get("/jobs").json()) == 2 and len(os.listdir(tmp_path / "uploads")) == 2
+        assert c.get("/transcripts", params={"sha256": sha(b"second")}).json()["status"] == "queued"
+        gate.set(); wait(c, a["id"]); wait(c, b["id"])
+
+
+def client_status(c, id): return c.get(f"/jobs/{id}").json()["status"]
+
+
+def test_sha256_mismatch_and_match(client, tmp_path):
+    r = up(client, data_fields={"sha256": "0" * 64})
+    assert r.status_code == 400 and os.listdir(tmp_path / "uploads") == [] and client.get("/jobs").json() == []
+    assert up(client, data_fields={"sha256": "xyz"}).status_code == 400
+    r = up(client, data_fields={"sha256": sha(b"audio-1")})
+    assert r.status_code == 202 and r.json()["cached"] is False
+
+
+def test_force_bypasses_dedupe(client):
+    a = up(client).json(); ta = wait(client, a["id"])["transcript_id"]
+    b = up(client, data_fields={"force": "true"})
+    assert b.status_code == 202 and b.json()["id"] != a["id"]
+    tb = wait(client, b.json()["id"])
+    assert tb["cached"] is False and tb["transcript_id"] != ta
+    assert client.get(f"/transcripts/{ta}/result").status_code == 404  # superseded
+    assert client.get("/transcripts", params={"sha256": sha(b"audio-1")}).json()["transcript_id"] == tb["transcript_id"]
+
+
+def test_words_true_result_satisfies_words_false(client):
+    a = up(client).json(); wait(client, a["id"])
+    r = up(client, data_fields={"words": "false"})
+    assert r.status_code == 200 and r.json()["cached"] is True
+    r = up(client, data_fields={"chunk_minutes": "20"})
+    assert r.status_code == 202
+
+
+def test_lookup_by_sha256_and_key(client):
+    assert client.get("/transcripts", params={"sha256": sha(b"audio-1")}).status_code == 404
+    assert client.get("/transcripts", params={"key": "kk"}).status_code == 404
+    assert client.get("/transcripts").status_code == 400
+    id = up(client, data_fields={"key": "kk"}).json()["id"]
+    j = wait(client, id)
+    for params in ({"sha256": sha(b"audio-1")}, {"key": "kk"}, {"sha256": sha(b"audio-1"), "key": "other"}):
+        r = client.get("/transcripts", params=params)
+        assert r.status_code == 200
+        b = r.json(); assert b["status"] == "done" and b["transcript_id"] == j["transcript_id"] and b["job_id"] == id and b["sha256"] == sha(b"audio-1")
+    assert client.get("/transcripts", params={"key": "kk"}).json()["key"] == "kk"
+    assert client.get("/transcripts", params={"sha256": sha(b"audio-2"), "key": "kk"}).status_code == 404  # sha takes priority
+    assert client.get(f"/transcripts/{j['transcript_id']}/result?format=srt").status_code == 200
+    assert client.get(f"/transcripts/{j['transcript_id']}/result?format=pdf").status_code == 400
+    assert client.get("/transcripts/nope/result").status_code == 404
+
+
+def test_delete_job_keeps_transcript_and_delete_transcript(client, tmp_path):
+    id = up(client).json()["id"]; tid = wait(client, id)["transcript_id"]
+    assert client.delete(f"/jobs/{id}").status_code == 200
+    assert client.get(f"/jobs/{id}/result").status_code == 404
+    assert client.get("/transcripts", params={"sha256": sha(b"audio-1")}).json()["job_id"] is None
+    assert client.get(f"/transcripts/{tid}/result").json()["kw"]["words"] is True
+    assert client.delete(f"/transcripts/{tid}").status_code == 200
+    assert not os.path.exists(tmp_path / "transcripts" / tid) and client.delete(f"/transcripts/{tid}").status_code == 404
+    assert client.get("/transcripts", params={"sha256": sha(b"audio-1")}).status_code == 404
+
+
+def test_delete_transcript_conflicts_with_active_job(tmp_path):
+    gate = threading.Event()
+    def slow(input, outdir, **kw):
+        if gate.is_set() is False and "again" in open(input, "rb").read().decode(): gate.wait(5)
+        return fake_run(input, outdir, **kw)
+    with TestClient(create_app(str(tmp_path), run_fn=slow)) as c:
+        tid = wait(c, up(c, b"again").json()["id"], want=("running", "done"))
+        gate.set(); tid = wait(c, tid["id"])["transcript_id"]
+        gate.clear()
+        b = up(c, b"again", data_fields={"force": "1"}).json(); wait(c, b["id"], want=("running",))
+        assert c.delete(f"/transcripts/{tid}").status_code == 409
+        gate.set(); wait(c, b["id"])
+
+
+def test_url_dedupe_by_key_url_and_content(client):
+    runs = []
+    client.app.state.service.run_fn = lambda *a, **k: runs.append(1) or fake_run(*a, **k)
+    a = client.post("/jobs", data={"url": "http://Example.com:80/a.mp3#frag", "key": "ek"}).json()
+    j = wait(client, a["id"])
+    r = client.post("/jobs", data={"url": "http://example.com/a.mp3"}); assert r.status_code == 200 and r.json()["transcript_id"] == j["transcript_id"]
+    r = client.post("/jobs", data={"url": "http://other.example/z.mp3", "key": "ek"}); assert r.status_code == 200 and r.json()["cached"]
+    assert client.post("/jobs", data={"url": "http://example.com/a.mp3", "force": "true"}).status_code == 202
+    assert client.get("/transcripts", params={"key": "ek"}).json()["transcript_id"]
+    assert client.get("/transcripts", params={"key": "http://example.com/a.mp3"}).status_code == 404
+    # same bytes behind a different URL: content-hash dedupe after download, no model run
+    client.app.state.service.fetch_fn = lambda url, work: fake_fetch("http://example.com/a.mp3", work)
+    n = len(runs); c2 = client.post("/jobs", data={"url": "http://elsewhere.test/copy.mp3"}).json()
+    j2 = wait(client, c2["id"]); assert j2["cached"] is True and j2["sha256"] == sha(b"http://example.com/a.mp3") and j2["overall_progress"] == 1.0
+    assert len(runs) == n
+
+
+def test_chunk_cache_dir_keyed_by_hash_and_shared(tmp_path):
+    seen = []
+    def run(input, outdir, *, cache_dir=None, **kw):
+        seen.append(cache_dir); os.makedirs(cache_dir, exist_ok=True); return fake_run(input, outdir, cache_dir=cache_dir, **kw)
+    with TestClient(create_app(str(tmp_path), run_fn=run)) as c:
+        wait(c, up(c, b"zz").json()["id"]); wait(c, up(c, b"zz", data_fields={"words": "false", "chunk_minutes": "30"}).json()["id"])
+    d = str(tmp_path / "cache" / "chunks" / sha(b"zz"))
+    assert seen == [d, d] and os.path.isdir(d)
+
+
+def test_eviction_lru_by_size(tmp_path):
+    with TestClient(create_app(str(tmp_path), run_fn=fake_run)) as c:
+        svc = c.app.state.service
+        a = wait(c, up(c, b"one").json()["id"])["transcript_id"]
+        b = wait(c, up(c, b"two").json()["id"])["transcript_id"]
+        size = svc.store.transcript(a)["size_bytes"]; assert size > 0
+        c.get(f"/transcripts/{a}/result")  # a becomes the most recently used
+        svc.max_bytes = size + 1
+        assert svc.evict() >= 1
+        assert c.get(f"/transcripts/{b}/result").status_code == 404 and c.get(f"/transcripts/{a}/result").status_code == 200
+        assert not os.path.exists(tmp_path / "cache" / "chunks" / sha(b"two"))
+        assert c.get("/transcripts", params={"sha256": sha(b"two")}).status_code == 404
+
+
+def test_eviction_ttl_and_keep_newest(tmp_path):
+    with TestClient(create_app(str(tmp_path), run_fn=fake_run, cache_max_gb=1e-9)) as c:
+        id = up(c, b"only").json()["id"]
+        assert wait(c, id)["status"] == "done"
+        time.sleep(0.2)
+        assert c.get("/transcripts", params={"sha256": sha(b"only")}).status_code == 200  # just-finished one survives the post-job eviction
+        svc = c.app.state.service
+        svc.ttl_days = 1e-9; svc.max_bytes = 1e12
+        assert svc.evict() >= 1 and c.get("/transcripts", params={"sha256": sha(b"only")}).status_code == 404
+
+
+def test_migration_from_old_schema(tmp_path):
+    (tmp_path / "jobs" / "olddone").mkdir(parents=True)
+    for n, t in (("transcript.json", "[]"), ("transcript.txt", "hi\n"), ("subtitles.srt", "1\n"), ("stats.json", '{"audio_s": 12.5}')):
+        (tmp_path / "jobs" / "olddone" / n).write_text(t)
+    db = sqlite3.connect(tmp_path / "jobs.db")
+    db.execute("""CREATE TABLE jobs (id TEXT PRIMARY KEY, status TEXT NOT NULL, stage TEXT, progress REAL,
+        message TEXT, error TEXT, source TEXT NOT NULL, params TEXT NOT NULL, created_at REAL NOT NULL, started_at REAL, finished_at REAL)""")
+    p = json.dumps(P)
+    for id, st, src in (("olddone", "done", "http://example.com/old.mp3"), ("goneone", "done", "/gone/up.mp3"), ("oldfail", "failed", "http://x/f")):
+        db.execute("INSERT INTO jobs (id,status,stage,progress,source,params,created_at,finished_at) VALUES (?,?,?,?,?,?,?,?)", (id, st, st, 1.0, src, p, 1000.0, 1001.0))
+    db.commit(); db.close()
+    with TestClient(create_app(str(tmp_path), run_fn=fake_run)) as c:
+        j = c.get("/jobs/olddone").json()
+        assert j["status"] == "done" and j["transcript_id"] == "olddone" and j["audio_s"] == 12.5 and j["sha256"] is None
+        assert c.get("/jobs/olddone/result?format=txt").text == "hi\n"
+        assert c.get("/transcripts/olddone/result?format=stats").json() == {"audio_s": 12.5}
+        assert c.get("/jobs/goneone").json()["transcript_id"] is None and c.get("/jobs/goneone/result").status_code == 404
+        assert c.get("/jobs/oldfail").json()["status"] == "failed"
+        r = c.post("/jobs", data={"url": "http://example.com/old.mp3"})
+        assert r.status_code == 200 and r.json()["transcript_id"] == "olddone"
+        assert not os.path.exists(tmp_path / "jobs" / "olddone")

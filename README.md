@@ -51,29 +51,45 @@ Flake files must be git-tracked for nix to see them. After changing deps, run `u
 
     STATE_DIR=~/.local/state/transcribe-service HOST=127.0.0.1 PORT=8000 API_TOKEN=secret nix run .#server
 
-Env: `STATE_DIR` (default `~/.local/state/transcribe-service`; holds `uploads/`, `jobs/<id>/` = pipeline outdir, `jobs.db`),
-`HOST` (127.0.0.1), `PORT` (8000), optional `API_TOKEN` (when set, every endpoint except `/healthz` needs `Authorization: Bearer <token>`).
+Env: `STATE_DIR` (default `~/.local/state/transcribe-service`; holds `uploads/`, `jobs/<id>/` = pipeline outdir while running, `transcripts/<tid>/` = results,
+`cache/chunks/<audio sha256>/` = VibeVoice chunk cache, `jobs.db`), `HOST` (127.0.0.1), `PORT` (8000), optional `API_TOKEN` (when set, every endpoint except
+`/healthz` needs `Authorization: Bearer <token>`), `CACHE_MAX_GB` (20), optional `CACHE_TTL_DAYS`.
 
 Jobs run strictly one at a time on a single worker thread (MLX peaks ~31 GB per 50 min chunk); the rest wait as `queued`. State is in SQLite, so on
-startup `queued` jobs are re-queued and jobs left `running` are re-queued too and resume from the chunk cache in their outdir. Uploads are
-streamed to disk and deleted once the job succeeds.
+startup `queued` jobs are re-queued and jobs left `running` are re-queued too and resume from the chunk cache. Uploads are streamed to disk (hashed
+while streaming) and deleted once the job succeeds. Older databases are migrated on startup: finished jobs whose result files exist become transcripts
+(sha256 unknown, URL jobs still match by URL).
+
+Deduplication: a transcript is identified by (sha256 of the audio bytes, settings fingerprint). The fingerprint is a hash of `{model, chunk_minutes, overlap_seconds, words,
+pipeline_version}`; `context` is not part of it, and a `words=true` result also satisfies a `words=false` request. `POST /jobs` checks and inserts atomically:
+an existing transcript gives `200 {id, status:"done", cached:true, transcript_id}` (a new done job pointing at it; the upload is discarded), a queued/running job for
+the same audio and settings gives `200 {id: <that job>, status, cached:true}`, otherwise `202 {id, status:"queued", cached:false}`. `force=true` skips all of that
+(the new result replaces the old transcript). For `url` jobs the check is by `key` or normalized URL at submit, and by content hash after the download (a hit finishes the job
+without running any model). The chunk cache is keyed by audio sha256 and shared across jobs, so retries and re-submits with other settings resume.
+
+Retention: transcripts outlive jobs (`DELETE /jobs/{id}` only removes the job row). After each job, least recently used transcripts and chunk caches are evicted until the total size is
+below `CACHE_MAX_GB`, and anything unused for `CACHE_TTL_DAYS` is dropped. The newest result and anything belonging to an active job are never evicted.
 
 | Endpoint | |
 |---|---|
-| `POST /jobs` | multipart with `file`, or form/JSON field `url` (mp3 or RSS; first episode). Optional `chunk_minutes`, `overlap_seconds`, `context`, `words` (true/false). 202 `{id,status}`; 400 if neither/both of file and url or bad params |
+| `POST /jobs` | multipart with `file`, or form/JSON field `url` (mp3 or RSS; first episode). Optional `chunk_minutes`, `overlap_seconds`, `context`, `words` (true/false), `sha256` (client hash of the file; 400 if it differs from the received bytes), `key` (opaque client key, usable for lookup), `force`. 202/200 as above; 400 if neither/both of file and url or bad params |
 | `GET /jobs` | all jobs, newest first |
-| `GET /jobs/{id}` | `status` (queued, running, done, failed), `stage` (queued, prepare, vibevoice, parakeet, align, write, done), `progress` (0..1 or null), `message`, `error`, `params`, `created_at`/`started_at`/`finished_at` |
-| `GET /jobs/{id}/result?format=json\|txt\|srt\|stats` | 409 until `done` (default json) |
-| `DELETE /jobs/{id}` | cancels a queued job / removes a finished or failed one and its files; 409 while running |
+| `GET /jobs/{id}` | `status` (queued, running, done, failed), `stage` (queued, prepare, vibevoice, parakeet, align, write, done), `progress` (0..1 or null, within the stage), `overall_progress` (0..1 across stages), `queue_position` (jobs ahead, when queued), `message`, `error`, `params`, `transcript_id`, `cached`, `audio_s`, `sha256`, `key`, `created_at`/`started_at`/`finished_at` |
+| `GET /jobs/{id}/result?format=json\|txt\|srt\|stats` | 409 until `done` (default json); 404 if the transcript was evicted |
+| `DELETE /jobs/{id}` | cancels a queued job / removes a finished or failed one; the transcript stays cached; 409 while running |
+| `GET /transcripts?sha256=<hex>` or `?key=<key>` | lookup with the default settings (sha256 wins): 200 `{status:"done", transcript_id, job_id, audio_s, sha256, key}` or `{status:"queued"\|"running", job_id, transcript_id:null, ...}`; 404 if unknown |
+| `GET /transcripts/{tid}/result?format=...` | result files of a cached transcript |
+| `DELETE /transcripts/{tid}` | drops a transcript; 409 if an active job works on the same audio |
 | `GET /healthz` | liveness and queue counts, no auth |
 
 ```sh
 H="Authorization: Bearer secret"
-curl -H "$H" -F file=@episode.mp3 -F context="Acme, Kubernetes" localhost:8000/jobs        # {"id":"3f2a...","status":"queued"}
+curl -H "$H" -F file=@episode.mp3 -F context="Acme, Kubernetes" localhost:8000/jobs        # {"id":"3f2a...","status":"queued","cached":false}
 curl -H "$H" -d url=https://example.com/feed.xml localhost:8000/jobs
 curl -H "$H" -H 'content-type: application/json' -d '{"url":"https://x/ep.mp3","words":false}' localhost:8000/jobs
 curl -H "$H" localhost:8000/jobs/3f2a...                                                    # poll
 curl -H "$H" "localhost:8000/jobs/3f2a.../result?format=srt" -o episode.srt
+curl -H "$H" "localhost:8000/transcripts?sha256=$(sha256sum episode.mp3 | cut -d' ' -f1)"      # already transcribed?
 curl -H "$H" -X DELETE localhost:8000/jobs/3f2a...
 ```
 
