@@ -177,7 +177,7 @@ def seg_json(s, e, spk, text): return json.dumps({"Start": s, "End": e, "Speaker
 def test_worker_detects_decoding_loop_and_reruns_the_rest(tmp_path=None):
     import pathlib, tempfile, wave
     from transcriber import worker
-    tmp_path = pathlib.Path(tmp_path or tempfile.mkdtemp()); (tmp_path / "b").mkdir()
+    tmp_path = pathlib.Path(tmp_path or tempfile.mkdtemp()); (tmp_path / "b").mkdir(); (tmp_path / "c").mkdir()
     wav = str(tmp_path / "a.wav")
     with wave.open(wav, "wb") as o: o.setnchannels(1); o.setsampwidth(2); o.setframerate(16000); o.writeframes(b"\0\0" * 16000 * 100)
     def script(n):
@@ -196,6 +196,12 @@ def test_worker_detects_decoding_loop_and_reruns_the_rest(tmp_path=None):
     events = []
     worker.stream(wav, [[0.0, 0.0, 100.0]], "fake", "", 40000, str(tmp_path / "b"), "k", False, lambda **e: events.append(e), m=fake)
     assert fake.passes == [100, 94] and [e["seg"]["text"] for e in events if e["ev"] == "seg"] == ["same words again and again"] * 3 + ["ok"]
+    # junk after a segment that reaches the end of the audio is not decoded (and is not a loop)
+    fake = FakeVV(lambda n: ["[", seg_json(0, 99.8, 0, "all of it"), ","] + [" junk"] * 100000)
+    events = []
+    worker.stream(wav, [[0.0, 0.0, 100.0]], "fake", "", 40000, str(tmp_path / "c"), "k", False, lambda **e: events.append(e), m=fake)
+    st = [e for e in events if e["ev"] == "chunk_end"][0]["stats"]
+    assert fake.passes == [100] and not st["looped"] and st["gen_tokens"] == 2
 
 
 if __name__ == "__main__":

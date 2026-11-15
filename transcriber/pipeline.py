@@ -170,13 +170,16 @@ class OverlapMapper:
 
 
 class EmbedMapper(OverlapMapper):
-    """Match labels by speaker embedding: each local label's centroid (segments >= min_s, middle <= 10 s) against running
-    global centroids, one-to-one by best cosine; below thr it is a new speaker. Independent of who talks in the overlap.
+    """Match labels by speaker embedding, independent of who talks in the overlap. Each segment of a local label (>= min_s,
+    middle <= 10 s) votes, weighted by duration, for the global speaker whose running centroid it matches best with cosine
+    >= thr; the label maps one-to-one to the speaker with a majority of its speech, and becomes a new speaker when most of it
+    matches nobody. Votes rather than one label centroid: VibeVoice sometimes gives two people one label within a chunk, and
+    a mixed centroid matches neither. Centroids only absorb segments that match them, so such mixes cannot drift them.
     The overlap mapping is still computed and disagreements are recorded in the boundary info."""
     name = "embed"
 
-    def __init__(self, embed, thr=0.45, late_thr=0.35, min_s=1.5):
-        super().__init__(); self.embed = embed; self.thr = thr; self.late_thr = late_thr; self.min_s = min_s
+    def __init__(self, embed, thr=0.45, min_s=1.5):
+        super().__init__(); self.embed = embed; self.thr = thr; self.min_s = min_s
         self.G = {}  # global id -> [weighted sum of unit vectors, weight]
         self.cache = {}
 
@@ -186,48 +189,52 @@ class EmbedMapper(OverlapMapper):
         if key not in self.cache: self.cache[key] = self.embed(s["start"], s["end"])
         return self.cache[key]
 
-    def centroid(self, segs):
-        import numpy as np
-        acc = None
-        for s in segs:
-            v = self.vec(s)
-            if v is None: continue
-            w = min(s["end"] - s["start"], 10.0); acc = w * v if acc is None else acc + w * v
-        return None if acc is None else acc / (np.linalg.norm(acc) + 1e-9)
-
     def gvec(self, g):
         import numpy as np
         v = self.G[g][0]; return v / (np.linalg.norm(v) + 1e-9)
+
+    def votes(self, segs, cand):
+        """({global id or None: seconds of segs best matching it}, total seconds of usable segs)."""
+        V, tot = {}, 0.0
+        for s in segs:
+            v = self.vec(s)
+            if v is None: continue
+            w = min(s["end"] - s["start"], 10.0); tot += w
+            best = max(((float(v @ self.gvec(g)), g) for g in cand), default=(0.0, None))
+            g = best[1] if best[0] >= self.thr else None
+            V[g] = V.get(g, 0.0) + w
+        return V, tot
 
     def decide(self, k, prev, cur, a, b):
         import numpy as np
         from scipy.optimize import linear_sum_assignment
         ov, info = OverlapMapper.decide(self, k, prev, cur, a, b)
-        L = [l for l in sorted({s["local"] for s in cur}) if self.centroid([s for s in cur if s["local"] == l]) is not None]
-        gids = sorted(self.G); mp, sims = {}, {}
+        gids = sorted(self.G); mp, share = {}, {}
+        V = {l: self.votes([s for s in cur if s["local"] == l], gids) for l in sorted({s["local"] for s in cur})}
+        L = [l for l in V if V[l][1] > 0]
         if L and gids:
-            C = {l: self.centroid([s for s in cur if s["local"] == l]) for l in L}
-            S = np.array([[float(C[l] @ self.gvec(g)) for g in gids] for l in L])
+            S = np.array([[V[l][0].get(g, 0.0) / V[l][1] for g in gids] for l in L])
             for i, j in zip(*linear_sum_assignment(-S)):
-                sims[L[i]] = round(S[i, j], 3)
-                if S[i, j] >= self.thr: mp[L[i]] = gids[j]
+                share[L[i]] = round(S[i, j], 3)
+                if S[i, j] >= 0.5: mp[L[i]] = gids[j]
         # labels with too little speech to embed yet (backchannels) take the overlap match when it does not conflict
         via = {l: g for l, g in ov.items() if l not in mp and l not in L and g not in mp.values()}
         mp.update(via)
-        info.update(cos=sims, overlap_map=ov, via_overlap=sorted(via), overlap_disagrees=sorted(l for l in ov if l in mp and ov[l] != mp[l]))
+        info.update(vote_share=share, overlap_map=ov, via_overlap=sorted(via), overlap_disagrees=sorted(l for l in ov if l in mp and ov[l] != mp[l]))
         return mp, info
 
     def decide_late(self, k, segs, used, prev, force):
-        """With >= min_s of usable speech: best unused global speaker if cosine >= late_thr; a new speaker only once >= 3 s of it
-        matches nobody. Labels with only short segments wait (until `force`, at chunk end) and are never made new speakers
-        while known ones exist: a backchannel is far more likely a known voice than a new one."""
-        c = self.centroid(segs)
+        """Majority vote among unused global speakers; a new speaker once most of >= 3 s of its speech matches nobody.
+        Labels with only short segments wait (until `force`) and are never made new speakers while known ones exist:
+        a backchannel is far more likely a known voice than a new one."""
         cand = [g for g in self.G if g not in used] or list(self.G)
-        if c is not None and cand:
-            best = max((float(c @ self.gvec(g)), g) for g in cand)
-            if best[0] >= self.late_thr: return best[1]
-            if sum(s["end"] - s["start"] for s in segs if s["end"] - s["start"] >= self.min_s) >= 3.0 or force: return self.new()
-            return None
+        V, tot = self.votes(segs, cand)
+        if tot > 0:
+            best = max(((V.get(g, 0.0), g) for g in cand), default=(0.0, None))
+            if best[1] is not None and best[0] >= 0.5 * tot: return best[1]
+            if V.get(None, 0.0) >= 0.5 * tot and (tot >= 3.0 or force): return self.new()
+            if not force: return None
+            return best[1] if best[0] > 0 else self.new()
         if not force: return None
         if not cand: return self.new()
         v = self.vec(max(segs, key=lambda s: s["end"] - s["start"]), min_s=0.5)
@@ -239,7 +246,9 @@ class EmbedMapper(OverlapMapper):
         for s in segs:
             v = self.vec(s)
             if v is None or s["local"] not in mp: continue
-            w = min(s["end"] - s["start"], 10.0); acc = self.G.setdefault(mp[s["local"]], [0.0, 0.0])
+            g = mp[s["local"]]
+            if g in self.G and float(v @ self.gvec(g)) < self.thr: continue  # keep centroids pure
+            w = min(s["end"] - s["start"], 10.0); acc = self.G.setdefault(g, [0.0, 0.0])
             acc[0] = acc[0] + w * v; acc[1] += w
 
 

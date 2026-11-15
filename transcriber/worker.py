@@ -105,15 +105,16 @@ LABEL_STRIDE = 1000  # speaker labels of retry pass n are n*1000 + label: a new 
 
 def vv_pass(m, audio, sr, context, max_tokens, on_seg, offset=0.0, label_base=0):
     """One VibeVoice pass with token streaming; on_seg(seg) for every segment as it closes (times shifted by `offset`,
-    labels by `label_base`). Stops early if no segment closes for LOOP_TOKENS tokens (greedy decoding can fall into a
-    repetition loop on long audio and would otherwise run to max_tokens and never close the JSON)."""
+    labels by `label_base`). Stops once a segment reaches the end of the audio (the model sometimes keeps generating junk
+    instead of closing the JSON), and early if no segment closes for LOOP_TOKENS tokens or the output repeats (greedy
+    decoding can fall into a repetition loop on long audio and would otherwise run to max_tokens)."""
     import mlx.core as mx
     from mlx_audio.lm.sample_utils import make_sampler
     t = time.time()
     at = m._preprocess_audio(mx.array(audio), sampling_rate=sr)
     feats = m.encode_speech(at); mx.eval(feats)
     ids, mask = m._build_prompt_tokens(feats, at.shape[1] / 24000, context or None)
-    toks, sp, first, since, looped, recent, prev_end = [], SegParser(), None, 0, False, [], 0.0
+    toks, sp, first, since, looped, done, recent, prev_end = [], SegParser(), None, 0, False, False, [], 0.0
     adur = len(audio) / sr
     for tok, _ in m.stream_generate(input_ids=ids, speech_features=feats, acoustic_input_mask=mask, max_tokens=max_tokens,
                                     sampler=make_sampler(0.0, 1.0, 0.0, min_tokens_to_keep=1, top_k=0)):
@@ -130,6 +131,8 @@ def vv_pass(m, audio, sr, context, max_tokens, on_seg, offset=0.0, label_base=0)
                 x = dict(x, start=round(st + offset, 2), end=round(en + offset, 2))
                 if x.get("speaker_id") is not None: x["speaker_id"] = int(x["speaker_id"]) + label_base
                 on_seg(x)
+                if en >= adur - 0.5: done = True; break  # reached the end of the audio: anything after is junk
+        if done: break
         if looped or since >= LOOP_TOKENS: looped = True; break
     mx.clear_cache()
     return dict(prompt_tokens=int(ids.shape[1]), gen_tokens=len(toks), first_token_s=first, gen_s=time.time() - t,
