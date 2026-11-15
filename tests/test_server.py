@@ -59,7 +59,9 @@ def test_upload_poll_results(client, tmp_path):
     id = r.json()["id"]
     j = wait(client, id)
     assert j["status"] == "done" and j["progress"] == 1.0 and j["finished_at"] and j["started_at"] and j["error"] is None
-    assert j["params"] == dict(chunk_minutes=20.0, overlap_seconds=60.0, context="Acme", words=False)
+    assert j["params"] == dict(chunk_minutes=20.0, overlap_seconds=30.0, context="Acme", words=False, progressive=True, speakers="embed")
+    r0 = client.get(f"/jobs/{id}/result").json()
+    assert r0["kw"]["progressive"] is True and r0["kw"]["speakers"] == "embed"
     r = client.get(f"/jobs/{id}/result").json()
     assert r["input"].endswith(".mp3") and r["kw"]["words"] is False
     assert client.get(f"/jobs/{id}/result?format=txt").text == "hello\n"
@@ -396,6 +398,54 @@ def test_migration_from_old_schema(tmp_path):
         assert c.get("/transcripts/olddone/result?format=stats").json() == {"audio_s": 12.5}
         assert c.get("/jobs/goneone").json()["transcript_id"] is None and c.get("/jobs/goneone/result").status_code == 404
         assert c.get("/jobs/oldfail").json()["status"] == "failed"
-        r = c.post("/jobs", data={"url": "http://example.com/old.mp3"})
+        assert c.post("/jobs", data={"url": "http://example.com/old.mp3"}).status_code == 202  # new default settings: not the old result
+        r = c.post("/jobs", data={"url": "http://example.com/old.mp3", "chunk_minutes": "50", "overlap_seconds": "60", "progressive": "false", "speakers": "overlap"})
         assert r.status_code == 200 and r.json()["transcript_id"] == "olddone"
         assert not os.path.exists(tmp_path / "jobs" / "olddone")
+
+
+def test_bad_speakers_param(client):
+    assert up(client, data_fields={"speakers": "magic"}).status_code == 400
+    assert up(client, data_fields={"progressive": "maybe"}).status_code == 400
+    assert up(client, data_fields={"speakers": "overlap", "progressive": "false"}).status_code == 202
+
+
+def test_partial_transcript_while_running(tmp_path):
+    gate, half = threading.Event(), threading.Event()
+    turns = [dict(speaker="SPEAKER_00", start=0.0, end=2.0, text="hello"), dict(speaker="SPEAKER_01", start=2.0, end=5.0, text="hi there")]
+    def run(input, outdir, *, progress=None, **kw):
+        progress("prepare", None, "prep")
+        os.makedirs(outdir, exist_ok=True)
+        json.dump(dict(complete=False, audio_s=60.0, ready_until=2.0, speakers=["SPEAKER_00"], turns=turns[:1]), open(os.path.join(outdir, "partial.json"), "w"))
+        progress("vibevoice", 2.0 / 60, "final up to 2s", ready_s=2.0, audio_s=60.0)
+        half.set(); gate.wait(5)
+        json.dump(turns, open(os.path.join(outdir, "transcript.json"), "w"))
+        for n in ("transcript.txt", "subtitles.srt"): open(os.path.join(outdir, n), "w").write("x\n")
+        json.dump({"audio_s": 60.0}, open(os.path.join(outdir, "stats.json"), "w"))
+    with TestClient(create_app(str(tmp_path), run_fn=run)) as c:
+        id = up(c).json()["id"]
+        assert half.wait(5)
+        j = c.get(f"/jobs/{id}").json()
+        assert j["status"] == "running" and j["ready_s"] == 2.0 and j["audio_s"] == 60.0 and 0.02 < j["overall_progress"] < 0.1
+        p = c.get(f"/jobs/{id}/partial").json()
+        assert p["status"] == "running" and p["complete"] is False and p["ready_until"] == 2.0 and [t["text"] for t in p["turns"]] == ["hello"]
+        gate.set(); wait(c, id)
+        p = c.get(f"/jobs/{id}/partial", params={"since": 1}).json()
+        assert p["complete"] is True and p["ready_until"] == 60.0 and p["n_turns"] == 2 and [t["text"] for t in p["turns"]] == ["hi there"]
+        assert p["speakers"] == ["SPEAKER_00", "SPEAKER_01"] and c.get(f"/jobs/{id}").json()["ready_s"] == 60.0
+
+
+def test_partial_queued_and_failed(tmp_path):
+    gate = threading.Event()
+    def run(input, outdir, **kw):
+        if "FAIL" in open(input, "rb").read().decode(): raise TranscribeError("bad audio")
+        gate.wait(5); return fake_run(input, outdir, **kw)
+    with TestClient(create_app(str(tmp_path), run_fn=run)) as c:
+        a = up(c, b"first").json()["id"]; wait(c, a, want=("running",))
+        b = up(c, b"second").json()["id"]
+        p = c.get(f"/jobs/{b}/partial").json()
+        assert p["status"] == "queued" and p["turns"] == [] and p["ready_until"] == 0.0
+        assert c.get(f"/jobs/{a}/partial").json()["turns"] == []  # running, nothing final yet
+        gate.set(); wait(c, a); wait(c, b)
+        f = up(c, b"FAIL").json()["id"]; wait(c, f)
+        assert c.get(f"/jobs/{f}/partial").status_code == 409 and c.get("/jobs/nope/partial").status_code == 404

@@ -19,12 +19,14 @@ from transcriber.pipeline import MODEL_DEFAULT, PIPELINE_VERSION
 
 FORMATS = {"json": ("transcript.json", "application/json"), "txt": ("transcript.txt", "text/plain; charset=utf-8"),
            "srt": ("subtitles.srt", "application/x-subrip"), "stats": ("stats.json", "application/json")}
-COLS = "id,status,stage,progress,message,error,source,params,created_at,started_at,finished_at,sha256,ekey,transcript_id,cached,audio_s,name,forced"
+COLS = "id,status,stage,progress,message,error,source,params,created_at,started_at,finished_at,sha256,ekey,transcript_id,cached,audio_s,name,forced,ready_s"
 ACTIVE = "status IN ('queued','running')"
-DEFAULT_PARAMS = dict(chunk_minutes=50.0, overlap_seconds=60.0, context="", words=True)
-STAGES = {"prepare": (0.0, 0.03), "vibevoice": (0.03, 0.80), "parakeet": (0.80, 0.95), "align": (0.95, 0.99), "write": (0.99, 1.0)}
+DEFAULT_PARAMS = dict(chunk_minutes=40.0, overlap_seconds=30.0, context="", words=True, progressive=True, speakers="embed")
+LEGACY_PARAMS = dict(progressive=False, speakers="overlap")  # what jobs from before these params ran with
+SPEAKER_MAPPINGS = ("embed", "overlap")
+STAGES = {"prepare": (0.0, 0.02), "vibevoice": (0.02, 0.99), "write": (0.99, 1.0)}
 NEW_COLS = dict(name="TEXT", sha256="TEXT", fingerprint="TEXT", ekey="TEXT", url_key="TEXT", forced="INTEGER DEFAULT 0",
-                transcript_id="TEXT", cached="INTEGER DEFAULT 0", audio_s="REAL")
+                transcript_id="TEXT", cached="INTEGER DEFAULT 0", audio_s="REAL", ready_s="REAL")
 
 
 def _iso(t):
@@ -35,8 +37,9 @@ def is_url(s): return str(s).startswith(("http://", "https://"))
 
 
 def fingerprint(p, words=None):
+    p = {**LEGACY_PARAMS, **p}
     d = dict(model=MODEL_DEFAULT, chunk_minutes=float(p["chunk_minutes"]), overlap_seconds=float(p["overlap_seconds"]),
-             words=bool(p["words"] if words is None else words), pipeline_version=PIPELINE_VERSION)
+             words=bool(p["words"] if words is None else words), progressive=bool(p["progressive"]), speakers=p["speakers"], pipeline_version=PIPELINE_VERSION)
     return hashlib.sha256(json.dumps(d, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
 
@@ -139,7 +142,7 @@ def public(r, store):
                 params=json.loads(r["params"]), created_at=_iso(r["created_at"]), started_at=_iso(r["started_at"]),
                 finished_at=_iso(r["finished_at"]), overall_progress=overall_progress(r), queue_position=pos,
                 transcript_id=r["transcript_id"] if r["status"] == "done" else None, cached=bool(r["cached"]),
-                audio_s=r["audio_s"], sha256=r["sha256"], key=r["ekey"])
+                audio_s=r["audio_s"], ready_s=r["audio_s"] if r["status"] == "done" else r["ready_s"], sha256=r["sha256"], key=r["ekey"])
 
 
 def default_run(*a, **kw):
@@ -306,8 +309,9 @@ class Service:
     def _run(self, id):
         r = self.store.get(id); p = json.loads(r["params"]); outdir = self.job_dir(id); dl = os.path.join(outdir, "dl")
         upload = not is_url(r["source"]); tid = sha = None
-        def progress(stage, fraction, message):
-            self.store.execute("UPDATE jobs SET stage=?, progress=?, message=? WHERE id=? AND status='running'", (stage, fraction, message, id))
+        def progress(stage, fraction, message, ready_s=None, audio_s=None):
+            self.store.execute("UPDATE jobs SET stage=?, progress=?, message=?, ready_s=COALESCE(?, ready_s), audio_s=COALESCE(?, audio_s) WHERE id=? AND status='running'",
+                               (stage, fraction, message, ready_s, audio_s, id))
         try:
             src = r["source"]
             if not upload:
@@ -318,8 +322,9 @@ class Service:
             except sqlite3.IntegrityError: pass  # another active job already owns (sha, settings); this one still runs
             if not r["forced"] and self._link_cached(id, sha, fingerprints(p), r["source"] if upload else None): return
             cache_dir = os.path.join(self.chunks, sha); os.makedirs(cache_dir, exist_ok=True); os.utime(cache_dir)
+            p = {**LEGACY_PARAMS, **p}
             self.run_fn(src, outdir, chunk_minutes=p["chunk_minutes"], overlap_seconds=p["overlap_seconds"], context=p["context"],
-                        words=p["words"], progress=progress, input_name=r["name"], cache_dir=cache_dir)
+                        words=p["words"], progressive=p["progressive"], speakers=p["speakers"], progress=progress, input_name=r["name"], cache_dir=cache_dir)
             os.utime(cache_dir)
             tid = self._publish(id, r, p, sha)
             if upload: self._rm(r["source"])  # upload no longer needed once done
@@ -396,10 +401,14 @@ def create_app(state_dir=None, run_fn=None, api_token=None, start_worker=True, f
         if upload is None and not url: raise HTTPException(400, "provide either a `file` upload or a `url`")
         if upload is not None and url: raise HTTPException(400, "provide only one of `file` and `url`")
         if url and not re.match(r"https?://", str(url)): raise HTTPException(400, "`url` must be http(s)")
-        chunk = _num(data.get("chunk_minutes"), "chunk_minutes", 50.0, 0, 59)
-        ov = _num(data.get("overlap_seconds"), "overlap_seconds", 60.0, -1, chunk * 60, hi_incl=False)
+        D = DEFAULT_PARAMS
+        chunk = _num(data.get("chunk_minutes"), "chunk_minutes", D["chunk_minutes"], 0, 59)
+        ov = _num(data.get("overlap_seconds"), "overlap_seconds", D["overlap_seconds"], -1, chunk * 60, hi_incl=False)
         if ov < 0: raise HTTPException(400, "overlap_seconds out of range")
-        params = dict(chunk_minutes=chunk, overlap_seconds=ov, context=str(data.get("context") or ""), words=_bool(data.get("words"), True))
+        speakers = str(data.get("speakers") or D["speakers"])
+        if speakers not in SPEAKER_MAPPINGS: raise HTTPException(400, f"speakers must be one of {list(SPEAKER_MAPPINGS)}")
+        params = dict(chunk_minutes=chunk, overlap_seconds=ov, context=str(data.get("context") or ""), words=_bool(data.get("words"), D["words"]),
+                      progressive=_bool(data.get("progressive"), D["progressive"], "progressive"), speakers=speakers)
         force = _bool(data.get("force"), False, "force")
         key = str(data.get("key") or "").strip()[:512] or None
         want = str(data.get("sha256") or "").strip().lower() or None
@@ -450,6 +459,25 @@ def create_app(state_dir=None, run_fn=None, api_token=None, start_worker=True, f
         if r["status"] != "done": raise HTTPException(409, f"job is {r['status']}, not done")
         if not r["transcript_id"]: raise HTTPException(404, "transcript no longer cached")
         return send(r["transcript_id"], format)
+
+    @app.get("/jobs/{id}/partial", dependencies=[Depends(auth)])
+    def partial(id: str, since: int = 0):
+        """Transcript so far: turns that are final (append-only, so `since` skips the first n) and `ready_until`, the audio time
+        up to which it is final. A player can start once ready_until covers the first turn and keep going while it stays ahead."""
+        r = need(id)
+        if r["status"] == "failed": raise HTTPException(409, "job failed")
+        d = dict(complete=False, audio_s=r["audio_s"], ready_until=0.0, speakers=[], turns=[])
+        if r["status"] == "running":
+            try: d = json.load(open(os.path.join(svc.job_dir(id), "partial.json")))
+            except (OSError, ValueError): pass
+        elif r["status"] == "done":
+            if not r["transcript_id"]: raise HTTPException(404, "transcript no longer cached")
+            try: turns = json.load(open(os.path.join(svc.transcripts, r["transcript_id"], FORMATS["json"][0])))
+            except OSError: raise HTTPException(404, "transcript no longer cached")
+            svc.store.touch(r["transcript_id"])
+            d = dict(complete=True, audio_s=r["audio_s"], ready_until=r["audio_s"], speakers=sorted({t["speaker"] for t in turns}), turns=turns)
+        n = len(d["turns"]); since = max(0, since)
+        return dict(d, status=r["status"], n_turns=n, since=since, turns=d["turns"][since:])
 
     @app.delete("/jobs/{id}", dependencies=[Depends(auth)])
     def delete(id: str):

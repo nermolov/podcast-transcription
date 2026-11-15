@@ -47,6 +47,13 @@
                   cp -R ${final.mlx-metal}/${python.sitePackages}/. $out/${python.sitePackages}/
                 '';
               });
+              # Same split for sherpa-onnx: its extension loads @rpath/libonnxruntime.dylib from sherpa_onnx/lib, which
+              # the sherpa-onnx-core wheel provides (pip merges both into one site-packages; nix keeps separate outputs).
+              sherpa-onnx = prev.sherpa-onnx.overrideAttrs (old: {
+                postInstall = (old.postInstall or "") + ''
+                  cp -Rn ${final.sherpa-onnx-core}/${python.sitePackages}/. $out/${python.sitePackages}/
+                '';
+              });
             })
           ]);
 

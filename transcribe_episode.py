@@ -8,8 +8,10 @@ def main():
     ap = argparse.ArgumentParser(prog="transcribe-episode", description=__doc__)
     ap.add_argument("input", help="audio file, mp3 URL or RSS URL (first episode)")
     ap.add_argument("-o", "--outdir", required=True)
-    ap.add_argument("--chunk-minutes", type=float, default=50.0)
-    ap.add_argument("--overlap-seconds", type=float, default=60.0)
+    ap.add_argument("--chunk-minutes", type=float, default=40.0, help="chunk length after the 2/6/20 min ramp (or of every chunk with --fixed)")
+    ap.add_argument("--overlap-seconds", type=float, default=30.0)
+    ap.add_argument("--fixed", action="store_true", help="equal --chunk-minutes windows instead of the progressive 2/6/20 min ramp")
+    ap.add_argument("--speakers", choices=["embed", "overlap"], default="embed", help="how chunk-local speaker labels are matched across chunks")
     ap.add_argument("--model", default=MODEL_DEFAULT)
     ap.add_argument("--context", default="", help="hotwords / context hint passed to VibeVoice")
     ap.add_argument("--max-tokens", type=int, default=40000)
@@ -18,7 +20,8 @@ def main():
     args = ap.parse_args()
     install_signal_handlers()
     try:
-        run(args.input, args.outdir, chunk_minutes=args.chunk_minutes, overlap_seconds=args.overlap_seconds, model=args.model,
+        run(args.input, args.outdir, chunk_minutes=args.chunk_minutes, overlap_seconds=args.overlap_seconds, progressive=not args.fixed,
+            speakers=args.speakers, model=args.model,
             context=args.context, max_tokens=args.max_tokens, words=not args.no_words, keep_intermediate=args.keep_intermediate)
     except TranscribeError as e:
         sys.exit(str(e))
