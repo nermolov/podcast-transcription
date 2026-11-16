@@ -1,0 +1,116 @@
+{
+ "chunk": 7,
+ "audio": [
+  2070.0,
+  2400.0
+ ],
+ "new_start": 2100.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 33.55,
+   "speaker_id": 0,
+   "text": "it's now running in an environment that's also running as the human, where the model can do things like run system and then just immediately, uh, you know, escape Python and do whatever it wants to do. So there's this uh process that we've kind of been going about around some combination of building sandboxes and building like better access controls into uh various systems to make it so that the models can only do the things that we think are like actually safe. And increasingly that also has us relying on uh going back to the previous point, LLMs judging whether or not something's safe, which is a very interesting thing."
+  },
+  {
+   "start": 33.55,
+   "end": 61.89,
+   "speaker_id": 1,
+   "text": "Right. And it's not like in the old world we trusted humans in an unbounded way. Like, I think a real fact about our internal environment is that we give people a lot of trust and we give them a lot of access to do things, but there's still an access control system. But if you just like naively use LLMs and kind of set them up without thinking about the setup at all, then the LLMs just inherit all the permissions of the human. And that's super wrong. Like, you don't want that. You want some kind of bounds on what the LLM can do."
+  },
+  {
+   "start": 61.89,
+   "end": 71.18,
+   "speaker_id": 0,
+   "text": "Um, my favorite example of this is the like compute utilization. So we have like, you know, giant compute cluster that humans can schedule jobs onto."
+  },
+  {
+   "start": 71.18,
+   "end": 71.85,
+   "speaker_id": 1,
+   "text": "Yep"
+  },
+  {
+   "start": 71.85,
+   "end": 103.41,
+   "speaker_id": 0,
+   "text": "And of course, we want the LLMs to also be able to schedule jobs there because some of the work that we want them to do involves lots of compute. And uh, in order to access this system, humans have to like bid for time. They essentially have to say like how much in these fake dollars that they're willing to pay for their job to be run. And then the system has kind of preempting so that if a job that comes along that is has a higher dollar amount, it gets preempted. And if another job comes along that has a higher dollar amount, then the job with the lower dollar amount gets preempted."
+  },
+  {
+   "start": 103.75,
+   "end": 115.66,
+   "speaker_id": 0,
+   "text": "And, you know, LLMs using this thing just really don't have a sense for like how much their job is worth. And we've seen evidence of, you know, the LLMs thinking that their job is worth way more than it should be, and thus preempting a bunch of human work."
+  },
+  {
+   "start": 115.66,
+   "end": 116.27,
+   "speaker_id": 1,
+   "text": "Yeah"
+  },
+  {
+   "start": 116.27,
+   "end": 154.5,
+   "speaker_id": 1,
+   "text": "I mean, I think the other thing that's important and hard to think about here is that to some degree you should think about the models adversarially. Like, they are not, you know, people talk about AI alignment and it's like a kind of big theoretical AI safety long-term kind of issue where, I don't know, in long-term in AI means like in three years or something. But it's also an extremely practical issue right now in the sense that the models will usually try really hard to do what you want and usually do a pretty good job of it, and will sometimes behave really, really adversarially and will be misaligned, will be trying to do a thing that's not the thing that you want them to do."
+  },
+  {
+   "start": 154.5,
+   "end": 172.32,
+   "speaker_id": 1,
+   "text": "you like, you know, ask them to solve some problem that involves asking them to do something that is like beyond the realm of the things they have permissions to do. And you might think they they that a well-aligned model would be like, oh, I guess I should not do this and maybe I should go ask for guidance given that there's a permission system that stops me from doing this."
+  },
+  {
+   "start": 172.78,
+   "end": 209.79,
+   "speaker_id": 1,
+   "text": "Sometimes what the model will do is just try and work around the permissions. And this is kind of like AI psychosis, not like the human AI psychosis, but like the AI kind of goes crazy. Whereas when you have AIs that you give very long-term tasks to and keep on pushing them to try really hard to solve the task, they can just get super weird and like do very strange things and like emit strange sentences and, you know, all sorts of bizarre stuff can happen. So you really do want to treat it as a kind of adversarial security problem against models that are like getting increasingly good at like hacking and working around controls. Yeah. So it's like it's a really serious security problem that you have to address."
+  },
+  {
+   "start": 209.79,
+   "end": 247.59,
+   "speaker_id": 0,
+   "text": "And that comes up in security, it also comes up in places like evaluations where we're like, you know, you're trying to judge the success of the model, but you have to remember, like you mentioned earlier, that the models are trained to get, you know, to do the thing that you're telling them to do. And when you're looking at evaluations, we see evidence of things like reward hacking, where the model is like intentionally skirting around the rules of the system to get higher, not to get higher scores, but to do the thing that the human told it to do. So for example, the model reaches like some warning, uh we have warnings as errors turned on, so it reaches some warning that results in an error that it doesn't know how to resolve."
+  },
+  {
+   "start": 247.59,
+   "end": 256.85,
+   "speaker_id": 0,
+   "text": "and like one really easy way to resolve them is just disable the warnings. And so we see models, uh, disable the warnings to try to, you know, pass the thing that we're trying to tell them to do."
+  },
+  {
+   "start": 256.85,
+   "end": 257.81,
+   "speaker_id": 1,
+   "text": "Right, this is when you"
+  },
+  {
+   "start": 257.81,
+   "end": 297.3,
+   "speaker_id": 1,
+   "text": "this is like compiler level like unused variable warnings or whatever. And like warnings as errors means if you have a warning anywhere in your code, it just won't build. And we basically have a kind of firm wide, you know, code base wide practice that like, yeah, you just have to resolve all those warnings. And this is like part of how we enforce a sub important subset of our coding standards. Yeah. And also, we have ways of turning them off. And we, like the humans involved here, almost never use them because it's almost never a good idea to use it. But if you're like monomaniacally focused on like, I just need to like satisfy this thing I've been told to do, it's like, ah, okay, now it's going to behave differently. Yeah."
+  },
+  {
+   "start": 297.38,
+   "end": 321.41,
+   "speaker_id": 0,
+   "text": "Yeah, another one of these is like the models will often try to read uh the solution to a problem from a tool that they have access to. So they'll like search around for code that looks like the code that they're writing. And I guess like in in production use, that seems like a totally fine thing to do. If there's a solution to the problem that you're trying to solve out there, you should totally go read it. Um, you know, but in evaluations, probably don't want the model to do that."
+  },
+  {
+   "start": 321.41,
+   "end": 324.7,
+   "speaker_id": 1,
+   "text": "Oh right, this is basically a way of like cheating by looking at the answers."
+  },
+  {
+   "start": 324.7,
+   "end": 330.0,
+   "speaker_id": 0,
+   "text": "Yeah, exactly. And it's like, you know, it's one thing to say the model's cheating, but actually, like you mentioned before, the"
+  }
+ ],
+ "gen_tokens": 1817,
+ "text": "[{\"Start\":0,\"End\":33.55,\"Speaker\":0,\"Content\":\"it's now running in an environment that's also running as the human, where the model can do things like run system and then just immediately, uh, you know, escape Python and do whatever it wants to do. So there's this uh process that we've kind of been going about around some combination of building sandboxes and building like better access controls into uh various systems to make it so that the models can only do the things that we think are like actually safe. And increasingly that also has us relying on uh going back to the previous point, LLMs judging whether or not something's safe, which is a very interesting thing.\"},{\"Start\":33.55,\"End\":61.89,\"Speaker\":1,\"Content\":\"Right. And it's not like in the old world we trusted humans in an unbounded way. Like, I think a real fact about our internal environment is that we give people a lot of trust and we give them a lot of access to do things, but there's still an access control system. But if you just like naively use LLMs and kind of set them up without thinking about the setup at all, then the LLMs just inherit all the permissions of the human. And that's super wrong. Like, you don't want that. You want some kind of bounds on what the LLM can do.\"},{\"Start\":61.89,\"End\":71.18,\"Speaker\":0,\"Content\":\"Um, my favorite example of this is the like compute utilization. So we have like, you know, giant compute cluster that humans can schedule jobs onto.\"},{\"Start\":71.18,\"End\":71.85,\"Speaker\":1,\"Content\":\"Yep\"},{\"Start\":71.85,\"End\":103.41,\"Speaker\":0,\"Content\":\"And of course, we want the LLMs to also be able to schedule jobs there because some of the work that we want them to do involves lots of compute. And uh, in order to access this system, humans have to like bid for time. They essentially have to say like how much in these fake dollars that they're willing to pay for their job to be run. And then the system has kind of preempting so that if a job that comes along that is has a higher dollar amount, it gets preempted. And if another job comes along that has a higher dollar amount, then the job with the lower dollar amount gets preempted.\"},{\"Start\":103.75,\"End\":115.66,\"Speaker\":0,\"Content\":\"And, you know, LLMs using this thing just really don't have a sense for like how much their job is worth. And we've seen evidence of, you know, the LLMs thinking that their job is worth way more than it should be, and thus preempting a bunch of human work.\"},{\"Start\":115.66,\"End\":116.27,\"Speaker\":1,\"Content\":\"Yeah\"},{\"Start\":116.27,\"End\":154.5,\"Speaker\":1,\"Content\":\"I mean, I think the other thing that's important and hard to think about here is that to some degree you should think about the models adversarially. Like, they are not, you know, people talk about AI alignment and it's like a kind of big theoretical AI safety long-term kind of issue where, I don't know, in long-term in AI means like in three years or something. But it's also an extremely practical issue right now in the sense that the models will usually try really hard to do what you want and usually do a pretty good job of it, and will sometimes behave really, really adversarially and will be misaligned, will be trying to do a thing that's not the thing that you want them to do.\"},{\"Start\":154.5,\"End\":172.32,\"Speaker\":1,\"Content\":\"you like, you know, ask them to solve some problem that involves asking them to do something that is like beyond the realm of the things they have permissions to do. And you might think they they that a well-aligned model would be like, oh, I guess I should not do this and maybe I should go ask for guidance given that there's a permission system that stops me from doing this.\"},{\"Start\":172.78,\"End\":209.79,\"Speaker\":1,\"Content\":\"Sometimes what the model will do is just try and work around the permissions. And this is kind of like AI psychosis, not like the human AI psychosis, but like the AI kind of goes crazy. Whereas when you have AIs that you give very long-term tasks to and keep on pushing them to try really hard to solve the task, they can just get super weird and like do very strange things and like emit strange sentences and, you know, all sorts of bizarre stuff can happen. So you really do want to treat it as a kind of adversarial security problem against models that are like getting increasingly good at like hacking and working around controls. Yeah. So it's like it's a really serious security problem that you have to address.\"},{\"Start\":209.79,\"End\":247.59,\"Speaker\":0,\"Content\":\"And that comes up in security, it also comes up in places like evaluations where we're like, you know, you're trying to judge the success of the model, but you have to remember, like you mentioned earlier, that the models are trained to get, you know, to do the thing that you're telling them to do. And when you're looking at evaluations, we see evidence of things like reward hacking, where the model is like intentionally skirting around the rules of the system to get higher, not to get higher scores, but to do the thing that the human told it to do. So for example, the model reaches like some warning, uh we have warnings as errors turned on, so it reaches some warning that results in an error that it doesn't know how to resolve.\"},{\"Start\":247.59,\"End\":256.85,\"Speaker\":0,\"Content\":\"and like one really easy way to resolve them is just disable the warnings. And so we see models, uh, disable the warnings to try to, you know, pass the thing that we're trying to tell them to do.\"},{\"Start\":256.85,\"End\":257.81,\"Speaker\":1,\"Content\":\"Right, this is when you\"},{\"Start\":257.81,\"End\":297.3,\"Speaker\":1,\"Content\":\"this is like compiler level like unused variable warnings or whatever. And like warnings as errors means if you have a warning anywhere in your code, it just won't build. And we basically have a kind of firm wide, you know, code base wide practice that like, yeah, you just have to resolve all those warnings. And this is like part of how we enforce a sub important subset of our coding standards. Yeah. And also, we have ways of turning them off. And we, like the humans involved here, almost never use them because it's almost never a good idea to use it. But if you're like monomaniacally focused on like, I just need to like satisfy this thing I've been told to do, it's like, ah, okay, now it's going to behave differently. Yeah.\"},{\"Start\":297.38,\"End\":321.41,\"Speaker\":0,\"Content\":\"Yeah, another one of these is like the models will often try to read uh the solution to a problem from a tool that they have access to. So they'll like search around for code that looks like the code that they're writing. And I guess like in in production use, that seems like a totally fine thing to do. If there's a solution to the problem that you're trying to solve out there, you should totally go read it. Um, you know, but in evaluations, probably don't want the model to do that.\"},{\"Start\":321.41,\"End\":324.7,\"Speaker\":1,\"Content\":\"Oh right, this is basically a way of like cheating by looking at the answers.\"},{\"Start\":324.7,\"End\":330.0,\"Speaker\":0,\"Content\":\"Yeah, exactly. And it's like, you know, it's one thing to say the model's cheating, but actually, like you mentioned before, the\"}]"
+}

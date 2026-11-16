@@ -1,0 +1,128 @@
+{
+ "chunk": 11,
+ "audio": [
+  3270.0,
+  3600.0
+ ],
+ "new_start": 3300.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 7.9,
+   "speaker_id": 0,
+   "text": "on the pattern and then you could be like, well, I can just look and see when the JSON shows up, and then I'll just interpret that as a tool call. And like, that's kind of how the whole thing worked."
+  },
+  {
+   "start": 7.9,
+   "end": 8.5,
+   "speaker_id": 1,
+   "text": "Yep"
+  },
+  {
+   "start": 8.5,
+   "end": 37.02,
+   "speaker_id": 1,
+   "text": "and they were like not reliable and sometimes the model wouldn't use them, sometimes the model would emit a format that wasn't the format you'd agreed upon. So there were all kinds of problems, but we could mostly paper over those. Um if you want the model to call a particular tool and it doesn't call it the first time, you can kind of just ask it again. This is like the the area that that that we were living in back then. So on the back of that tool calling functionality, we built an OCaml version of that Python library and we put this tool ecosystem uh in place."
+  },
+  {
+   "start": 37.02,
+   "end": 56.12,
+   "speaker_id": 1,
+   "text": "We built a couple tools, like we built a web fetch tool, we built a uh tool for accessing internal wiki content. And this is like useful, but at the time, like I mentioned, the models are not really adept at using the tools, so it doesn't really take off. I think you mentioned that we were building a sailboat, but there was no wind."
+  },
+  {
+   "start": 56.12,
+   "end": 56.89,
+   "speaker_id": 0,
+   "text": "Right."
+  },
+  {
+   "start": 56.89,
+   "end": 67.99,
+   "speaker_id": 1,
+   "text": "I like that a lot. 'Cause that's, you know, what it felt like at the time. We we built the whole thing, we put it out there and we're like, now they're everyone's gonna start building stuff and it kind of, you know, didn't happen and for good reason."
+  },
+  {
+   "start": 68.15,
+   "end": 69.17,
+   "speaker_id": 0,
+   "text": "It's worth saying."
+  },
+  {
+   "start": 69.17,
+   "end": 85.82,
+   "speaker_id": 0,
+   "text": "I do think all of these tools got a lot of uptake in certain areas, right? I think like the the website itself was used by a lot of people all the time because like the models were useful for some things, but there were like profound limits. Like it was useful but not transformational. Yep."
+  },
+  {
+   "start": 85.82,
+   "end": 119.36,
+   "speaker_id": 1,
+   "text": "Yeah, and another thing we did at the time is we built a library called, uh, someone built a library called Structured Response here, which is basically like you a very easy way to write a prompt and get back an arbitrary OCaml type from that prompt. By basically, uh, turning the type into a single tool call and letting the model only call that tool and continuing to prompt it until it does call the tool effectively. Um, so there are like little things that were were really useful, but I don't know, for the most part, there wasn't like agentic work."
+  },
+  {
+   "start": 119.36,
+   "end": 155.81,
+   "speaker_id": 1,
+   "text": "At this point, we also were, uh, we had functionality for autocomplete similar to Copilot inside of our editors, which are, I should say, primarily not, I guess like we we do use VS Code, but we also use a bunch of like Neovim and Emacs here. So we had built, um, editor extensions into those. And then people were asking to be able to use the chat models inside of the editor. And they didn't want the chat models to like do a bunch of stuff. Maybe it would be able to like edit a file, but the the hope wasn't that they're going to start writing whole giant pieces of software. It was just that you can ask them quick questions inside the editor. So we built that."
+  },
+  {
+   "start": 155.81,
+   "end": 186.2,
+   "speaker_id": 1,
+   "text": "we built a a markdown buffer version of talking with a model, which is actually pretty cool, I think. There's something there. Uh it was basically like a markdown document that you type a question into and then when you uh when you like hit enter in the document in normal mode it would then uh let the assistant fill in the next piece. So we built that and then at some point um the people that were working on that noticed that it was like incredibly annoying to have to restart the editor over and over again when working with it."
+  },
+  {
+   "start": 186.2,
+   "end": 200.41,
+   "speaker_id": 1,
+   "text": "So they built this like testing tool, which was basically like, we will just have the chat part hooked up to a CLI tool, but not inside the editor, just so that they could like quickly iterate on it without having to open the editor every time."
+  },
+  {
+   "start": 200.41,
+   "end": 208.74,
+   "speaker_id": 0,
+   "text": "Oh, you're saying they had it's the point is the people who were working on the tool didn't want to have to reboot. So this is not like an end user problem of like"
+  },
+  {
+   "start": 208.74,
+   "end": 212.95,
+   "speaker_id": 1,
+   "text": "No, it's not like I have a developer problem. It's just like annoying to have to open it over and over again."
+  },
+  {
+   "start": 212.95,
+   "end": 216.63,
+   "speaker_id": 0,
+   "text": "I think people just like made their own like command line version. Correct. Got it."
+  },
+  {
+   "start": 216.63,
+   "end": 252.37,
+   "speaker_id": 1,
+   "text": "and right around this time, the model started calling the tools a little bit more. Just like a little bit more. And we were like, wait, I think this thing is really useful. This like tool, this command line tool. Um, and that is the nugget of what eventually ended up turning into this aid CLI tool, which you can think of kind of like Cloud Code or Codex CLI. Um, and that kind of brings us into this new part where, um, you know, the models, that new tool has like grown in a bunch of ways and now it is a tool that people use for agentic coding."
+  },
+  {
+   "start": 252.37,
+   "end": 289.22,
+   "speaker_id": 1,
+   "text": "uh we've also, oh, and then and then the last thing we've done is we've made this like very large change, uh seeing the models do more and more and having them often limited by, um, you know, where they can reach into, we've made a change in how the actual work gets orchestrated so that the LLMs can essentially distribute work onto any of the developer machines at the firm and actually a bunch of other places too. And then the most recent change that we've made is we've actually made a change to kind of invert the control of how the LLM, uh, operates when it's trying to do things like bash calls."
+  },
+  {
+   "start": 289.22,
+   "end": 317.41,
+   "speaker_id": 1,
+   "text": "So when you use something like Cloud Code, you're typing into terminal on your computer and then the bash calls are running also on your computer. And it's like fairly easy because the the the prompting loop and the place that the work is running are in the same place. And you kind of saw this opportunity to make a change to split those apart so that people could do things like use the chat application, ChainGPT, to be able to do work that actually ends up happening on a computer totally somewhere else."
+  },
+  {
+   "start": 317.41,
+   "end": 330.0,
+   "speaker_id": 1,
+   "text": "So we have made it so that there's like a central orchestrator that takes in all of the prompts and is able to distribute work onto any of the hosts connected to it, where the hosts are roughly all of the developer machines."
+  }
+ ],
+ "gen_tokens": 1767,
+ "text": "[{\"Start\":0,\"End\":7.9,\"Speaker\":0,\"Content\":\"on the pattern and then you could be like, well, I can just look and see when the JSON shows up, and then I'll just interpret that as a tool call. And like, that's kind of how the whole thing worked.\"},{\"Start\":7.9,\"End\":8.5,\"Speaker\":1,\"Content\":\"Yep\"},{\"Start\":8.5,\"End\":37.02,\"Speaker\":1,\"Content\":\"and they were like not reliable and sometimes the model wouldn't use them, sometimes the model would emit a format that wasn't the format you'd agreed upon. So there were all kinds of problems, but we could mostly paper over those. Um if you want the model to call a particular tool and it doesn't call it the first time, you can kind of just ask it again. This is like the the area that that that we were living in back then. So on the back of that tool calling functionality, we built an OCaml version of that Python library and we put this tool ecosystem uh in place.\"},{\"Start\":37.02,\"End\":56.12,\"Speaker\":1,\"Content\":\"We built a couple tools, like we built a web fetch tool, we built a uh tool for accessing internal wiki content. And this is like useful, but at the time, like I mentioned, the models are not really adept at using the tools, so it doesn't really take off. I think you mentioned that we were building a sailboat, but there was no wind.\"},{\"Start\":56.12,\"End\":56.89,\"Speaker\":0,\"Content\":\"Right.\"},{\"Start\":56.89,\"End\":67.99,\"Speaker\":1,\"Content\":\"I like that a lot. 'Cause that's, you know, what it felt like at the time. We we built the whole thing, we put it out there and we're like, now they're everyone's gonna start building stuff and it kind of, you know, didn't happen and for good reason.\"},{\"Start\":68.15,\"End\":69.17,\"Speaker\":0,\"Content\":\"It's worth saying.\"},{\"Start\":69.17,\"End\":85.82,\"Speaker\":0,\"Content\":\"I do think all of these tools got a lot of uptake in certain areas, right? I think like the the website itself was used by a lot of people all the time because like the models were useful for some things, but there were like profound limits. Like it was useful but not transformational. Yep.\"},{\"Start\":85.82,\"End\":119.36,\"Speaker\":1,\"Content\":\"Yeah, and another thing we did at the time is we built a library called, uh, someone built a library called Structured Response here, which is basically like you a very easy way to write a prompt and get back an arbitrary OCaml type from that prompt. By basically, uh, turning the type into a single tool call and letting the model only call that tool and continuing to prompt it until it does call the tool effectively. Um, so there are like little things that were were really useful, but I don't know, for the most part, there wasn't like agentic work.\"},{\"Start\":119.36,\"End\":155.81,\"Speaker\":1,\"Content\":\"At this point, we also were, uh, we had functionality for autocomplete similar to Copilot inside of our editors, which are, I should say, primarily not, I guess like we we do use VS Code, but we also use a bunch of like Neovim and Emacs here. So we had built, um, editor extensions into those. And then people were asking to be able to use the chat models inside of the editor. And they didn't want the chat models to like do a bunch of stuff. Maybe it would be able to like edit a file, but the the hope wasn't that they're going to start writing whole giant pieces of software. It was just that you can ask them quick questions inside the editor. So we built that.\"},{\"Start\":155.81,\"End\":186.2,\"Speaker\":1,\"Content\":\"we built a a markdown buffer version of talking with a model, which is actually pretty cool, I think. There's something there. Uh it was basically like a markdown document that you type a question into and then when you uh when you like hit enter in the document in normal mode it would then uh let the assistant fill in the next piece. So we built that and then at some point um the people that were working on that noticed that it was like incredibly annoying to have to restart the editor over and over again when working with it.\"},{\"Start\":186.2,\"End\":200.41,\"Speaker\":1,\"Content\":\"So they built this like testing tool, which was basically like, we will just have the chat part hooked up to a CLI tool, but not inside the editor, just so that they could like quickly iterate on it without having to open the editor every time.\"},{\"Start\":200.41,\"End\":208.74,\"Speaker\":0,\"Content\":\"Oh, you're saying they had it's the point is the people who were working on the tool didn't want to have to reboot. So this is not like an end user problem of like\"},{\"Start\":208.74,\"End\":212.95,\"Speaker\":1,\"Content\":\"No, it's not like I have a developer problem. It's just like annoying to have to open it over and over again.\"},{\"Start\":212.95,\"End\":216.63,\"Speaker\":0,\"Content\":\"I think people just like made their own like command line version. Correct. Got it.\"},{\"Start\":216.63,\"End\":252.37,\"Speaker\":1,\"Content\":\"and right around this time, the model started calling the tools a little bit more. Just like a little bit more. And we were like, wait, I think this thing is really useful. This like tool, this command line tool. Um, and that is the nugget of what eventually ended up turning into this aid CLI tool, which you can think of kind of like Cloud Code or Codex CLI. Um, and that kind of brings us into this new part where, um, you know, the models, that new tool has like grown in a bunch of ways and now it is a tool that people use for agentic coding.\"},{\"Start\":252.37,\"End\":289.22,\"Speaker\":1,\"Content\":\"uh we've also, oh, and then and then the last thing we've done is we've made this like very large change, uh seeing the models do more and more and having them often limited by, um, you know, where they can reach into, we've made a change in how the actual work gets orchestrated so that the LLMs can essentially distribute work onto any of the developer machines at the firm and actually a bunch of other places too. And then the most recent change that we've made is we've actually made a change to kind of invert the control of how the LLM, uh, operates when it's trying to do things like bash calls.\"},{\"Start\":289.22,\"End\":317.41,\"Speaker\":1,\"Content\":\"So when you use something like Cloud Code, you're typing into terminal on your computer and then the bash calls are running also on your computer. And it's like fairly easy because the the the prompting loop and the place that the work is running are in the same place. And you kind of saw this opportunity to make a change to split those apart so that people could do things like use the chat application, ChainGPT, to be able to do work that actually ends up happening on a computer totally somewhere else.\"},{\"Start\":317.41,\"End\":330.0,\"Speaker\":1,\"Content\":\"So we have made it so that there's like a central orchestrator that takes in all of the prompts and is able to distribute work onto any of the hosts connected to it, where the hosts are roughly all of the developer machines.\"}]"
+}

@@ -1,0 +1,116 @@
+{
+ "chunk": 12,
+ "audio": [
+  3570.0,
+  3900.0
+ ],
+ "new_start": 3600.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 32.06,
+   "speaker_id": 0,
+   "text": "the prompting loop and the place that the work is running are in the same place. And you kind of saw this opportunity to make a change to split those apart so that people could do things like use the chat application, ChainGPT, to be able to do work that actually ends up happening on a computer totally somewhere else. So we have made it so that there's like a central orchestrator that takes in all of the prompts and is able to distribute work onto any of the hosts connected to it, where the hosts are roughly all of the developer machines at the firm plus a bunch of build boxes."
+  },
+  {
+   "start": 32.06,
+   "end": 48.8,
+   "speaker_id": 1,
+   "text": "Right, and this is like not so different from some of the directions that the kind of prompting engines kind of in the outside world have moved in, of wanting to like take that same session and instead of having it just like sit locally on your box, be in some kind of distributed system where you can access it through a web UI or from your phone."
+  },
+  {
+   "start": 48.8,
+   "end": 49.93,
+   "speaker_id": 0,
+   "text": "Yeah, like from Slack."
+  },
+  {
+   "start": 49.93,
+   "end": 65.71,
+   "speaker_id": 1,
+   "text": "from Slack or whatever. Um, we've done this kind of in our infrastructure, uh so that we can orchestrate with whatever model we want, with whatever internal tools we want, and keep control of our data. And that's sort of what the kind of centralized version of the system looks like."
+  },
+  {
+   "start": 65.71,
+   "end": 104.83,
+   "speaker_id": 0,
+   "text": "And it's enabled new ways to work. Like one way to work is we have this thing called Aid Mint, which is a system by which you mostly via Slack, but there's a few other ways that you can interact with it. You tell it the thing that you want to happen and it goes and creates a new feature, which is essentially our term for pull request. It spins up a build inside of that feature and then it kicks off the agent to go do some work. And you can actually do this totally from Slack. So you say, oh, this is the thing that I want to happen in this area of the code base, and the agent will go off and do it. But importantly, the work that it's actually doing, it's like running as you on your computer."
+  },
+  {
+   "start": 104.83,
+   "end": 112.98,
+   "speaker_id": 0,
+   "text": "It's not like we, you know, have a bunch of AI build boxes out there. It's just like actually distributing the work back to, um, your development machine."
+  },
+  {
+   "start": 112.98,
+   "end": 116.52,
+   "speaker_id": 1,
+   "text": "Right, although maybe not running exactly as you, maybe it's running as your AI user. True."
+  },
+  {
+   "start": 117.9,
+   "end": 118.82,
+   "speaker_id": 1,
+   "text": "Right."
+  },
+  {
+   "start": 118.82,
+   "end": 157.09,
+   "speaker_id": 1,
+   "text": "And I think the interesting thing about that last piece, this kind of mint system, is that in some sense, it seems like totally trivial. It's like, I could have spun up a new piece of work by like, you know, going off and creating a feature and then starting an agent inside of it and asking the agent to do it. And it's a relatively small UX change to make it so that you can just say something in Slack and have an agent pick it up and create the feature for you and start the work. But that relatively small user experience change was a really big difference to people's behavior. It's a little bit like conflated because it's like also at around the time that models were getting significantly better."
+  },
+  {
+   "start": 157.09,
+   "end": 166.9,
+   "speaker_id": 1,
+   "text": "But we just saw like a huge uptake in this and I think the amount of work that was done with agents authoring that work like dramatically shot up. Yeah."
+  },
+  {
+   "start": 166.9,
+   "end": 207.37,
+   "speaker_id": 0,
+   "text": "Yeah, it's something like like 45% of the total released features PRs, uh, that get, uh, made at the firm are start with this flow. This like kind of asynchronous, uh, flow involving an LLM. I think in a way it gets you past the kind of blank page problem, like you were talking about before with a document. Like you're, you know, writing a document, oh, what do I write? It might be the case that the LLM writes something for you and you change most of the details. But there's still value in it kind of doing the first bit. And also like it's worth saying that, you know, there's a lot of toil involved in just creating a new, um, pull request, right? You have to like go create a branch, you have to switch to that branch."
+  },
+  {
+   "start": 207.37,
+   "end": 219.35,
+   "speaker_id": 0,
+   "text": "you have to figure out what build targets to put in place, you have to like create a name for it, you have to get the whole like workspace set up correctly, you have to figure out what files are involved in the change you want to make, and the LLM can kind of just jump right through all that."
+  },
+  {
+   "start": 219.35,
+   "end": 242.36,
+   "speaker_id": 1,
+   "text": "And I think another interesting aspect of this is how much of the work is stuff that you just kind of let the agent just kind of do and how much do you kind of hard set up. And I think there were a bunch of good choices that were made about what things you just kind of hard set up, not because the agent couldn't do it at all, but because it made things faster and more reliable and more consistent to kind of do them in advance in this way."
+  },
+  {
+   "start": 242.36,
+   "end": 254.88,
+   "speaker_id": 0,
+   "text": "And then we're even noticing places where like the setup that we've provided for the agent is useful for the humans too. Like in a way the problem that I just described of like picking the build targets, uh, that are appropriate for your work, well like"
+  },
+  {
+   "start": 254.88,
+   "end": 267.88,
+   "speaker_id": 0,
+   "text": "it's annoying for a human to do too, right? So like the same systems that we put in place for maybe authors to say, oh, in this part of the tree, the build targets that I probably want are these. Once we do that work, now humans can benefit from that change too."
+  },
+  {
+   "start": 268.2,
+   "end": 307.35,
+   "speaker_id": 1,
+   "text": "I I had an interesting conversation earlier this week with someone who was thinking about the kind of vibe coding problem with uh web apps. So like one thing that like everyone now knows is like the models are really good at is like thracking together a quick web UI. And this is actually an area where we're really excited about, you know, real deal vibe coding, meaning like having agents write stuff that like maybe no human looks at at all. And one of the reasons why it's useful is, first of all, it lets you write code, it's less about, you know, changing how you write the code you were going to write before and instead let you write code that you would have never bothered to write at all."
+  },
+  {
+   "start": 307.35,
+   "end": 330.0,
+   "speaker_id": 1,
+   "text": "because it's like it's now just so cheap to do that you can have this kind of like disposable tool that you like quickly throw together to solve some particular problem. Is it exactly right? Uh, probably not, but it doesn't totally matter. It gives you enough insight and it's useful for that one use case and you kind of throw it away when you're done. And trying to build workflows that make it really easy and natural to do that. And it turns"
+  }
+ ],
+ "gen_tokens": 1774,
+ "text": "[{\"Start\":0,\"End\":32.06,\"Speaker\":0,\"Content\":\"the prompting loop and the place that the work is running are in the same place. And you kind of saw this opportunity to make a change to split those apart so that people could do things like use the chat application, ChainGPT, to be able to do work that actually ends up happening on a computer totally somewhere else. So we have made it so that there's like a central orchestrator that takes in all of the prompts and is able to distribute work onto any of the hosts connected to it, where the hosts are roughly all of the developer machines at the firm plus a bunch of build boxes.\"},{\"Start\":32.06,\"End\":48.8,\"Speaker\":1,\"Content\":\"Right, and this is like not so different from some of the directions that the kind of prompting engines kind of in the outside world have moved in, of wanting to like take that same session and instead of having it just like sit locally on your box, be in some kind of distributed system where you can access it through a web UI or from your phone.\"},{\"Start\":48.8,\"End\":49.93,\"Speaker\":0,\"Content\":\"Yeah, like from Slack.\"},{\"Start\":49.93,\"End\":65.71,\"Speaker\":1,\"Content\":\"from Slack or whatever. Um, we've done this kind of in our infrastructure, uh so that we can orchestrate with whatever model we want, with whatever internal tools we want, and keep control of our data. And that's sort of what the kind of centralized version of the system looks like.\"},{\"Start\":65.71,\"End\":104.83,\"Speaker\":0,\"Content\":\"And it's enabled new ways to work. Like one way to work is we have this thing called Aid Mint, which is a system by which you mostly via Slack, but there's a few other ways that you can interact with it. You tell it the thing that you want to happen and it goes and creates a new feature, which is essentially our term for pull request. It spins up a build inside of that feature and then it kicks off the agent to go do some work. And you can actually do this totally from Slack. So you say, oh, this is the thing that I want to happen in this area of the code base, and the agent will go off and do it. But importantly, the work that it's actually doing, it's like running as you on your computer.\"},{\"Start\":104.83,\"End\":112.98,\"Speaker\":0,\"Content\":\"It's not like we, you know, have a bunch of AI build boxes out there. It's just like actually distributing the work back to, um, your development machine.\"},{\"Start\":112.98,\"End\":116.52,\"Speaker\":1,\"Content\":\"Right, although maybe not running exactly as you, maybe it's running as your AI user. True.\"},{\"Start\":117.9,\"End\":118.82,\"Speaker\":1,\"Content\":\"Right.\"},{\"Start\":118.82,\"End\":157.09,\"Speaker\":1,\"Content\":\"And I think the interesting thing about that last piece, this kind of mint system, is that in some sense, it seems like totally trivial. It's like, I could have spun up a new piece of work by like, you know, going off and creating a feature and then starting an agent inside of it and asking the agent to do it. And it's a relatively small UX change to make it so that you can just say something in Slack and have an agent pick it up and create the feature for you and start the work. But that relatively small user experience change was a really big difference to people's behavior. It's a little bit like conflated because it's like also at around the time that models were getting significantly better.\"},{\"Start\":157.09,\"End\":166.9,\"Speaker\":1,\"Content\":\"But we just saw like a huge uptake in this and I think the amount of work that was done with agents authoring that work like dramatically shot up. Yeah.\"},{\"Start\":166.9,\"End\":207.37,\"Speaker\":0,\"Content\":\"Yeah, it's something like like 45% of the total released features PRs, uh, that get, uh, made at the firm are start with this flow. This like kind of asynchronous, uh, flow involving an LLM. I think in a way it gets you past the kind of blank page problem, like you were talking about before with a document. Like you're, you know, writing a document, oh, what do I write? It might be the case that the LLM writes something for you and you change most of the details. But there's still value in it kind of doing the first bit. And also like it's worth saying that, you know, there's a lot of toil involved in just creating a new, um, pull request, right? You have to like go create a branch, you have to switch to that branch.\"},{\"Start\":207.37,\"End\":219.35,\"Speaker\":0,\"Content\":\"you have to figure out what build targets to put in place, you have to like create a name for it, you have to get the whole like workspace set up correctly, you have to figure out what files are involved in the change you want to make, and the LLM can kind of just jump right through all that.\"},{\"Start\":219.35,\"End\":242.36,\"Speaker\":1,\"Content\":\"And I think another interesting aspect of this is how much of the work is stuff that you just kind of let the agent just kind of do and how much do you kind of hard set up. And I think there were a bunch of good choices that were made about what things you just kind of hard set up, not because the agent couldn't do it at all, but because it made things faster and more reliable and more consistent to kind of do them in advance in this way.\"},{\"Start\":242.36,\"End\":254.88,\"Speaker\":0,\"Content\":\"And then we're even noticing places where like the setup that we've provided for the agent is useful for the humans too. Like in a way the problem that I just described of like picking the build targets, uh, that are appropriate for your work, well like\"},{\"Start\":254.88,\"End\":267.88,\"Speaker\":0,\"Content\":\"it's annoying for a human to do too, right? So like the same systems that we put in place for maybe authors to say, oh, in this part of the tree, the build targets that I probably want are these. Once we do that work, now humans can benefit from that change too.\"},{\"Start\":268.2,\"End\":307.35,\"Speaker\":1,\"Content\":\"I I had an interesting conversation earlier this week with someone who was thinking about the kind of vibe coding problem with uh web apps. So like one thing that like everyone now knows is like the models are really good at is like thracking together a quick web UI. And this is actually an area where we're really excited about, you know, real deal vibe coding, meaning like having agents write stuff that like maybe no human looks at at all. And one of the reasons why it's useful is, first of all, it lets you write code, it's less about, you know, changing how you write the code you were going to write before and instead let you write code that you would have never bothered to write at all.\"},{\"Start\":307.35,\"End\":330.0,\"Speaker\":1,\"Content\":\"because it's like it's now just so cheap to do that you can have this kind of like disposable tool that you like quickly throw together to solve some particular problem. Is it exactly right? Uh, probably not, but it doesn't totally matter. It gives you enough insight and it's useful for that one use case and you kind of throw it away when you're done. And trying to build workflows that make it really easy and natural to do that. And it turns\"}]"
+}

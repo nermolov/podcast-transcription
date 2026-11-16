@@ -1,0 +1,139 @@
+{
+ "chunk": 9,
+ "audio": [
+  2670.0,
+  3000.0
+ ],
+ "new_start": 2700.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 2.48,
+   "speaker_id": 0,
+   "text": "like other services, right?"
+  },
+  {
+   "start": 2.48,
+   "end": 26.68,
+   "speaker_id": 1,
+   "text": "That's right. And we already for other reasons actually have ways of blocking off and sandboxing various elements of the build process because we have like this big complicated build system that wants to make sure that everything is deterministic so it can efficiently reuse components and it just like needs to do needs to like block things off so that you know you're not like hitting some random, you know, potentially non-deterministic thing in the outside world."
+  },
+  {
+   "start": 26.68,
+   "end": 31.91,
+   "speaker_id": 0,
+   "text": "Yeah, like most good test suites turn off access to the network, right? Just like turn it off entirely."
+  },
+  {
+   "start": 31.91,
+   "end": 32.61,
+   "speaker_id": 1,
+   "text": "That's right."
+  },
+  {
+   "start": 32.61,
+   "end": 63.64,
+   "speaker_id": 1,
+   "text": "So you in some ways, for the core software engineering activities, you already need to know your dependencies and therefore you need to control what can be accessed during the execution of say a build. Um, but that's not everything that you do as a software engineer, and it like really maps poorly on what you do as someone doing like large-scale research at a place like Jane Street, where you are hitting various kinds of big data systems that you do not have like, you know, nicely captured and simulated inside of your build process, right?"
+  },
+  {
+   "start": 63.64,
+   "end": 73.26,
+   "speaker_id": 1,
+   "text": "So part of what happened is like that sandboxing worked for some kinds of things, but didn't extend to the fuller suite of things that we want to be able to get LLMs to help us work on."
+  },
+  {
+   "start": 73.26,
+   "end": 111.7,
+   "speaker_id": 0,
+   "text": "at some point made a decision, this is like relatively recently, to change the sandboxing approach so that we have essentially a we have the same allow list sandbox and we basically say that if, you know, if something is allowed by the sandbox, we'll just allow it. And then if something is denied by the sandbox, we'll go ask an LLM classifier whether or not, uh, it is safe to execute. And if it is, I'm sorry, the LLM classifier can either say that it's safe to execute, that it's not safe to execute, or that it should ask the human for confirmation. So aside from just the sandboxing, there are like a bunch of other things that ended up having to happen."
+  },
+  {
+   "start": 111.7,
+   "end": 148.16,
+   "speaker_id": 0,
+   "text": "So if you think about sandboxing, you might be able to with a sandbox that is appropriately set up, stop maybe service A from calling to service B or like allow allow calls to service B. But if you think about the things that are actually happening in like real software, they're a little bit more nuanced than that. Like maybe you want to be able to call service B but only certain endpoints inside of it. Right. And sandboxing kind of can't help you there, right? Because sandboxing is operating either at the filesystem level or at the network level. It really doesn't know, you know, inside of this network packet there's an RPC call with this name in this field."
+  },
+  {
+   "start": 148.16,
+   "end": 148.9,
+   "speaker_id": 1,
+   "text": "Yep"
+  },
+  {
+   "start": 148.9,
+   "end": 162.78,
+   "speaker_id": 0,
+   "text": "So another thing that we ended up doing is having to make changes to the RPC infrastructure at the firm to make them more descriptive about whether or not they allowed calls from AI, um, from AI processes."
+  },
+  {
+   "start": 162.78,
+   "end": 202.7,
+   "speaker_id": 1,
+   "text": "Right, and this is like essentially the problem. You kind of have to go one level up. Like sandboxing is this kind of like very valuable kind of low-level precise solution that like helps you hard block all sorts of things that you want to hard block. But at the end of the day, you want to think about these LLMs as their own class of agent with their own permissions, and you have to push the decisions of whether or not a given agent is allowed to do a given thing. Like it can't be strictly a question that you answer with some kind of one-size-fits-all sandbox. You have to be able to customize things at the level of the application. Some kinds of things you might want to allow LLMs to do."
+  },
+  {
+   "start": 202.7,
+   "end": 215.62,
+   "speaker_id": 1,
+   "text": "sometimes you might not Um, and so you now have to start thinking about like restructuring how your system works in general. Um, and and as you were saying, kind of pushing all the way to the RPC level."
+  },
+  {
+   "start": 215.62,
+   "end": 231.47,
+   "speaker_id": 0,
+   "text": "and and that ends up involving a bunch of other teams and they have to make a bunch of changes. I think another interesting thing that happened here was we ended up introducing these things called AI users, which are alternate versions of each of the people at the firm in a way."
+  },
+  {
+   "start": 231.47,
+   "end": 234.22,
+   "speaker_id": 1,
+   "text": "So I'm Wymanski, but I also have AI Wymanski."
+  },
+  {
+   "start": 234.22,
+   "end": 274.64,
+   "speaker_id": 0,
+   "text": "Exactly. And when an AI is doing something on your behalf, it is for the most part calling as AI Yiminski. Uh and in that way we can we can attribute the use to an LLM, we can make sure that the RPCs apply the right set of rules because they know that the caller is an AI version of you. It also means that in other places, like we've built other systems that take use of this AI dash concept. Um one example is we have a thing that tracks code attribution on a line by line level to say which things are written with the assistance of an LLM and which things are written by a human. Um and you know, the things that are written by an LLM show up as the AI version of you."
+  },
+  {
+   "start": 274.78,
+   "end": 283.54,
+   "speaker_id": 0,
+   "text": "So we're kind of like seeing this AI dash concept that we introduced for uh permissioning show up in a bunch of other places too."
+  },
+  {
+   "start": 283.54,
+   "end": 284.48,
+   "speaker_id": 1,
+   "text": "Right."
+  },
+  {
+   "start": 284.48,
+   "end": 308.9,
+   "speaker_id": 1,
+   "text": "And maybe this like sketches out a different part of the evolution of the kind of whole way in which AIs are working inside of a place like this, which is, you know, there was this early era where like, you know, you could see in the outside world like, you know, GitHub released, you know, this these integrations for VS Code which were like all autocomplete based and the way you used LLMs, right? was Copilot, right?"
+  },
+  {
+   "start": 308.9,
+   "end": 309.77,
+   "speaker_id": 1,
+   "text": "and then we'll use the"
+  },
+  {
+   "start": 309.77,
+   "end": 317.58,
+   "speaker_id": 1,
+   "text": "is you use them for like fancy autocomplete. Yep. Um, and that's in some sense at an architectural level, like LLMs kind of are just like a"
+  },
+  {
+   "start": 317.58,
+   "end": 330.0,
+   "text": "[Speech]"
+  }
+ ],
+ "gen_tokens": 1702,
+ "text": "[{\"Start\":0,\"End\":2.48,\"Speaker\":0,\"Content\":\"like other services, right?\"},{\"Start\":2.48,\"End\":26.68,\"Speaker\":1,\"Content\":\"That's right. And we already for other reasons actually have ways of blocking off and sandboxing various elements of the build process because we have like this big complicated build system that wants to make sure that everything is deterministic so it can efficiently reuse components and it just like needs to do needs to like block things off so that you know you're not like hitting some random, you know, potentially non-deterministic thing in the outside world.\"},{\"Start\":26.68,\"End\":31.91,\"Speaker\":0,\"Content\":\"Yeah, like most good test suites turn off access to the network, right? Just like turn it off entirely.\"},{\"Start\":31.91,\"End\":32.61,\"Speaker\":1,\"Content\":\"That's right.\"},{\"Start\":32.61,\"End\":63.64,\"Speaker\":1,\"Content\":\"So you in some ways, for the core software engineering activities, you already need to know your dependencies and therefore you need to control what can be accessed during the execution of say a build. Um, but that's not everything that you do as a software engineer, and it like really maps poorly on what you do as someone doing like large-scale research at a place like Jane Street, where you are hitting various kinds of big data systems that you do not have like, you know, nicely captured and simulated inside of your build process, right?\"},{\"Start\":63.64,\"End\":73.26,\"Speaker\":1,\"Content\":\"So part of what happened is like that sandboxing worked for some kinds of things, but didn't extend to the fuller suite of things that we want to be able to get LLMs to help us work on.\"},{\"Start\":73.26,\"End\":111.7,\"Speaker\":0,\"Content\":\"at some point made a decision, this is like relatively recently, to change the sandboxing approach so that we have essentially a we have the same allow list sandbox and we basically say that if, you know, if something is allowed by the sandbox, we'll just allow it. And then if something is denied by the sandbox, we'll go ask an LLM classifier whether or not, uh, it is safe to execute. And if it is, I'm sorry, the LLM classifier can either say that it's safe to execute, that it's not safe to execute, or that it should ask the human for confirmation. So aside from just the sandboxing, there are like a bunch of other things that ended up having to happen.\"},{\"Start\":111.7,\"End\":148.16,\"Speaker\":0,\"Content\":\"So if you think about sandboxing, you might be able to with a sandbox that is appropriately set up, stop maybe service A from calling to service B or like allow allow calls to service B. But if you think about the things that are actually happening in like real software, they're a little bit more nuanced than that. Like maybe you want to be able to call service B but only certain endpoints inside of it. Right. And sandboxing kind of can't help you there, right? Because sandboxing is operating either at the filesystem level or at the network level. It really doesn't know, you know, inside of this network packet there's an RPC call with this name in this field.\"},{\"Start\":148.16,\"End\":148.9,\"Speaker\":1,\"Content\":\"Yep\"},{\"Start\":148.9,\"End\":162.78,\"Speaker\":0,\"Content\":\"So another thing that we ended up doing is having to make changes to the RPC infrastructure at the firm to make them more descriptive about whether or not they allowed calls from AI, um, from AI processes.\"},{\"Start\":162.78,\"End\":202.7,\"Speaker\":1,\"Content\":\"Right, and this is like essentially the problem. You kind of have to go one level up. Like sandboxing is this kind of like very valuable kind of low-level precise solution that like helps you hard block all sorts of things that you want to hard block. But at the end of the day, you want to think about these LLMs as their own class of agent with their own permissions, and you have to push the decisions of whether or not a given agent is allowed to do a given thing. Like it can't be strictly a question that you answer with some kind of one-size-fits-all sandbox. You have to be able to customize things at the level of the application. Some kinds of things you might want to allow LLMs to do.\"},{\"Start\":202.7,\"End\":215.62,\"Speaker\":1,\"Content\":\"sometimes you might not Um, and so you now have to start thinking about like restructuring how your system works in general. Um, and and as you were saying, kind of pushing all the way to the RPC level.\"},{\"Start\":215.62,\"End\":231.47,\"Speaker\":0,\"Content\":\"and and that ends up involving a bunch of other teams and they have to make a bunch of changes. I think another interesting thing that happened here was we ended up introducing these things called AI users, which are alternate versions of each of the people at the firm in a way.\"},{\"Start\":231.47,\"End\":234.22,\"Speaker\":1,\"Content\":\"So I'm Wymanski, but I also have AI Wymanski.\"},{\"Start\":234.22,\"End\":274.64,\"Speaker\":0,\"Content\":\"Exactly. And when an AI is doing something on your behalf, it is for the most part calling as AI Yiminski. Uh and in that way we can we can attribute the use to an LLM, we can make sure that the RPCs apply the right set of rules because they know that the caller is an AI version of you. It also means that in other places, like we've built other systems that take use of this AI dash concept. Um one example is we have a thing that tracks code attribution on a line by line level to say which things are written with the assistance of an LLM and which things are written by a human. Um and you know, the things that are written by an LLM show up as the AI version of you.\"},{\"Start\":274.78,\"End\":283.54,\"Speaker\":0,\"Content\":\"So we're kind of like seeing this AI dash concept that we introduced for uh permissioning show up in a bunch of other places too.\"},{\"Start\":283.54,\"End\":284.48,\"Speaker\":1,\"Content\":\"Right.\"},{\"Start\":284.48,\"End\":308.9,\"Speaker\":1,\"Content\":\"And maybe this like sketches out a different part of the evolution of the kind of whole way in which AIs are working inside of a place like this, which is, you know, there was this early era where like, you know, you could see in the outside world like, you know, GitHub released, you know, this these integrations for VS Code which were like all autocomplete based and the way you used LLMs, right? was Copilot, right?\"},{\"Start\":308.9,\"End\":309.77,\"Speaker\":1,\"Content\":\"and then we'll use the\"},{\"Start\":309.77,\"End\":317.58,\"Speaker\":1,\"Content\":\"is you use them for like fancy autocomplete. Yep. Um, and that's in some sense at an architectural level, like LLMs kind of are just like a\"},{\"Start\":317.58,\"End\":330.0,\"Content\":\"[Speech]\"}]"
+}

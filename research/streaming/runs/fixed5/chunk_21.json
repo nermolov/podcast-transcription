@@ -1,0 +1,91 @@
+{
+ "chunk": 21,
+ "audio": [
+  6270.0,
+  6509.112
+ ],
+ "new_start": 6300.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 28.03,
+   "speaker_id": 0,
+   "text": "And you know, even in the context of code review where like someone gives you like something to read and you're like, \"Ugh, I would like to make this much better before releasing,\" but also we should get it done. And maybe I should just like make sure it's reasonable and get it out even though it's not in an ideal shape. But if it's much easier to like take those changes and improvements and like turn them into a reality, then you can end up with like higher quality code that comes out of it. So I do think like a lot of a lot of what comes out of all this technology depends on what we make out of it."
+  },
+  {
+   "start": 28.11,
+   "end": 63.65,
+   "speaker_id": 1,
+   "text": "Yeah, and and how you respond to it. I mean like one if you're worried about slop, one way you can kind of protect is like holding your code still to a relatively high standard. You can you can make that choice. And maybe you don't want to make that choice everywhere consistently. Maybe some cases you want to say, okay, we're like pretty tolerable of slop here, and in this other place we we don't want to be. There's like another thing related to slop, which is whether or not you deem a feature worth building. This is like another interesting one where I think the line has like moved more toward like yes, it is worth building, but maybe in a way that's making people feel uncomfortable."
+  },
+  {
+   "start": 63.65,
+   "end": 80.12,
+   "speaker_id": 1,
+   "text": "where they're kind of like, um, have to raise this question of like, if you weren't going to build it before and you weren't going to put your time toward it, and now you have an LLM that can like do this thing, should you actually do it? Should you have the LLM go do this uh piece of work that you were uh kind of skip?"
+  },
+  {
+   "start": 80.12,
+   "end": 80.77,
+   "speaker_id": 0,
+   "text": "Mhm"
+  },
+  {
+   "start": 80.77,
+   "end": 99.98,
+   "speaker_id": 1,
+   "text": "This is also hard for people making tools sometimes because it's like the um I don't know maybe your user wants a thing that you think shouldn't exist, but now they're not coming to you with like a request, they're coming to you with with code. And it feels like a little bit harder socially to be like, no, we don't want it when the thing they're presenting is kind of a finished product."
+  },
+  {
+   "start": 99.98,
+   "end": 136.25,
+   "speaker_id": 0,
+   "text": "That's right. Like there's a way in which the whole like existence of AI agents has kind of broken the social contract around code review where it used to be when someone would hand you a feature, like you were, you know, it made more sense for you to like help get that thing over the line because like they put in a lot of work, a lot of sweat equity that went into creating that. Yeah. And now like all you need is like a prompt and a dream and like you can like for free create a plausible looking problem. But it's still hard work to verify that it makes sense and like you don't want to like add lots of things to a system that will make it overall like messy and complicated."
+  },
+  {
+   "start": 136.25,
+   "end": 166.64,
+   "speaker_id": 0,
+   "text": "Even if the code is good, it might be that it makes the system that you're building conceptually complicated for the end user, right? If everyone gets every knob that they want, like you just get too many knobs. Yeah. And so, yeah, figuring out like what's the appropriate kind of pushback, right? And it's just like the shape of it is different. Like you've always had to deal with these kind of questions. Prioritization questions have always been hard, but they now just present themselves in different ways and I think it's just something that we have to like learn to adapt to, basically at a cultural level."
+  },
+  {
+   "start": 166.64,
+   "end": 195.33,
+   "speaker_id": 1,
+   "text": "Yeah, I think that's right. One framing I've found helpful that I've heard recently is just think of like they are coming to you with code, they probably put some time into it. Think of it as a prototype and then just still have the discussion about whether or not the thing is warranted. Yeah. It's like culturally, you know, at a, you know, for the whole engineering organization, we need to be like more comfortable kind of understanding, yes, that is code, it's useful to look at so that we have the thing that we're talking about together, but like let's talk about the merit of the change instead."
+  },
+  {
+   "start": 195.33,
+   "end": 223.47,
+   "speaker_id": 0,
+   "text": "That's right. And the prototypes can be amazing, right? It can be like someone has an idea of what to do and there's like the prototypes they hand you, but the amazing thing is all the prototypes they threw away. Like they tried a thing and they're like, yeah, this sucks, and they get rid of it. It's like, you know, there's real work in refining the idea and presenting it. And then, you know, and then maybe the implementation isn't good and you don't want to use that. But I do think at the end of the day, it's a powerful new way of people to work together and exchange ideas and and in the end, I think that's really exciting."
+  },
+  {
+   "start": 223.95,
+   "end": 228.07,
+   "speaker_id": 0,
+   "text": "Alright. Well, maybe that's a good place to stop. Thanks so much for joining me."
+  },
+  {
+   "start": 228.07,
+   "end": 229.41,
+   "speaker_id": 1,
+   "text": "Thank you for having me."
+  },
+  {
+   "start": 229.85,
+   "end": 235.81,
+   "speaker_id": 0,
+   "text": "You'll find a complete transcript of the episode along with show notes and links at signalsandthreads.com."
+  },
+  {
+   "start": 235.81,
+   "end": 239.11,
+   "text": "[Music]"
+  }
+ ],
+ "gen_tokens": 1382,
+ "text": "[{\"Start\":0,\"End\":28.03,\"Speaker\":0,\"Content\":\"And you know, even in the context of code review where like someone gives you like something to read and you're like, \\\"Ugh, I would like to make this much better before releasing,\\\" but also we should get it done. And maybe I should just like make sure it's reasonable and get it out even though it's not in an ideal shape. But if it's much easier to like take those changes and improvements and like turn them into a reality, then you can end up with like higher quality code that comes out of it. So I do think like a lot of a lot of what comes out of all this technology depends on what we make out of it.\"},{\"Start\":28.11,\"End\":63.65,\"Speaker\":1,\"Content\":\"Yeah, and and how you respond to it. I mean like one if you're worried about slop, one way you can kind of protect is like holding your code still to a relatively high standard. You can you can make that choice. And maybe you don't want to make that choice everywhere consistently. Maybe some cases you want to say, okay, we're like pretty tolerable of slop here, and in this other place we we don't want to be. There's like another thing related to slop, which is whether or not you deem a feature worth building. This is like another interesting one where I think the line has like moved more toward like yes, it is worth building, but maybe in a way that's making people feel uncomfortable.\"},{\"Start\":63.65,\"End\":80.12,\"Speaker\":1,\"Content\":\"where they're kind of like, um, have to raise this question of like, if you weren't going to build it before and you weren't going to put your time toward it, and now you have an LLM that can like do this thing, should you actually do it? Should you have the LLM go do this uh piece of work that you were uh kind of skip?\"},{\"Start\":80.12,\"End\":80.77,\"Speaker\":0,\"Content\":\"Mhm\"},{\"Start\":80.77,\"End\":99.98,\"Speaker\":1,\"Content\":\"This is also hard for people making tools sometimes because it's like the um I don't know maybe your user wants a thing that you think shouldn't exist, but now they're not coming to you with like a request, they're coming to you with with code. And it feels like a little bit harder socially to be like, no, we don't want it when the thing they're presenting is kind of a finished product.\"},{\"Start\":99.98,\"End\":136.25,\"Speaker\":0,\"Content\":\"That's right. Like there's a way in which the whole like existence of AI agents has kind of broken the social contract around code review where it used to be when someone would hand you a feature, like you were, you know, it made more sense for you to like help get that thing over the line because like they put in a lot of work, a lot of sweat equity that went into creating that. Yeah. And now like all you need is like a prompt and a dream and like you can like for free create a plausible looking problem. But it's still hard work to verify that it makes sense and like you don't want to like add lots of things to a system that will make it overall like messy and complicated.\"},{\"Start\":136.25,\"End\":166.64,\"Speaker\":0,\"Content\":\"Even if the code is good, it might be that it makes the system that you're building conceptually complicated for the end user, right? If everyone gets every knob that they want, like you just get too many knobs. Yeah. And so, yeah, figuring out like what's the appropriate kind of pushback, right? And it's just like the shape of it is different. Like you've always had to deal with these kind of questions. Prioritization questions have always been hard, but they now just present themselves in different ways and I think it's just something that we have to like learn to adapt to, basically at a cultural level.\"},{\"Start\":166.64,\"End\":195.33,\"Speaker\":1,\"Content\":\"Yeah, I think that's right. One framing I've found helpful that I've heard recently is just think of like they are coming to you with code, they probably put some time into it. Think of it as a prototype and then just still have the discussion about whether or not the thing is warranted. Yeah. It's like culturally, you know, at a, you know, for the whole engineering organization, we need to be like more comfortable kind of understanding, yes, that is code, it's useful to look at so that we have the thing that we're talking about together, but like let's talk about the merit of the change instead.\"},{\"Start\":195.33,\"End\":223.47,\"Speaker\":0,\"Content\":\"That's right. And the prototypes can be amazing, right? It can be like someone has an idea of what to do and there's like the prototypes they hand you, but the amazing thing is all the prototypes they threw away. Like they tried a thing and they're like, yeah, this sucks, and they get rid of it. It's like, you know, there's real work in refining the idea and presenting it. And then, you know, and then maybe the implementation isn't good and you don't want to use that. But I do think at the end of the day, it's a powerful new way of people to work together and exchange ideas and and in the end, I think that's really exciting.\"},{\"Start\":223.95,\"End\":228.07,\"Speaker\":0,\"Content\":\"Alright. Well, maybe that's a good place to stop. Thanks so much for joining me.\"},{\"Start\":228.07,\"End\":229.41,\"Speaker\":1,\"Content\":\"Thank you for having me.\"},{\"Start\":229.85,\"End\":235.81,\"Speaker\":0,\"Content\":\"You'll find a complete transcript of the episode along with show notes and links at signalsandthreads.com.\"},{\"Start\":235.81,\"End\":239.11,\"Content\":\"[Music]\"}]"
+}

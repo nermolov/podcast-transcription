@@ -1,0 +1,740 @@
+{
+ "chunk": 3,
+ "audio": [
+  1650.0,
+  4080.0
+ ],
+ "new_start": 1680.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 28.56,
+   "speaker_id": 0,
+   "text": "powered applications on top of. So this includes uh client libraries for making just kind of one-off LLM calls. It also includes the ability to like specify uh functions in OCaml or in Python that get passed to the LLM that it can use, which also includes a uh ability to specify with OCaml types the types that will be presented to the LLM for the function calls that it uses. So it kind of bridges over um you know the difference between JSON types and OCaml types."
+  },
+  {
+   "start": 28.56,
+   "end": 48.62,
+   "speaker_id": 1,
+   "text": "Right, and this is like the difference between like old school, you just like give some text to an LLM and it completes it, to kind of modern agentic flows where the LLM emits tool calls and then you execute those tool calls and feed the results back in and like this whole cycle of things that allows the models to take action in the world. Like that's what these function calls give you."
+  },
+  {
+   "start": 48.62,
+   "end": 79.52,
+   "speaker_id": 0,
+   "text": "And then, uh, on top of that we build a series of products that people use. So one example of that is this JN GPT application. Uh, another example that I'm sure we'll talk about a bunch is we build a uh CLI-based coding assistant which is called Aid. Uh, Aid CLI. And then we also put those inside of editors. And then we've also increasingly been starting to like put surfaces inside of things like Python notebooks or inside of um the interface for Webs, the programming language you were talking about earlier."
+  },
+  {
+   "start": 79.92,
+   "end": 120.39,
+   "speaker_id": 0,
+   "text": "And so that's the the set of tools that we make for humans. Mhm. Then there's also a set of tools that we make kind of for the LLMs, right? The LLMs have to like do things to the world. So they need to be able to uh read the wiki or they need to be able to like run bash commands on people's computers. We'll talk more about that too. Um but all of the things that the LLMs do and the ecosystem of tools that the firm has built, some of these are built by us, um and some of them are built by different parts of the firm. There are like over a thousand different tools that different parts of the firm have made to do things related to their particular business. Mhm. Another thing that our team does is we work on evaluation."
+  },
+  {
+   "start": 120.39,
+   "end": 152.31,
+   "speaker_id": 0,
+   "text": "So this is like essentially writing tests for the models where the models try to do uh some amount of work and then we we grade them, right, to say how they did on the test. And in doing this work, we both get an idea of like how models are doing so we can make decisions about which ones to put in front of people by default. And we also gain the ability to make improvements to kind of the harnesses and how we set things up. Um so how do we prompt it or what tools do we give it by default or what skills do we present to the model."
+  },
+  {
+   "start": 152.31,
+   "end": 153.11,
+   "speaker_id": 1,
+   "text": "Right."
+  },
+  {
+   "start": 153.11,
+   "end": 188.58,
+   "speaker_id": 1,
+   "text": "And this is like, you know, in some ways like a crashing in of like the worst possible outcome when it comes to testing and that like normally you spend all this time building testing infrastructure, trying really hard to make everything deterministic, and then we feel we have to like fit in this like kind of fundamentally stochastic process where we don't even have great hard rules about how to evaluate the evaluate the evaluations themselves are done at least in part by LLMs. Yep. Uh so like we're doing our best here and trying to make the best possible testing, but it's really challenging from an engineering perspective."
+  },
+  {
+   "start": 188.58,
+   "end": 198.34,
+   "speaker_id": 1,
+   "text": "like you would really like to have good ways of like you build your product, you test it, you demonstrate that it works well, and you make changes and see if it's better after those changes and see that the tests keep on working."
+  },
+  {
+   "start": 198.68,
+   "end": 213.25,
+   "speaker_id": 1,
+   "text": "All sorts of like irrelevant little details can like perturb the outcome of these tests and it can be really hard to interpret. There's a there's actually a real kind of fundamentally statistical component to this kind of evaluation work, which you don't necessarily have in all the other kinds of testing that you do."
+  },
+  {
+   "start": 213.25,
+   "end": 228.52,
+   "speaker_id": 0,
+   "text": "We also do um, well, I'm sure we'll talk about this in a bit, but we we build even meta graders. So like when we use LLM graders, we now have to write the evaluations for the LLM grader. It's a whole interesting set of things to talk about there too."
+  },
+  {
+   "start": 228.52,
+   "end": 261.76,
+   "speaker_id": 1,
+   "text": "Yeah, there's like a fundamental problem of like I want to see how good an agent is at solving some problem. So I'm like fundamentally putting something up that's at the edge of the cognitive capabilities of the model. And then I want to evaluate whether it did a good job. But but like if I'm evaluating like the strongest model I have at my disposal and I have another instance of a roughly equally strong model that's trying to evaluate whether or not that thing did a good job, it's like there's like a fundamental problem of here you may not just have like the intellectual wattage to solve the problem that you're trying to solve. Yep."
+  },
+  {
+   "start": 262.32,
+   "end": 289.03,
+   "speaker_id": 0,
+   "text": "Yeah, I think there's a bunch of interesting things here about whether you can trust the model to discriminate on the work of another model, even if you can't trust it to produce the thing. A lot of times the thing that comes to mind here is like probably you can't build a car, but like you can go down to the street and tell me if something is a car. And I think that that's maybe an interesting analogy that's useful to explain to yourself why LLM graders might not be as bad as they seem on the surface."
+  },
+  {
+   "start": 289.03,
+   "end": 289.74,
+   "speaker_id": 1,
+   "text": "That's right."
+  },
+  {
+   "start": 289.74,
+   "end": 321.74,
+   "speaker_id": 1,
+   "text": "Although I feel like for a lot of the most important things, it actually doesn't work, right? Because in some ways, like the whole world is kind of piled up to make this not work. Because what happens is, it's not just us running evals on the models. The labs who are building the models are running evals on the models and they're using them as part of the RL. And so the models are getting like as good as they can get in a way that's in some sense bounded by the verifiability or at least bounded by maybe other things too, but at least bounded by the verifiability of the task."
+  },
+  {
+   "start": 321.74,
+   "end": 343.84,
+   "speaker_id": 1,
+   "text": "And so you have this thing where the where the the things that the models are bad at are like exactly at the edge of what the models can discriminate. And so all the stuff around taste of code and like whether they're doing you know reward hacking and stuff like that, it's like the world is built and optimized to build things for you that are then hard for the LLMs to evaluate."
+  },
+  {
+   "start": 343.84,
+   "end": 368.91,
+   "speaker_id": 0,
+   "text": "I think you need to find a way to like shrink where the LLM is doing its work. So, we've increasingly started relying on rubrics, for example, as a way to do this. Like, maybe you can take a problem and subdivide the grading of it into like a series of problems that maybe are more approachable for an LLM than than just like, did this model do exactly the thing it was supposed to do? Um, there are also more deterministic ways to grade in some cases that are also interesting."
+  },
+  {
+   "start": 368.91,
+   "end": 378.25,
+   "speaker_id": 1,
+   "text": "That's right. You can like, if you give a model a task to optimize something, you can see how well it optimized it. If you have tests of the correctness, you can actually run those tests. Yep."
+  },
+  {
+   "start": 378.25,
+   "end": 388.27,
+   "speaker_id": 0,
+   "text": "And sometimes the thing you want to look at is even not a grade necessarily. Sometimes it's like, how long in wall clock time did this thing take to run? Or how many tokens did it use? Or how much did it cost?"
+  },
+  {
+   "start": 388.27,
+   "end": 427.56,
+   "speaker_id": 0,
+   "text": "uh so those are also interesting. Yep. And then the last area that we focus on is security. Uh so the models, I guess like one thing to say is that for a long time, everyone, the whole world, trusted humans to have good judgment about whether they did things or not. And now we're putting LLMs into this like same system that was built for humans. Uh and so for example, you put a model inside of a Python notebook and yes, clearly that's something we want the model to do. Uh but in putting it in a Python notebook, it's now running in an environment that's also running as the human, where the model can do things like run system and then just immediately uh"
+  },
+  {
+   "start": 427.56,
+   "end": 453.43,
+   "speaker_id": 0,
+   "text": "you know, escape Python and do whatever it wants to do. So there's this uh process that we've kind of been going about around some combination of building sandboxes and building like better access controls into uh various systems to make it so that the models can only do the things that we think are like actually safe. And increasingly that also has us relying on uh going back to the previous point, LLMs judging whether or not something's safe, which is a very interesting thing."
+  },
+  {
+   "start": 453.43,
+   "end": 455.64,
+   "speaker_id": 1,
+   "text": "Right And it's not like"
+  },
+  {
+   "start": 455.69,
+   "end": 481.93,
+   "speaker_id": 1,
+   "text": "In the old world, we trusted humans in an unbounded way. Like, I think a real fact about our internal environment is that we give people a lot of trust and we give them a lot of access to do things. But there's still an access control system. But if you just like naively use LLMs and kind of set them up without thinking about the setup at all, then the LLMs just inherit all the permissions of the human. Yep. And that's super wrong. Like, you don't want that. You want some kind of bounds on what the LLM can do."
+  },
+  {
+   "start": 481.93,
+   "end": 491.14,
+   "speaker_id": 0,
+   "text": "Um, my favorite example of this is the like compute utilization. So we have like, you know, giant compute cluster that humans can schedule jobs onto."
+  },
+  {
+   "start": 491.14,
+   "end": 491.81,
+   "speaker_id": 1,
+   "text": "Yep"
+  },
+  {
+   "start": 491.81,
+   "end": 523.38,
+   "speaker_id": 0,
+   "text": "And of course, we want the LLMs to also be able to schedule jobs there because some of the work that we want them to do involves lots of compute. And uh, in order to access this system, humans have to like bid for time. They essentially have to say like how much in these fake dollars that they're willing to pay for their job to be run. And then the system has kind of preempting so that if a job that comes along that is has a higher dollar amount, it gets preempted. And if another job comes along that has a higher dollar amount, then the job with the lower dollar amount gets preempted."
+  },
+  {
+   "start": 523.74,
+   "end": 535.9,
+   "speaker_id": 0,
+   "text": "And, you know, LLMs using this thing just really don't have a sense for like how much their job is worth. And we've seen evidence of, you know, the LLMs thinking that their job is worth way more than it should be, and thus preempting a bunch of human work."
+  },
+  {
+   "start": 535.9,
+   "end": 574.46,
+   "speaker_id": 1,
+   "text": "Yeah. I mean, I think the other thing that's important and hard to think about here is that to some degree you should think about the models adversarially. Like, they are not, you know, people talk about AI alignment and it's like a kind of big theoretical AI safety long-term kind of issue where, I don't know, in long-term in AI means like in three years or something. But it's also an extremely practical issue right now in the sense that the models will usually try really hard to do what you want and usually do a pretty good job of it, and will sometimes behave really, really adversarially and will be misaligned, will be trying to do a thing that's not the thing that you want them to do."
+  },
+  {
+   "start": 574.46,
+   "end": 592.29,
+   "speaker_id": 1,
+   "text": "you like, you know, ask them to solve some problem that involves asking them to do something that is like beyond the realm of the things they have permissions to do. And you might think that a well-aligned model would be like, oh, I guess I should not do this and maybe I should go ask for guidance given that there's a permission system that stops me from doing this."
+  },
+  {
+   "start": 592.76,
+   "end": 629.76,
+   "speaker_id": 1,
+   "text": "Sometimes what the model will do is just try and work around the permissions. And this is kind of like AI psychosis, not like the human AI psychosis, but like the AI kind of goes crazy. Whereas when you have AIs that you give very long-term tasks to and keep on pushing them to try really hard to solve the task, they can just get super weird and like do very strange things and like emit strange sentences and, you know, all sorts of bizarre stuff can happen. So you really do want to treat it as a kind of adversarial security problem against models that are like getting increasingly good at like hacking and working around controls. Yeah. So it's like it's a really serious security problem that you have to address."
+  },
+  {
+   "start": 629.76,
+   "end": 667.56,
+   "speaker_id": 0,
+   "text": "And that comes up in security, it also comes up in places like evaluations where we're like, you know, you're trying to judge the success of the model, but you have to remember, like you mentioned earlier, that the models are trained to get, you know, to do the thing that you're telling them to do. And when you're looking at evaluations, we see evidence of things like reward hacking, where the model is like intentionally skirting around the rules of the system to get higher, not to get higher scores, but to do the thing that the human told it to do. So, for example, the model reaches like some warning, uh we have warnings as errors turned on. So it reaches some warning that results in an error that it doesn't know how to resolve."
+  },
+  {
+   "start": 667.56,
+   "end": 676.82,
+   "speaker_id": 0,
+   "text": "and like one really easy way to resolve them is just disable the warnings. And so we see models, uh, disable the warnings to try to, you know, pass the thing that we're trying to tell them to do."
+  },
+  {
+   "start": 676.82,
+   "end": 677.78,
+   "speaker_id": 1,
+   "text": "Right, this is when you"
+  },
+  {
+   "start": 677.78,
+   "end": 717.26,
+   "speaker_id": 1,
+   "text": "this is like compiler level like unused variable warnings or whatever. And like warnings as errors means if you have a warning anywhere in your code, it just won't build. And we basically have a kind of firm wide, you know, code base wide practice that like, yeah, you just have to resolve all those warnings. And this is like part of how we enforce a sub important subset of our coding standards. Yeah. And also, we have ways of turning them off. And we, like the humans involved here, almost never use them. Because it's almost never a good idea to use it. But if you're like monomaniacally focused on like, I just need to like satisfy this thing I've been told to do, it's like, ah, okay, now it's going to behave differently. Yeah."
+  },
+  {
+   "start": 717.34,
+   "end": 741.38,
+   "speaker_id": 0,
+   "text": "Yeah, another one of these is like the models will often try to read uh the solution to a problem from a tool that they have access to. So they'll like search around for code that looks like the code that they're writing. And I guess like in in production use, that seems like a totally fine thing to do. If there's a solution to the problem that you're trying to solve out there, you should totally go read it. Um, you know, but in evaluations, you probably don't want the model to do that."
+  },
+  {
+   "start": 741.38,
+   "end": 744.67,
+   "speaker_id": 1,
+   "text": "Oh right, this is basically a way of like cheating by looking at the answers."
+  },
+  {
+   "start": 744.67,
+   "end": 753.68,
+   "speaker_id": 0,
+   "text": "Yeah, exactly. And it's like, you know, it's one thing to say the model's cheating, but actually, it's like you mentioned before, the model is just aligned to wanting to be successful in the task that you've given it."
+  },
+  {
+   "start": 753.68,
+   "end": 773.58,
+   "speaker_id": 1,
+   "text": "I mean, I think cheating isn't a terrible way of describing it. Like you can look at like you can look at like thinking traces and see things that look like scheming, right? Where it's like try, you know, it understands what you're asking and it's like, well, no, but I want to win the game and it tries to get around your intent. So like, we should be a little worried about this alignment question kind of in its in its fullest form."
+  },
+  {
+   "start": 773.58,
+   "end": 774.6,
+   "speaker_id": 0,
+   "text": "Sure."
+  },
+  {
+   "start": 774.7,
+   "end": 805.73,
+   "speaker_id": 1,
+   "text": "So let's, and so we've now sketched out like a bunch of different areas where you build technology. Let's actually dive a little bit more into the sandboxing thing because I think that's like a technically interesting one. Like, what have we tried to do in the sandboxing story? And like, you know, there's like lots of, you know, there's lots of sandboxing stuff in the outside world. There's lots of like OS level things that exist. Various different coding agents that you can use have some notion of sandboxing built in. Like, what have we tried to do? How do external tools fit in? What what are the problems we've run into here?"
+  },
+  {
+   "start": 805.73,
+   "end": 806.52,
+   "speaker_id": 0,
+   "text": "Yeah."
+  },
+  {
+   "start": 806.52,
+   "end": 833.53,
+   "speaker_id": 0,
+   "text": "So, what we, I guess originally, way way back, we tried to build a sandbox that denied things. Meaning, the sandbox would let through anything it didn't have a rule for and it would deny other things. So it was a denialist sandbox. And I guess like as any uh probably security security oriented person listening would say, that's not how you build a sandbox."
+  },
+  {
+   "start": 833.53,
+   "end": 834.9,
+   "speaker_id": 1,
+   "text": "You're supposed to... That's just terrible."
+  },
+  {
+   "start": 834.9,
+   "end": 845.81,
+   "speaker_id": 0,
+   "text": "That's a bad sample. uh the way that you should build a sandbox is the other way where you're allow listing and the idea there is that if you're if you're missing something that it gets denied. that that is a good property for security."
+  },
+  {
+   "start": 845.81,
+   "end": 855.04,
+   "speaker_id": 1,
+   "text": "And obviously what we do for people, right? They start out, you know, in some sense people are born into this world with no permissions and then they are granted permissions over time so they can do their job. Yep."
+  },
+  {
+   "start": 855.04,
+   "end": 890.71,
+   "speaker_id": 0,
+   "text": "So, so we implemented that original sandbox and then we quickly moved to an allow list sandbox. Um, and the way that we implemented this allow list sandbox is through a combination of tools like uh bwrap, which is like a bubble wrap, it's like a tool for um kind of remounting pieces of the filesystem so that uh the model or I guess the process in this case that is operating inside of the bubble wrap um can only access the parts of the filesystem that you want it to. We also use tools like uh pasta, which is I think similar kind of thing but for network connections."
+  },
+  {
+   "start": 890.71,
+   "end": 925.94,
+   "speaker_id": 0,
+   "text": "so we can basically say like turn off all the ability to connect to other places and only allow these these ones. So, combination of tools like that allowed us to uh sandbox bash execution in a way that felt pretty good. Um but there's a question there of also like how did we figure out what to put in the sandbox? And for that we used a bunch of other external tools like uh setcompbpf, which is a tool that let us like monitor, so you can run some process and monitor via a like filter exactly which files are being accessed by the process."
+  },
+  {
+   "start": 925.94,
+   "end": 965.55,
+   "speaker_id": 0,
+   "text": "And that gives us an idea of like, oh, if we know we want to run process X inside of the sandbox safely, we'll essentially run it in there in like a monitoring mode, see all the things that it tries to reach, and then now we have a list of things to go chase down and try to add to the sandbox. So we went through this process for a while of trying to add a bunch of things to the sandbox to make them useful. Although at some point, we just like couldn't move fast enough because there's just like enough stuff that we have to do, uh, and enough things that we need to like add to the sandbox that we can't keep up with it. And you kind of run into this like other risk of, are we hampering the LLMs too much in the short term?"
+  },
+  {
+   "start": 965.55,
+   "end": 967.65,
+   "speaker_id": 1,
+   "text": "hampering the people who are trying to use the LLM."
+  },
+  {
+   "start": 967.65,
+   "end": 989.39,
+   "speaker_id": 0,
+   "text": "And what we saw as a result is a lot of people, uh, maybe deciding to turn the sandbox off to be able to do the thing that they were trying to do. And I guess that seems really scary. Like the point of the sandbox is that you build something that can do the processes that you want to run inside of it and make them more safe. But if people are turning it off, then you're not really getting that benefit at all."
+  },
+  {
+   "start": 989.39,
+   "end": 990.05,
+   "speaker_id": 1,
+   "text": "Right."
+  },
+  {
+   "start": 990.05,
+   "end": 1015.46,
+   "speaker_id": 1,
+   "text": "So, and it's maybe worth highlighting, I think that like this process of going off and iteratively building a reasonable set of rules so that you had a sandbox that was like permissive enough to do the work that we wanted to do, in some sense worked great for a subset of tasks. Like, for ordinary software engineering, it was kind of lovely, right? And that's because software engineering is kind of by like we build tools to make software engineering relatively hermetic, right?"
+  },
+  {
+   "start": 1015.46,
+   "end": 1022.48,
+   "speaker_id": 0,
+   "text": "Yeah, we mostly don't have like tests and systems while you're writing software that are like reaching out to like other services, right?"
+  },
+  {
+   "start": 1022.48,
+   "end": 1046.7,
+   "speaker_id": 1,
+   "text": "That's right. And we already for other reasons actually have ways of blocking off and sandboxing various elements of the build process because we have like this big complicated build system that wants to make sure that everything is deterministic so it can efficiently reuse components and it just like needs to do needs to like block things off so that you know you're not like hitting some random, you know, potentially non-deterministic thing in the outside world."
+  },
+  {
+   "start": 1046.7,
+   "end": 1051.93,
+   "speaker_id": 0,
+   "text": "Yeah, like most good test suites turn off access to the network, right? Just like turn it off entirely."
+  },
+  {
+   "start": 1051.93,
+   "end": 1052.62,
+   "speaker_id": 1,
+   "text": "That's right."
+  },
+  {
+   "start": 1052.62,
+   "end": 1083.28,
+   "speaker_id": 1,
+   "text": "So you in some ways, for the core software engineering activities, you already need to know your dependencies and therefore you need to control what can be accessed during the execution of say a build. Um, but that's not everything that you do as a software engineer, and it like really maps poorly on what you do as someone doing like large-scale research at a place like Jane Street, where you are hitting various kinds of big data systems that you do not have like, you know, nicely captured and simulated inside of your build process."
+  },
+  {
+   "start": 1083.28,
+   "end": 1093.32,
+   "speaker_id": 1,
+   "text": "Right, so part of what happened is like that sandboxing worked for some kinds of things, but didn't extend to the fuller suite of things that we want to be able to get LLMs to help us work on. Right."
+  },
+  {
+   "start": 1093.32,
+   "end": 1131.71,
+   "speaker_id": 0,
+   "text": "at some point made a decision, this is like relatively recently, to change the sandboxing approach so that we have essentially a we have the same allow list sandbox and we basically say that if, you know, if something is allowed by the sandbox, we'll just allow it. And then if something is denied by the sandbox, we'll go ask an LLM classifier whether or not, uh, it is safe to execute. And if it is, I'm sorry, the LLM classifier can either say that it's safe to execute, that it's not safe to execute, or that it should ask the human for confirmation. So aside from just the sandboxing, there are like a bunch of other things that ended up having to happen."
+  },
+  {
+   "start": 1131.71,
+   "end": 1168.18,
+   "speaker_id": 0,
+   "text": "So if you think about sandboxing, you might be able to with a sandbox that is appropriately set up, stop maybe service A from calling to service B or like allow allow calls to service B. But if you think about the things that are actually happening in like real software, they're a little bit more nuanced than that. Like maybe you want to be able to call service B but only certain endpoints inside of it. Right. And sandboxing kind of can't help you there, right? Because sandboxing is operating either at the filesystem level or at the network level. It really doesn't know, you know, inside of this network packet there's an RPC call with this name in this field."
+  },
+  {
+   "start": 1168.18,
+   "end": 1168.84,
+   "speaker_id": 1,
+   "text": "Yep"
+  },
+  {
+   "start": 1168.84,
+   "end": 1182.82,
+   "speaker_id": 0,
+   "text": "So another thing that we ended up doing is having to make changes to the RPC infrastructure at the firm to make them more descriptive about whether or not they allowed calls from AI, um, from AI processes."
+  },
+  {
+   "start": 1182.82,
+   "end": 1222.72,
+   "speaker_id": 1,
+   "text": "Right, and this is like essentially the problem. You kind of have to go one level up. Like sandboxing is this kind of like very valuable kind of low-level precise solution that like helps you hard block all sorts of things that you want to hard block. But at the end of the day, you want to think about these LLMs as their own class of agent with their own permissions, and you have to push the decisions of whether or not a given agent is allowed to do a given thing. Like it can't be strictly a question that you answer with some kind of one-size-fits-all sandbox. You have to be able to customize things at the level of the application. Some kinds of things you might want to allow LLMs to do."
+  },
+  {
+   "start": 1222.72,
+   "end": 1235.65,
+   "speaker_id": 1,
+   "text": "sometimes you might not. Um, and so you now have to start thinking about like restructuring how your system works in general. Um, and and as you were saying, kind of pushing all the way to the RPC level."
+  },
+  {
+   "start": 1235.65,
+   "end": 1251.51,
+   "speaker_id": 0,
+   "text": "and and that ends up involving a bunch of other teams and they have to make a bunch of changes. I think another interesting thing that happened here was we ended up introducing these things called AI users, which are alternate versions of each of the people at the firm in a way."
+  },
+  {
+   "start": 1251.51,
+   "end": 1254.24,
+   "speaker_id": 1,
+   "text": "So I'm Wymanski, but I also have AI Wymanski."
+  },
+  {
+   "start": 1254.24,
+   "end": 1294.66,
+   "speaker_id": 0,
+   "text": "Exactly. And when an AI is doing something on your behalf, it is for the most part calling as AI Yamentsky. Uh and in that way we can we can attribute the use to an LLM, we can make sure that the RPCs apply the right set of rules because they know that the caller is an AI version of you. It also means that in other places, like we've built other systems that take use of this AI dash concept. Um one example is we have a thing that tracks code attribution on a line by line level to say which things are written with the assistance of an LLM and which things are written by a human. Um and you know, the things that are written by an LLM show up as the AI version of you."
+  },
+  {
+   "start": 1294.8,
+   "end": 1303.56,
+   "speaker_id": 0,
+   "text": "So we're kind of like seeing this AI dash concept that we introduced for uh permissioning show up in a bunch of other places too."
+  },
+  {
+   "start": 1303.56,
+   "end": 1304.5,
+   "speaker_id": 1,
+   "text": "Right."
+  },
+  {
+   "start": 1304.5,
+   "end": 1342.87,
+   "speaker_id": 1,
+   "text": "And maybe this like sketches out a different part of the evolution of the kind of whole way in which AIs are working inside of a place like this, which is, you know, there was this early era where like, you know, you could see in the outside world like, you know, GitHub released, you know, this these integrations for VS Code which were like all autocomplete based. And the way you used LLMs, right, was Copilot, right? And the way you used LLMs is you used them for like fancy autocomplete. Yep. Um, and that's in some sense at an architectural level, like LLMs kind of are just like a incredibly fancy, super intelligent autocomplete system, and it's just kind of using it for that."
+  },
+  {
+   "start": 1342.87,
+   "end": 1376.96,
+   "speaker_id": 1,
+   "text": "And then there's this age where you're using them as these like interactive tools that you work with and ask them to do things and they go off and do work on your behalf. And now increasingly you're thinking of them as like another class of user and agent, a thing that does stuff in the world. And now you want to like reform lots of things about your systems to like be able to accommodate and think about and talk about and literally name these agents. Right? So it starts to really get its mitts into all sorts of aspects of your infrastructure."
+  },
+  {
+   "start": 1376.96,
+   "end": 1377.61,
+   "speaker_id": 0,
+   "text": "Yeah"
+  },
+  {
+   "start": 1377.61,
+   "end": 1416.07,
+   "speaker_id": 0,
+   "text": "as you want to like give them different personalities or ask them to work different ways or send them off on really long running uh work, right? And for a long time this wasn't, like you mentioned, it wasn't possible to do, right? There was we would have calls with the vendors all the time and we were asking them for just we were saying more persistence. We just wanted like the the models to like work longer on a problem. And we got what we wanted, right? And it's enabled this entire new uh new way of working, which is really neat. I think for a while like we've we've been talking in this industry about agents for like a long time, but really the like practical effects are really only starting to be realized now."
+  },
+  {
+   "start": 1416.07,
+   "end": 1441.54,
+   "speaker_id": 1,
+   "text": "Right, yeah, there's this sort of funny thing where there was like the ChatGPT moment where people became aware that these things were great and impressive and could do all this amazing stuff. But then like they really became useful in a serious way for kind of hardcore software engineering in November of last year. So like in a field that's been moving very fast, we really don't have very much experience at all of this new world of the models and how they work today. Yeah."
+  },
+  {
+   "start": 1441.72,
+   "end": 1450.89,
+   "speaker_id": 0,
+   "text": "Yeah, I think if uh if like everything stopped and there was no more model progress, we would still just have years and years of work to do here."
+  },
+  {
+   "start": 1450.89,
+   "end": 1455.01,
+   "speaker_id": 1,
+   "text": "Right, there's still a lot a lot of juice to squeeze to get value out of these things, even in their current form."
+  },
+  {
+   "start": 1455.01,
+   "end": 1491.05,
+   "speaker_id": 0,
+   "text": "Yeah, and and at the same rate, we we still see like the models just like steadily improving. I mean, every every like issue that I would have thought would be, you know, an unbreakable barrier. For example, like hallucinations, right? If you understand how the models are trained and you understand how they work, just doesn't really seem like a solvable problem, right? It's like, um, if they're generating tokens, uh, the way that they piece them together just seems like it would result in hallucinations, but you know, here we are. And it doesn't really seem like it's that big of a problem anymore."
+  },
+  {
+   "start": 1491.05,
+   "end": 1514.82,
+   "speaker_id": 0,
+   "text": "It used to be even going back a year that if you asked the model to like copy a chunk of code from one place to another, that it would copy it and it would like make a couple changes just for fun along the way. And like now it can just change it. It can just, uh, you know, reliably copy code. It can even, uh, one thing that was a problem for a long time is models being able to like revert changes that they made. They would like revert them but not revert them entirely. That's just not a problem anymore."
+  },
+  {
+   "start": 1514.82,
+   "end": 1535.78,
+   "speaker_id": 1,
+   "text": "Yeah. Yeah, it's amazing how fast the progress has come. So, I'm curious, can you sketch out what has been the change of the shape of like the tooling that we deliver to people over this time, right? Like the very first version of this is like a website that kind of looks like Jane GPT. Yeah. And like that's evolved in a bunch of other ways. Can you kind of sketch out what that's looked like?"
+  },
+  {
+   "start": 1535.78,
+   "end": 1574.38,
+   "speaker_id": 0,
+   "text": "Yeah, so we built the the website and then right after that, we had been sent this uh piece of code from one of the vendors that was about um tool calling. And kind of like heard rumors about what tool calling is, but uh this was the first time that they were like, \"Oh, we support tool calling.\" And it's like the code that they had sent us was essentially a big Python package that had a bunch of prompting inside of it. And that was the tool calling support. The prompting was basically like um how you reformat things into text that goes into the model, and then the model will sometimes call the function."
+  },
+  {
+   "start": 1574.38,
+   "end": 1606.66,
+   "speaker_id": 0,
+   "text": "and by calling the function, it basically means the model will just produce some other text that when you parse it, it is a tool call. It's like a special format that the model uses. Which to be clear, that's how it works still. Like that, but what has changed in the meantime is that the the vendors have their own APIs for dealing with how tool calling works, and importantly, the models are now trained on the format of tool calling. Um, but in the first version, we didn't have any of that. All we had was this Python library. The models weren't trained to use it. It was just like kind of a proof of concept."
+  },
+  {
+   "start": 1606.66,
+   "end": 1627.91,
+   "speaker_id": 1,
+   "text": "Right, and like this turned out like it was an emergent property. You could like write into the prompt, you could be like, \"Hey, when you want to do XYZ, here's like a JSON format that you could emit to ask me to do it.\" And the models would just do that. Right? They were like smart enough to pick up on the pattern and then you could be like, \"Well, I can just look and see when the JSON shows up, and then I'll just interpret that as a tool call.\" And like, that's kind of how the whole thing worked."
+  },
+  {
+   "start": 1627.91,
+   "end": 1628.5,
+   "speaker_id": 0,
+   "text": "Yep"
+  },
+  {
+   "start": 1628.5,
+   "end": 1664.22,
+   "speaker_id": 0,
+   "text": "and they were like not reliable and sometimes the model wouldn't use them, sometimes the model would emit a format that wasn't the format you'd agreed upon. So there were all kinds of problems, but we could mostly paper over those. Um if you want the model to call a particular tool and it doesn't call it the first time, you can kind of just ask it again. This is like the the area that that that we were living in back then. So on the back of that tool calling functionality, we built an OCaml version of that Python library and we put this tool ecosystem uh in place. We built a couple tools, like we built a web fetch tool, we built a uh tool for accessing internal wiki content."
+  },
+  {
+   "start": 1664.22,
+   "end": 1676.12,
+   "speaker_id": 0,
+   "text": "And this is like useful, but at the time, like I mentioned, the models are not really adept at using the tools, so it doesn't really take off. I think you mentioned that we were building a sailboat, but there was no wind."
+  },
+  {
+   "start": 1676.12,
+   "end": 1676.89,
+   "speaker_id": 1,
+   "text": "Right."
+  },
+  {
+   "start": 1676.89,
+   "end": 1688.02,
+   "speaker_id": 0,
+   "text": "I like that a lot. 'Cause that's, you know, what it felt like at the time. We we built the whole thing, we put it out there and we're like, now they're everyone's gonna start building stuff and it kind of, you know, didn't happen and for good reason."
+  },
+  {
+   "start": 1688.18,
+   "end": 1689.19,
+   "speaker_id": 1,
+   "text": "It's worth saying."
+  },
+  {
+   "start": 1689.19,
+   "end": 1705.92,
+   "speaker_id": 1,
+   "text": "I do think all of these tools got a lot of uptake in certain areas, right? I think like the the website itself was used by a lot of people all the time because like the models were useful for some things, but there were like profound limits. Like it was useful but not transformational. Yep."
+  },
+  {
+   "start": 1706.32,
+   "end": 1741.53,
+   "speaker_id": 0,
+   "text": "Yeah, and another thing we did at the time is we built a library called, uh, someone built a library called Structured Response here, which is basically like you a very easy way to write a prompt and get back an arbitrary OCaml type from that prompt. By basically, uh, turning the type into a single tool call and letting the model only call that tool and continuing to prompt it until it does call the tool effectively. Um, so there are like little things that were were really useful, but I don't know, for the most part, there wasn't like agentic work. At this point, we also were"
+  },
+  {
+   "start": 1741.53,
+   "end": 1774.78,
+   "speaker_id": 0,
+   "text": "uh we had functionality for autocomplete similar to Copilot inside of our editors, which are, I should say, primarily not, I guess like we we do use VS Code, but we also use a bunch of like Neovim and Emacs here. So we had built um editor extensions into those. And then people were asking to be able to use the chat models inside of the editor. And they didn't want the chat models to like do a bunch of stuff. Maybe it would be able to like edit a file, but the the hope wasn't that they're going to start writing whole giant pieces of software. It was just that you can ask them quick questions inside the editor."
+  },
+  {
+   "start": 1774.78,
+   "end": 1806.24,
+   "speaker_id": 0,
+   "text": "So we built that, we built a a markdown buffer version of talking with a model, which is actually pretty cool, I think. There's something there. Uh it was basically like a markdown document that you type a question into and then when you uh when you like hit enter in the document in normal mode, it would then uh let the assistant fill in the next piece. So we built that and then at some point, um the people that were working on that noticed that it was like incredibly annoying to have to restart the editor over and over again when working with it."
+  },
+  {
+   "start": 1806.24,
+   "end": 1820.48,
+   "speaker_id": 0,
+   "text": "So they built this like testing tool, which was basically like, we will just have the chat part hooked up to a CLI tool, but not inside the editor, just so that they could like quickly iterate on it without having to open the editor every time."
+  },
+  {
+   "start": 1820.48,
+   "end": 1828.78,
+   "speaker_id": 1,
+   "text": "Oh, you're saying they had it's the point is the people who were working on the tool didn't want to have to reboot. So this is not like an end user problem of like"
+  },
+  {
+   "start": 1828.78,
+   "end": 1832.98,
+   "speaker_id": 0,
+   "text": "No, it's not like I have a developer problem. It's just like annoying to have to open it over and over again."
+  },
+  {
+   "start": 1832.98,
+   "end": 1836.67,
+   "speaker_id": 1,
+   "text": "I think people just like made their own like command line version. Correct. Got it."
+  },
+  {
+   "start": 1836.67,
+   "end": 1872.41,
+   "speaker_id": 0,
+   "text": "and right around this time, the model started calling the tools a little bit more. Just like a little bit more. And we were like, wait, I think this thing is really useful. This like tool, this command line tool. Um, and that is the nugget of what eventually ended up turning into this aid CLI tool, which you can think of kind of like Cloud Code or Codex CLI. Um, and that kind of brings us into this new part where, um, you know, the models, that new tool has like grown in a bunch of ways and now it is a tool that people use for agent coding."
+  },
+  {
+   "start": 1872.41,
+   "end": 1909.24,
+   "speaker_id": 0,
+   "text": "uh we've also, oh, and then and then the last thing we've done is we've made this like very large change, uh seeing the models do more and more and having them often limited by, um, you know, where they can reach into, we've made a change in how the actual work gets orchestrated so that the LLMs can essentially distribute work onto any of the developer machines at the firm and actually a bunch of other places too. And then the most recent change that we've made is we've actually made a change to kind of invert the control of how the LLM, uh, operates when it's trying to do things like bash calls."
+  },
+  {
+   "start": 1909.24,
+   "end": 1942.05,
+   "speaker_id": 0,
+   "text": "So when you use something like Cloud Code, you're typing into terminal on your computer and then the bash calls are running also on your computer. And it's like fairly easy because the the the prompting loop and the place that the work is running are in the same place. And you kind of saw this opportunity to make a change to split those apart so that people could do things like use the chat application, ChainGPT, to be able to do work that actually ends up happening on a computer totally somewhere else. So we have made it so that there's like a central orchestrator that"
+  },
+  {
+   "start": 1942.05,
+   "end": 1951.96,
+   "speaker_id": 0,
+   "text": "takes in all of the prompts and is able to distribute work onto any of the hosts connected to it, where the hosts are roughly all of the developer machines at the firm plus a bunch of build boxes."
+  },
+  {
+   "start": 1951.96,
+   "end": 1952.56,
+   "speaker_id": 1,
+   "text": "Right."
+  },
+  {
+   "start": 1952.56,
+   "end": 1985.72,
+   "speaker_id": 1,
+   "text": "And this is like not so different from some of the directions that the kind of prompting engines kind of in the outside world have moved in, of wanting to like take that same session and instead of having it just like sit locally on your box, be in some kind of distributed system where you can access it through a web UI or from your phone or... Yeah, like from Slack. From Slack or whatever. Um, we've done this kind of in our infrastructure, uh so that we can orchestrate with whatever model we want, with whatever internal tools we want, and keep control of our data. And that's sort of what the kind of centralized version of the system looks like."
+  },
+  {
+   "start": 1985.72,
+   "end": 2024.89,
+   "speaker_id": 0,
+   "text": "And it's enabled new ways to work. Like one way to work is we have this thing called Aid Mint, which is a system by which you mostly via Slack, but there's a few other ways that you can interact with it. You tell it the thing that you want to happen and it goes and creates a new feature, which is essentially our term for pull request. It spins up a build inside of that feature and then it kicks off the agent to go do some work. And you can actually do this totally from Slack. So you say, oh, this is the thing that I want to happen in this area of the code base, and the agent will go off and do it. But importantly, the work that it's actually doing, it's like running as you on your computer."
+  },
+  {
+   "start": 2024.89,
+   "end": 2032.99,
+   "speaker_id": 0,
+   "text": "It's not like we, you know, have a bunch of AI build boxes out there. It's just like actually distributing the work back to, um, your development machine."
+  },
+  {
+   "start": 2032.99,
+   "end": 2036.52,
+   "speaker_id": 1,
+   "text": "Right, although maybe not running exactly as you, maybe it's running as your AI user. True."
+  },
+  {
+   "start": 2037.9,
+   "end": 2038.82,
+   "speaker_id": 1,
+   "text": "Right."
+  },
+  {
+   "start": 2038.82,
+   "end": 2077.09,
+   "speaker_id": 1,
+   "text": "And I think the interesting thing about that last piece, this kind of mint system, is that in some sense, it seems like totally trivial. It's like, I could have spun up a new piece of work by like, you know, going off and creating a feature and then starting an agent inside of it and asking the agent to do it. And it's a relatively small UX change to make it so that you can just say something in Slack and have an agent pick it up and create the feature for you and start the work. But that relatively small user experience change was a really big difference to people's behavior. It's a little bit like conflated because it's like also at around the time that models were getting significantly better."
+  },
+  {
+   "start": 2077.09,
+   "end": 2086.79,
+   "speaker_id": 1,
+   "text": "But we just saw like a huge uptake in this and I think the amount of work that was done with agents authoring that work like dramatically shot up."
+  },
+  {
+   "start": 2086.79,
+   "end": 2126.26,
+   "speaker_id": 0,
+   "text": "Yeah, yeah, it's something like like 45% of the total released features PRs, uh, that get, uh, made at the firm are start with this flow, this like kind of asynchronous, uh, flow involving an LLM. I think in a way it gets you past the kind of blank page problem, like you were talking about before with a document. Like you're, you know, writing a document, oh, what do I write? It might be the case that the LLM writes something for you and you change most of the details, but there's still value in it kind of doing the first bit. And also, like it's worth saying that, you know, there's a lot of toil involved in just creating a new, um, pull request, right? You have to like go create a branch."
+  },
+  {
+   "start": 2126.26,
+   "end": 2139.36,
+   "speaker_id": 0,
+   "text": "you have to switch to that branch, you have to figure out what build targets to put in place, you have to like create a name for it, you have to get the whole like workspace set up correctly, you have to figure out what files are involved in the change you want to make, and the LLM can kind of just jump right through all that."
+  },
+  {
+   "start": 2139.36,
+   "end": 2162.36,
+   "speaker_id": 1,
+   "text": "And I think another interesting aspect of this is how much of the work is stuff that you just kind of let the agent just kind of do, and how much do you kind of hard set up. And I think there were a bunch of good choices that were made about what things you just kind of hard set up, not because the agent couldn't do it at all, but because it made things faster and more reliable and more consistent to kind of do them in advance in this way."
+  },
+  {
+   "start": 2162.36,
+   "end": 2187.9,
+   "speaker_id": 0,
+   "text": "And then we're even noticing places where like the setup that we've provided for the agent is useful for the humans too. Like in a way the problem that I just described of like picking the build targets, uh, that are appropriate for your work, well, like it's annoying for a human to do too, right? So like the same systems that we put in place for maybe authors to say, oh, in this part of the tree the build targets that I probably want are these, once we do that work, now humans can benefit from that change too."
+  },
+  {
+   "start": 2188.24,
+   "end": 2227.38,
+   "speaker_id": 1,
+   "text": "I I had an interesting conversation earlier this week with someone who was thinking about the kind of vibe coding problem with uh web apps. So like one thing that like everyone now knows is like the models are really good at is like thracking together a quick web UI. And this is actually an area where we're really excited about, you know, real deal vibe coding, meaning like having agents write stuff that like maybe no human looks at it all. And one of the reasons why it's useful is, first of all, it lets you write code, it's less about, you know, changing how you write the code you were going to write before and instead let you write code that you would have never bothered to write at all."
+  },
+  {
+   "start": 2227.38,
+   "end": 2261.82,
+   "speaker_id": 1,
+   "text": "'cause it's like it's now just so cheap to do that you can have this kind of like disposable tool that you like quickly throw together to solve some particular problem. Is it exactly right? Uh, probably not, but it doesn't totally matter. It gives you enough insight and it's useful for that one use case and you kind of throw it away when you're done. And trying to build workflows that make it really easy and natural to do that. And it turns out the models are best at the things that they know best. And so, you know what they don't know best? They don't know like OCaml and like Bonsai, which is our internal system for building web apps and stuff."
+  },
+  {
+   "start": 2261.82,
+   "end": 2300.31,
+   "speaker_id": 1,
+   "text": "So they're they are going to like know more off the top of their head how to go off and, you know, build something in pure HTML and JavaScript than they're going to be able to build something that like fits naturally into our internal ecosystem. And like part of our answer to that has been like, oh yeah, we can like do some of that. Like, you know, JavaScript works here too. We can do some things in that style. But the people who think about the web platform here have been trying to like think about and understand what's the gap? Like, why does it take much longer to build an app in Bonsai than it does to build an app in JavaScript? And one of the things they've been discovering recently is some of it has nothing to do with the language stuff."
+  },
+  {
+   "start": 2300.31,
+   "end": 2333.27,
+   "speaker_id": 1,
+   "text": "some of it is just like, oh, before I was just like doing a single index.html that like had the JavaScript and HTML in that one file and there was no anything to do. It's just like could generate the text and it was kind of fine. And now, there's like a feature in Iron which is our code review system that has to be created and a build process that has to be kicked off and there's just like more steps and tool calls and the thing that actually represents there's like 30 seconds of like actual work to go and like generate the code."
+  },
+  {
+   "start": 2333.27,
+   "end": 2338.45,
+   "speaker_id": 0,
+   "text": "You'd probably want to grab like the bonsai starter template and like get your code off to a good start."
+  },
+  {
+   "start": 2338.45,
+   "end": 2377.25,
+   "speaker_id": 1,
+   "text": "And so like the whole thing in reality takes 10 minutes when it would have taken 30 seconds in the pure index.html world. And I think at first we were like, oh, maybe this is just like the cost we're paying because of like internal languages and libraries. Like, no, actually this is maybe stuff that we can fix by exactly as you're suggesting, doing like more like hard deterministic setup stuff so that like things are just there and ready and like the agent doesn't have to go and discover again how to use all the tools. That's again, kind of like the the agents are kind of like amazing and one of their thing that makes them amazing is also one of the deficiencies, which is they are perpetual beginners, right?"
+  },
+  {
+   "start": 2377.25,
+   "end": 2387.74,
+   "speaker_id": 1,
+   "text": "They never learn how to use the tools, right? It's just they rediscover every time how to use the tools. And so you kind of have to build your whole system around them being these kind of perpetual beginners."
+  },
+  {
+   "start": 2388.16,
+   "end": 2389.02,
+   "speaker_id": 0,
+   "text": "Right."
+  },
+  {
+   "start": 2389.02,
+   "end": 2425.18,
+   "speaker_id": 0,
+   "text": "Yeah, I think another part of this is you can maybe like instill them with a little bit of repeated knowledge by like writing skills, right? But then there's a question, uh so skills for anyone that doesn't know are these like little documents that you write to kind of guide the model on things that it does often. And models can also like help you write these skills and put them in place, but it takes time to write them. And it takes time to like know that you're writing them well. And once you have a, you know, large organization using a bunch of skills, they also become a little bit hard to change because changes to skills might have kind of untold impact on different parts of the firm. So this is also a problem that we end up having to think a lot about."
+  },
+  {
+   "start": 2425.18,
+   "end": 2430.0,
+   "speaker_id": 1,
+   "text": "Yeah, actually, we've talked a little bit about things like skills, we talked about function"
+  }
+ ],
+ "gen_tokens": 12987,
+ "text": "[{\"Start\":0,\"End\":28.56,\"Speaker\":0,\"Content\":\"powered applications on top of. So this includes uh client libraries for making just kind of one-off LLM calls. It also includes the ability to like specify uh functions in OCaml or in Python that get passed to the LLM that it can use, which also includes a uh ability to specify with OCaml types the types that will be presented to the LLM for the function calls that it uses. So it kind of bridges over um you know the difference between JSON types and OCaml types.\"},{\"Start\":28.56,\"End\":48.62,\"Speaker\":1,\"Content\":\"Right, and this is like the difference between like old school, you just like give some text to an LLM and it completes it, to kind of modern agentic flows where the LLM emits tool calls and then you execute those tool calls and feed the results back in and like this whole cycle of things that allows the models to take action in the world. Like that's what these function calls give you.\"},{\"Start\":48.62,\"End\":79.52,\"Speaker\":0,\"Content\":\"And then, uh, on top of that we build a series of products that people use. So one example of that is this JN GPT application. Uh, another example that I'm sure we'll talk about a bunch is we build a uh CLI-based coding assistant which is called Aid. Uh, Aid CLI. And then we also put those inside of editors. And then we've also increasingly been starting to like put surfaces inside of things like Python notebooks or inside of um the interface for Webs, the programming language you were talking about earlier.\"},{\"Start\":79.92,\"End\":120.39,\"Speaker\":0,\"Content\":\"And so that's the the set of tools that we make for humans. Mhm. Then there's also a set of tools that we make kind of for the LLMs, right? The LLMs have to like do things to the world. So they need to be able to uh read the wiki or they need to be able to like run bash commands on people's computers. We'll talk more about that too. Um but all of the things that the LLMs do and the ecosystem of tools that the firm has built, some of these are built by us, um and some of them are built by different parts of the firm. There are like over a thousand different tools that different parts of the firm have made to do things related to their particular business. Mhm. Another thing that our team does is we work on evaluation.\"},{\"Start\":120.39,\"End\":152.31,\"Speaker\":0,\"Content\":\"So this is like essentially writing tests for the models where the models try to do uh some amount of work and then we we grade them, right, to say how they did on the test. And in doing this work, we both get an idea of like how models are doing so we can make decisions about which ones to put in front of people by default. And we also gain the ability to make improvements to kind of the harnesses and how we set things up. Um so how do we prompt it or what tools do we give it by default or what skills do we present to the model.\"},{\"Start\":152.31,\"End\":153.11,\"Speaker\":1,\"Content\":\"Right.\"},{\"Start\":153.11,\"End\":188.58,\"Speaker\":1,\"Content\":\"And this is like, you know, in some ways like a crashing in of like the worst possible outcome when it comes to testing and that like normally you spend all this time building testing infrastructure, trying really hard to make everything deterministic, and then we feel we have to like fit in this like kind of fundamentally stochastic process where we don't even have great hard rules about how to evaluate the evaluate the evaluations themselves are done at least in part by LLMs. Yep. Uh so like we're doing our best here and trying to make the best possible testing, but it's really challenging from an engineering perspective.\"},{\"Start\":188.58,\"End\":198.34,\"Speaker\":1,\"Content\":\"like you would really like to have good ways of like you build your product, you test it, you demonstrate that it works well, and you make changes and see if it's better after those changes and see that the tests keep on working.\"},{\"Start\":198.68,\"End\":213.25,\"Speaker\":1,\"Content\":\"All sorts of like irrelevant little details can like perturb the outcome of these tests and it can be really hard to interpret. There's a there's actually a real kind of fundamentally statistical component to this kind of evaluation work, which you don't necessarily have in all the other kinds of testing that you do.\"},{\"Start\":213.25,\"End\":228.52,\"Speaker\":0,\"Content\":\"We also do um, well, I'm sure we'll talk about this in a bit, but we we build even meta graders. So like when we use LLM graders, we now have to write the evaluations for the LLM grader. It's a whole interesting set of things to talk about there too.\"},{\"Start\":228.52,\"End\":261.76,\"Speaker\":1,\"Content\":\"Yeah, there's like a fundamental problem of like I want to see how good an agent is at solving some problem. So I'm like fundamentally putting something up that's at the edge of the cognitive capabilities of the model. And then I want to evaluate whether it did a good job. But but like if I'm evaluating like the strongest model I have at my disposal and I have another instance of a roughly equally strong model that's trying to evaluate whether or not that thing did a good job, it's like there's like a fundamental problem of here you may not just have like the intellectual wattage to solve the problem that you're trying to solve. Yep.\"},{\"Start\":262.32,\"End\":289.03,\"Speaker\":0,\"Content\":\"Yeah, I think there's a bunch of interesting things here about whether you can trust the model to discriminate on the work of another model, even if you can't trust it to produce the thing. A lot of times the thing that comes to mind here is like probably you can't build a car, but like you can go down to the street and tell me if something is a car. And I think that that's maybe an interesting analogy that's useful to explain to yourself why LLM graders might not be as bad as they seem on the surface.\"},{\"Start\":289.03,\"End\":289.74,\"Speaker\":1,\"Content\":\"That's right.\"},{\"Start\":289.74,\"End\":321.74,\"Speaker\":1,\"Content\":\"Although I feel like for a lot of the most important things, it actually doesn't work, right? Because in some ways, like the whole world is kind of piled up to make this not work. Because what happens is, it's not just us running evals on the models. The labs who are building the models are running evals on the models and they're using them as part of the RL. And so the models are getting like as good as they can get in a way that's in some sense bounded by the verifiability or at least bounded by maybe other things too, but at least bounded by the verifiability of the task.\"},{\"Start\":321.74,\"End\":343.84,\"Speaker\":1,\"Content\":\"And so you have this thing where the where the the things that the models are bad at are like exactly at the edge of what the models can discriminate. And so all the stuff around taste of code and like whether they're doing you know reward hacking and stuff like that, it's like the world is built and optimized to build things for you that are then hard for the LLMs to evaluate.\"},{\"Start\":343.84,\"End\":368.91,\"Speaker\":0,\"Content\":\"I think you need to find a way to like shrink where the LLM is doing its work. So, we've increasingly started relying on rubrics, for example, as a way to do this. Like, maybe you can take a problem and subdivide the grading of it into like a series of problems that maybe are more approachable for an LLM than than just like, did this model do exactly the thing it was supposed to do? Um, there are also more deterministic ways to grade in some cases that are also interesting.\"},{\"Start\":368.91,\"End\":378.25,\"Speaker\":1,\"Content\":\"That's right. You can like, if you give a model a task to optimize something, you can see how well it optimized it. If you have tests of the correctness, you can actually run those tests. Yep.\"},{\"Start\":378.25,\"End\":388.27,\"Speaker\":0,\"Content\":\"And sometimes the thing you want to look at is even not a grade necessarily. Sometimes it's like, how long in wall clock time did this thing take to run? Or how many tokens did it use? Or how much did it cost?\"},{\"Start\":388.27,\"End\":427.56,\"Speaker\":0,\"Content\":\"uh so those are also interesting. Yep. And then the last area that we focus on is security. Uh so the models, I guess like one thing to say is that for a long time, everyone, the whole world, trusted humans to have good judgment about whether they did things or not. And now we're putting LLMs into this like same system that was built for humans. Uh and so for example, you put a model inside of a Python notebook and yes, clearly that's something we want the model to do. Uh but in putting it in a Python notebook, it's now running in an environment that's also running as the human, where the model can do things like run system and then just immediately uh\"},{\"Start\":427.56,\"End\":453.43,\"Speaker\":0,\"Content\":\"you know, escape Python and do whatever it wants to do. So there's this uh process that we've kind of been going about around some combination of building sandboxes and building like better access controls into uh various systems to make it so that the models can only do the things that we think are like actually safe. And increasingly that also has us relying on uh going back to the previous point, LLMs judging whether or not something's safe, which is a very interesting thing.\"},{\"Start\":453.43,\"End\":455.64,\"Speaker\":1,\"Content\":\"Right And it's not like\"},{\"Start\":455.69,\"End\":481.93,\"Speaker\":1,\"Content\":\"In the old world, we trusted humans in an unbounded way. Like, I think a real fact about our internal environment is that we give people a lot of trust and we give them a lot of access to do things. But there's still an access control system. But if you just like naively use LLMs and kind of set them up without thinking about the setup at all, then the LLMs just inherit all the permissions of the human. Yep. And that's super wrong. Like, you don't want that. You want some kind of bounds on what the LLM can do.\"},{\"Start\":481.93,\"End\":491.14,\"Speaker\":0,\"Content\":\"Um, my favorite example of this is the like compute utilization. So we have like, you know, giant compute cluster that humans can schedule jobs onto.\"},{\"Start\":491.14,\"End\":491.81,\"Speaker\":1,\"Content\":\"Yep\"},{\"Start\":491.81,\"End\":523.38,\"Speaker\":0,\"Content\":\"And of course, we want the LLMs to also be able to schedule jobs there because some of the work that we want them to do involves lots of compute. And uh, in order to access this system, humans have to like bid for time. They essentially have to say like how much in these fake dollars that they're willing to pay for their job to be run. And then the system has kind of preempting so that if a job that comes along that is has a higher dollar amount, it gets preempted. And if another job comes along that has a higher dollar amount, then the job with the lower dollar amount gets preempted.\"},{\"Start\":523.74,\"End\":535.9,\"Speaker\":0,\"Content\":\"And, you know, LLMs using this thing just really don't have a sense for like how much their job is worth. And we've seen evidence of, you know, the LLMs thinking that their job is worth way more than it should be, and thus preempting a bunch of human work.\"},{\"Start\":535.9,\"End\":574.46,\"Speaker\":1,\"Content\":\"Yeah. I mean, I think the other thing that's important and hard to think about here is that to some degree you should think about the models adversarially. Like, they are not, you know, people talk about AI alignment and it's like a kind of big theoretical AI safety long-term kind of issue where, I don't know, in long-term in AI means like in three years or something. But it's also an extremely practical issue right now in the sense that the models will usually try really hard to do what you want and usually do a pretty good job of it, and will sometimes behave really, really adversarially and will be misaligned, will be trying to do a thing that's not the thing that you want them to do.\"},{\"Start\":574.46,\"End\":592.29,\"Speaker\":1,\"Content\":\"you like, you know, ask them to solve some problem that involves asking them to do something that is like beyond the realm of the things they have permissions to do. And you might think that a well-aligned model would be like, oh, I guess I should not do this and maybe I should go ask for guidance given that there's a permission system that stops me from doing this.\"},{\"Start\":592.76,\"End\":629.76,\"Speaker\":1,\"Content\":\"Sometimes what the model will do is just try and work around the permissions. And this is kind of like AI psychosis, not like the human AI psychosis, but like the AI kind of goes crazy. Whereas when you have AIs that you give very long-term tasks to and keep on pushing them to try really hard to solve the task, they can just get super weird and like do very strange things and like emit strange sentences and, you know, all sorts of bizarre stuff can happen. So you really do want to treat it as a kind of adversarial security problem against models that are like getting increasingly good at like hacking and working around controls. Yeah. So it's like it's a really serious security problem that you have to address.\"},{\"Start\":629.76,\"End\":667.56,\"Speaker\":0,\"Content\":\"And that comes up in security, it also comes up in places like evaluations where we're like, you know, you're trying to judge the success of the model, but you have to remember, like you mentioned earlier, that the models are trained to get, you know, to do the thing that you're telling them to do. And when you're looking at evaluations, we see evidence of things like reward hacking, where the model is like intentionally skirting around the rules of the system to get higher, not to get higher scores, but to do the thing that the human told it to do. So, for example, the model reaches like some warning, uh we have warnings as errors turned on. So it reaches some warning that results in an error that it doesn't know how to resolve.\"},{\"Start\":667.56,\"End\":676.82,\"Speaker\":0,\"Content\":\"and like one really easy way to resolve them is just disable the warnings. And so we see models, uh, disable the warnings to try to, you know, pass the thing that we're trying to tell them to do.\"},{\"Start\":676.82,\"End\":677.78,\"Speaker\":1,\"Content\":\"Right, this is when you\"},{\"Start\":677.78,\"End\":717.26,\"Speaker\":1,\"Content\":\"this is like compiler level like unused variable warnings or whatever. And like warnings as errors means if you have a warning anywhere in your code, it just won't build. And we basically have a kind of firm wide, you know, code base wide practice that like, yeah, you just have to resolve all those warnings. And this is like part of how we enforce a sub important subset of our coding standards. Yeah. And also, we have ways of turning them off. And we, like the humans involved here, almost never use them. Because it's almost never a good idea to use it. But if you're like monomaniacally focused on like, I just need to like satisfy this thing I've been told to do, it's like, ah, okay, now it's going to behave differently. Yeah.\"},{\"Start\":717.34,\"End\":741.38,\"Speaker\":0,\"Content\":\"Yeah, another one of these is like the models will often try to read uh the solution to a problem from a tool that they have access to. So they'll like search around for code that looks like the code that they're writing. And I guess like in in production use, that seems like a totally fine thing to do. If there's a solution to the problem that you're trying to solve out there, you should totally go read it. Um, you know, but in evaluations, you probably don't want the model to do that.\"},{\"Start\":741.38,\"End\":744.67,\"Speaker\":1,\"Content\":\"Oh right, this is basically a way of like cheating by looking at the answers.\"},{\"Start\":744.67,\"End\":753.68,\"Speaker\":0,\"Content\":\"Yeah, exactly. And it's like, you know, it's one thing to say the model's cheating, but actually, it's like you mentioned before, the model is just aligned to wanting to be successful in the task that you've given it.\"},{\"Start\":753.68,\"End\":773.58,\"Speaker\":1,\"Content\":\"I mean, I think cheating isn't a terrible way of describing it. Like you can look at like you can look at like thinking traces and see things that look like scheming, right? Where it's like try, you know, it understands what you're asking and it's like, well, no, but I want to win the game and it tries to get around your intent. So like, we should be a little worried about this alignment question kind of in its in its fullest form.\"},{\"Start\":773.58,\"End\":774.6,\"Speaker\":0,\"Content\":\"Sure.\"},{\"Start\":774.7,\"End\":805.73,\"Speaker\":1,\"Content\":\"So let's, and so we've now sketched out like a bunch of different areas where you build technology. Let's actually dive a little bit more into the sandboxing thing because I think that's like a technically interesting one. Like, what have we tried to do in the sandboxing story? And like, you know, there's like lots of, you know, there's lots of sandboxing stuff in the outside world. There's lots of like OS level things that exist. Various different coding agents that you can use have some notion of sandboxing built in. Like, what have we tried to do? How do external tools fit in? What what are the problems we've run into here?\"},{\"Start\":805.73,\"End\":806.52,\"Speaker\":0,\"Content\":\"Yeah.\"},{\"Start\":806.52,\"End\":833.53,\"Speaker\":0,\"Content\":\"So, what we, I guess originally, way way back, we tried to build a sandbox that denied things. Meaning, the sandbox would let through anything it didn't have a rule for and it would deny other things. So it was a denialist sandbox. And I guess like as any uh probably security security oriented person listening would say, that's not how you build a sandbox.\"},{\"Start\":833.53,\"End\":834.9,\"Speaker\":1,\"Content\":\"You're supposed to... That's just terrible.\"},{\"Start\":834.9,\"End\":845.81,\"Speaker\":0,\"Content\":\"That's a bad sample. uh the way that you should build a sandbox is the other way where you're allow listing and the idea there is that if you're if you're missing something that it gets denied. that that is a good property for security.\"},{\"Start\":845.81,\"End\":855.04,\"Speaker\":1,\"Content\":\"And obviously what we do for people, right? They start out, you know, in some sense people are born into this world with no permissions and then they are granted permissions over time so they can do their job. Yep.\"},{\"Start\":855.04,\"End\":890.71,\"Speaker\":0,\"Content\":\"So, so we implemented that original sandbox and then we quickly moved to an allow list sandbox. Um, and the way that we implemented this allow list sandbox is through a combination of tools like uh bwrap, which is like a bubble wrap, it's like a tool for um kind of remounting pieces of the filesystem so that uh the model or I guess the process in this case that is operating inside of the bubble wrap um can only access the parts of the filesystem that you want it to. We also use tools like uh pasta, which is I think similar kind of thing but for network connections.\"},{\"Start\":890.71,\"End\":925.94,\"Speaker\":0,\"Content\":\"so we can basically say like turn off all the ability to connect to other places and only allow these these ones. So, combination of tools like that allowed us to uh sandbox bash execution in a way that felt pretty good. Um but there's a question there of also like how did we figure out what to put in the sandbox? And for that we used a bunch of other external tools like uh setcompbpf, which is a tool that let us like monitor, so you can run some process and monitor via a like filter exactly which files are being accessed by the process.\"},{\"Start\":925.94,\"End\":965.55,\"Speaker\":0,\"Content\":\"And that gives us an idea of like, oh, if we know we want to run process X inside of the sandbox safely, we'll essentially run it in there in like a monitoring mode, see all the things that it tries to reach, and then now we have a list of things to go chase down and try to add to the sandbox. So we went through this process for a while of trying to add a bunch of things to the sandbox to make them useful. Although at some point, we just like couldn't move fast enough because there's just like enough stuff that we have to do, uh, and enough things that we need to like add to the sandbox that we can't keep up with it. And you kind of run into this like other risk of, are we hampering the LLMs too much in the short term?\"},{\"Start\":965.55,\"End\":967.65,\"Speaker\":1,\"Content\":\"hampering the people who are trying to use the LLM.\"},{\"Start\":967.65,\"End\":989.39,\"Speaker\":0,\"Content\":\"And what we saw as a result is a lot of people, uh, maybe deciding to turn the sandbox off to be able to do the thing that they were trying to do. And I guess that seems really scary. Like the point of the sandbox is that you build something that can do the processes that you want to run inside of it and make them more safe. But if people are turning it off, then you're not really getting that benefit at all.\"},{\"Start\":989.39,\"End\":990.05,\"Speaker\":1,\"Content\":\"Right.\"},{\"Start\":990.05,\"End\":1015.46,\"Speaker\":1,\"Content\":\"So, and it's maybe worth highlighting, I think that like this process of going off and iteratively building a reasonable set of rules so that you had a sandbox that was like permissive enough to do the work that we wanted to do, in some sense worked great for a subset of tasks. Like, for ordinary software engineering, it was kind of lovely, right? And that's because software engineering is kind of by like we build tools to make software engineering relatively hermetic, right?\"},{\"Start\":1015.46,\"End\":1022.48,\"Speaker\":0,\"Content\":\"Yeah, we mostly don't have like tests and systems while you're writing software that are like reaching out to like other services, right?\"},{\"Start\":1022.48,\"End\":1046.7,\"Speaker\":1,\"Content\":\"That's right. And we already for other reasons actually have ways of blocking off and sandboxing various elements of the build process because we have like this big complicated build system that wants to make sure that everything is deterministic so it can efficiently reuse components and it just like needs to do needs to like block things off so that you know you're not like hitting some random, you know, potentially non-deterministic thing in the outside world.\"},{\"Start\":1046.7,\"End\":1051.93,\"Speaker\":0,\"Content\":\"Yeah, like most good test suites turn off access to the network, right? Just like turn it off entirely.\"},{\"Start\":1051.93,\"End\":1052.62,\"Speaker\":1,\"Content\":\"That's right.\"},{\"Start\":1052.62,\"End\":1083.28,\"Speaker\":1,\"Content\":\"So you in some ways, for the core software engineering activities, you already need to know your dependencies and therefore you need to control what can be accessed during the execution of say a build. Um, but that's not everything that you do as a software engineer, and it like really maps poorly on what you do as someone doing like large-scale research at a place like Jane Street, where you are hitting various kinds of big data systems that you do not have like, you know, nicely captured and simulated inside of your build process.\"},{\"Start\":1083.28,\"End\":1093.32,\"Speaker\":1,\"Content\":\"Right, so part of what happened is like that sandboxing worked for some kinds of things, but didn't extend to the fuller suite of things that we want to be able to get LLMs to help us work on. Right.\"},{\"Start\":1093.32,\"End\":1131.71,\"Speaker\":0,\"Content\":\"at some point made a decision, this is like relatively recently, to change the sandboxing approach so that we have essentially a we have the same allow list sandbox and we basically say that if, you know, if something is allowed by the sandbox, we'll just allow it. And then if something is denied by the sandbox, we'll go ask an LLM classifier whether or not, uh, it is safe to execute. And if it is, I'm sorry, the LLM classifier can either say that it's safe to execute, that it's not safe to execute, or that it should ask the human for confirmation. So aside from just the sandboxing, there are like a bunch of other things that ended up having to happen.\"},{\"Start\":1131.71,\"End\":1168.18,\"Speaker\":0,\"Content\":\"So if you think about sandboxing, you might be able to with a sandbox that is appropriately set up, stop maybe service A from calling to service B or like allow allow calls to service B. But if you think about the things that are actually happening in like real software, they're a little bit more nuanced than that. Like maybe you want to be able to call service B but only certain endpoints inside of it. Right. And sandboxing kind of can't help you there, right? Because sandboxing is operating either at the filesystem level or at the network level. It really doesn't know, you know, inside of this network packet there's an RPC call with this name in this field.\"},{\"Start\":1168.18,\"End\":1168.84,\"Speaker\":1,\"Content\":\"Yep\"},{\"Start\":1168.84,\"End\":1182.82,\"Speaker\":0,\"Content\":\"So another thing that we ended up doing is having to make changes to the RPC infrastructure at the firm to make them more descriptive about whether or not they allowed calls from AI, um, from AI processes.\"},{\"Start\":1182.82,\"End\":1222.72,\"Speaker\":1,\"Content\":\"Right, and this is like essentially the problem. You kind of have to go one level up. Like sandboxing is this kind of like very valuable kind of low-level precise solution that like helps you hard block all sorts of things that you want to hard block. But at the end of the day, you want to think about these LLMs as their own class of agent with their own permissions, and you have to push the decisions of whether or not a given agent is allowed to do a given thing. Like it can't be strictly a question that you answer with some kind of one-size-fits-all sandbox. You have to be able to customize things at the level of the application. Some kinds of things you might want to allow LLMs to do.\"},{\"Start\":1222.72,\"End\":1235.65,\"Speaker\":1,\"Content\":\"sometimes you might not. Um, and so you now have to start thinking about like restructuring how your system works in general. Um, and and as you were saying, kind of pushing all the way to the RPC level.\"},{\"Start\":1235.65,\"End\":1251.51,\"Speaker\":0,\"Content\":\"and and that ends up involving a bunch of other teams and they have to make a bunch of changes. I think another interesting thing that happened here was we ended up introducing these things called AI users, which are alternate versions of each of the people at the firm in a way.\"},{\"Start\":1251.51,\"End\":1254.24,\"Speaker\":1,\"Content\":\"So I'm Wymanski, but I also have AI Wymanski.\"},{\"Start\":1254.24,\"End\":1294.66,\"Speaker\":0,\"Content\":\"Exactly. And when an AI is doing something on your behalf, it is for the most part calling as AI Yamentsky. Uh and in that way we can we can attribute the use to an LLM, we can make sure that the RPCs apply the right set of rules because they know that the caller is an AI version of you. It also means that in other places, like we've built other systems that take use of this AI dash concept. Um one example is we have a thing that tracks code attribution on a line by line level to say which things are written with the assistance of an LLM and which things are written by a human. Um and you know, the things that are written by an LLM show up as the AI version of you.\"},{\"Start\":1294.8,\"End\":1303.56,\"Speaker\":0,\"Content\":\"So we're kind of like seeing this AI dash concept that we introduced for uh permissioning show up in a bunch of other places too.\"},{\"Start\":1303.56,\"End\":1304.5,\"Speaker\":1,\"Content\":\"Right.\"},{\"Start\":1304.5,\"End\":1342.87,\"Speaker\":1,\"Content\":\"And maybe this like sketches out a different part of the evolution of the kind of whole way in which AIs are working inside of a place like this, which is, you know, there was this early era where like, you know, you could see in the outside world like, you know, GitHub released, you know, this these integrations for VS Code which were like all autocomplete based. And the way you used LLMs, right, was Copilot, right? And the way you used LLMs is you used them for like fancy autocomplete. Yep. Um, and that's in some sense at an architectural level, like LLMs kind of are just like a incredibly fancy, super intelligent autocomplete system, and it's just kind of using it for that.\"},{\"Start\":1342.87,\"End\":1376.96,\"Speaker\":1,\"Content\":\"And then there's this age where you're using them as these like interactive tools that you work with and ask them to do things and they go off and do work on your behalf. And now increasingly you're thinking of them as like another class of user and agent, a thing that does stuff in the world. And now you want to like reform lots of things about your systems to like be able to accommodate and think about and talk about and literally name these agents. Right? So it starts to really get its mitts into all sorts of aspects of your infrastructure.\"},{\"Start\":1376.96,\"End\":1377.61,\"Speaker\":0,\"Content\":\"Yeah\"},{\"Start\":1377.61,\"End\":1416.07,\"Speaker\":0,\"Content\":\"as you want to like give them different personalities or ask them to work different ways or send them off on really long running uh work, right? And for a long time this wasn't, like you mentioned, it wasn't possible to do, right? There was we would have calls with the vendors all the time and we were asking them for just we were saying more persistence. We just wanted like the the models to like work longer on a problem. And we got what we wanted, right? And it's enabled this entire new uh new way of working, which is really neat. I think for a while like we've we've been talking in this industry about agents for like a long time, but really the like practical effects are really only starting to be realized now.\"},{\"Start\":1416.07,\"End\":1441.54,\"Speaker\":1,\"Content\":\"Right, yeah, there's this sort of funny thing where there was like the ChatGPT moment where people became aware that these things were great and impressive and could do all this amazing stuff. But then like they really became useful in a serious way for kind of hardcore software engineering in November of last year. So like in a field that's been moving very fast, we really don't have very much experience at all of this new world of the models and how they work today. Yeah.\"},{\"Start\":1441.72,\"End\":1450.89,\"Speaker\":0,\"Content\":\"Yeah, I think if uh if like everything stopped and there was no more model progress, we would still just have years and years of work to do here.\"},{\"Start\":1450.89,\"End\":1455.01,\"Speaker\":1,\"Content\":\"Right, there's still a lot a lot of juice to squeeze to get value out of these things, even in their current form.\"},{\"Start\":1455.01,\"End\":1491.05,\"Speaker\":0,\"Content\":\"Yeah, and and at the same rate, we we still see like the models just like steadily improving. I mean, every every like issue that I would have thought would be, you know, an unbreakable barrier. For example, like hallucinations, right? If you understand how the models are trained and you understand how they work, just doesn't really seem like a solvable problem, right? It's like, um, if they're generating tokens, uh, the way that they piece them together just seems like it would result in hallucinations, but you know, here we are. And it doesn't really seem like it's that big of a problem anymore.\"},{\"Start\":1491.05,\"End\":1514.82,\"Speaker\":0,\"Content\":\"It used to be even going back a year that if you asked the model to like copy a chunk of code from one place to another, that it would copy it and it would like make a couple changes just for fun along the way. And like now it can just change it. It can just, uh, you know, reliably copy code. It can even, uh, one thing that was a problem for a long time is models being able to like revert changes that they made. They would like revert them but not revert them entirely. That's just not a problem anymore.\"},{\"Start\":1514.82,\"End\":1535.78,\"Speaker\":1,\"Content\":\"Yeah. Yeah, it's amazing how fast the progress has come. So, I'm curious, can you sketch out what has been the change of the shape of like the tooling that we deliver to people over this time, right? Like the very first version of this is like a website that kind of looks like Jane GPT. Yeah. And like that's evolved in a bunch of other ways. Can you kind of sketch out what that's looked like?\"},{\"Start\":1535.78,\"End\":1574.38,\"Speaker\":0,\"Content\":\"Yeah, so we built the the website and then right after that, we had been sent this uh piece of code from one of the vendors that was about um tool calling. And kind of like heard rumors about what tool calling is, but uh this was the first time that they were like, \\\"Oh, we support tool calling.\\\" And it's like the code that they had sent us was essentially a big Python package that had a bunch of prompting inside of it. And that was the tool calling support. The prompting was basically like um how you reformat things into text that goes into the model, and then the model will sometimes call the function.\"},{\"Start\":1574.38,\"End\":1606.66,\"Speaker\":0,\"Content\":\"and by calling the function, it basically means the model will just produce some other text that when you parse it, it is a tool call. It's like a special format that the model uses. Which to be clear, that's how it works still. Like that, but what has changed in the meantime is that the the vendors have their own APIs for dealing with how tool calling works, and importantly, the models are now trained on the format of tool calling. Um, but in the first version, we didn't have any of that. All we had was this Python library. The models weren't trained to use it. It was just like kind of a proof of concept.\"},{\"Start\":1606.66,\"End\":1627.91,\"Speaker\":1,\"Content\":\"Right, and like this turned out like it was an emergent property. You could like write into the prompt, you could be like, \\\"Hey, when you want to do XYZ, here's like a JSON format that you could emit to ask me to do it.\\\" And the models would just do that. Right? They were like smart enough to pick up on the pattern and then you could be like, \\\"Well, I can just look and see when the JSON shows up, and then I'll just interpret that as a tool call.\\\" And like, that's kind of how the whole thing worked.\"},{\"Start\":1627.91,\"End\":1628.5,\"Speaker\":0,\"Content\":\"Yep\"},{\"Start\":1628.5,\"End\":1664.22,\"Speaker\":0,\"Content\":\"and they were like not reliable and sometimes the model wouldn't use them, sometimes the model would emit a format that wasn't the format you'd agreed upon. So there were all kinds of problems, but we could mostly paper over those. Um if you want the model to call a particular tool and it doesn't call it the first time, you can kind of just ask it again. This is like the the area that that that we were living in back then. So on the back of that tool calling functionality, we built an OCaml version of that Python library and we put this tool ecosystem uh in place. We built a couple tools, like we built a web fetch tool, we built a uh tool for accessing internal wiki content.\"},{\"Start\":1664.22,\"End\":1676.12,\"Speaker\":0,\"Content\":\"And this is like useful, but at the time, like I mentioned, the models are not really adept at using the tools, so it doesn't really take off. I think you mentioned that we were building a sailboat, but there was no wind.\"},{\"Start\":1676.12,\"End\":1676.89,\"Speaker\":1,\"Content\":\"Right.\"},{\"Start\":1676.89,\"End\":1688.02,\"Speaker\":0,\"Content\":\"I like that a lot. 'Cause that's, you know, what it felt like at the time. We we built the whole thing, we put it out there and we're like, now they're everyone's gonna start building stuff and it kind of, you know, didn't happen and for good reason.\"},{\"Start\":1688.18,\"End\":1689.19,\"Speaker\":1,\"Content\":\"It's worth saying.\"},{\"Start\":1689.19,\"End\":1705.92,\"Speaker\":1,\"Content\":\"I do think all of these tools got a lot of uptake in certain areas, right? I think like the the website itself was used by a lot of people all the time because like the models were useful for some things, but there were like profound limits. Like it was useful but not transformational. Yep.\"},{\"Start\":1706.32,\"End\":1741.53,\"Speaker\":0,\"Content\":\"Yeah, and another thing we did at the time is we built a library called, uh, someone built a library called Structured Response here, which is basically like you a very easy way to write a prompt and get back an arbitrary OCaml type from that prompt. By basically, uh, turning the type into a single tool call and letting the model only call that tool and continuing to prompt it until it does call the tool effectively. Um, so there are like little things that were were really useful, but I don't know, for the most part, there wasn't like agentic work. At this point, we also were\"},{\"Start\":1741.53,\"End\":1774.78,\"Speaker\":0,\"Content\":\"uh we had functionality for autocomplete similar to Copilot inside of our editors, which are, I should say, primarily not, I guess like we we do use VS Code, but we also use a bunch of like Neovim and Emacs here. So we had built um editor extensions into those. And then people were asking to be able to use the chat models inside of the editor. And they didn't want the chat models to like do a bunch of stuff. Maybe it would be able to like edit a file, but the the hope wasn't that they're going to start writing whole giant pieces of software. It was just that you can ask them quick questions inside the editor.\"},{\"Start\":1774.78,\"End\":1806.24,\"Speaker\":0,\"Content\":\"So we built that, we built a a markdown buffer version of talking with a model, which is actually pretty cool, I think. There's something there. Uh it was basically like a markdown document that you type a question into and then when you uh when you like hit enter in the document in normal mode, it would then uh let the assistant fill in the next piece. So we built that and then at some point, um the people that were working on that noticed that it was like incredibly annoying to have to restart the editor over and over again when working with it.\"},{\"Start\":1806.24,\"End\":1820.48,\"Speaker\":0,\"Content\":\"So they built this like testing tool, which was basically like, we will just have the chat part hooked up to a CLI tool, but not inside the editor, just so that they could like quickly iterate on it without having to open the editor every time.\"},{\"Start\":1820.48,\"End\":1828.78,\"Speaker\":1,\"Content\":\"Oh, you're saying they had it's the point is the people who were working on the tool didn't want to have to reboot. So this is not like an end user problem of like\"},{\"Start\":1828.78,\"End\":1832.98,\"Speaker\":0,\"Content\":\"No, it's not like I have a developer problem. It's just like annoying to have to open it over and over again.\"},{\"Start\":1832.98,\"End\":1836.67,\"Speaker\":1,\"Content\":\"I think people just like made their own like command line version. Correct. Got it.\"},{\"Start\":1836.67,\"End\":1872.41,\"Speaker\":0,\"Content\":\"and right around this time, the model started calling the tools a little bit more. Just like a little bit more. And we were like, wait, I think this thing is really useful. This like tool, this command line tool. Um, and that is the nugget of what eventually ended up turning into this aid CLI tool, which you can think of kind of like Cloud Code or Codex CLI. Um, and that kind of brings us into this new part where, um, you know, the models, that new tool has like grown in a bunch of ways and now it is a tool that people use for agent coding.\"},{\"Start\":1872.41,\"End\":1909.24,\"Speaker\":0,\"Content\":\"uh we've also, oh, and then and then the last thing we've done is we've made this like very large change, uh seeing the models do more and more and having them often limited by, um, you know, where they can reach into, we've made a change in how the actual work gets orchestrated so that the LLMs can essentially distribute work onto any of the developer machines at the firm and actually a bunch of other places too. And then the most recent change that we've made is we've actually made a change to kind of invert the control of how the LLM, uh, operates when it's trying to do things like bash calls.\"},{\"Start\":1909.24,\"End\":1942.05,\"Speaker\":0,\"Content\":\"So when you use something like Cloud Code, you're typing into terminal on your computer and then the bash calls are running also on your computer. And it's like fairly easy because the the the prompting loop and the place that the work is running are in the same place. And you kind of saw this opportunity to make a change to split those apart so that people could do things like use the chat application, ChainGPT, to be able to do work that actually ends up happening on a computer totally somewhere else. So we have made it so that there's like a central orchestrator that\"},{\"Start\":1942.05,\"End\":1951.96,\"Speaker\":0,\"Content\":\"takes in all of the prompts and is able to distribute work onto any of the hosts connected to it, where the hosts are roughly all of the developer machines at the firm plus a bunch of build boxes.\"},{\"Start\":1951.96,\"End\":1952.56,\"Speaker\":1,\"Content\":\"Right.\"},{\"Start\":1952.56,\"End\":1985.72,\"Speaker\":1,\"Content\":\"And this is like not so different from some of the directions that the kind of prompting engines kind of in the outside world have moved in, of wanting to like take that same session and instead of having it just like sit locally on your box, be in some kind of distributed system where you can access it through a web UI or from your phone or... Yeah, like from Slack. From Slack or whatever. Um, we've done this kind of in our infrastructure, uh so that we can orchestrate with whatever model we want, with whatever internal tools we want, and keep control of our data. And that's sort of what the kind of centralized version of the system looks like.\"},{\"Start\":1985.72,\"End\":2024.89,\"Speaker\":0,\"Content\":\"And it's enabled new ways to work. Like one way to work is we have this thing called Aid Mint, which is a system by which you mostly via Slack, but there's a few other ways that you can interact with it. You tell it the thing that you want to happen and it goes and creates a new feature, which is essentially our term for pull request. It spins up a build inside of that feature and then it kicks off the agent to go do some work. And you can actually do this totally from Slack. So you say, oh, this is the thing that I want to happen in this area of the code base, and the agent will go off and do it. But importantly, the work that it's actually doing, it's like running as you on your computer.\"},{\"Start\":2024.89,\"End\":2032.99,\"Speaker\":0,\"Content\":\"It's not like we, you know, have a bunch of AI build boxes out there. It's just like actually distributing the work back to, um, your development machine.\"},{\"Start\":2032.99,\"End\":2036.52,\"Speaker\":1,\"Content\":\"Right, although maybe not running exactly as you, maybe it's running as your AI user. True.\"},{\"Start\":2037.9,\"End\":2038.82,\"Speaker\":1,\"Content\":\"Right.\"},{\"Start\":2038.82,\"End\":2077.09,\"Speaker\":1,\"Content\":\"And I think the interesting thing about that last piece, this kind of mint system, is that in some sense, it seems like totally trivial. It's like, I could have spun up a new piece of work by like, you know, going off and creating a feature and then starting an agent inside of it and asking the agent to do it. And it's a relatively small UX change to make it so that you can just say something in Slack and have an agent pick it up and create the feature for you and start the work. But that relatively small user experience change was a really big difference to people's behavior. It's a little bit like conflated because it's like also at around the time that models were getting significantly better.\"},{\"Start\":2077.09,\"End\":2086.79,\"Speaker\":1,\"Content\":\"But we just saw like a huge uptake in this and I think the amount of work that was done with agents authoring that work like dramatically shot up.\"},{\"Start\":2086.79,\"End\":2126.26,\"Speaker\":0,\"Content\":\"Yeah, yeah, it's something like like 45% of the total released features PRs, uh, that get, uh, made at the firm are start with this flow, this like kind of asynchronous, uh, flow involving an LLM. I think in a way it gets you past the kind of blank page problem, like you were talking about before with a document. Like you're, you know, writing a document, oh, what do I write? It might be the case that the LLM writes something for you and you change most of the details, but there's still value in it kind of doing the first bit. And also, like it's worth saying that, you know, there's a lot of toil involved in just creating a new, um, pull request, right? You have to like go create a branch.\"},{\"Start\":2126.26,\"End\":2139.36,\"Speaker\":0,\"Content\":\"you have to switch to that branch, you have to figure out what build targets to put in place, you have to like create a name for it, you have to get the whole like workspace set up correctly, you have to figure out what files are involved in the change you want to make, and the LLM can kind of just jump right through all that.\"},{\"Start\":2139.36,\"End\":2162.36,\"Speaker\":1,\"Content\":\"And I think another interesting aspect of this is how much of the work is stuff that you just kind of let the agent just kind of do, and how much do you kind of hard set up. And I think there were a bunch of good choices that were made about what things you just kind of hard set up, not because the agent couldn't do it at all, but because it made things faster and more reliable and more consistent to kind of do them in advance in this way.\"},{\"Start\":2162.36,\"End\":2187.9,\"Speaker\":0,\"Content\":\"And then we're even noticing places where like the setup that we've provided for the agent is useful for the humans too. Like in a way the problem that I just described of like picking the build targets, uh, that are appropriate for your work, well, like it's annoying for a human to do too, right? So like the same systems that we put in place for maybe authors to say, oh, in this part of the tree the build targets that I probably want are these, once we do that work, now humans can benefit from that change too.\"},{\"Start\":2188.24,\"End\":2227.38,\"Speaker\":1,\"Content\":\"I I had an interesting conversation earlier this week with someone who was thinking about the kind of vibe coding problem with uh web apps. So like one thing that like everyone now knows is like the models are really good at is like thracking together a quick web UI. And this is actually an area where we're really excited about, you know, real deal vibe coding, meaning like having agents write stuff that like maybe no human looks at it all. And one of the reasons why it's useful is, first of all, it lets you write code, it's less about, you know, changing how you write the code you were going to write before and instead let you write code that you would have never bothered to write at all.\"},{\"Start\":2227.38,\"End\":2261.82,\"Speaker\":1,\"Content\":\"'cause it's like it's now just so cheap to do that you can have this kind of like disposable tool that you like quickly throw together to solve some particular problem. Is it exactly right? Uh, probably not, but it doesn't totally matter. It gives you enough insight and it's useful for that one use case and you kind of throw it away when you're done. And trying to build workflows that make it really easy and natural to do that. And it turns out the models are best at the things that they know best. And so, you know what they don't know best? They don't know like OCaml and like Bonsai, which is our internal system for building web apps and stuff.\"},{\"Start\":2261.82,\"End\":2300.31,\"Speaker\":1,\"Content\":\"So they're they are going to like know more off the top of their head how to go off and, you know, build something in pure HTML and JavaScript than they're going to be able to build something that like fits naturally into our internal ecosystem. And like part of our answer to that has been like, oh yeah, we can like do some of that. Like, you know, JavaScript works here too. We can do some things in that style. But the people who think about the web platform here have been trying to like think about and understand what's the gap? Like, why does it take much longer to build an app in Bonsai than it does to build an app in JavaScript? And one of the things they've been discovering recently is some of it has nothing to do with the language stuff.\"},{\"Start\":2300.31,\"End\":2333.27,\"Speaker\":1,\"Content\":\"some of it is just like, oh, before I was just like doing a single index.html that like had the JavaScript and HTML in that one file and there was no anything to do. It's just like could generate the text and it was kind of fine. And now, there's like a feature in Iron which is our code review system that has to be created and a build process that has to be kicked off and there's just like more steps and tool calls and the thing that actually represents there's like 30 seconds of like actual work to go and like generate the code.\"},{\"Start\":2333.27,\"End\":2338.45,\"Speaker\":0,\"Content\":\"You'd probably want to grab like the bonsai starter template and like get your code off to a good start.\"},{\"Start\":2338.45,\"End\":2377.25,\"Speaker\":1,\"Content\":\"And so like the whole thing in reality takes 10 minutes when it would have taken 30 seconds in the pure index.html world. And I think at first we were like, oh, maybe this is just like the cost we're paying because of like internal languages and libraries. Like, no, actually this is maybe stuff that we can fix by exactly as you're suggesting, doing like more like hard deterministic setup stuff so that like things are just there and ready and like the agent doesn't have to go and discover again how to use all the tools. That's again, kind of like the the agents are kind of like amazing and one of their thing that makes them amazing is also one of the deficiencies, which is they are perpetual beginners, right?\"},{\"Start\":2377.25,\"End\":2387.74,\"Speaker\":1,\"Content\":\"They never learn how to use the tools, right? It's just they rediscover every time how to use the tools. And so you kind of have to build your whole system around them being these kind of perpetual beginners.\"},{\"Start\":2388.16,\"End\":2389.02,\"Speaker\":0,\"Content\":\"Right.\"},{\"Start\":2389.02,\"End\":2425.18,\"Speaker\":0,\"Content\":\"Yeah, I think another part of this is you can maybe like instill them with a little bit of repeated knowledge by like writing skills, right? But then there's a question, uh so skills for anyone that doesn't know are these like little documents that you write to kind of guide the model on things that it does often. And models can also like help you write these skills and put them in place, but it takes time to write them. And it takes time to like know that you're writing them well. And once you have a, you know, large organization using a bunch of skills, they also become a little bit hard to change because changes to skills might have kind of untold impact on different parts of the firm. So this is also a problem that we end up having to think a lot about.\"},{\"Start\":2425.18,\"End\":2430.0,\"Speaker\":1,\"Content\":\"Yeah, actually, we've talked a little bit about things like skills, we talked about function\"}]"
+}

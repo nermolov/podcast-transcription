@@ -1,0 +1,92 @@
+{
+ "chunk": 14,
+ "audio": [
+  4170.0,
+  4500.0
+ ],
+ "new_start": 4200.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 3.74,
+   "speaker_id": 0,
+   "text": "own tools and use external third-party tools at the same time."
+  },
+  {
+   "start": 3.74,
+   "end": 43.03,
+   "speaker_id": 1,
+   "text": "Yeah, uh so I guess like there's there's two sides of this. One is like you want control over the harness, you want control over what models get used, even doing things like combining different models to give users a better experience. You also, I think with our tooling on the user-facing side, want to have a little bit more uh deep integration into the tools that you know that they're using. For example, in the bottom of our CLI tool, and this is a fairly minor thing, but in the bottom of our CLI tool, we like show what feature the model is currently working in and we let you switch between different features. So you can have the model and know that the workspace that it's working in is kind of locked to the feature that it's currently operating inside of."
+  },
+  {
+   "start": 43.03,
+   "end": 82.61,
+   "speaker_id": 1,
+   "text": "The model can see like the build status for that current feature, and these are these are not things that we have to tell the model. We like have given it a tool that's like compile, right? And it gets back the status of the current compilation. We also want to use external tools because, I mean, in a lot of ways, they're moving in different directions and sometimes faster than we are. Um, these are constantly coming out with new functionality. Uh, like, um, I guess the memory system in cloud code feels like a good example of this. So a place where they're kind of like coming out with functionality that feels in a lot of ways more advanced than the thing that we have to solve the same problem. Um, we want to let people use the tool that works best for them."
+  },
+  {
+   "start": 82.61,
+   "end": 118.24,
+   "speaker_id": 1,
+   "text": "we also want to learn. I think one thing that came up early on is like it felt, at least I felt this like tension of like, oh, I'm building this tool, I really want, you know, this tool to be used by everyone because otherwise like why are we even making it? Um, but then there's this kind of realization that if your tool is only the best because you've like closed out uh competition from the outside world artificially, then it's not it's not really the best tool for the job. And the decision we want to make is the one that's going to be best for people here. So as a result, we give them access to to all the tools. And then we try as hard as we can to make ours as good as it can be."
+  },
+  {
+   "start": 118.24,
+   "end": 118.91,
+   "speaker_id": 0,
+   "text": "Right."
+  },
+  {
+   "start": 118.91,
+   "end": 145.88,
+   "speaker_id": 0,
+   "text": "Yeah, there's a form of just like internal virtuous competition where, you know, the fact that you get to see these tools in action inside our inside of our codebase, you get to see what advantages they have, and that helps us learn what we need to build and how we need to make things better. Um, I also think there are real challenges to it. Like every time you support an external tool, there's like real problems you have to think about. There's a bunch of security questions that get significantly more complicated."
+  },
+  {
+   "start": 145.88,
+   "end": 174.4,
+   "speaker_id": 1,
+   "text": "Yeah, they don't always have all the right plug points, right? Like even uh sandboxing, right? They a lot of the tools have their own sandboxing. And if we want sandboxing that's consistent across all of them, kind of hard to use the sandboxing that they provide because it doesn't provide all the same functionality. And maybe mapping our sandboxing rules onto their sandbox is kind of a a losing effort. So instead, we've tried to find ways to kind of shim our sandbox in in the right places so that it uh gets used across all the clients."
+  },
+  {
+   "start": 175.14,
+   "end": 211.43,
+   "speaker_id": 0,
+   "text": "Right, and at the end of the day, I think an ecosystem where we both try and build really good tools that are adapted specifically for like our use cases and can really advance in ways that are hard for external tools to advance, and at the same time have a platform that's really good at supporting third-party tools, like is a kind of like mixed mode interaction. I think we've actually done this in other places. Another another thing that I think makes us a little unusual is just as an organization we've done a huge amount of work on having our own data centers and having control over the physical machines that we use. Like, you know, you mentioned control."
+  },
+  {
+   "start": 211.43,
+   "end": 247.73,
+   "speaker_id": 0,
+   "text": "control comes up a lot when you're building, you know, low latency high performance trading systems, you want a lot of control of the physical layer. And we found that control to also be useful as we like scale up enormously in the kind of GPU fleets that we build. And also at the same time as we've grown, we found it's also really useful to use cloud offerings. And like in part because sometimes there are capacities they have that we don't. Sometimes they're just better at us. Like we've learned things from like we've like run the same workload in the cloud and it's like way faster and we're like, oh, what did we get wrong? And we've like learned important things that way. Often it goes the other direction."
+  },
+  {
+   "start": 247.73,
+   "end": 285.7,
+   "speaker_id": 0,
+   "text": "uh but we've been able to scale up, do new things faster, find more compute capacity, and just generally I think do a better job on all sides of the work by doing what seems like in some ways a kind of crazy thing of like, oh, are we going to take this simple path or that simple path and we're going to do both at the same time. And it is hard to do both at the same time, but I think there are real rewards to it. And I feel very similarly here where I think both building our own stuff and having a really having really good support for using third-party tools is important. And I don't think we do any of this perfectly. Uh, I think neither our internal tools are perfect nor is our support for using third-party tools ideal."
+  },
+  {
+   "start": 285.7,
+   "end": 289.1,
+   "speaker_id": 0,
+   "text": "But I think that's that I think that's the right strategy for the work here."
+  },
+  {
+   "start": 289.1,
+   "end": 321.17,
+   "speaker_id": 1,
+   "text": "there's there's a thing that we end up doing fairly often, uh where we see we see a place where people are leaning heavily on not our tool, and then we end up making changes to our tool to kind of accommodate why they're going to do that. Like the permissioning changes is one of these. And I think you could follow the kind of logic of that and you could say, well, then why do the work if you're always just trying to like catch up, you know, to the work that the vendor is doing? And I feel like that's not the like charitable read on it."
+  },
+  {
+   "start": 321.17,
+   "end": 330.0,
+   "speaker_id": 1,
+   "text": "What actually is happening is that there are also a lot of ways that like we're building things that the vendors aren't building or we're building deeper integrations or we can fix like usability bugs that people"
+  }
+ ],
+ "gen_tokens": 1685,
+ "text": "[{\"Start\":0,\"End\":3.74,\"Speaker\":0,\"Content\":\"own tools and use external third-party tools at the same time.\"},{\"Start\":3.74,\"End\":43.03,\"Speaker\":1,\"Content\":\"Yeah, uh so I guess like there's there's two sides of this. One is like you want control over the harness, you want control over what models get used, even doing things like combining different models to give users a better experience. You also, I think with our tooling on the user-facing side, want to have a little bit more uh deep integration into the tools that you know that they're using. For example, in the bottom of our CLI tool, and this is a fairly minor thing, but in the bottom of our CLI tool, we like show what feature the model is currently working in and we let you switch between different features. So you can have the model and know that the workspace that it's working in is kind of locked to the feature that it's currently operating inside of.\"},{\"Start\":43.03,\"End\":82.61,\"Speaker\":1,\"Content\":\"The model can see like the build status for that current feature, and these are these are not things that we have to tell the model. We like have given it a tool that's like compile, right? And it gets back the status of the current compilation. We also want to use external tools because, I mean, in a lot of ways, they're moving in different directions and sometimes faster than we are. Um, these are constantly coming out with new functionality. Uh, like, um, I guess the memory system in cloud code feels like a good example of this. So a place where they're kind of like coming out with functionality that feels in a lot of ways more advanced than the thing that we have to solve the same problem. Um, we want to let people use the tool that works best for them.\"},{\"Start\":82.61,\"End\":118.24,\"Speaker\":1,\"Content\":\"we also want to learn. I think one thing that came up early on is like it felt, at least I felt this like tension of like, oh, I'm building this tool, I really want, you know, this tool to be used by everyone because otherwise like why are we even making it? Um, but then there's this kind of realization that if your tool is only the best because you've like closed out uh competition from the outside world artificially, then it's not it's not really the best tool for the job. And the decision we want to make is the one that's going to be best for people here. So as a result, we give them access to to all the tools. And then we try as hard as we can to make ours as good as it can be.\"},{\"Start\":118.24,\"End\":118.91,\"Speaker\":0,\"Content\":\"Right.\"},{\"Start\":118.91,\"End\":145.88,\"Speaker\":0,\"Content\":\"Yeah, there's a form of just like internal virtuous competition where, you know, the fact that you get to see these tools in action inside our inside of our codebase, you get to see what advantages they have, and that helps us learn what we need to build and how we need to make things better. Um, I also think there are real challenges to it. Like every time you support an external tool, there's like real problems you have to think about. There's a bunch of security questions that get significantly more complicated.\"},{\"Start\":145.88,\"End\":174.4,\"Speaker\":1,\"Content\":\"Yeah, they don't always have all the right plug points, right? Like even uh sandboxing, right? They a lot of the tools have their own sandboxing. And if we want sandboxing that's consistent across all of them, kind of hard to use the sandboxing that they provide because it doesn't provide all the same functionality. And maybe mapping our sandboxing rules onto their sandbox is kind of a a losing effort. So instead, we've tried to find ways to kind of shim our sandbox in in the right places so that it uh gets used across all the clients.\"},{\"Start\":175.14,\"End\":211.43,\"Speaker\":0,\"Content\":\"Right, and at the end of the day, I think an ecosystem where we both try and build really good tools that are adapted specifically for like our use cases and can really advance in ways that are hard for external tools to advance, and at the same time have a platform that's really good at supporting third-party tools, like is a kind of like mixed mode interaction. I think we've actually done this in other places. Another another thing that I think makes us a little unusual is just as an organization we've done a huge amount of work on having our own data centers and having control over the physical machines that we use. Like, you know, you mentioned control.\"},{\"Start\":211.43,\"End\":247.73,\"Speaker\":0,\"Content\":\"control comes up a lot when you're building, you know, low latency high performance trading systems, you want a lot of control of the physical layer. And we found that control to also be useful as we like scale up enormously in the kind of GPU fleets that we build. And also at the same time as we've grown, we found it's also really useful to use cloud offerings. And like in part because sometimes there are capacities they have that we don't. Sometimes they're just better at us. Like we've learned things from like we've like run the same workload in the cloud and it's like way faster and we're like, oh, what did we get wrong? And we've like learned important things that way. Often it goes the other direction.\"},{\"Start\":247.73,\"End\":285.7,\"Speaker\":0,\"Content\":\"uh but we've been able to scale up, do new things faster, find more compute capacity, and just generally I think do a better job on all sides of the work by doing what seems like in some ways a kind of crazy thing of like, oh, are we going to take this simple path or that simple path and we're going to do both at the same time. And it is hard to do both at the same time, but I think there are real rewards to it. And I feel very similarly here where I think both building our own stuff and having a really having really good support for using third-party tools is important. And I don't think we do any of this perfectly. Uh, I think neither our internal tools are perfect nor is our support for using third-party tools ideal.\"},{\"Start\":285.7,\"End\":289.1,\"Speaker\":0,\"Content\":\"But I think that's that I think that's the right strategy for the work here.\"},{\"Start\":289.1,\"End\":321.17,\"Speaker\":1,\"Content\":\"there's there's a thing that we end up doing fairly often, uh where we see we see a place where people are leaning heavily on not our tool, and then we end up making changes to our tool to kind of accommodate why they're going to do that. Like the permissioning changes is one of these. And I think you could follow the kind of logic of that and you could say, well, then why do the work if you're always just trying to like catch up, you know, to the work that the vendor is doing? And I feel like that's not the like charitable read on it.\"},{\"Start\":321.17,\"End\":330.0,\"Speaker\":1,\"Content\":\"What actually is happening is that there are also a lot of ways that like we're building things that the vendors aren't building or we're building deeper integrations or we can fix like usability bugs that people\"}]"
+}

@@ -1,0 +1,116 @@
+{
+ "chunk": 19,
+ "audio": [
+  5670.0,
+  6000.0
+ ],
+ "new_start": 5700.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 14.47,
+   "speaker_id": 0,
+   "text": "more of it both like internally but also like in things in the outside world. I felt like, I don't know, six months ago I was seeing more stories about this but like fewer compelling examples. And like I'm wondering like maybe it's less good than I think it is or maybe it's harder than I think it is or maybe we're just like not there yet."
+  },
+  {
+   "start": 14.47,
+   "end": 50.63,
+   "speaker_id": 1,
+   "text": "I think it's it goes back to the point I was saying earlier about like if the models stopped their progress, we would still have multiple years of work to do. That like a lot of the ways that we apply models now are either reflections of how the software process existed before the models were around, meaning we're just trying to plug them into places where a human would do exactly the the process, but we're having an LLM help with it. Or they're a reflection of how the the models interface works. And what I mean by that is that a lot of the interfaces that we have for interacting with models, they feel like chat because that's how the APIs work for the vendors."
+  },
+  {
+   "start": 50.63,
+   "end": 74.54,
+   "speaker_id": 1,
+   "text": "And I feel like we're just now starting to really get into like, maybe chat's not the right interface. Like, maybe the thing you actually want to present to people when you're writing code is something more like little tidbits about the exact code changes that you've made. And maybe chat is almost like, yeah, you want to have the log there in case the human has a question about why the model did a thing, but maybe it's not like the primary artifact you want to show back."
+  },
+  {
+   "start": 74.54,
+   "end": 84.55,
+   "speaker_id": 0,
+   "text": "I think this is a little bit of a artifact of this kind of move from interacting with a single agent to interacting with multiple agents."
+  },
+  {
+   "start": 84.55,
+   "end": 85.21,
+   "speaker_id": 1,
+   "text": "Yeah."
+  },
+  {
+   "start": 85.21,
+   "end": 106.61,
+   "speaker_id": 0,
+   "text": "and I think we're this is like both inside our world and outside of it, there's like more and more support for these kind of orchestration level work where, yeah, like you're you're you need to talk to an agent to do some things, but you also want to be able to like visualize and absorb and manage and have in fact have LLMs manage for you the work of many different agents."
+  },
+  {
+   "start": 106.61,
+   "end": 117.55,
+   "speaker_id": 1,
+   "text": "Um, and there's the flip of that too. You want to have them not just working on like one one thing. One one, we keep saying artifact, so I'm trying not to say. You don't want them just to work on one"
+  },
+  {
+   "start": 117.55,
+   "end": 118.8,
+   "speaker_id": 0,
+   "text": "one code change"
+  },
+  {
+   "start": 118.8,
+   "end": 128.55,
+   "speaker_id": 1,
+   "text": "one code change or one uh diagram or one research study. You kind of want them working across multiple at once. So there's the the other side as well. It's like a many to many."
+  },
+  {
+   "start": 128.55,
+   "end": 151.51,
+   "speaker_id": 0,
+   "text": "So, I'm curious what you think is coming next in this regard. Like, what do we need to be building to better support this kind of ecosystem of like many different agents working on various different problems, communicating with each other in various ways? Like, it seems kind of like horrifying from a like reproducibility standpoint, but like, I don't know, what do what do what are the kinds of things that we need to like try out and experiment with?"
+  },
+  {
+   "start": 151.51,
+   "end": 191.8,
+   "speaker_id": 1,
+   "text": "Yeah, the world has started to move more toward this like agent teams concept. It seems like there's still a lot more that we need to do to be able to figure out how they pass information back and forth to each other. So a bunch of different techniques about like, do they have a broadcast channel that they can all talk in? Can they talk one-on-one to each other? When they have questions about what the other one's doing, can they like look at the session log of another one that's happening or do they have to ask it a question? And there's like a bunch of decisions here to make about how they work. And then there's a bunch of ways that, um, we haven't kind of closed the loop in terms of things that they can actually do. Like we've tried really hard, but there's still a bunch of places where the model maybe..."
+  },
+  {
+   "start": 191.8,
+   "end": 229.05,
+   "speaker_id": 1,
+   "text": "reaches the end of what is possible earlier than uh than it should. I saw the other day, this is a total aside maybe. I saw the other day that um someone went for the I think first time and hooked a model up to Blender, which is like this. Oh yeah, fun. And and the model like just totally took control of Blender and started and like built essentially like a virtual world. And it was able to see screenshots and it kind of like so it was screenshots of Blender, right? So it can see what it's building while it's building it. And it's kind of this idea of like what other things have we not given the model control of that it could do really well with?"
+  },
+  {
+   "start": 229.05,
+   "end": 229.82,
+   "speaker_id": 0,
+   "text": "Yeah"
+  },
+  {
+   "start": 229.82,
+   "end": 269.32,
+   "speaker_id": 0,
+   "text": "One thing I'm actually really excited about is giving more thorough kind of end-to-end control of the kind of testing that we use. And I think it's already the case that like the simple entry tests that we do where you just like write, you know, some kind of like small-scale unit tests, integration tests, the expect tests that we use a lot internally, which are these kind of like screenshot style tests that like capture output from from the run of things like they can already do all of that and that's great. But there's lots of other larger scale testing that I think in many ways like we end up having to do because like we the models aren't well set up to do it."
+  },
+  {
+   "start": 269.32,
+   "end": 308.41,
+   "speaker_id": 0,
+   "text": "uh and there's this problem where like you don't want to become the assistant to the assistant, you want like to be able to get more of the work in the assistant's hands. So I feel like having nice stories where the same setup you have for like deploying your stuff in production can also be used for deploying test versions of your application that the models can then like directly interact with and test out. Um, I think other kinds of like, you know, property-based testing and fuzzing tools that you want to run like for longer periods of time that aren't part of like the ordinary development environment, but at some point you want to like spin up and run those and they could take a while. You spin up Antithesis, it might come back in 12 hours with your results."
+  },
+  {
+   "start": 308.41,
+   "end": 323.47,
+   "speaker_id": 0,
+   "text": "So these kind of more like long-term, larger scale deployments and testing system of systems, like I think having that much more in the hands of the model, I think can like extend the amount of drudgery that the model can like automate away for people."
+  },
+  {
+   "start": 323.47,
+   "end": 330.0,
+   "speaker_id": 1,
+   "text": "You can also take the development loop and extend it kind of in both directions, right? Before you're writing code, there's a bunch of planning that you do."
+  }
+ ],
+ "gen_tokens": 1754,
+ "text": "[{\"Start\":0,\"End\":14.47,\"Speaker\":0,\"Content\":\"more of it both like internally but also like in things in the outside world. I felt like, I don't know, six months ago I was seeing more stories about this but like fewer compelling examples. And like I'm wondering like maybe it's less good than I think it is or maybe it's harder than I think it is or maybe we're just like not there yet.\"},{\"Start\":14.47,\"End\":50.63,\"Speaker\":1,\"Content\":\"I think it's it goes back to the point I was saying earlier about like if the models stopped their progress, we would still have multiple years of work to do. That like a lot of the ways that we apply models now are either reflections of how the software process existed before the models were around, meaning we're just trying to plug them into places where a human would do exactly the the process, but we're having an LLM help with it. Or they're a reflection of how the the models interface works. And what I mean by that is that a lot of the interfaces that we have for interacting with models, they feel like chat because that's how the APIs work for the vendors.\"},{\"Start\":50.63,\"End\":74.54,\"Speaker\":1,\"Content\":\"And I feel like we're just now starting to really get into like, maybe chat's not the right interface. Like, maybe the thing you actually want to present to people when you're writing code is something more like little tidbits about the exact code changes that you've made. And maybe chat is almost like, yeah, you want to have the log there in case the human has a question about why the model did a thing, but maybe it's not like the primary artifact you want to show back.\"},{\"Start\":74.54,\"End\":84.55,\"Speaker\":0,\"Content\":\"I think this is a little bit of a artifact of this kind of move from interacting with a single agent to interacting with multiple agents.\"},{\"Start\":84.55,\"End\":85.21,\"Speaker\":1,\"Content\":\"Yeah.\"},{\"Start\":85.21,\"End\":106.61,\"Speaker\":0,\"Content\":\"and I think we're this is like both inside our world and outside of it, there's like more and more support for these kind of orchestration level work where, yeah, like you're you're you need to talk to an agent to do some things, but you also want to be able to like visualize and absorb and manage and have in fact have LLMs manage for you the work of many different agents.\"},{\"Start\":106.61,\"End\":117.55,\"Speaker\":1,\"Content\":\"Um, and there's the flip of that too. You want to have them not just working on like one one thing. One one, we keep saying artifact, so I'm trying not to say. You don't want them just to work on one\"},{\"Start\":117.55,\"End\":118.8,\"Speaker\":0,\"Content\":\"one code change\"},{\"Start\":118.8,\"End\":128.55,\"Speaker\":1,\"Content\":\"one code change or one uh diagram or one research study. You kind of want them working across multiple at once. So there's the the other side as well. It's like a many to many.\"},{\"Start\":128.55,\"End\":151.51,\"Speaker\":0,\"Content\":\"So, I'm curious what you think is coming next in this regard. Like, what do we need to be building to better support this kind of ecosystem of like many different agents working on various different problems, communicating with each other in various ways? Like, it seems kind of like horrifying from a like reproducibility standpoint, but like, I don't know, what do what do what are the kinds of things that we need to like try out and experiment with?\"},{\"Start\":151.51,\"End\":191.8,\"Speaker\":1,\"Content\":\"Yeah, the world has started to move more toward this like agent teams concept. It seems like there's still a lot more that we need to do to be able to figure out how they pass information back and forth to each other. So a bunch of different techniques about like, do they have a broadcast channel that they can all talk in? Can they talk one-on-one to each other? When they have questions about what the other one's doing, can they like look at the session log of another one that's happening or do they have to ask it a question? And there's like a bunch of decisions here to make about how they work. And then there's a bunch of ways that, um, we haven't kind of closed the loop in terms of things that they can actually do. Like we've tried really hard, but there's still a bunch of places where the model maybe...\"},{\"Start\":191.8,\"End\":229.05,\"Speaker\":1,\"Content\":\"reaches the end of what is possible earlier than uh than it should. I saw the other day, this is a total aside maybe. I saw the other day that um someone went for the I think first time and hooked a model up to Blender, which is like this. Oh yeah, fun. And and the model like just totally took control of Blender and started and like built essentially like a virtual world. And it was able to see screenshots and it kind of like so it was screenshots of Blender, right? So it can see what it's building while it's building it. And it's kind of this idea of like what other things have we not given the model control of that it could do really well with?\"},{\"Start\":229.05,\"End\":229.82,\"Speaker\":0,\"Content\":\"Yeah\"},{\"Start\":229.82,\"End\":269.32,\"Speaker\":0,\"Content\":\"One thing I'm actually really excited about is giving more thorough kind of end-to-end control of the kind of testing that we use. And I think it's already the case that like the simple entry tests that we do where you just like write, you know, some kind of like small-scale unit tests, integration tests, the expect tests that we use a lot internally, which are these kind of like screenshot style tests that like capture output from from the run of things like they can already do all of that and that's great. But there's lots of other larger scale testing that I think in many ways like we end up having to do because like we the models aren't well set up to do it.\"},{\"Start\":269.32,\"End\":308.41,\"Speaker\":0,\"Content\":\"uh and there's this problem where like you don't want to become the assistant to the assistant, you want like to be able to get more of the work in the assistant's hands. So I feel like having nice stories where the same setup you have for like deploying your stuff in production can also be used for deploying test versions of your application that the models can then like directly interact with and test out. Um, I think other kinds of like, you know, property-based testing and fuzzing tools that you want to run like for longer periods of time that aren't part of like the ordinary development environment, but at some point you want to like spin up and run those and they could take a while. You spin up Antithesis, it might come back in 12 hours with your results.\"},{\"Start\":308.41,\"End\":323.47,\"Speaker\":0,\"Content\":\"So these kind of more like long-term, larger scale deployments and testing system of systems, like I think having that much more in the hands of the model, I think can like extend the amount of drudgery that the model can like automate away for people.\"},{\"Start\":323.47,\"End\":330.0,\"Speaker\":1,\"Content\":\"You can also take the development loop and extend it kind of in both directions, right? Before you're writing code, there's a bunch of planning that you do.\"}]"
+}

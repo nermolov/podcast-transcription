@@ -1,0 +1,52 @@
+{
+ "args": {
+  "audio": "episode/episode.mp3",
+  "plan": "120,240,480,960,1920,2400",
+  "overlap": 30.0,
+  "speaker": "overlap",
+  "clip_s": 10.0,
+  "words": true,
+  "model": "mlx-community/VibeVoice-ASR-8bit",
+  "context": "",
+  "max_chunks": 0,
+  "out": "research/streaming/runs/geo2"
+ },
+ "plan": [
+  [
+   0.0,
+   0.0,
+   120.0
+  ],
+  [
+   90.0,
+   120.0,
+   360.0
+  ],
+  [
+   330.0,
+   360.0,
+   840.0
+  ],
+  [
+   810.0,
+   840.0,
+   1800.0
+  ],
+  [
+   1770.0,
+   1800.0,
+   3720.0
+  ],
+  [
+   3690.0,
+   3720.0,
+   6120.0
+  ],
+  [
+   6090.0,
+   6120.0,
+   6509.112
+  ]
+ ],
+ "audio_s": 6509.112
+}

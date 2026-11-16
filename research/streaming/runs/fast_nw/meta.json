@@ -1,0 +1,42 @@
+{
+ "args": {
+  "audio": "episode/episode.mp3",
+  "plan": "120,900,2400",
+  "overlap": 30.0,
+  "speaker": "overlap",
+  "clip_s": 10.0,
+  "words": false,
+  "model": "mlx-community/VibeVoice-ASR-8bit",
+  "context": "",
+  "max_chunks": 0,
+  "out": "research/streaming/runs/fast_nw"
+ },
+ "plan": [
+  [
+   0.0,
+   0.0,
+   120.0
+  ],
+  [
+   90.0,
+   120.0,
+   1020.0
+  ],
+  [
+   990.0,
+   1020.0,
+   3420.0
+  ],
+  [
+   3390.0,
+   3420.0,
+   5820.0
+  ],
+  [
+   5790.0,
+   5820.0,
+   6509.112
+  ]
+ ],
+ "audio_s": 6509.112
+}

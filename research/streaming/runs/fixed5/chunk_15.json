@@ -1,0 +1,104 @@
+{
+ "chunk": 15,
+ "audio": [
+  4470.0,
+  4800.0
+ ],
+ "new_start": 4500.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 40.44,
+   "speaker_id": 0,
+   "text": "making changes to our tool to kind of accommodate why they're going to do that. Like the permissioning changes is one of these. And I think you could follow the kind of logic of that and you could say, well, then why do the work if you're always just trying to like catch up, you know, to the work that the vendor is doing? And I feel like that's not the like charitable read on it. What actually is happening is that there are also a lot of ways that like we're building things that the vendors aren't building or we're building deeper integrations or we can fix like usability bugs that people here specifically have earlier. Or we can provide tools that feel more natural to use inside of our system. And then also we should keep up with all the things that are happening in these external clients."
+  },
+  {
+   "start": 40.54,
+   "end": 68.98,
+   "speaker_id": 1,
+   "text": "Yeah, if you're not getting some kind of unique advantage from building your own thing, you're just wasting your time. Yep. So we've talked a bunch about the tooling that we've built to make all of this better. I want to talk a little bit about just like the experience of programming, right? I mean, I feel like kind of everyone in the software engineering world has experienced some of this, but I'm kind of curious just from your perspective, how what have you seen in your from your kind of vantage point working on all this AI tooling about how the tooling has changed the experience of coding?"
+  },
+  {
+   "start": 68.98,
+   "end": 83.75,
+   "speaker_id": 0,
+   "text": "Probably a lot of people, I got into coding because I liked coding, right? I liked solving problems. I liked even just like, you know, sometimes you're solving a problem and it feels like a fun puzzle. I even liked the part"
+  },
+  {
+   "start": 83.75,
+   "end": 91.41,
+   "speaker_id": 0,
+   "text": "Maybe I'm crazy. I like the part where like I know exactly what I'm writing and I'm just gonna write it right now. Like, I think that's that part feels really good too."
+  },
+  {
+   "start": 91.41,
+   "end": 102.22,
+   "speaker_id": 1,
+   "text": "Yeah. And like knitting, right? Yeah. You're not maybe solving any big ideas, but just like the craft of putting the code together bit by bit, you know, making it it's it's it's a little artistic, right?"
+  },
+  {
+   "start": 102.22,
+   "end": 138.97,
+   "speaker_id": 0,
+   "text": "I don't want it to always be, I know exactly what I'm doing, but sometimes. Sometimes it's just like, you know, it's like uh uh it's like at the end of a video game, some new games have started doing this thing where they like at the end, there's like a fun level where they just like let you, you know, you're operating with like complete immunity or something. It's like, you know, you're just you're just sitting down and you're doing the actual thing. Um, and you can get into this nice flow state and it's very good. Um, and I think that both of these are like at different levels of like, I don't know, not the same as they were before, right?"
+  },
+  {
+   "start": 138.97,
+   "end": 176.31,
+   "speaker_id": 0,
+   "text": "Sure. Like the just do the thing one, the the second one. It seems like LLMs are actually just pretty good at doing that. Uh so if the thing that you liked was, you know, feeling like you had a full command of the type system and that you could like quickly roll out changes that feel complicated to other people or you have the whole world in your head and you just want to go implement it, that's probably just becoming like less of a needed skill. It just seems that way. Um and then on the on on the other side, there's like a lot of places where, um, you know, the thing you have to do is uh design a solution to a problem, a code problem, and kind of like work through the ramifications of implementing that."
+  },
+  {
+   "start": 176.31,
+   "end": 216.03,
+   "speaker_id": 0,
+   "text": "and maybe there's some like particularly performance sensitive pieces, and your job there has changed a little bit too in the sense that the model is like doing a lot of authoring, and you're doing a lot of like making sure that it did the right thing, right? You're kind of like watching the code that it wrote and offering adjustments where you can, um and kind of your role has shifted a lot in a lot of cases more toward like code review. Um and then there's this like third part which I feel like is still fairly protected although we're on the cusp of is like the actual like software design part. But like what uh what will you do, how will you do it, what are the pieces involved, what will it feel like to use this thing once you're done doing it?"
+  },
+  {
+   "start": 216.03,
+   "end": 234.57,
+   "speaker_id": 0,
+   "text": "Um, and this is a place where obviously people are using LLMs a lot too, in things like like plan mode. Um, but this feels like the, I don't know, the least, the least like entirely changed version. In a way, the LLM is like just a collaborator that you're working with rather than someone doing the thing that you like to do."
+  },
+  {
+   "start": 234.57,
+   "end": 235.13,
+   "speaker_id": 1,
+   "text": "Right."
+  },
+  {
+   "start": 235.13,
+   "end": 254.26,
+   "speaker_id": 1,
+   "text": "So I think one thing you're pointing to is that like there's a lot of different parts of the work that people gain satisfaction from, and the tools are just kind of changing which parts of those work are available. Like what what actually will you do? How will you spend your time? There's like some parts of the work that like people are going to spend much less time on because they're more automated."
+  },
+  {
+   "start": 254.9,
+   "end": 262.52,
+   "speaker_id": 1,
+   "text": "That's like good for some people and bad for others, right? It's like changes the shape of the work in a way that adjusts people's level of satisfaction."
+  },
+  {
+   "start": 262.52,
+   "end": 283.65,
+   "speaker_id": 0,
+   "text": "Yeah, I think I hear this pretty often. People that are like, even people that were maybe less technical at some point are just like, this is the best thing ever. All of a sudden like this, you know, this thing that felt closed to me is open, right? But then people that maybe were making uh more rote changes for most of their time are like, you know, the thing I loved is gone. More of more of that feeling."
+  },
+  {
+   "start": 283.65,
+   "end": 310.24,
+   "speaker_id": 1,
+   "text": "Yeah, one one thing I heard from a very strong engineer here was he just highlighted that like the way the character of how his job worked, at some point felt like, you know, 10% of his time was thinking really hard and deeply about what to do. And then, you know, 90% of the time is on the execution of that, which is the, you know, this knitting thing that we were talking about of like taking these ideas and unfolding them and like learning along the way from that process, but like, you know, kind of getting your fingers into the warp and weft of the code."
+  },
+  {
+   "start": 310.58,
+   "end": 330.0,
+   "speaker_id": 1,
+   "text": "And now, he does that 10%, and then, like, sends a model to do the other piece. And then does, like, another one of those 10%, and then sends a model to do the other piece. And in some ways, it's good. You get to spend more of your time thinking about hard problems. And it's also kind of tiring, right? It's like, there's, like, a relaxing piece in the middle that you just kind of get less."
+  }
+ ],
+ "gen_tokens": 1814,
+ "text": "[{\"Start\":0,\"End\":40.44,\"Speaker\":0,\"Content\":\"making changes to our tool to kind of accommodate why they're going to do that. Like the permissioning changes is one of these. And I think you could follow the kind of logic of that and you could say, well, then why do the work if you're always just trying to like catch up, you know, to the work that the vendor is doing? And I feel like that's not the like charitable read on it. What actually is happening is that there are also a lot of ways that like we're building things that the vendors aren't building or we're building deeper integrations or we can fix like usability bugs that people here specifically have earlier. Or we can provide tools that feel more natural to use inside of our system. And then also we should keep up with all the things that are happening in these external clients.\"},{\"Start\":40.54,\"End\":68.98,\"Speaker\":1,\"Content\":\"Yeah, if you're not getting some kind of unique advantage from building your own thing, you're just wasting your time. Yep. So we've talked a bunch about the tooling that we've built to make all of this better. I want to talk a little bit about just like the experience of programming, right? I mean, I feel like kind of everyone in the software engineering world has experienced some of this, but I'm kind of curious just from your perspective, how what have you seen in your from your kind of vantage point working on all this AI tooling about how the tooling has changed the experience of coding?\"},{\"Start\":68.98,\"End\":83.75,\"Speaker\":0,\"Content\":\"Probably a lot of people, I got into coding because I liked coding, right? I liked solving problems. I liked even just like, you know, sometimes you're solving a problem and it feels like a fun puzzle. I even liked the part\"},{\"Start\":83.75,\"End\":91.41,\"Speaker\":0,\"Content\":\"Maybe I'm crazy. I like the part where like I know exactly what I'm writing and I'm just gonna write it right now. Like, I think that's that part feels really good too.\"},{\"Start\":91.41,\"End\":102.22,\"Speaker\":1,\"Content\":\"Yeah. And like knitting, right? Yeah. You're not maybe solving any big ideas, but just like the craft of putting the code together bit by bit, you know, making it it's it's it's a little artistic, right?\"},{\"Start\":102.22,\"End\":138.97,\"Speaker\":0,\"Content\":\"I don't want it to always be, I know exactly what I'm doing, but sometimes. Sometimes it's just like, you know, it's like uh uh it's like at the end of a video game, some new games have started doing this thing where they like at the end, there's like a fun level where they just like let you, you know, you're operating with like complete immunity or something. It's like, you know, you're just you're just sitting down and you're doing the actual thing. Um, and you can get into this nice flow state and it's very good. Um, and I think that both of these are like at different levels of like, I don't know, not the same as they were before, right?\"},{\"Start\":138.97,\"End\":176.31,\"Speaker\":0,\"Content\":\"Sure. Like the just do the thing one, the the second one. It seems like LLMs are actually just pretty good at doing that. Uh so if the thing that you liked was, you know, feeling like you had a full command of the type system and that you could like quickly roll out changes that feel complicated to other people or you have the whole world in your head and you just want to go implement it, that's probably just becoming like less of a needed skill. It just seems that way. Um and then on the on on the other side, there's like a lot of places where, um, you know, the thing you have to do is uh design a solution to a problem, a code problem, and kind of like work through the ramifications of implementing that.\"},{\"Start\":176.31,\"End\":216.03,\"Speaker\":0,\"Content\":\"and maybe there's some like particularly performance sensitive pieces, and your job there has changed a little bit too in the sense that the model is like doing a lot of authoring, and you're doing a lot of like making sure that it did the right thing, right? You're kind of like watching the code that it wrote and offering adjustments where you can, um and kind of your role has shifted a lot in a lot of cases more toward like code review. Um and then there's this like third part which I feel like is still fairly protected although we're on the cusp of is like the actual like software design part. But like what uh what will you do, how will you do it, what are the pieces involved, what will it feel like to use this thing once you're done doing it?\"},{\"Start\":216.03,\"End\":234.57,\"Speaker\":0,\"Content\":\"Um, and this is a place where obviously people are using LLMs a lot too, in things like like plan mode. Um, but this feels like the, I don't know, the least, the least like entirely changed version. In a way, the LLM is like just a collaborator that you're working with rather than someone doing the thing that you like to do.\"},{\"Start\":234.57,\"End\":235.13,\"Speaker\":1,\"Content\":\"Right.\"},{\"Start\":235.13,\"End\":254.26,\"Speaker\":1,\"Content\":\"So I think one thing you're pointing to is that like there's a lot of different parts of the work that people gain satisfaction from, and the tools are just kind of changing which parts of those work are available. Like what what actually will you do? How will you spend your time? There's like some parts of the work that like people are going to spend much less time on because they're more automated.\"},{\"Start\":254.9,\"End\":262.52,\"Speaker\":1,\"Content\":\"That's like good for some people and bad for others, right? It's like changes the shape of the work in a way that adjusts people's level of satisfaction.\"},{\"Start\":262.52,\"End\":283.65,\"Speaker\":0,\"Content\":\"Yeah, I think I hear this pretty often. People that are like, even people that were maybe less technical at some point are just like, this is the best thing ever. All of a sudden like this, you know, this thing that felt closed to me is open, right? But then people that maybe were making uh more rote changes for most of their time are like, you know, the thing I loved is gone. More of more of that feeling.\"},{\"Start\":283.65,\"End\":310.24,\"Speaker\":1,\"Content\":\"Yeah, one one thing I heard from a very strong engineer here was he just highlighted that like the way the character of how his job worked, at some point felt like, you know, 10% of his time was thinking really hard and deeply about what to do. And then, you know, 90% of the time is on the execution of that, which is the, you know, this knitting thing that we were talking about of like taking these ideas and unfolding them and like learning along the way from that process, but like, you know, kind of getting your fingers into the warp and weft of the code.\"},{\"Start\":310.58,\"End\":330.0,\"Speaker\":1,\"Content\":\"And now, he does that 10%, and then, like, sends a model to do the other piece. And then does, like, another one of those 10%, and then sends a model to do the other piece. And in some ways, it's good. You get to spend more of your time thinking about hard problems. And it's also kind of tiring, right? It's like, there's, like, a relaxing piece in the middle that you just kind of get less.\"}]"
+}

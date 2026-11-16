@@ -1,0 +1,98 @@
+{
+ "chunk": 20,
+ "audio": [
+  5970.0,
+  6300.0
+ ],
+ "new_start": 6000.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 23.52,
+   "speaker_id": 0,
+   "text": "development environment, but at some point you want to like spin up and run those and they could take a while. You spin up Antithesis, it might come back in 12 hours with your results. So these kind of more like long-term, larger scale deployments and testing system of systems. Like I think having that much more in the hands of the model, I think can like extend the amount of drudgery that the model can like automate away for people."
+  },
+  {
+   "start": 23.52,
+   "end": 59.35,
+   "speaker_id": 1,
+   "text": "You can also take the development loop and extend it kind of in both directions, right? Before you're writing code, there's a bunch of planning that you do. After you're writing code, there's a bunch of like observability and like alerting when things go wrong. Could a model, um, know that a particular property is expected to change in the metrics post something being released and then watch for it? Seems like a totally reasonable thing for it to do. Um, more and more people are using LLMs to, um, help with incident response. Should an LLM that like knows about all of the code plus knows about the status of the incident and has the ability to like look at all the systems, um, like should we be using those more?"
+  },
+  {
+   "start": 59.35,
+   "end": 80.84,
+   "speaker_id": 1,
+   "text": "I feel like we're kind of like spent most of our time on the middle part, but there's a really lot interesting in both directions. Should LLMs be helping us plan, um, what kinds of changes we should be making? This may be like kind of think that's an area that they shouldn't be working in, but in in a sense like, I don't know, LLMs proposing ideas for research sounds pretty interesting."
+  },
+  {
+   "start": 80.84,
+   "end": 106.57,
+   "speaker_id": 0,
+   "text": "Yeah, and I do think it's worth saying there's like the things where we've spent effort building concrete tools for, and then there's the stuff people are actually doing in, you know, in real life across the firm. And I feel like what are they doing? They're doing everything, right? There's any kind of experiment you can imagine, someone is running some version of it. Um, and you know, we have bounded time to like focus on building tools and we focus on what we think of as like the highest immediate like value things that we can build."
+  },
+  {
+   "start": 106.7,
+   "end": 143.41,
+   "speaker_id": 0,
+   "text": "Um, but I do think a lot of these extensions are being explored in lots of different places. Uh, and so it's, you know, I think that's exciting and also gives us like lots of ways of learning what are the next important things that we need to do. Because like there's no one team that's going to figure out all of the things that we need to do with our with our tooling and and the kind of robust kind of experimentation that's happening out there has got to be a part of how how we figure it out. So we talked some about ways in which maybe the the work is made like harder in some ways, like, you know, emotionally less satisfying in some components. I'm curious about like what you think about the flip side of that."
+  },
+  {
+   "start": 143.41,
+   "end": 151.65,
+   "speaker_id": 0,
+   "text": "like what are ways in which having these agents running around makes the work more satisfying and more fun and and you know better in other dimensions?"
+  },
+  {
+   "start": 151.65,
+   "end": 174.07,
+   "speaker_id": 1,
+   "text": "Yeah, I think there are a lot of ideas that I would have in my head for a long time but wouldn't actually see uh realized. Um one idea I had for a long time is this thing I keep talking about with people called loosey-goosey mode. Um so the the idea here is that um you're in an editor, you can enter this mode, loosey-goosey mode."
+  },
+  {
+   "start": 175.09,
+   "end": 208.23,
+   "speaker_id": 1,
+   "text": "you um you essentially go into you go into insert mode and you type pseudo code instead of real code. And then when you exit insert mode, it takes your pseudo code and it turns it into real code. Um, just like that little area and it can only edit really the area that you typed in and not the rest of the the buffer. And um, you know, I built a prototype of this back when LLMs were kind of nascent, but like it wasn't very good. And recently, I thought of it again. I thought this would be really helpful to me. I had an LLM do it and like 30 minutes later, I had an extension that worked exactly the way that I wanted."
+  },
+  {
+   "start": 208.23,
+   "end": 223.26,
+   "speaker_id": 1,
+   "text": "Um, so this idea, this ability to like rapidly prototype and get out tools for yourself seems like a a pretty big transformative thing that has happened. So that seems great. I guess another is, that's probably the that's my favorite one."
+  },
+  {
+   "start": 224.52,
+   "end": 239.32,
+   "speaker_id": 1,
+   "text": "Um, yeah, I guess another thing is like, you know, the the non-prototype version of that too, that like you can move more quickly through like the uh more rote parts of your work so that you can focus on the interesting bits."
+  },
+  {
+   "start": 239.32,
+   "end": 278.39,
+   "speaker_id": 0,
+   "text": "I think another thing that that people worry about, but that I think also there's real upside to, is people worry about like the AI slop problem of like, you know, we talked about how code review is in some ways harder. And sometimes like really intellectually harder, sometimes just like emotionally harder. Um, and one of the results you could imagine is just like there's going to be a lot of like mediocre code that isn't like fully informed on what's important, you know, written by LLMs that like get better in big jumps when new versions come out, but don't get better by learning over long periods of time about your problem space and your standards and what you need to do to solve problems in the particular domain that you're in."
+  },
+  {
+   "start": 278.39,
+   "end": 312.91,
+   "speaker_id": 0,
+   "text": "and and then we're just going to have like over time like worse and messier and hard to deal with codebases. But but I do think like the LLMs are also a tool that makes change easier and you can use them as a way of like improving the quality of codebases, of like that refactor that seemed like not worth it and too hard, like, well, maybe now you can do it because it's just like much easier to achieve. And you know, even in the context of code review where like someone give you like something to read and you're like, uh, I would like to make this much better before releasing, but also we should get it done and maybe I should just like make sure it's reasonable and get it out even though it's not in an ideal shape."
+  },
+  {
+   "start": 312.91,
+   "end": 327.94,
+   "speaker_id": 0,
+   "text": "But if it's much easier to like take those changes and improvements and like turn them into a reality, then you can end up with like higher quality code that comes out of it. So I do think like a lot of a lot of what comes out of all this technology depends on what we make out of it."
+  },
+  {
+   "start": 327.94,
+   "end": 330.0,
+   "speaker_id": 1,
+   "text": "Yeah, and and how you respond to it."
+  }
+ ],
+ "gen_tokens": 1717,
+ "text": "[{\"Start\":0,\"End\":23.52,\"Speaker\":0,\"Content\":\"development environment, but at some point you want to like spin up and run those and they could take a while. You spin up Antithesis, it might come back in 12 hours with your results. So these kind of more like long-term, larger scale deployments and testing system of systems. Like I think having that much more in the hands of the model, I think can like extend the amount of drudgery that the model can like automate away for people.\"},{\"Start\":23.52,\"End\":59.35,\"Speaker\":1,\"Content\":\"You can also take the development loop and extend it kind of in both directions, right? Before you're writing code, there's a bunch of planning that you do. After you're writing code, there's a bunch of like observability and like alerting when things go wrong. Could a model, um, know that a particular property is expected to change in the metrics post something being released and then watch for it? Seems like a totally reasonable thing for it to do. Um, more and more people are using LLMs to, um, help with incident response. Should an LLM that like knows about all of the code plus knows about the status of the incident and has the ability to like look at all the systems, um, like should we be using those more?\"},{\"Start\":59.35,\"End\":80.84,\"Speaker\":1,\"Content\":\"I feel like we're kind of like spent most of our time on the middle part, but there's a really lot interesting in both directions. Should LLMs be helping us plan, um, what kinds of changes we should be making? This may be like kind of think that's an area that they shouldn't be working in, but in in a sense like, I don't know, LLMs proposing ideas for research sounds pretty interesting.\"},{\"Start\":80.84,\"End\":106.57,\"Speaker\":0,\"Content\":\"Yeah, and I do think it's worth saying there's like the things where we've spent effort building concrete tools for, and then there's the stuff people are actually doing in, you know, in real life across the firm. And I feel like what are they doing? They're doing everything, right? There's any kind of experiment you can imagine, someone is running some version of it. Um, and you know, we have bounded time to like focus on building tools and we focus on what we think of as like the highest immediate like value things that we can build.\"},{\"Start\":106.7,\"End\":143.41,\"Speaker\":0,\"Content\":\"Um, but I do think a lot of these extensions are being explored in lots of different places. Uh, and so it's, you know, I think that's exciting and also gives us like lots of ways of learning what are the next important things that we need to do. Because like there's no one team that's going to figure out all of the things that we need to do with our with our tooling and and the kind of robust kind of experimentation that's happening out there has got to be a part of how how we figure it out. So we talked some about ways in which maybe the the work is made like harder in some ways, like, you know, emotionally less satisfying in some components. I'm curious about like what you think about the flip side of that.\"},{\"Start\":143.41,\"End\":151.65,\"Speaker\":0,\"Content\":\"like what are ways in which having these agents running around makes the work more satisfying and more fun and and you know better in other dimensions?\"},{\"Start\":151.65,\"End\":174.07,\"Speaker\":1,\"Content\":\"Yeah, I think there are a lot of ideas that I would have in my head for a long time but wouldn't actually see uh realized. Um one idea I had for a long time is this thing I keep talking about with people called loosey-goosey mode. Um so the the idea here is that um you're in an editor, you can enter this mode, loosey-goosey mode.\"},{\"Start\":175.09,\"End\":208.23,\"Speaker\":1,\"Content\":\"you um you essentially go into you go into insert mode and you type pseudo code instead of real code. And then when you exit insert mode, it takes your pseudo code and it turns it into real code. Um, just like that little area and it can only edit really the area that you typed in and not the rest of the the buffer. And um, you know, I built a prototype of this back when LLMs were kind of nascent, but like it wasn't very good. And recently, I thought of it again. I thought this would be really helpful to me. I had an LLM do it and like 30 minutes later, I had an extension that worked exactly the way that I wanted.\"},{\"Start\":208.23,\"End\":223.26,\"Speaker\":1,\"Content\":\"Um, so this idea, this ability to like rapidly prototype and get out tools for yourself seems like a a pretty big transformative thing that has happened. So that seems great. I guess another is, that's probably the that's my favorite one.\"},{\"Start\":224.52,\"End\":239.32,\"Speaker\":1,\"Content\":\"Um, yeah, I guess another thing is like, you know, the the non-prototype version of that too, that like you can move more quickly through like the uh more rote parts of your work so that you can focus on the interesting bits.\"},{\"Start\":239.32,\"End\":278.39,\"Speaker\":0,\"Content\":\"I think another thing that that people worry about, but that I think also there's real upside to, is people worry about like the AI slop problem of like, you know, we talked about how code review is in some ways harder. And sometimes like really intellectually harder, sometimes just like emotionally harder. Um, and one of the results you could imagine is just like there's going to be a lot of like mediocre code that isn't like fully informed on what's important, you know, written by LLMs that like get better in big jumps when new versions come out, but don't get better by learning over long periods of time about your problem space and your standards and what you need to do to solve problems in the particular domain that you're in.\"},{\"Start\":278.39,\"End\":312.91,\"Speaker\":0,\"Content\":\"and and then we're just going to have like over time like worse and messier and hard to deal with codebases. But but I do think like the LLMs are also a tool that makes change easier and you can use them as a way of like improving the quality of codebases, of like that refactor that seemed like not worth it and too hard, like, well, maybe now you can do it because it's just like much easier to achieve. And you know, even in the context of code review where like someone give you like something to read and you're like, uh, I would like to make this much better before releasing, but also we should get it done and maybe I should just like make sure it's reasonable and get it out even though it's not in an ideal shape.\"},{\"Start\":312.91,\"End\":327.94,\"Speaker\":0,\"Content\":\"But if it's much easier to like take those changes and improvements and like turn them into a reality, then you can end up with like higher quality code that comes out of it. So I do think like a lot of a lot of what comes out of all this technology depends on what we make out of it.\"},{\"Start\":327.94,\"End\":330.0,\"Speaker\":1,\"Content\":\"Yeah, and and how you respond to it.\"}]"
+}

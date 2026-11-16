@@ -1,0 +1,187 @@
+{
+ "chunk": 0,
+ "audio": [
+  0.0,
+  300.0
+ ],
+ "new_start": 0.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 1.1,
+   "text": "[Music]"
+  },
+  {
+   "start": 2.37,
+   "end": 18.18,
+   "speaker_id": 0,
+   "text": "Well, it's my pleasure to introduce John Krpezik. Uh, John is an engineer who's worked on developer tools for a bunch of his career, both here and in other places, and these days spends most of his time thinking about our tooling for uh AI and software engineering, and AI and lots of other things too."
+  },
+  {
+   "start": 18.18,
+   "end": 24.39,
+   "speaker_id": 1,
+   "text": "It's true, most of my time, I think like all of my time here and and outside the office, this is all I think about."
+  },
+  {
+   "start": 25.14,
+   "end": 37.7,
+   "speaker_id": 0,
+   "text": "Well, thanks for joining me.\nThank you. So, one thing I always like to hear about is how people kind of got into the kind of work they do today. And so for you, I'm kind of curious, how did you get into this whole like computer thing? Uh, yeah."
+  },
+  {
+   "start": 37.7,
+   "end": 71.46,
+   "speaker_id": 1,
+   "text": "So my dad brought home a computer. Someone at work had given him this computer. Uh, he brought it home and uh he plugged it in. He was like really excited about it, but I think he didn't really know much about computers. And one thing he did know is he had learned how to open QBasic. So this was like a DOS-based computer. He opened QBasic. For anyone that doesn't know what QBasic is, it is a basic uh IDE and programming language. So it's it's both you have an editor where you type in and then you hit, I think it was F5, and it will run the QBasic program. So he wrote this QBasic program that's"
+  },
+  {
+   "start": 71.46,
+   "end": 81.28,
+   "speaker_id": 1,
+   "text": "said, I think it said like 10 print hello John 20 go to 10. And then he ran it and it took over the entire screen and it just wrote hello John over and over again, uh forever."
+  },
+  {
+   "start": 81.28,
+   "end": 91.7,
+   "speaker_id": 1,
+   "text": "and I was like, oh, this is so cool. It's like it knows my name. Uh, how do we how do we stop this thing? Like, you know, I want to write the next program. And he's like, I don't know. I have no idea."
+  },
+  {
+   "start": 91.7,
+   "end": 118.16,
+   "speaker_id": 1,
+   "text": "So like, you know, we tried to figure it out, but eventually we ended up just turning the computer off because that's, you know, it's one way to stop it. And then we turned it back on and he uh also knew enough to we opened it again and there's at the top, I think it was like F2 for help or maybe F1. Um, and you hit the help button and inside of there, there was actually this really robust documentation for the QBasic language. Um, and I just spent all my nights after that reading it and kind of getting into programming. Amazing. Yeah."
+  },
+  {
+   "start": 118.16,
+   "end": 129.77,
+   "speaker_id": 0,
+   "text": "So how did you go from like QBasic and just like digging into, you know, an exciting old DOS machine into doing software engineering kind of in a more serious way? Yeah."
+  },
+  {
+   "start": 129.77,
+   "end": 152.85,
+   "speaker_id": 1,
+   "text": "I think like a lot of people were interested in making games. This is a, I think, a pretty common introduction to programming. People are like, oh, I want to make my own game and that's what I want to do. For some reason, all I wanted to do was recreate DOS. Like that's the the thing I wanted to do. So I spent a lot of time, uh, making my own essentially CLI that would replace the the normal prompt. I later realized that maybe that was interested in..."
+  },
+  {
+   "start": 152.85,
+   "end": 161.11,
+   "speaker_id": 0,
+   "text": "This is a great origin story for getting into developer tools. Like the first thing you want to do is a metacircular interpreter. You want to like write DOS in DOS. Yeah."
+  },
+  {
+   "start": 161.11,
+   "end": 177.44,
+   "speaker_id": 1,
+   "text": "And I think at the time I had like watched Pirates of Silicon Valley enough times that I was like, I need to make my own uh operating system. This is like all I wanted to do. So I would make like operating systems, I would give them little toy names, I would kind of work on them for uh a couple months and then I would stop and start over."
+  },
+  {
+   "start": 177.44,
+   "end": 181.63,
+   "speaker_id": 0,
+   "text": "Like when you say operating systems, like were you writing your own device drivers? Like how how serious was this?"
+  },
+  {
+   "start": 181.63,
+   "end": 193.06,
+   "speaker_id": 1,
+   "text": "not very serious at the time, but then when I went when I went into university, I did spend I like went down the course a little bit of uh do I want to be an operating system developer until I realized that that no, I do not want to."
+  },
+  {
+   "start": 193.06,
+   "end": 202.32,
+   "speaker_id": 0,
+   "text": "There's also a weird degree to which we just kind of don't do that anymore. Yeah. Right? Like, I mean, there is still research on operating system kernels, but like we've all just kind of accepted that Linux is our operating system now."
+  },
+  {
+   "start": 202.32,
+   "end": 208.72,
+   "speaker_id": 1,
+   "text": "That's right. It was a little less clear for a bit. There were a lot of new things coming out. There was like a QNX, I think was the thing."
+  },
+  {
+   "start": 208.72,
+   "end": 210.52,
+   "speaker_id": 0,
+   "text": "Sure. And it still is in some way."
+  },
+  {
+   "start": 210.52,
+   "end": 217.24,
+   "speaker_id": 1,
+   "text": "And there was like all the um there was a lot of development happening in like the BSD variants that uh was also very interesting at the time."
+  },
+  {
+   "start": 217.24,
+   "end": 218.56,
+   "speaker_id": 0,
+   "text": "which are still not dead"
+  },
+  {
+   "start": 218.56,
+   "end": 219.35,
+   "speaker_id": 1,
+   "text": "Yeah, they're still there."
+  },
+  {
+   "start": 219.35,
+   "end": 229.12,
+   "speaker_id": 0,
+   "text": "lest the BSD people get angry at us, you know. Great security record still exists. Okay, and then and then so you went and studied in college? You studied computer science?"
+  },
+  {
+   "start": 229.12,
+   "end": 266.09,
+   "speaker_id": 1,
+   "text": "studied computer science, kind of got lucky that I this is always the thing that I wanted to do. I wanted to uh write code. I just I didn't even really know that it was a thing, right? Like I was just doing it. I was uh remember in high school developing web pages or or different things that I wanted. I made a poetry website at some point. And then uh you know, I went to college and I was like, let me learn a little bit more about this. Then I got my first job and kind of just have continued since then. But it was always kind of with a an eye on, you know, the thing that I really want to do is I want to write code. And as a result, a lot of my work has moved in the direction of trying to make it easier and better experience for people writing code."
+  },
+  {
+   "start": 266.09,
+   "end": 268.21,
+   "speaker_id": 0,
+   "text": "and then professionally what do you end up doing?"
+  },
+  {
+   "start": 268.21,
+   "end": 276.24,
+   "speaker_id": 1,
+   "text": "So I worked at a couple startups. Uh, I tried to start a few of my own. They did not pan out. Uh, for various reasons. And then I"
+  },
+  {
+   "start": 276.24,
+   "end": 278.96,
+   "speaker_id": 0,
+   "text": "that is like the modal experience of a startup is it doesn't work."
+  },
+  {
+   "start": 278.96,
+   "end": 279.7,
+   "speaker_id": 1,
+   "text": "It does not matter."
+  },
+  {
+   "start": 279.7,
+   "end": 283.22,
+   "speaker_id": 0,
+   "text": "That's right. That's why the upside is so good is like the median case is not great. Yep."
+  },
+  {
+   "start": 283.3,
+   "end": 297.16,
+   "speaker_id": 1,
+   "text": "Yeah, some of them some of them have had some success, but ultimately like uh you know, I ended up looking for different jobs and I did end up working at uh companies like Square and then eventually I found myself at GitHub, which is where I was right before this."
+  },
+  {
+   "start": 297.16,
+   "end": 300.0,
+   "speaker_id": 0,
+   "text": "And so GitHub is obviously like a developer tool tooling."
+  }
+ ],
+ "gen_tokens": 2083,
+ "text": "[{\"Start\":0,\"End\":1.1,\"Content\":\"[Music]\"},{\"Start\":2.37,\"End\":18.18,\"Speaker\":0,\"Content\":\"Well, it's my pleasure to introduce John Krpezik. Uh, John is an engineer who's worked on developer tools for a bunch of his career, both here and in other places, and these days spends most of his time thinking about our tooling for uh AI and software engineering, and AI and lots of other things too.\"},{\"Start\":18.18,\"End\":24.39,\"Speaker\":1,\"Content\":\"It's true, most of my time, I think like all of my time here and and outside the office, this is all I think about.\"},{\"Start\":25.14,\"End\":37.7,\"Speaker\":0,\"Content\":\"Well, thanks for joining me.\\nThank you. So, one thing I always like to hear about is how people kind of got into the kind of work they do today. And so for you, I'm kind of curious, how did you get into this whole like computer thing? Uh, yeah.\"},{\"Start\":37.7,\"End\":71.46,\"Speaker\":1,\"Content\":\"So my dad brought home a computer. Someone at work had given him this computer. Uh, he brought it home and uh he plugged it in. He was like really excited about it, but I think he didn't really know much about computers. And one thing he did know is he had learned how to open QBasic. So this was like a DOS-based computer. He opened QBasic. For anyone that doesn't know what QBasic is, it is a basic uh IDE and programming language. So it's it's both you have an editor where you type in and then you hit, I think it was F5, and it will run the QBasic program. So he wrote this QBasic program that's\"},{\"Start\":71.46,\"End\":81.28,\"Speaker\":1,\"Content\":\"said, I think it said like 10 print hello John 20 go to 10. And then he ran it and it took over the entire screen and it just wrote hello John over and over again, uh forever.\"},{\"Start\":81.28,\"End\":91.7,\"Speaker\":1,\"Content\":\"and I was like, oh, this is so cool. It's like it knows my name. Uh, how do we how do we stop this thing? Like, you know, I want to write the next program. And he's like, I don't know. I have no idea.\"},{\"Start\":91.7,\"End\":118.16,\"Speaker\":1,\"Content\":\"So like, you know, we tried to figure it out, but eventually we ended up just turning the computer off because that's, you know, it's one way to stop it. And then we turned it back on and he uh also knew enough to we opened it again and there's at the top, I think it was like F2 for help or maybe F1. Um, and you hit the help button and inside of there, there was actually this really robust documentation for the QBasic language. Um, and I just spent all my nights after that reading it and kind of getting into programming. Amazing. Yeah.\"},{\"Start\":118.16,\"End\":129.77,\"Speaker\":0,\"Content\":\"So how did you go from like QBasic and just like digging into, you know, an exciting old DOS machine into doing software engineering kind of in a more serious way? Yeah.\"},{\"Start\":129.77,\"End\":152.85,\"Speaker\":1,\"Content\":\"I think like a lot of people were interested in making games. This is a, I think, a pretty common introduction to programming. People are like, oh, I want to make my own game and that's what I want to do. For some reason, all I wanted to do was recreate DOS. Like that's the the thing I wanted to do. So I spent a lot of time, uh, making my own essentially CLI that would replace the the normal prompt. I later realized that maybe that was interested in...\"},{\"Start\":152.85,\"End\":161.11,\"Speaker\":0,\"Content\":\"This is a great origin story for getting into developer tools. Like the first thing you want to do is a metacircular interpreter. You want to like write DOS in DOS. Yeah.\"},{\"Start\":161.11,\"End\":177.44,\"Speaker\":1,\"Content\":\"And I think at the time I had like watched Pirates of Silicon Valley enough times that I was like, I need to make my own uh operating system. This is like all I wanted to do. So I would make like operating systems, I would give them little toy names, I would kind of work on them for uh a couple months and then I would stop and start over.\"},{\"Start\":177.44,\"End\":181.63,\"Speaker\":0,\"Content\":\"Like when you say operating systems, like were you writing your own device drivers? Like how how serious was this?\"},{\"Start\":181.63,\"End\":193.06,\"Speaker\":1,\"Content\":\"not very serious at the time, but then when I went when I went into university, I did spend I like went down the course a little bit of uh do I want to be an operating system developer until I realized that that no, I do not want to.\"},{\"Start\":193.06,\"End\":202.32,\"Speaker\":0,\"Content\":\"There's also a weird degree to which we just kind of don't do that anymore. Yeah. Right? Like, I mean, there is still research on operating system kernels, but like we've all just kind of accepted that Linux is our operating system now.\"},{\"Start\":202.32,\"End\":208.72,\"Speaker\":1,\"Content\":\"That's right. It was a little less clear for a bit. There were a lot of new things coming out. There was like a QNX, I think was the thing.\"},{\"Start\":208.72,\"End\":210.52,\"Speaker\":0,\"Content\":\"Sure. And it still is in some way.\"},{\"Start\":210.52,\"End\":217.24,\"Speaker\":1,\"Content\":\"And there was like all the um there was a lot of development happening in like the BSD variants that uh was also very interesting at the time.\"},{\"Start\":217.24,\"End\":218.56,\"Speaker\":0,\"Content\":\"which are still not dead\"},{\"Start\":218.56,\"End\":219.35,\"Speaker\":1,\"Content\":\"Yeah, they're still there.\"},{\"Start\":219.35,\"End\":229.12,\"Speaker\":0,\"Content\":\"lest the BSD people get angry at us, you know. Great security record still exists. Okay, and then and then so you went and studied in college? You studied computer science?\"},{\"Start\":229.12,\"End\":266.09,\"Speaker\":1,\"Content\":\"studied computer science, kind of got lucky that I this is always the thing that I wanted to do. I wanted to uh write code. I just I didn't even really know that it was a thing, right? Like I was just doing it. I was uh remember in high school developing web pages or or different things that I wanted. I made a poetry website at some point. And then uh you know, I went to college and I was like, let me learn a little bit more about this. Then I got my first job and kind of just have continued since then. But it was always kind of with a an eye on, you know, the thing that I really want to do is I want to write code. And as a result, a lot of my work has moved in the direction of trying to make it easier and better experience for people writing code.\"},{\"Start\":266.09,\"End\":268.21,\"Speaker\":0,\"Content\":\"and then professionally what do you end up doing?\"},{\"Start\":268.21,\"End\":276.24,\"Speaker\":1,\"Content\":\"So I worked at a couple startups. Uh, I tried to start a few of my own. They did not pan out. Uh, for various reasons. And then I\"},{\"Start\":276.24,\"End\":278.96,\"Speaker\":0,\"Content\":\"that is like the modal experience of a startup is it doesn't work.\"},{\"Start\":278.96,\"End\":279.7,\"Speaker\":1,\"Content\":\"It does not matter.\"},{\"Start\":279.7,\"End\":283.22,\"Speaker\":0,\"Content\":\"That's right. That's why the upside is so good is like the median case is not great. Yep.\"},{\"Start\":283.3,\"End\":297.16,\"Speaker\":1,\"Content\":\"Yeah, some of them some of them have had some success, but ultimately like uh you know, I ended up looking for different jobs and I did end up working at uh companies like Square and then eventually I found myself at GitHub, which is where I was right before this.\"},{\"Start\":297.16,\"End\":300.0,\"Speaker\":0,\"Content\":\"And so GitHub is obviously like a developer tool tooling.\"}]"
+}

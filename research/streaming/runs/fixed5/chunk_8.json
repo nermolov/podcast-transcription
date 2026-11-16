@@ -1,0 +1,146 @@
+{
+ "chunk": 8,
+ "audio": [
+  2370.0,
+  2700.0
+ ],
+ "new_start": 2400.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 21.36,
+   "speaker_id": 0,
+   "text": "often try to read uh the solution to a problem from a tool that they have access to. So they'll like search around for code that looks like the code that they're writing. And I guess like in in production use, that seems like a totally fine thing to do. If there's a solution to the problem that you're trying to solve out there, you should totally go read it. Um, you know, but in evaluations, you probably don't want the model to do that."
+  },
+  {
+   "start": 21.36,
+   "end": 24.66,
+   "speaker_id": 1,
+   "text": "Oh right, this is basically a way of like cheating by looking at the answers."
+  },
+  {
+   "start": 24.66,
+   "end": 33.68,
+   "speaker_id": 0,
+   "text": "Yeah, exactly. And it's like, you know, it's one thing to say the model's cheating, but actually, it's like you mentioned before, the model is just aligned to wanting to be successful in the task that you've given it."
+  },
+  {
+   "start": 33.68,
+   "end": 53.58,
+   "speaker_id": 1,
+   "text": "I mean, I think cheating isn't a terrible way of describing it. Like you can look at like you can look at like thinking traces and see things that look like scheming, right? Where it's like try, you know, it understands what you're asking and it's like, well, no, but I want to win the game and it tries to get around your intent. So like, we should be a little worried about this alignment question kind of in its in its fullest form."
+  },
+  {
+   "start": 53.58,
+   "end": 54.58,
+   "speaker_id": 0,
+   "text": "Sure."
+  },
+  {
+   "start": 54.63,
+   "end": 85.7,
+   "speaker_id": 1,
+   "text": "So let's, and so we've now sketched out like a bunch of different areas where you build technology. Let's actually dive a little bit more into the sandboxing thing because I think that's like a technically interesting one. Like, what have we tried to do in the sandboxing story? And like, you know, there's like lots of, you know, there's lots of sandboxing stuff in the outside world. There's lots of like OS level things that exist. Various different coding agents that you can use have some notion of sandboxing built in. Like, what have we tried to do? How do external tools fit in? What what are the problems we've run into here?"
+  },
+  {
+   "start": 85.7,
+   "end": 86.51,
+   "speaker_id": 0,
+   "text": "Yeah"
+  },
+  {
+   "start": 86.51,
+   "end": 113.11,
+   "speaker_id": 0,
+   "text": "So, what we, I guess originally, way way back, we tried to build a sandbox that denied things. Meaning, the sandbox would let through anything it didn't have a rule for and it would deny other things. So it was a denialist sandbox. And I guess like as any uh probably security security oriented person listening would say, that's not how you build the sandbox."
+  },
+  {
+   "start": 113.11,
+   "end": 114.34,
+   "speaker_id": 0,
+   "text": "That's the way you're supposed to do it."
+  },
+  {
+   "start": 114.34,
+   "end": 114.87,
+   "speaker_id": 1,
+   "text": "terrible"
+  },
+  {
+   "start": 114.87,
+   "end": 125.8,
+   "speaker_id": 0,
+   "text": "That's a bad sample. uh the way that you should build the sandbox is the other way where you're allow listing and the idea there is that if you're if you're missing something that it gets denied. that that is a good property for security."
+  },
+  {
+   "start": 125.8,
+   "end": 135.04,
+   "speaker_id": 1,
+   "text": "And obviously what we do for people, right? They start out, you know, in some sense people are born in this world with no permissions and then they are granted permissions over time so they can do their job. Yep."
+  },
+  {
+   "start": 135.1,
+   "end": 170.7,
+   "speaker_id": 0,
+   "text": "So, so we implemented that original sandbox and then we quickly moved to an allow list sandbox. Um, and the way that we implemented this allow list sandbox is through a combination of tools like uh bwrap, which is like a bubble wrap, it's like a tool for um kind of remounting pieces of the file system so that uh the model or I guess the process in this case that is operating inside of the bubble wrap um can only access the parts of the file system that you want it to. We also use tools like uh pasta, which is I think similar kind of thing but for network connections."
+  },
+  {
+   "start": 170.7,
+   "end": 205.92,
+   "speaker_id": 0,
+   "text": "so we can basically say like turn off all the ability to connect to other places and only allow these these ones. So, combination of tools like that allowed us to uh sandbox bash execution in a way that felt pretty good. Um but there's a question there of also like how did we figure out what to put in the sandbox? And for that we used a bunch of other external tools like uh setcompbpf, which is a tool that let us like monitor, so you can run some process and monitor via a like filter exactly which files are being accessed by the process."
+  },
+  {
+   "start": 205.92,
+   "end": 245.55,
+   "speaker_id": 0,
+   "text": "And that gives us an idea of like, oh, if we know we want to run process X inside of the sandbox safely, we'll essentially run it in there in like a monitoring mode, see all the things that it tries to reach, and then now we have a list of things to go chase down and try to add to the sandbox. So we went through this process for a while of trying to add a bunch of things to the sandbox to make them useful. Although at some point, we just like couldn't move fast enough because there's just like enough stuff that we have to do, uh, and enough things that we need to like add to the sandbox that we can't keep up with it. And you kind of run into this like other risk of, are we hampering the LLMs too much in the short term?"
+  },
+  {
+   "start": 245.55,
+   "end": 247.63,
+   "speaker_id": 1,
+   "text": "hampering the people who are trying to use the LLM."
+  },
+  {
+   "start": 247.63,
+   "end": 269.37,
+   "speaker_id": 0,
+   "text": "And what we saw as a result is a lot of people, uh, maybe deciding to turn the sandbox off to be able to do the thing that they were trying to do. And I guess that seems really scary. Like the point of the sandbox is that you build something that can do the processes that you want to run inside of it and make them more safe. But if people are turning it off, then you're not really getting that benefit at all."
+  },
+  {
+   "start": 269.37,
+   "end": 270.02,
+   "speaker_id": 1,
+   "text": "Right."
+  },
+  {
+   "start": 270.02,
+   "end": 295.44,
+   "speaker_id": 1,
+   "text": "So, and it's maybe worth highlighting, I think that like this process of going off and iteratively building a reasonable set of rules so that you had a sandbox that was like permissive enough to do the work that we wanted to do, in some sense worked great for a subset of tasks. Like for ordinary software engineering, it was kind of lovely, right? And that's because software engineering is kind of by like we build tools to make software engineering relatively hermetic, right?"
+  },
+  {
+   "start": 295.44,
+   "end": 302.46,
+   "speaker_id": 0,
+   "text": "Yeah, we mostly don't have like tests and systems while you're writing software that are like reaching out to like other services, right?"
+  },
+  {
+   "start": 302.46,
+   "end": 326.67,
+   "speaker_id": 1,
+   "text": "That's right. And we already for other reasons actually have ways of blocking off and sandboxing various elements of the build process because we have like this big complicated build system that wants to make sure that everything is deterministic so it can efficiently reuse components and it just like needs to do needs to like block things off so that you know you're not like hitting some random, you know, potentially non-deterministic thing in the outside world."
+  },
+  {
+   "start": 326.67,
+   "end": 330.0,
+   "speaker_id": 0,
+   "text": "Yeah, like most good test suites turn off access to the network."
+  }
+ ],
+ "gen_tokens": 1878,
+ "text": "[{\"Start\":0,\"End\":21.36,\"Speaker\":0,\"Content\":\"often try to read uh the solution to a problem from a tool that they have access to. So they'll like search around for code that looks like the code that they're writing. And I guess like in in production use, that seems like a totally fine thing to do. If there's a solution to the problem that you're trying to solve out there, you should totally go read it. Um, you know, but in evaluations, you probably don't want the model to do that.\"},{\"Start\":21.36,\"End\":24.66,\"Speaker\":1,\"Content\":\"Oh right, this is basically a way of like cheating by looking at the answers.\"},{\"Start\":24.66,\"End\":33.68,\"Speaker\":0,\"Content\":\"Yeah, exactly. And it's like, you know, it's one thing to say the model's cheating, but actually, it's like you mentioned before, the model is just aligned to wanting to be successful in the task that you've given it.\"},{\"Start\":33.68,\"End\":53.58,\"Speaker\":1,\"Content\":\"I mean, I think cheating isn't a terrible way of describing it. Like you can look at like you can look at like thinking traces and see things that look like scheming, right? Where it's like try, you know, it understands what you're asking and it's like, well, no, but I want to win the game and it tries to get around your intent. So like, we should be a little worried about this alignment question kind of in its in its fullest form.\"},{\"Start\":53.58,\"End\":54.58,\"Speaker\":0,\"Content\":\"Sure.\"},{\"Start\":54.63,\"End\":85.7,\"Speaker\":1,\"Content\":\"So let's, and so we've now sketched out like a bunch of different areas where you build technology. Let's actually dive a little bit more into the sandboxing thing because I think that's like a technically interesting one. Like, what have we tried to do in the sandboxing story? And like, you know, there's like lots of, you know, there's lots of sandboxing stuff in the outside world. There's lots of like OS level things that exist. Various different coding agents that you can use have some notion of sandboxing built in. Like, what have we tried to do? How do external tools fit in? What what are the problems we've run into here?\"},{\"Start\":85.7,\"End\":86.51,\"Speaker\":0,\"Content\":\"Yeah\"},{\"Start\":86.51,\"End\":113.11,\"Speaker\":0,\"Content\":\"So, what we, I guess originally, way way back, we tried to build a sandbox that denied things. Meaning, the sandbox would let through anything it didn't have a rule for and it would deny other things. So it was a denialist sandbox. And I guess like as any uh probably security security oriented person listening would say, that's not how you build the sandbox.\"},{\"Start\":113.11,\"End\":114.34,\"Speaker\":0,\"Content\":\"That's the way you're supposed to do it.\"},{\"Start\":114.34,\"End\":114.87,\"Speaker\":1,\"Content\":\"terrible\"},{\"Start\":114.87,\"End\":125.8,\"Speaker\":0,\"Content\":\"That's a bad sample. uh the way that you should build the sandbox is the other way where you're allow listing and the idea there is that if you're if you're missing something that it gets denied. that that is a good property for security.\"},{\"Start\":125.8,\"End\":135.04,\"Speaker\":1,\"Content\":\"And obviously what we do for people, right? They start out, you know, in some sense people are born in this world with no permissions and then they are granted permissions over time so they can do their job. Yep.\"},{\"Start\":135.1,\"End\":170.7,\"Speaker\":0,\"Content\":\"So, so we implemented that original sandbox and then we quickly moved to an allow list sandbox. Um, and the way that we implemented this allow list sandbox is through a combination of tools like uh bwrap, which is like a bubble wrap, it's like a tool for um kind of remounting pieces of the file system so that uh the model or I guess the process in this case that is operating inside of the bubble wrap um can only access the parts of the file system that you want it to. We also use tools like uh pasta, which is I think similar kind of thing but for network connections.\"},{\"Start\":170.7,\"End\":205.92,\"Speaker\":0,\"Content\":\"so we can basically say like turn off all the ability to connect to other places and only allow these these ones. So, combination of tools like that allowed us to uh sandbox bash execution in a way that felt pretty good. Um but there's a question there of also like how did we figure out what to put in the sandbox? And for that we used a bunch of other external tools like uh setcompbpf, which is a tool that let us like monitor, so you can run some process and monitor via a like filter exactly which files are being accessed by the process.\"},{\"Start\":205.92,\"End\":245.55,\"Speaker\":0,\"Content\":\"And that gives us an idea of like, oh, if we know we want to run process X inside of the sandbox safely, we'll essentially run it in there in like a monitoring mode, see all the things that it tries to reach, and then now we have a list of things to go chase down and try to add to the sandbox. So we went through this process for a while of trying to add a bunch of things to the sandbox to make them useful. Although at some point, we just like couldn't move fast enough because there's just like enough stuff that we have to do, uh, and enough things that we need to like add to the sandbox that we can't keep up with it. And you kind of run into this like other risk of, are we hampering the LLMs too much in the short term?\"},{\"Start\":245.55,\"End\":247.63,\"Speaker\":1,\"Content\":\"hampering the people who are trying to use the LLM.\"},{\"Start\":247.63,\"End\":269.37,\"Speaker\":0,\"Content\":\"And what we saw as a result is a lot of people, uh, maybe deciding to turn the sandbox off to be able to do the thing that they were trying to do. And I guess that seems really scary. Like the point of the sandbox is that you build something that can do the processes that you want to run inside of it and make them more safe. But if people are turning it off, then you're not really getting that benefit at all.\"},{\"Start\":269.37,\"End\":270.02,\"Speaker\":1,\"Content\":\"Right.\"},{\"Start\":270.02,\"End\":295.44,\"Speaker\":1,\"Content\":\"So, and it's maybe worth highlighting, I think that like this process of going off and iteratively building a reasonable set of rules so that you had a sandbox that was like permissive enough to do the work that we wanted to do, in some sense worked great for a subset of tasks. Like for ordinary software engineering, it was kind of lovely, right? And that's because software engineering is kind of by like we build tools to make software engineering relatively hermetic, right?\"},{\"Start\":295.44,\"End\":302.46,\"Speaker\":0,\"Content\":\"Yeah, we mostly don't have like tests and systems while you're writing software that are like reaching out to like other services, right?\"},{\"Start\":302.46,\"End\":326.67,\"Speaker\":1,\"Content\":\"That's right. And we already for other reasons actually have ways of blocking off and sandboxing various elements of the build process because we have like this big complicated build system that wants to make sure that everything is deterministic so it can efficiently reuse components and it just like needs to do needs to like block things off so that you know you're not like hitting some random, you know, potentially non-deterministic thing in the outside world.\"},{\"Start\":326.67,\"End\":330.0,\"Speaker\":0,\"Content\":\"Yeah, like most good test suites turn off access to the network.\"}]"
+}

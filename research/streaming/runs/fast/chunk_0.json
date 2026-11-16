@@ -1,0 +1,67 @@
+{
+ "chunk": 0,
+ "audio": [
+  0.0,
+  120.0
+ ],
+ "new_start": 0.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 1.1,
+   "text": "[Music]"
+  },
+  {
+   "start": 2.37,
+   "end": 18.18,
+   "speaker_id": 0,
+   "text": "Well, it's my pleasure to introduce John Krupetzky. Uh, John is an engineer who's worked on developer tools for a bunch of his career, both here and in other places, and these days spends most of his time thinking about our tooling for uh AI and software engineering, and AI and lots of other things too."
+  },
+  {
+   "start": 18.18,
+   "end": 24.39,
+   "speaker_id": 1,
+   "text": "That's true. Most of my time, I think like all of my time here and and outside the office, this is all I think about."
+  },
+  {
+   "start": 25.18,
+   "end": 37.71,
+   "speaker_id": 0,
+   "text": "Well, thanks for joining me.\nThank you. So, one thing I always like to hear about is how people kind of got into the kind of work they do today. And so for you, I'm kind of curious, how did you get into this whole like computer thing? Uh, yeah."
+  },
+  {
+   "start": 37.71,
+   "end": 71.47,
+   "speaker_id": 1,
+   "text": "So my dad brought home a computer. Someone at work had given him this computer. Uh, he brought it home and uh he plugged it in. He was like really excited about it, but I think he didn't really know much about computers. And one thing he did know is he had learned how to open QBasic. So this was like a DOS-based computer. He opened QBasic. For anyone that doesn't know what QBasic is, it is a basic uh IDE and programming language. So it's it's both you have an editor where you type in and then you hit I think it was F5 and it will run the QBasic program. So he wrote this QBasic program that's"
+  },
+  {
+   "start": 71.47,
+   "end": 81.29,
+   "speaker_id": 1,
+   "text": "said, I think it said like 10 print hello John 20 go to 10. And then he ran it and it took over the entire screen and it just wrote hello John over and over again, uh forever."
+  },
+  {
+   "start": 81.29,
+   "end": 91.73,
+   "speaker_id": 1,
+   "text": "and I was like, oh, this is so cool. It's like it knows my name. Uh, how do we how do we stop this thing? Like, you know, I want to write the next program. And he's like, I don't know. I have no idea."
+  },
+  {
+   "start": 91.73,
+   "end": 118.17,
+   "speaker_id": 1,
+   "text": "So like, you know, we tried to figure it out, but eventually we ended up just turning the computer off because that's, you know, it's one way to stop it. And then we turned it back on and he uh also knew enough to we opened it again and there's at the top, I think it was like F2 for help or maybe F1. Um, and you hit the help button and inside of there, there was actually this really robust documentation for the QBasic language. Um, and I just spent all my nights after that reading it and kind of getting into programming. Amazing. Yeah."
+  },
+  {
+   "start": 118.17,
+   "end": 120.0,
+   "speaker_id": 0,
+   "text": "So how did you go from like"
+  }
+ ],
+ "gen_tokens": 750,
+ "text": "[{\"Start\":0,\"End\":1.1,\"Content\":\"[Music]\"},{\"Start\":2.37,\"End\":18.18,\"Speaker\":0,\"Content\":\"Well, it's my pleasure to introduce John Krupetzky. Uh, John is an engineer who's worked on developer tools for a bunch of his career, both here and in other places, and these days spends most of his time thinking about our tooling for uh AI and software engineering, and AI and lots of other things too.\"},{\"Start\":18.18,\"End\":24.39,\"Speaker\":1,\"Content\":\"That's true. Most of my time, I think like all of my time here and and outside the office, this is all I think about.\"},{\"Start\":25.18,\"End\":37.71,\"Speaker\":0,\"Content\":\"Well, thanks for joining me.\\nThank you. So, one thing I always like to hear about is how people kind of got into the kind of work they do today. And so for you, I'm kind of curious, how did you get into this whole like computer thing? Uh, yeah.\"},{\"Start\":37.71,\"End\":71.47,\"Speaker\":1,\"Content\":\"So my dad brought home a computer. Someone at work had given him this computer. Uh, he brought it home and uh he plugged it in. He was like really excited about it, but I think he didn't really know much about computers. And one thing he did know is he had learned how to open QBasic. So this was like a DOS-based computer. He opened QBasic. For anyone that doesn't know what QBasic is, it is a basic uh IDE and programming language. So it's it's both you have an editor where you type in and then you hit I think it was F5 and it will run the QBasic program. So he wrote this QBasic program that's\"},{\"Start\":71.47,\"End\":81.29,\"Speaker\":1,\"Content\":\"said, I think it said like 10 print hello John 20 go to 10. And then he ran it and it took over the entire screen and it just wrote hello John over and over again, uh forever.\"},{\"Start\":81.29,\"End\":91.73,\"Speaker\":1,\"Content\":\"and I was like, oh, this is so cool. It's like it knows my name. Uh, how do we how do we stop this thing? Like, you know, I want to write the next program. And he's like, I don't know. I have no idea.\"},{\"Start\":91.73,\"End\":118.17,\"Speaker\":1,\"Content\":\"So like, you know, we tried to figure it out, but eventually we ended up just turning the computer off because that's, you know, it's one way to stop it. And then we turned it back on and he uh also knew enough to we opened it again and there's at the top, I think it was like F2 for help or maybe F1. Um, and you hit the help button and inside of there, there was actually this really robust documentation for the QBasic language. Um, and I just spent all my nights after that reading it and kind of getting into programming. Amazing. Yeah.\"},{\"Start\":118.17,\"End\":120.0,\"Speaker\":0,\"Content\":\"So how did you go from like\"}]"
+}

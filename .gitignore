@@ -21,9 +21,11 @@ episode/
 result
 result-*
 
-# streaming benchmark raw outputs (transcripts of third-party audio); summaries are committed
-research/streaming/runs*/**
-!research/streaming/runs*/*/
-!research/streaming/runs*/*/summary.json
-!research/streaming/runs*/*/replay_summary.json
-!research/streaming/runs_xanadu/service_probe.json
+# streaming benchmark raw outputs: the Signals and Threads runs (public episode) are committed in full; the Xanadu runs
+# (private feed) only as metric summaries and scripts
+research/streaming/runs_xanadu/**
+!research/streaming/runs_xanadu/*/
+!research/streaming/runs_xanadu/*.json
+!research/streaming/runs_xanadu/queue.sh
+!research/streaming/runs_xanadu/*/summary.json
+!research/streaming/runs_xanadu/*/replay_summary.json

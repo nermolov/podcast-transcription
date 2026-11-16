@@ -1,0 +1,104 @@
+{
+ "chunk": 6,
+ "audio": [
+  1770.0,
+  2100.0
+ ],
+ "new_start": 1800.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 32.32,
+   "speaker_id": 0,
+   "text": "evaluations. So this is like essentially writing tests for the models where the models try to do uh some amount of work and then we we grade them, right, to say how they did on the test. And in doing this work, we both get an idea of like how models are doing so we can make decisions about which ones to put in front of people by default. And we also gain the ability to make improvements to kind of the harnesses and how we set things up. Um so how do we prompt it or what tools do we give it by default or what skills do we present to the model?"
+  },
+  {
+   "start": 32.32,
+   "end": 33.12,
+   "speaker_id": 1,
+   "text": "Right."
+  },
+  {
+   "start": 33.12,
+   "end": 68.59,
+   "speaker_id": 1,
+   "text": "And this is like, you know, in some ways like a crashing in of like the worst possible outcome when it comes to testing and that like normally you spend all this time building testing infrastructure, trying really hard to make everything deterministic, and then we feel we have to like fit in this like kind of fundamentally stochastic process where we don't even have great hard rules about how to evaluate the evaluate the evaluations themselves are done at least in part by LLMs. Yep. Uh so like we're doing our best here and trying to make the best possible testing, but it's really challenging from an engineering perspective."
+  },
+  {
+   "start": 68.59,
+   "end": 93.26,
+   "speaker_id": 1,
+   "text": "like you would really like to have good ways of like you build your product, you test it, you demonstrate that it works well and you make changes and see if it's better after those changes and see that the tests keep on working. But all sorts of like irrelevant little details can like perturb the outcome of these tests and it can be really hard to interpret. There's actually a real kind of fundamentally statistical component to this kind of evaluation work, which you don't necessarily have in all the other kinds of testing that you do."
+  },
+  {
+   "start": 93.26,
+   "end": 108.58,
+   "speaker_id": 0,
+   "text": "We also do um, well, I'm sure we'll talk about this in a bit, but we we build even meta graders. So like when we use LLM graders, we now have to write the evaluations for the LLM grader. It's a whole interesting set of things to talk about there too."
+  },
+  {
+   "start": 108.58,
+   "end": 141.76,
+   "speaker_id": 1,
+   "text": "Yeah, there's like a fundamental problem of like I want to see how good an agent is at solving some problem. So I'm like fundamentally putting something up that's at the edge of the cognitive capabilities of the model. And then I want to evaluate whether it did a good job. But but like if I'm evaluating like the strongest model I have at my disposal and I have another instance of a roughly equally strong model that's trying to evaluate whether or not that thing did a good job, it's like there's like a fundamental problem of here you may not just have like the intellectual wattage to solve the problem that you're trying to solve. Yep."
+  },
+  {
+   "start": 142.32,
+   "end": 169.04,
+   "speaker_id": 0,
+   "text": "Yeah, I think there's a bunch of interesting things here about whether you can trust the model to discriminate on the work of another model, even if you can't trust it to produce the thing. A lot of times the thing that comes to mind here is like probably you can't build a car, but like you can go down to the street and tell me if something is a car. And I think that that's maybe an interesting analogy that's useful to explain to yourself why LLM graders might not be as bad as they seem on the surface."
+  },
+  {
+   "start": 169.04,
+   "end": 169.74,
+   "speaker_id": 1,
+   "text": "That's right."
+  },
+  {
+   "start": 169.74,
+   "end": 201.74,
+   "speaker_id": 1,
+   "text": "Although I feel like for a lot of the most important things, it actually doesn't work, right? Because in some ways, like the whole world is kind of piled up to make this not work. Because what happens is, it's not just us running evals on the models. The labs who are building the models are running evals on the models and they're using them as part of the RL. And so the models are getting like as good as they can get in a way that's in some sense bounded by the verifiability, or at least bounded by maybe other things too, but at least bounded by the verifiability of the task."
+  },
+  {
+   "start": 201.74,
+   "end": 223.84,
+   "speaker_id": 1,
+   "text": "And so you have this thing where the where the the things that the models are bad at are like exactly at the edge of what the models can discriminate. And so all the stuff around taste of code and like whether they're doing you know reward hacking and stuff like that, it's like the world is built and optimized to build things for you that are then hard for the LLMs to evaluate."
+  },
+  {
+   "start": 223.84,
+   "end": 248.91,
+   "speaker_id": 0,
+   "text": "I think you need to find a way to like shrink where the LLM is doing its work. So we've increasingly started relying on rubrics, for example, as a way to do this. Like, maybe you can take a problem and subdivide the grading of it into like a series of problems that maybe are more approachable for an LLM than than just like, did this model do exactly the thing it was supposed to do. Um, there are also more deterministic ways to grade in some cases that are also interesting."
+  },
+  {
+   "start": 248.91,
+   "end": 258.26,
+   "speaker_id": 1,
+   "text": "That's right. You can like, if you give a model a task to optimize something, you can see how well it optimized it. If you have tests of the correctness, you can actually run those tests. Yep."
+  },
+  {
+   "start": 258.26,
+   "end": 268.27,
+   "speaker_id": 0,
+   "text": "And sometimes the thing you want to look at is even not a grade necessarily. Sometimes it's like how long in wall clock time did this thing take to run or how many tokens did it use? or how much would it cost?"
+  },
+  {
+   "start": 268.27,
+   "end": 307.56,
+   "speaker_id": 0,
+   "text": "uh so those are also interesting. Yep. And then the last area that we focus on is security. Uh so the models, I guess like one thing to say is that for a long time, everyone, the whole world trusted humans to have good judgment about whether they did things or not. And now we're putting LLMs into this like same system that was built for humans. Uh and so for example, you put a model inside of a Python notebook and yes, clearly that's something we want the model to do. Uh but in putting it in a Python notebook, it's now running in an environment that's also running as the human, where the model can do things like run system and then just immediately uh"
+  },
+  {
+   "start": 307.56,
+   "end": 330.0,
+   "speaker_id": 0,
+   "text": "you know, escape Python and do whatever it wants to do. So there's this uh process that we've kind of been going about around some combination of building sandboxes and building like better access controls into uh various systems to make it so that the models can only do the things that we think are like actually safe. And increasingly that also has us relying on uh going back to the previous point, LLMs judging what"
+  }
+ ],
+ "gen_tokens": 1683,
+ "text": "[{\"Start\":0,\"End\":32.32,\"Speaker\":0,\"Content\":\"evaluations. So this is like essentially writing tests for the models where the models try to do uh some amount of work and then we we grade them, right, to say how they did on the test. And in doing this work, we both get an idea of like how models are doing so we can make decisions about which ones to put in front of people by default. And we also gain the ability to make improvements to kind of the harnesses and how we set things up. Um so how do we prompt it or what tools do we give it by default or what skills do we present to the model?\"},{\"Start\":32.32,\"End\":33.12,\"Speaker\":1,\"Content\":\"Right.\"},{\"Start\":33.12,\"End\":68.59,\"Speaker\":1,\"Content\":\"And this is like, you know, in some ways like a crashing in of like the worst possible outcome when it comes to testing and that like normally you spend all this time building testing infrastructure, trying really hard to make everything deterministic, and then we feel we have to like fit in this like kind of fundamentally stochastic process where we don't even have great hard rules about how to evaluate the evaluate the evaluations themselves are done at least in part by LLMs. Yep. Uh so like we're doing our best here and trying to make the best possible testing, but it's really challenging from an engineering perspective.\"},{\"Start\":68.59,\"End\":93.26,\"Speaker\":1,\"Content\":\"like you would really like to have good ways of like you build your product, you test it, you demonstrate that it works well and you make changes and see if it's better after those changes and see that the tests keep on working. But all sorts of like irrelevant little details can like perturb the outcome of these tests and it can be really hard to interpret. There's actually a real kind of fundamentally statistical component to this kind of evaluation work, which you don't necessarily have in all the other kinds of testing that you do.\"},{\"Start\":93.26,\"End\":108.58,\"Speaker\":0,\"Content\":\"We also do um, well, I'm sure we'll talk about this in a bit, but we we build even meta graders. So like when we use LLM graders, we now have to write the evaluations for the LLM grader. It's a whole interesting set of things to talk about there too.\"},{\"Start\":108.58,\"End\":141.76,\"Speaker\":1,\"Content\":\"Yeah, there's like a fundamental problem of like I want to see how good an agent is at solving some problem. So I'm like fundamentally putting something up that's at the edge of the cognitive capabilities of the model. And then I want to evaluate whether it did a good job. But but like if I'm evaluating like the strongest model I have at my disposal and I have another instance of a roughly equally strong model that's trying to evaluate whether or not that thing did a good job, it's like there's like a fundamental problem of here you may not just have like the intellectual wattage to solve the problem that you're trying to solve. Yep.\"},{\"Start\":142.32,\"End\":169.04,\"Speaker\":0,\"Content\":\"Yeah, I think there's a bunch of interesting things here about whether you can trust the model to discriminate on the work of another model, even if you can't trust it to produce the thing. A lot of times the thing that comes to mind here is like probably you can't build a car, but like you can go down to the street and tell me if something is a car. And I think that that's maybe an interesting analogy that's useful to explain to yourself why LLM graders might not be as bad as they seem on the surface.\"},{\"Start\":169.04,\"End\":169.74,\"Speaker\":1,\"Content\":\"That's right.\"},{\"Start\":169.74,\"End\":201.74,\"Speaker\":1,\"Content\":\"Although I feel like for a lot of the most important things, it actually doesn't work, right? Because in some ways, like the whole world is kind of piled up to make this not work. Because what happens is, it's not just us running evals on the models. The labs who are building the models are running evals on the models and they're using them as part of the RL. And so the models are getting like as good as they can get in a way that's in some sense bounded by the verifiability, or at least bounded by maybe other things too, but at least bounded by the verifiability of the task.\"},{\"Start\":201.74,\"End\":223.84,\"Speaker\":1,\"Content\":\"And so you have this thing where the where the the things that the models are bad at are like exactly at the edge of what the models can discriminate. And so all the stuff around taste of code and like whether they're doing you know reward hacking and stuff like that, it's like the world is built and optimized to build things for you that are then hard for the LLMs to evaluate.\"},{\"Start\":223.84,\"End\":248.91,\"Speaker\":0,\"Content\":\"I think you need to find a way to like shrink where the LLM is doing its work. So we've increasingly started relying on rubrics, for example, as a way to do this. Like, maybe you can take a problem and subdivide the grading of it into like a series of problems that maybe are more approachable for an LLM than than just like, did this model do exactly the thing it was supposed to do. Um, there are also more deterministic ways to grade in some cases that are also interesting.\"},{\"Start\":248.91,\"End\":258.26,\"Speaker\":1,\"Content\":\"That's right. You can like, if you give a model a task to optimize something, you can see how well it optimized it. If you have tests of the correctness, you can actually run those tests. Yep.\"},{\"Start\":258.26,\"End\":268.27,\"Speaker\":0,\"Content\":\"And sometimes the thing you want to look at is even not a grade necessarily. Sometimes it's like how long in wall clock time did this thing take to run or how many tokens did it use? or how much would it cost?\"},{\"Start\":268.27,\"End\":307.56,\"Speaker\":0,\"Content\":\"uh so those are also interesting. Yep. And then the last area that we focus on is security. Uh so the models, I guess like one thing to say is that for a long time, everyone, the whole world trusted humans to have good judgment about whether they did things or not. And now we're putting LLMs into this like same system that was built for humans. Uh and so for example, you put a model inside of a Python notebook and yes, clearly that's something we want the model to do. Uh but in putting it in a Python notebook, it's now running in an environment that's also running as the human, where the model can do things like run system and then just immediately uh\"},{\"Start\":307.56,\"End\":330.0,\"Speaker\":0,\"Content\":\"you know, escape Python and do whatever it wants to do. So there's this uh process that we've kind of been going about around some combination of building sandboxes and building like better access controls into uh various systems to make it so that the models can only do the things that we think are like actually safe. And increasingly that also has us relying on uh going back to the previous point, LLMs judging what\"}]"
+}

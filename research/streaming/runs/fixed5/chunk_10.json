@@ -1,0 +1,122 @@
+{
+ "chunk": 10,
+ "audio": [
+  2970.0,
+  3300.0
+ ],
+ "new_start": 3000.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 12.21,
+   "speaker_id": 0,
+   "text": "like, you know, GitHub released, you know, this these integrations for VS Code which were like all autocomplete based. And the way you used LLMs, right, was Copilot, right? And the way you used LLMs is you used them for like fancy autocomplete."
+  },
+  {
+   "start": 12.21,
+   "end": 12.76,
+   "speaker_id": 1,
+   "text": "Yep."
+  },
+  {
+   "start": 12.76,
+   "end": 52.51,
+   "speaker_id": 0,
+   "text": "Um, and that's in some sense at an architectural level, like LLMs kind of are just like a incredibly fancy, super intelligent autocomplete system, and it's just kind of using it for that. And then there's this age where you're using them as these like interactive tools that you work with and ask them to do things and they go off and do work on your behalf. And now increasingly you're thinking of them as like another class of user, an agent, a thing that does stuff in the world. And now you want to like reform lots of things about your systems to like be able to accommodate and think about and talk about and literally name these agents, right?"
+  },
+  {
+   "start": 52.51,
+   "end": 56.98,
+   "speaker_id": 0,
+   "text": "So it starts to really get its mitts into all sorts of aspects of your infrastructure."
+  },
+  {
+   "start": 56.98,
+   "end": 96.07,
+   "speaker_id": 1,
+   "text": "Yeah, as you want to like give them different personalities or ask them to work different ways or send them off on really long running, uh, work, right? And for a long time this wasn't, like you mentioned, it wasn't possible to do, right? There was we would have calls with the vendors all the time and we were asking them for just, we were saying more persistence. We just wanted like the the models to like work longer on a problem. And we got what we wanted, right? And it's enabled this entire new, uh, new way of working, which is really neat. I think for a while, like we've we've been talking in this industry about agents for like a long time, but really the like practical effects are really only starting to be realized now."
+  },
+  {
+   "start": 96.07,
+   "end": 121.57,
+   "speaker_id": 0,
+   "text": "Right, yeah, there's this sort of funny thing where there was like the ChatGPT moment where people became aware that these things were great and impressive and could do all this amazing stuff. But then like they really became useful in a serious way for kind of hardcore software engineering in November of last year. So like in a field that's been moving very fast, we really don't have very much experience at all of this new world of the models and how they work today. Yep."
+  },
+  {
+   "start": 121.91,
+   "end": 130.91,
+   "speaker_id": 1,
+   "text": "Yeah, I think if uh if like everything stopped and there was no more model progress, we would still just have years and years of work to do here."
+  },
+  {
+   "start": 130.91,
+   "end": 135.01,
+   "speaker_id": 0,
+   "text": "Right, there's still a lot a lot of juice to squeeze to get value out of these things, even in their current form."
+  },
+  {
+   "start": 135.01,
+   "end": 142.21,
+   "speaker_id": 1,
+   "text": "Yeah, and and at the same rate, we we still see like the models just like steadily improving. I mean, every"
+  },
+  {
+   "start": 142.32,
+   "end": 181.49,
+   "speaker_id": 1,
+   "text": "Every like issue that I would have thought would be, you know, an unbreakable barrier. For example, like hallucinations, right? If you understand how the models are trained and you understand how they work, just doesn't really seem like a solvable problem, right? It's like, um, if they're generating tokens, uh, the way that they piece them together just seems like it would result in hallucinations, but you know, here we are and it doesn't really seem like it's that big of a problem anymore. It used to be even going back a year that if you ask the model to like copy a chunk of code from one place to another, that it would copy it and it would like make a couple changes just for fun along the way."
+  },
+  {
+   "start": 181.49,
+   "end": 194.83,
+   "speaker_id": 1,
+   "text": "And like now it can just change it. It can just, uh, you know, reliably copy code. It can even, uh, one thing that was a problem for a long time is models being able to like revert changes that they made. They would like revert them but not revert them entirely. That's just not a problem anymore."
+  },
+  {
+   "start": 194.83,
+   "end": 197.51,
+   "speaker_id": 0,
+   "text": "Yeah. Yeah, it's amazing how fast the progress has come."
+  },
+  {
+   "start": 197.51,
+   "end": 215.84,
+   "speaker_id": 0,
+   "text": "So, I'm curious, can you sketch out what has been the change of the shape of like the tooling that we deliver to people over this time, right? Like the very first version of this is like a website that kind of looks like Jane GPT. Yeah. And like that's evolved in a bunch of other ways. Can you kind of sketch out what that's looked like?"
+  },
+  {
+   "start": 215.84,
+   "end": 254.46,
+   "speaker_id": 1,
+   "text": "Yeah, so we built the the website and then right after that, we had been sent this uh piece of code from one of the vendors that was about um tool calling. And kind of like heard rumors about what tool calling is, but uh this was the first time that they were like, \"Oh, we support tool calling.\" And it's like the code that they had sent us was essentially a big Python package that had a bunch of prompting inside of it. And that was the tool calling support. The prompting was basically like um how you reformat things into text that goes into the model, and then the model will sometimes call the function."
+  },
+  {
+   "start": 254.46,
+   "end": 286.67,
+   "speaker_id": 1,
+   "text": "and by calling the function, it basically means the model will just produce some other text that when you parse it, it is a tool call. It's like a special format that the model uses. Which to be clear, that's how it works still. Like that, but what has changed in the meantime is that the the vendors have their own APIs for dealing with how tool calling works, and importantly, the models are now trained on the format of tool calling. Um, but in the first version, we didn't have any of that. All we had was this Python library. The models weren't trained to use it. It was just like kind of a proof of concept."
+  },
+  {
+   "start": 286.67,
+   "end": 307.92,
+   "speaker_id": 0,
+   "text": "Right, it like just turned out like it was an emergent property. You could like write into the prompt, you could be like, \"Hey, when you want to do XYZ, here's like a JSON format that you could emit to ask me to do it.\" And the models would just do that. Right? They were like smart enough to pick up on the pattern and then you could be like, \"Well, I can just look and see when the JSON shows up and then I'll just interpret that as a tool call.\" And like, that's kind of how the whole thing worked."
+  },
+  {
+   "start": 307.92,
+   "end": 308.53,
+   "speaker_id": 1,
+   "text": "Yep"
+  },
+  {
+   "start": 308.53,
+   "end": 330.0,
+   "speaker_id": 1,
+   "text": "and they were like not reliable and sometimes the model wouldn't use them. Sometimes the model would emit a format that wasn't the format you'd agreed upon. So there were all kinds of problems, but we could mostly paper over those. Um if you want the model to call a particular tool and it doesn't call it the first time, you can kind of just ask it again. This is like the the area that that that we were living in back then. So on the back of that tool call"
+  }
+ ],
+ "gen_tokens": 1818,
+ "text": "[{\"Start\":0,\"End\":12.21,\"Speaker\":0,\"Content\":\"like, you know, GitHub released, you know, this these integrations for VS Code which were like all autocomplete based. And the way you used LLMs, right, was Copilot, right? And the way you used LLMs is you used them for like fancy autocomplete.\"},{\"Start\":12.21,\"End\":12.76,\"Speaker\":1,\"Content\":\"Yep.\"},{\"Start\":12.76,\"End\":52.51,\"Speaker\":0,\"Content\":\"Um, and that's in some sense at an architectural level, like LLMs kind of are just like a incredibly fancy, super intelligent autocomplete system, and it's just kind of using it for that. And then there's this age where you're using them as these like interactive tools that you work with and ask them to do things and they go off and do work on your behalf. And now increasingly you're thinking of them as like another class of user, an agent, a thing that does stuff in the world. And now you want to like reform lots of things about your systems to like be able to accommodate and think about and talk about and literally name these agents, right?\"},{\"Start\":52.51,\"End\":56.98,\"Speaker\":0,\"Content\":\"So it starts to really get its mitts into all sorts of aspects of your infrastructure.\"},{\"Start\":56.98,\"End\":96.07,\"Speaker\":1,\"Content\":\"Yeah, as you want to like give them different personalities or ask them to work different ways or send them off on really long running, uh, work, right? And for a long time this wasn't, like you mentioned, it wasn't possible to do, right? There was we would have calls with the vendors all the time and we were asking them for just, we were saying more persistence. We just wanted like the the models to like work longer on a problem. And we got what we wanted, right? And it's enabled this entire new, uh, new way of working, which is really neat. I think for a while, like we've we've been talking in this industry about agents for like a long time, but really the like practical effects are really only starting to be realized now.\"},{\"Start\":96.07,\"End\":121.57,\"Speaker\":0,\"Content\":\"Right, yeah, there's this sort of funny thing where there was like the ChatGPT moment where people became aware that these things were great and impressive and could do all this amazing stuff. But then like they really became useful in a serious way for kind of hardcore software engineering in November of last year. So like in a field that's been moving very fast, we really don't have very much experience at all of this new world of the models and how they work today. Yep.\"},{\"Start\":121.91,\"End\":130.91,\"Speaker\":1,\"Content\":\"Yeah, I think if uh if like everything stopped and there was no more model progress, we would still just have years and years of work to do here.\"},{\"Start\":130.91,\"End\":135.01,\"Speaker\":0,\"Content\":\"Right, there's still a lot a lot of juice to squeeze to get value out of these things, even in their current form.\"},{\"Start\":135.01,\"End\":142.21,\"Speaker\":1,\"Content\":\"Yeah, and and at the same rate, we we still see like the models just like steadily improving. I mean, every\"},{\"Start\":142.32,\"End\":181.49,\"Speaker\":1,\"Content\":\"Every like issue that I would have thought would be, you know, an unbreakable barrier. For example, like hallucinations, right? If you understand how the models are trained and you understand how they work, just doesn't really seem like a solvable problem, right? It's like, um, if they're generating tokens, uh, the way that they piece them together just seems like it would result in hallucinations, but you know, here we are and it doesn't really seem like it's that big of a problem anymore. It used to be even going back a year that if you ask the model to like copy a chunk of code from one place to another, that it would copy it and it would like make a couple changes just for fun along the way.\"},{\"Start\":181.49,\"End\":194.83,\"Speaker\":1,\"Content\":\"And like now it can just change it. It can just, uh, you know, reliably copy code. It can even, uh, one thing that was a problem for a long time is models being able to like revert changes that they made. They would like revert them but not revert them entirely. That's just not a problem anymore.\"},{\"Start\":194.83,\"End\":197.51,\"Speaker\":0,\"Content\":\"Yeah. Yeah, it's amazing how fast the progress has come.\"},{\"Start\":197.51,\"End\":215.84,\"Speaker\":0,\"Content\":\"So, I'm curious, can you sketch out what has been the change of the shape of like the tooling that we deliver to people over this time, right? Like the very first version of this is like a website that kind of looks like Jane GPT. Yeah. And like that's evolved in a bunch of other ways. Can you kind of sketch out what that's looked like?\"},{\"Start\":215.84,\"End\":254.46,\"Speaker\":1,\"Content\":\"Yeah, so we built the the website and then right after that, we had been sent this uh piece of code from one of the vendors that was about um tool calling. And kind of like heard rumors about what tool calling is, but uh this was the first time that they were like, \\\"Oh, we support tool calling.\\\" And it's like the code that they had sent us was essentially a big Python package that had a bunch of prompting inside of it. And that was the tool calling support. The prompting was basically like um how you reformat things into text that goes into the model, and then the model will sometimes call the function.\"},{\"Start\":254.46,\"End\":286.67,\"Speaker\":1,\"Content\":\"and by calling the function, it basically means the model will just produce some other text that when you parse it, it is a tool call. It's like a special format that the model uses. Which to be clear, that's how it works still. Like that, but what has changed in the meantime is that the the vendors have their own APIs for dealing with how tool calling works, and importantly, the models are now trained on the format of tool calling. Um, but in the first version, we didn't have any of that. All we had was this Python library. The models weren't trained to use it. It was just like kind of a proof of concept.\"},{\"Start\":286.67,\"End\":307.92,\"Speaker\":0,\"Content\":\"Right, it like just turned out like it was an emergent property. You could like write into the prompt, you could be like, \\\"Hey, when you want to do XYZ, here's like a JSON format that you could emit to ask me to do it.\\\" And the models would just do that. Right? They were like smart enough to pick up on the pattern and then you could be like, \\\"Well, I can just look and see when the JSON shows up and then I'll just interpret that as a tool call.\\\" And like, that's kind of how the whole thing worked.\"},{\"Start\":307.92,\"End\":308.53,\"Speaker\":1,\"Content\":\"Yep\"},{\"Start\":308.53,\"End\":330.0,\"Speaker\":1,\"Content\":\"and they were like not reliable and sometimes the model wouldn't use them. Sometimes the model would emit a format that wasn't the format you'd agreed upon. So there were all kinds of problems, but we could mostly paper over those. Um if you want the model to call a particular tool and it doesn't call it the first time, you can kind of just ask it again. This is like the the area that that that we were living in back then. So on the back of that tool call\"}]"
+}

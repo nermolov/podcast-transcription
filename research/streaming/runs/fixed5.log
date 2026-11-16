@@ -1,0 +1,94 @@
+{"t": 3.928, "kind": "prepared", "audio_s": 6509.112}
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 1439.36it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{"t": 7.127, "kind": "loaded"}
+{"t": 7.128, "kind": "plan", "plan": [[0.0, 0.0, 300.0], [270.0, 300.0, 600.0], [570.0, 600.0, 900.0], [870.0, 900.0, 1200.0], [1170.0, 1200.0, 1500.0], [1470.0, 1500.0, 1800.0], [1770.0, 1800.0, 2100.0], [2070.0, 2100.0, 2400.0], [2370.0, 2400.0, 2700.0], [2670.0, 2700.0, 3000.0], [2970.0, 3000.0, 3300.0], [3270.0, 3300.0, 3600.0], [3570.0, 3600.0, 3900.0], [3870.0, 3900.0, 4200.0], [4170.0, 4200.0, 4500.0], [4470.0, 4500.0, 4800.0], [4770.0, 4800.0, 5100.0], [5070.0, 5100.0, 5400.0], [5370.0, 5400.0, 5700.0], [5670.0, 5700.0, 6000.0], [5970.0, 6000.0, 6300.0], [6270.0, 6300.0, 6509.112]]}
+{"t": 11.11, "kind": "words", "chunk": 0, "n_tokens": 1939, "secs": 3.98}
+{"t": 20.906, "kind": "chunk_start", "chunk": 0, "audio": [0.0, 300.0], "new_start": 0.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2314, "encode_s": 9.79}
+{"t": 25.624, "kind": "first_token", "chunk": 0, "secs": 14.51}
+{"t": 92.699, "kind": "chunk_end", "chunk": 0, "gen_tokens": 2083, "n_segs": 29, "secs": 81.59, "mlx_peak_gb": 14.76}
+{"t": 96.467, "kind": "words", "chunk": 1, "n_tokens": 1836, "secs": 3.76}
+{"t": 106.844, "kind": "chunk_start", "chunk": 1, "audio": [270.0, 600.0], "new_start": 300.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.37}
+{"t": 112.012, "kind": "first_token", "chunk": 1, "secs": 15.54}
+{"t": 175.279, "kind": "chunk_end", "chunk": 1, "gen_tokens": 1962, "n_segs": 25, "secs": 78.81, "mlx_peak_gb": 14.89}
+{"t": 178.971, "kind": "words", "chunk": 2, "n_tokens": 1878, "secs": 3.69}
+{"t": 189.324, "kind": "chunk_start", "chunk": 2, "audio": [570.0, 900.0], "new_start": 600.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.35}
+{"t": 194.493, "kind": "first_token", "chunk": 2, "secs": 15.52}
+{"t": 249.172, "kind": "chunk_end", "chunk": 2, "gen_tokens": 1697, "n_segs": 13, "secs": 70.2, "mlx_peak_gb": 14.89}
+{"t": 252.894, "kind": "words", "chunk": 3, "n_tokens": 1840, "secs": 3.72}
+{"t": 263.259, "kind": "chunk_start", "chunk": 3, "audio": [870.0, 1200.0], "new_start": 900.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.36}
+{"t": 268.425, "kind": "first_token", "chunk": 3, "secs": 15.53}
+{"t": 325.74, "kind": "chunk_end", "chunk": 3, "gen_tokens": 1789, "n_segs": 19, "secs": 72.84, "mlx_peak_gb": 14.89}
+{"t": 329.63, "kind": "words", "chunk": 4, "n_tokens": 1901, "secs": 3.88}
+{"t": 340.016, "kind": "chunk_start", "chunk": 4, "audio": [1170.0, 1500.0], "new_start": 1200.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.38}
+{"t": 345.183, "kind": "first_token", "chunk": 4, "secs": 15.55}
+{"t": 409.134, "kind": "chunk_end", "chunk": 4, "gen_tokens": 1983, "n_segs": 22, "secs": 79.5, "mlx_peak_gb": 14.89}
+{"t": 412.77, "kind": "words", "chunk": 5, "n_tokens": 1766, "secs": 3.63}
+{"t": 423.132, "kind": "chunk_start", "chunk": 5, "audio": [1470.0, 1800.0], "new_start": 1500.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.36}
+{"t": 428.294, "kind": "first_token", "chunk": 5, "secs": 15.52}
+{"t": 484.794, "kind": "chunk_end", "chunk": 5, "gen_tokens": 1753, "n_segs": 17, "secs": 72.02, "mlx_peak_gb": 14.89}
+{"t": 488.435, "kind": "words", "chunk": 6, "n_tokens": 1772, "secs": 3.64}
+{"t": 498.812, "kind": "chunk_start", "chunk": 6, "audio": [1770.0, 2100.0], "new_start": 1800.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.37}
+{"t": 503.994, "kind": "first_token", "chunk": 6, "secs": 15.56}
+{"t": 558.218, "kind": "chunk_end", "chunk": 6, "gen_tokens": 1683, "n_segs": 15, "secs": 69.78, "mlx_peak_gb": 14.89}
+{"t": 561.911, "kind": "words", "chunk": 7, "n_tokens": 1844, "secs": 3.69}
+{"t": 572.303, "kind": "chunk_start", "chunk": 7, "audio": [2070.0, 2400.0], "new_start": 2100.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.39}
+{"t": 577.471, "kind": "first_token", "chunk": 7, "secs": 15.56}
+{"t": 636.031, "kind": "chunk_end", "chunk": 7, "gen_tokens": 1817, "n_segs": 17, "secs": 74.12, "mlx_peak_gb": 14.89}
+{"t": 639.689, "kind": "words", "chunk": 8, "n_tokens": 1745, "secs": 3.65}
+{"t": 650.093, "kind": "chunk_start", "chunk": 8, "audio": [2370.0, 2700.0], "new_start": 2400.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.4}
+{"t": 655.258, "kind": "first_token", "chunk": 8, "secs": 15.57}
+{"t": 715.807, "kind": "chunk_end", "chunk": 8, "gen_tokens": 1878, "n_segs": 22, "secs": 76.12, "mlx_peak_gb": 14.89}
+{"t": 719.387, "kind": "words", "chunk": 9, "n_tokens": 1692, "secs": 3.57}
+{"t": 729.754, "kind": "chunk_start", "chunk": 9, "audio": [2670.0, 3000.0], "new_start": 2700.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.36}
+{"t": 734.921, "kind": "first_token", "chunk": 9, "secs": 15.53}
+{"t": 789.764, "kind": "chunk_end", "chunk": 9, "gen_tokens": 1702, "n_segs": 21, "secs": 70.37, "mlx_peak_gb": 14.89}
+{"t": 793.31, "kind": "words", "chunk": 10, "n_tokens": 1720, "secs": 3.54}
+{"t": 803.679, "kind": "chunk_start", "chunk": 10, "audio": [2970.0, 3300.0], "new_start": 3000.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.37}
+{"t": 808.85, "kind": "first_token", "chunk": 10, "secs": 15.54}
+{"t": 867.476, "kind": "chunk_end", "chunk": 10, "gen_tokens": 1818, "n_segs": 18, "secs": 74.16, "mlx_peak_gb": 14.89}
+{"t": 870.976, "kind": "words", "chunk": 11, "n_tokens": 1552, "secs": 3.49}
+{"t": 881.336, "kind": "chunk_start", "chunk": 11, "audio": [3270.0, 3600.0], "new_start": 3300.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.36}
+{"t": 886.504, "kind": "first_token", "chunk": 11, "secs": 15.53}
+{"t": 943.453, "kind": "chunk_end", "chunk": 11, "gen_tokens": 1767, "n_segs": 19, "secs": 72.47, "mlx_peak_gb": 14.89}
+{"t": 947.02, "kind": "words", "chunk": 12, "n_tokens": 1762, "secs": 3.56}
+{"t": 957.414, "kind": "chunk_start", "chunk": 12, "audio": [3570.0, 3900.0], "new_start": 3600.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.39}
+{"t": 962.584, "kind": "first_token", "chunk": 12, "secs": 15.56}
+{"t": 1019.732, "kind": "chunk_end", "chunk": 12, "gen_tokens": 1774, "n_segs": 17, "secs": 72.71, "mlx_peak_gb": 14.89}
+{"t": 1023.426, "kind": "words", "chunk": 13, "n_tokens": 1802, "secs": 3.69}
+{"t": 1033.818, "kind": "chunk_start", "chunk": 13, "audio": [3870.0, 4200.0], "new_start": 3900.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.39}
+{"t": 1038.987, "kind": "first_token", "chunk": 13, "secs": 15.56}
+{"t": 1095.146, "kind": "chunk_end", "chunk": 13, "gen_tokens": 1743, "n_segs": 15, "secs": 71.72, "mlx_peak_gb": 14.89}
+{"t": 1098.804, "kind": "words", "chunk": 14, "n_tokens": 1832, "secs": 3.65}
+{"t": 1109.178, "kind": "chunk_start", "chunk": 14, "audio": [4170.0, 4500.0], "new_start": 4200.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.37}
+{"t": 1114.347, "kind": "first_token", "chunk": 14, "secs": 15.54}
+{"t": 1168.647, "kind": "chunk_end", "chunk": 14, "gen_tokens": 1685, "n_segs": 13, "secs": 69.84, "mlx_peak_gb": 14.89}
+{"t": 1172.276, "kind": "words", "chunk": 15, "n_tokens": 1771, "secs": 3.62}
+{"t": 1182.664, "kind": "chunk_start", "chunk": 15, "audio": [4470.0, 4800.0], "new_start": 4500.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.38}
+{"t": 1187.832, "kind": "first_token", "chunk": 15, "secs": 15.55}
+{"t": 1246.312, "kind": "chunk_end", "chunk": 15, "gen_tokens": 1814, "n_segs": 15, "secs": 74.03, "mlx_peak_gb": 14.89}
+{"t": 1250.127, "kind": "words", "chunk": 16, "n_tokens": 1852, "secs": 3.81}
+{"t": 1260.521, "kind": "chunk_start", "chunk": 16, "audio": [4770.0, 5100.0], "new_start": 4800.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.39}
+{"t": 1265.686, "kind": "first_token", "chunk": 16, "secs": 15.56}
+{"t": 1329.948, "kind": "chunk_end", "chunk": 16, "gen_tokens": 1993, "n_segs": 23, "secs": 79.82, "mlx_peak_gb": 14.89}
+{"t": 1333.656, "kind": "words", "chunk": 17, "n_tokens": 1810, "secs": 3.7}
+{"t": 1344.056, "kind": "chunk_start", "chunk": 17, "audio": [5070.0, 5400.0], "new_start": 5100.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.4}
+{"t": 1349.221, "kind": "first_token", "chunk": 17, "secs": 15.56}
+{"t": 1414.285, "kind": "chunk_end", "chunk": 17, "gen_tokens": 2017, "n_segs": 25, "secs": 80.63, "mlx_peak_gb": 14.89}
+{"t": 1417.976, "kind": "words", "chunk": 18, "n_tokens": 1807, "secs": 3.69}
+{"t": 1428.387, "kind": "chunk_start", "chunk": 18, "audio": [5370.0, 5700.0], "new_start": 5400.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.41}
+{"t": 1433.554, "kind": "first_token", "chunk": 18, "secs": 15.57}
+{"t": 1493.323, "kind": "chunk_end", "chunk": 18, "gen_tokens": 1854, "n_segs": 16, "secs": 75.34, "mlx_peak_gb": 14.89}
+{"t": 1496.934, "kind": "words", "chunk": 19, "n_tokens": 1708, "secs": 3.61}
+{"t": 1507.316, "kind": "chunk_start", "chunk": 19, "audio": [5670.0, 6000.0], "new_start": 5700.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.38}
+{"t": 1512.476, "kind": "first_token", "chunk": 19, "secs": 15.54}
+{"t": 1569.031, "kind": "chunk_end", "chunk": 19, "gen_tokens": 1754, "n_segs": 17, "secs": 72.09, "mlx_peak_gb": 14.89}
+{"t": 1572.672, "kind": "words", "chunk": 20, "n_tokens": 1725, "secs": 3.64}
+{"t": 1583.061, "kind": "chunk_start", "chunk": 20, "audio": [5970.0, 6300.0], "new_start": 6000.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2539, "encode_s": 10.39}
+{"t": 1588.226, "kind": "first_token", "chunk": 20, "secs": 15.55}
+{"t": 1643.608, "kind": "chunk_end", "chunk": 20, "gen_tokens": 1717, "n_segs": 14, "secs": 70.93, "mlx_peak_gb": 14.89}
+{"t": 1646.171, "kind": "words", "chunk": 21, "n_tokens": 1319, "secs": 2.56}
+{"t": 1653.697, "kind": "chunk_start", "chunk": 21, "audio": [6270.0, 6509.112], "new_start": 6300.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 1858, "encode_s": 7.52}
+{"t": 1657.523, "kind": "first_token", "chunk": 21, "secs": 11.35}
+{"t": 1701.791, "kind": "chunk_end", "chunk": 21, "gen_tokens": 1382, "n_segs": 13, "secs": 55.62, "mlx_peak_gb": 14.89}
+{"t": 1701.792, "kind": "done"}

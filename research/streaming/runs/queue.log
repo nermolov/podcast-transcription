@@ -1,0 +1,12 @@
+23:14:59 start fast (--plan 120,900,2400 --overlap 30) load: { 1.43 1.48 1.36 }
+23:45:05 end fast rc=0
+23:45:25 start fast_ex (--plan 120,900,2400 --overlap 30 --speaker exemplar) load: { 1.89 1.86 1.67 }
+00:15:14 end fast_ex rc=0
+00:15:34 start geo2 (--plan 120,240,480,960,1920,2400 --overlap 30) load: { 1.79 1.93 1.82 }
+00:44:48 end geo2 rc=0
+00:45:08 start fixed5 (--plan 300 --overlap 30) load: { 2.25 1.88 1.75 }
+01:13:30 end fixed5 rc=0
+01:13:53 start geo3 (--plan 120,360,1200,2400 --overlap 30) load: { 1.29 1.44 1.52 }
+01:43:25 end geo3 rc=0
+01:43:45 start fast_nw (--plan 120,900,2400 --overlap 30 --no-words) load: { 1.53 1.63 1.61 }
+02:11:48 end fast_nw rc=0

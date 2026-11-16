@@ -1,0 +1,104 @@
+{
+ "chunk": 13,
+ "audio": [
+  3870.0,
+  4200.0
+ ],
+ "new_start": 3900.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 16.41,
+   "speaker_id": 0,
+   "text": "It's less about, you know, changing how you write the code you were going to write before and instead let you write code that you would have never bothered to write at all, because it's like it's now just so cheap to do that you can have this kind of like disposable tool that you like quickly throw together to solve some particular problem. Is it exactly right?"
+  },
+  {
+   "start": 16.41,
+   "end": 54.72,
+   "speaker_id": 0,
+   "text": "Yeah, probably not, but it doesn't totally matter. It gives you enough insight and it's useful for that one use case and you kind of throw it away when you're done. And trying to build workflows that make it really easy and natural to do that. And it turns out the models are best at the things that they know best. And so, you know what they don't know best? They don't know like OCaml and like Bonsai, which is our internal system for building web apps and stuff. So they're they are going to like know more off the top of their head how to go off and, you know, build something in pure HTML and JavaScript than they're going to be able to build something that like fits naturally into our internal ecosystem."
+  },
+  {
+   "start": 54.72,
+   "end": 57.57,
+   "speaker_id": 0,
+   "text": "And like part of our answer to that has been like Oh, yeah."
+  },
+  {
+   "start": 57.57,
+   "end": 93.07,
+   "speaker_id": 0,
+   "text": "we can like do some of that, like, you know, JavaScript works here too. We can do some things in that style. But the people who think about the web platform here have been trying to like think about and understand what's the gap? Like, why does it take much longer to build an app in Bonsai than it does to build an app in JavaScript? And one of the things they've been discovering recently is some of it has nothing to do with the language stuff. Some of it is just like, oh, before I was just like doing a single index.html that like had the JavaScript and HTML in that one file and there was no anything to do. It's just like could generate the text and it was kind of fine."
+  },
+  {
+   "start": 93.07,
+   "end": 113.25,
+   "speaker_id": 0,
+   "text": "And now, there's like a feature in Iron which is our code review system that has to be created and a build process that has to be kicked off, and there's just like more steps and tool calls and the thing that actually represents there's like 30 seconds of like actual work to go and like generate the code."
+  },
+  {
+   "start": 113.25,
+   "end": 118.43,
+   "speaker_id": 1,
+   "text": "You probably want to grab like the bonsai starter template and like get your code off to a good start."
+  },
+  {
+   "start": 118.43,
+   "end": 157.22,
+   "speaker_id": 0,
+   "text": "And so like the whole thing in reality takes 10 minutes when it would have taken 30 seconds in the pure index.html world. And I think at first we were like, oh, maybe this is just like the cost we're paying because of like internal languages and libraries. Like, no, actually this is maybe stuff that we can fix by exactly as you're suggesting, doing like more like hard deterministic setup stuff so that like things are just there and ready and like the agent doesn't have to go and discover again how to use all the tools. That's again, kind of like the the agents are kind of like amazing and one of their thing that makes them amazing is also one of the deficiencies, which is they are perpetual beginners, right?"
+  },
+  {
+   "start": 157.22,
+   "end": 167.72,
+   "speaker_id": 0,
+   "text": "They never learn how to use the tools, right? It's just they rediscover every time how to use the tools. And so you kind of have to build your whole system around them being these kind of perpetual beginners."
+  },
+  {
+   "start": 168.14,
+   "end": 168.98,
+   "speaker_id": 1,
+   "text": "Right."
+  },
+  {
+   "start": 168.98,
+   "end": 205.16,
+   "speaker_id": 1,
+   "text": "Yeah, I think another part of this is you can maybe like instill them with a little bit of repeated knowledge by like writing skills, right? But then there's a question, uh so skills for anyone that doesn't know are these like little documents that you write to kind of guide the model on things that it does often. And models can also like help you write these skills and put them in place, but it takes time to write them. And it takes time to like know that you're writing them well. And once you have a, you know, large organization using a bunch of skills, they also become a little bit hard to change because changes to skills might have kind of untold impact on different parts of the firm. So this is also a problem that we end up having to think a lot about."
+  },
+  {
+   "start": 205.16,
+   "end": 244.0,
+   "speaker_id": 0,
+   "text": "Yeah, actually, we've talked a little bit about things like skills, we talked about function calling. There's like we built our own APIs for it. There's APIs like MCP, which have come out in the outside world, like which became public and popular after we'd already built our own version of it. Skills is another example of this. We had a thing that we built called context bundles, and then later this kind of public standard of skills came out. So this is kind of like treadmill that's going on of like things are always changing. We're building things and then often the outside world builds things, and that's like a complicated balance. Also, like we have our own command line tools like HCL."
+  },
+  {
+   "start": 244.0,
+   "end": 278.81,
+   "speaker_id": 1,
+   "text": "Yeah, one nice part about having our own tools, right, is that we can, like if we see a need for something, we can go make it. Um, but then there's also this thing you have to do sometimes of being like, okay, well the outside world has really kind of set their standard against this. For example, skills. And like context bundles are probably not the right answer. So there's like a little bit of acknowledgement. You know, like it would be a bad decision to be stuck to the decisions that you made even when you see the outside world starting to do something different. So sometimes you have to like go undo work that we did, which we recently did with context bundles. We've taken context bundles away, we've replaced them with skills."
+  },
+  {
+   "start": 278.81,
+   "end": 303.78,
+   "speaker_id": 0,
+   "text": "And then I think the other thing which which is maybe not as obvious from what we've said thus far is that we actually use third-party tools. So, Claude Code and Codex are things that we use inside of our world. And that's also been an interesting experience of like it it makes some things harder, it makes some things better. Like, can you say a little bit more about like why do we both like go to the trouble of building our own tools and use external third-party tools at the same time?"
+  },
+  {
+   "start": 303.78,
+   "end": 304.6,
+   "speaker_id": 1,
+   "text": "Yeah."
+  },
+  {
+   "start": 304.6,
+   "end": 330.0,
+   "speaker_id": 1,
+   "text": "Uh, so I guess like there's there's two sides of this. One is like you want control over the harness, you want control over what models get used, even doing things like combining different models to give users a better experience. You also, I think with our tooling on the user-facing side, want to have a little bit more uh deep integration into the tools that you know that they're using. For example, in the bottom of our CLI tool, and this is a fairly minor thing, but in the bottom of our"
+  }
+ ],
+ "gen_tokens": 1743,
+ "text": "[{\"Start\":0,\"End\":16.41,\"Speaker\":0,\"Content\":\"It's less about, you know, changing how you write the code you were going to write before and instead let you write code that you would have never bothered to write at all, because it's like it's now just so cheap to do that you can have this kind of like disposable tool that you like quickly throw together to solve some particular problem. Is it exactly right?\"},{\"Start\":16.41,\"End\":54.72,\"Speaker\":0,\"Content\":\"Yeah, probably not, but it doesn't totally matter. It gives you enough insight and it's useful for that one use case and you kind of throw it away when you're done. And trying to build workflows that make it really easy and natural to do that. And it turns out the models are best at the things that they know best. And so, you know what they don't know best? They don't know like OCaml and like Bonsai, which is our internal system for building web apps and stuff. So they're they are going to like know more off the top of their head how to go off and, you know, build something in pure HTML and JavaScript than they're going to be able to build something that like fits naturally into our internal ecosystem.\"},{\"Start\":54.72,\"End\":57.57,\"Speaker\":0,\"Content\":\"And like part of our answer to that has been like Oh, yeah.\"},{\"Start\":57.57,\"End\":93.07,\"Speaker\":0,\"Content\":\"we can like do some of that, like, you know, JavaScript works here too. We can do some things in that style. But the people who think about the web platform here have been trying to like think about and understand what's the gap? Like, why does it take much longer to build an app in Bonsai than it does to build an app in JavaScript? And one of the things they've been discovering recently is some of it has nothing to do with the language stuff. Some of it is just like, oh, before I was just like doing a single index.html that like had the JavaScript and HTML in that one file and there was no anything to do. It's just like could generate the text and it was kind of fine.\"},{\"Start\":93.07,\"End\":113.25,\"Speaker\":0,\"Content\":\"And now, there's like a feature in Iron which is our code review system that has to be created and a build process that has to be kicked off, and there's just like more steps and tool calls and the thing that actually represents there's like 30 seconds of like actual work to go and like generate the code.\"},{\"Start\":113.25,\"End\":118.43,\"Speaker\":1,\"Content\":\"You probably want to grab like the bonsai starter template and like get your code off to a good start.\"},{\"Start\":118.43,\"End\":157.22,\"Speaker\":0,\"Content\":\"And so like the whole thing in reality takes 10 minutes when it would have taken 30 seconds in the pure index.html world. And I think at first we were like, oh, maybe this is just like the cost we're paying because of like internal languages and libraries. Like, no, actually this is maybe stuff that we can fix by exactly as you're suggesting, doing like more like hard deterministic setup stuff so that like things are just there and ready and like the agent doesn't have to go and discover again how to use all the tools. That's again, kind of like the the agents are kind of like amazing and one of their thing that makes them amazing is also one of the deficiencies, which is they are perpetual beginners, right?\"},{\"Start\":157.22,\"End\":167.72,\"Speaker\":0,\"Content\":\"They never learn how to use the tools, right? It's just they rediscover every time how to use the tools. And so you kind of have to build your whole system around them being these kind of perpetual beginners.\"},{\"Start\":168.14,\"End\":168.98,\"Speaker\":1,\"Content\":\"Right.\"},{\"Start\":168.98,\"End\":205.16,\"Speaker\":1,\"Content\":\"Yeah, I think another part of this is you can maybe like instill them with a little bit of repeated knowledge by like writing skills, right? But then there's a question, uh so skills for anyone that doesn't know are these like little documents that you write to kind of guide the model on things that it does often. And models can also like help you write these skills and put them in place, but it takes time to write them. And it takes time to like know that you're writing them well. And once you have a, you know, large organization using a bunch of skills, they also become a little bit hard to change because changes to skills might have kind of untold impact on different parts of the firm. So this is also a problem that we end up having to think a lot about.\"},{\"Start\":205.16,\"End\":244.0,\"Speaker\":0,\"Content\":\"Yeah, actually, we've talked a little bit about things like skills, we talked about function calling. There's like we built our own APIs for it. There's APIs like MCP, which have come out in the outside world, like which became public and popular after we'd already built our own version of it. Skills is another example of this. We had a thing that we built called context bundles, and then later this kind of public standard of skills came out. So this is kind of like treadmill that's going on of like things are always changing. We're building things and then often the outside world builds things, and that's like a complicated balance. Also, like we have our own command line tools like HCL.\"},{\"Start\":244.0,\"End\":278.81,\"Speaker\":1,\"Content\":\"Yeah, one nice part about having our own tools, right, is that we can, like if we see a need for something, we can go make it. Um, but then there's also this thing you have to do sometimes of being like, okay, well the outside world has really kind of set their standard against this. For example, skills. And like context bundles are probably not the right answer. So there's like a little bit of acknowledgement. You know, like it would be a bad decision to be stuck to the decisions that you made even when you see the outside world starting to do something different. So sometimes you have to like go undo work that we did, which we recently did with context bundles. We've taken context bundles away, we've replaced them with skills.\"},{\"Start\":278.81,\"End\":303.78,\"Speaker\":0,\"Content\":\"And then I think the other thing which which is maybe not as obvious from what we've said thus far is that we actually use third-party tools. So, Claude Code and Codex are things that we use inside of our world. And that's also been an interesting experience of like it it makes some things harder, it makes some things better. Like, can you say a little bit more about like why do we both like go to the trouble of building our own tools and use external third-party tools at the same time?\"},{\"Start\":303.78,\"End\":304.6,\"Speaker\":1,\"Content\":\"Yeah.\"},{\"Start\":304.6,\"End\":330.0,\"Speaker\":1,\"Content\":\"Uh, so I guess like there's there's two sides of this. One is like you want control over the harness, you want control over what models get used, even doing things like combining different models to give users a better experience. You also, I think with our tooling on the user-facing side, want to have a little bit more uh deep integration into the tools that you know that they're using. For example, in the bottom of our CLI tool, and this is a fairly minor thing, but in the bottom of our\"}]"
+}

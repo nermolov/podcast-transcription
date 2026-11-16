@@ -1,0 +1,170 @@
+{
+ "chunk": 1,
+ "audio": [
+  90.0,
+  360.0
+ ],
+ "new_start": 120.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 1.66,
+   "speaker_id": 0,
+   "text": "No. I have no idea."
+  },
+  {
+   "start": 1.66,
+   "end": 26.69,
+   "speaker_id": 1,
+   "text": "So like, you know, we tried to figure it out, but eventually we ended up just turning the computer off because that's, you know, it's one way to stop it. And then we turned it back on and he uh also knew enough to we opened it again and there's at the top, I think it was like F2 for help or maybe F1. Um, and you hit the help button and inside of there, there was actually this really robust documentation for the QBasic language. Um, and I just spent all my nights after that reading it and kind of getting into programming."
+  },
+  {
+   "start": 26.69,
+   "end": 39.12,
+   "speaker_id": 0,
+   "text": "Amazing. Yeah. So how did you go from like QBasic and just like digging into, you know, an exciting old DOS machine into doing software engineering kind of in a more serious way?"
+  },
+  {
+   "start": 39.12,
+   "end": 62.87,
+   "speaker_id": 1,
+   "text": "Yeah, I think like a lot of people were interested in making games. This is a, I think, a pretty common introduction to programming. People are like, oh, I want to make my own game and that's what I want to do. For some reason, all I wanted to do was recreate DOS. Like that's the the thing I wanted to do. So I spent a lot of time, uh, making my own essentially CLI that would replace the the normal prompt. I later realized that maybe that was interested in..."
+  },
+  {
+   "start": 62.87,
+   "end": 71.44,
+   "speaker_id": 0,
+   "text": "This is a great origin story for getting into developer tools. Like the first thing you want to do is a metacircular interpreter. You want to like write DOS in DOS. Yeah."
+  },
+  {
+   "start": 71.44,
+   "end": 87.46,
+   "speaker_id": 1,
+   "text": "And I think at the time I'd like watched Pirates of Silicon Valley enough times that I was like, I need to make my own uh operating system. This was like all I wanted to do. So I'd make like operating systems, I'd give them little toy names, I'd kind of work on them for uh a couple months and then I would stop and start over."
+  },
+  {
+   "start": 87.46,
+   "end": 91.61,
+   "speaker_id": 0,
+   "text": "Like when you say operating systems, like were you writing your own device drivers? Like how how serious was this?"
+  },
+  {
+   "start": 91.61,
+   "end": 103.03,
+   "speaker_id": 1,
+   "text": "not very serious at the time, but then when I went when I went into university, I did spend I like went down the course a little bit of uh do I want to be an operating system developer until I realized that that no, I do not want to."
+  },
+  {
+   "start": 103.03,
+   "end": 112.63,
+   "speaker_id": 0,
+   "text": "There's also a weird degree to which we just kind of don't do that anymore. Right, like I mean there is still research on operating system kernels, but like we've all just kind of accepted that Linux is our operating system now."
+  },
+  {
+   "start": 112.63,
+   "end": 118.74,
+   "speaker_id": 1,
+   "text": "That's right. It was a little less clear for a bit. There were a lot of new things coming out. There was like a QNX, I think was the thing."
+  },
+  {
+   "start": 118.74,
+   "end": 120.82,
+   "speaker_id": 0,
+   "text": "Sure. And it still is in some ways."
+  },
+  {
+   "start": 120.82,
+   "end": 127.19,
+   "speaker_id": 1,
+   "text": "And there was like all the um there was a lot of development happening in like the BSD variants that uh was also very interesting at the time."
+  },
+  {
+   "start": 127.19,
+   "end": 128.56,
+   "speaker_id": 0,
+   "text": "which are still not dead"
+  },
+  {
+   "start": 128.56,
+   "end": 129.35,
+   "speaker_id": 1,
+   "text": "Yeah, they're still there."
+  },
+  {
+   "start": 129.35,
+   "end": 139.11,
+   "speaker_id": 0,
+   "text": "Lest the BSD people get angry at us, you know, great security record still exists. Okay, and then and then so you went and studied in college? You studied computer science?"
+  },
+  {
+   "start": 139.11,
+   "end": 176.08,
+   "speaker_id": 1,
+   "text": "studied computer science, kind of got lucky that I this is always the thing that I wanted to do. I wanted to uh write code. I just I didn't even really know that it was a thing, right? Like I was just doing it. I was uh remember in high school developing web pages or or different things that I wanted. I made a poetry website at some point. And then uh you know, I went to college and I was like, let me learn a little bit more about this. Then I got my first job and kind of just have continued since then. But it was always kind of with a an eye on, you know, the thing that I really want to do is I want to write code. And as a result, a lot of my work has moved in the direction of trying to make it easier and better experience for people writing code."
+  },
+  {
+   "start": 176.08,
+   "end": 178.18,
+   "speaker_id": 0,
+   "text": "and then professionally what do you end up doing?"
+  },
+  {
+   "start": 178.18,
+   "end": 186.23,
+   "speaker_id": 1,
+   "text": "So I worked at a couple startups. Uh, I tried to start a few of my own. They did not pan out. Uh, for various reasons. And then I"
+  },
+  {
+   "start": 186.23,
+   "end": 188.96,
+   "speaker_id": 0,
+   "text": "that is like the modal experience of a startup is it doesn't work."
+  },
+  {
+   "start": 188.96,
+   "end": 189.7,
+   "speaker_id": 1,
+   "text": "It does not matter."
+  },
+  {
+   "start": 189.7,
+   "end": 193.22,
+   "speaker_id": 0,
+   "text": "That's right. That's why the upside is so good is like the median case is not great. Yep."
+  },
+  {
+   "start": 193.28,
+   "end": 207.14,
+   "speaker_id": 1,
+   "text": "Yeah, some of them some of them have had some success, but ultimately like uh you know, I ended up looking for different jobs and I did end up working at uh companies like Square and then eventually I found myself at GitHub, which is where I was right before this."
+  },
+  {
+   "start": 207.14,
+   "end": 211.7,
+   "speaker_id": 0,
+   "text": "And so GitHub is obviously like a developer tool tooling place. What kind of work did you end up doing there?"
+  },
+  {
+   "start": 211.7,
+   "end": 240.6,
+   "speaker_id": 1,
+   "text": "Yeah, I did all kinds of things at GitHub. I worked on uh mostly like contributor pages and developer tooling. So this is like I worked on uh the contribution graph for a bit. I worked on the merge queue implementation. I worked on uh the early versions of Codespaces. I I kind of just did everything. I really liked working there. I used to say that when so I another place I worked at in the past was I worked at Tumblr. And one thing that was really neat is I know, I'm old."
+  },
+  {
+   "start": 240.6,
+   "end": 241.82,
+   "speaker_id": 0,
+   "text": "one thing"
+  },
+  {
+   "start": 241.82,
+   "end": 270.0,
+   "speaker_id": 1,
+   "text": "It's really neat is I would like, you know, I would maybe have a rough day at work and I would walk down the subway and I would see people like using the Tumblr app and I'd be like, okay, well that's that's pretty neat. People are using that. Or I worked at Square and I would go into businesses and see people like conducting business with with the terminal, right? And oh, that's pretty cool. Um, but you never really, it's like a different feeling to build something that you use. And GitHub was my first real experience being like, the point of this company is to make people like me have a better experience."
+  }
+ ],
+ "gen_tokens": 1862,
+ "text": "[{\"Start\":0,\"End\":1.66,\"Speaker\":0,\"Content\":\"No. I have no idea.\"},{\"Start\":1.66,\"End\":26.69,\"Speaker\":1,\"Content\":\"So like, you know, we tried to figure it out, but eventually we ended up just turning the computer off because that's, you know, it's one way to stop it. And then we turned it back on and he uh also knew enough to we opened it again and there's at the top, I think it was like F2 for help or maybe F1. Um, and you hit the help button and inside of there, there was actually this really robust documentation for the QBasic language. Um, and I just spent all my nights after that reading it and kind of getting into programming.\"},{\"Start\":26.69,\"End\":39.12,\"Speaker\":0,\"Content\":\"Amazing. Yeah. So how did you go from like QBasic and just like digging into, you know, an exciting old DOS machine into doing software engineering kind of in a more serious way?\"},{\"Start\":39.12,\"End\":62.87,\"Speaker\":1,\"Content\":\"Yeah, I think like a lot of people were interested in making games. This is a, I think, a pretty common introduction to programming. People are like, oh, I want to make my own game and that's what I want to do. For some reason, all I wanted to do was recreate DOS. Like that's the the thing I wanted to do. So I spent a lot of time, uh, making my own essentially CLI that would replace the the normal prompt. I later realized that maybe that was interested in...\"},{\"Start\":62.87,\"End\":71.44,\"Speaker\":0,\"Content\":\"This is a great origin story for getting into developer tools. Like the first thing you want to do is a metacircular interpreter. You want to like write DOS in DOS. Yeah.\"},{\"Start\":71.44,\"End\":87.46,\"Speaker\":1,\"Content\":\"And I think at the time I'd like watched Pirates of Silicon Valley enough times that I was like, I need to make my own uh operating system. This was like all I wanted to do. So I'd make like operating systems, I'd give them little toy names, I'd kind of work on them for uh a couple months and then I would stop and start over.\"},{\"Start\":87.46,\"End\":91.61,\"Speaker\":0,\"Content\":\"Like when you say operating systems, like were you writing your own device drivers? Like how how serious was this?\"},{\"Start\":91.61,\"End\":103.03,\"Speaker\":1,\"Content\":\"not very serious at the time, but then when I went when I went into university, I did spend I like went down the course a little bit of uh do I want to be an operating system developer until I realized that that no, I do not want to.\"},{\"Start\":103.03,\"End\":112.63,\"Speaker\":0,\"Content\":\"There's also a weird degree to which we just kind of don't do that anymore. Right, like I mean there is still research on operating system kernels, but like we've all just kind of accepted that Linux is our operating system now.\"},{\"Start\":112.63,\"End\":118.74,\"Speaker\":1,\"Content\":\"That's right. It was a little less clear for a bit. There were a lot of new things coming out. There was like a QNX, I think was the thing.\"},{\"Start\":118.74,\"End\":120.82,\"Speaker\":0,\"Content\":\"Sure. And it still is in some ways.\"},{\"Start\":120.82,\"End\":127.19,\"Speaker\":1,\"Content\":\"And there was like all the um there was a lot of development happening in like the BSD variants that uh was also very interesting at the time.\"},{\"Start\":127.19,\"End\":128.56,\"Speaker\":0,\"Content\":\"which are still not dead\"},{\"Start\":128.56,\"End\":129.35,\"Speaker\":1,\"Content\":\"Yeah, they're still there.\"},{\"Start\":129.35,\"End\":139.11,\"Speaker\":0,\"Content\":\"Lest the BSD people get angry at us, you know, great security record still exists. Okay, and then and then so you went and studied in college? You studied computer science?\"},{\"Start\":139.11,\"End\":176.08,\"Speaker\":1,\"Content\":\"studied computer science, kind of got lucky that I this is always the thing that I wanted to do. I wanted to uh write code. I just I didn't even really know that it was a thing, right? Like I was just doing it. I was uh remember in high school developing web pages or or different things that I wanted. I made a poetry website at some point. And then uh you know, I went to college and I was like, let me learn a little bit more about this. Then I got my first job and kind of just have continued since then. But it was always kind of with a an eye on, you know, the thing that I really want to do is I want to write code. And as a result, a lot of my work has moved in the direction of trying to make it easier and better experience for people writing code.\"},{\"Start\":176.08,\"End\":178.18,\"Speaker\":0,\"Content\":\"and then professionally what do you end up doing?\"},{\"Start\":178.18,\"End\":186.23,\"Speaker\":1,\"Content\":\"So I worked at a couple startups. Uh, I tried to start a few of my own. They did not pan out. Uh, for various reasons. And then I\"},{\"Start\":186.23,\"End\":188.96,\"Speaker\":0,\"Content\":\"that is like the modal experience of a startup is it doesn't work.\"},{\"Start\":188.96,\"End\":189.7,\"Speaker\":1,\"Content\":\"It does not matter.\"},{\"Start\":189.7,\"End\":193.22,\"Speaker\":0,\"Content\":\"That's right. That's why the upside is so good is like the median case is not great. Yep.\"},{\"Start\":193.28,\"End\":207.14,\"Speaker\":1,\"Content\":\"Yeah, some of them some of them have had some success, but ultimately like uh you know, I ended up looking for different jobs and I did end up working at uh companies like Square and then eventually I found myself at GitHub, which is where I was right before this.\"},{\"Start\":207.14,\"End\":211.7,\"Speaker\":0,\"Content\":\"And so GitHub is obviously like a developer tool tooling place. What kind of work did you end up doing there?\"},{\"Start\":211.7,\"End\":240.6,\"Speaker\":1,\"Content\":\"Yeah, I did all kinds of things at GitHub. I worked on uh mostly like contributor pages and developer tooling. So this is like I worked on uh the contribution graph for a bit. I worked on the merge queue implementation. I worked on uh the early versions of Codespaces. I I kind of just did everything. I really liked working there. I used to say that when so I another place I worked at in the past was I worked at Tumblr. And one thing that was really neat is I know, I'm old.\"},{\"Start\":240.6,\"End\":241.82,\"Speaker\":0,\"Content\":\"one thing\"},{\"Start\":241.82,\"End\":270.0,\"Speaker\":1,\"Content\":\"It's really neat is I would like, you know, I would maybe have a rough day at work and I would walk down the subway and I would see people like using the Tumblr app and I'd be like, okay, well that's that's pretty neat. People are using that. Or I worked at Square and I would go into businesses and see people like conducting business with with the terminal, right? And oh, that's pretty cool. Um, but you never really, it's like a different feeling to build something that you use. And GitHub was my first real experience being like, the point of this company is to make people like me have a better experience.\"}]"
+}

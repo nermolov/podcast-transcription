@@ -1,0 +1,110 @@
+{
+ "chunk": 18,
+ "audio": [
+  5370.0,
+  5700.0
+ ],
+ "new_start": 5400.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 3.78,
+   "speaker_id": 0,
+   "text": "The defractor tool itself works, like, what information does it use for analyzing?"
+  },
+  {
+   "start": 3.78,
+   "end": 5.65,
+   "speaker_id": 1,
+   "text": "I don't know."
+  },
+  {
+   "start": 5.65,
+   "end": 40.05,
+   "speaker_id": 0,
+   "text": "I mean, this actually highlights, like, a nice thing about these tools, which is one of the ways in which the character of the work has changed is that, like, everybody everywhere is thinking about this and there are tools bubbling up, you know, between the cracks in the sidewalk. Like, people are just, like, creating stuff faster than any centralized team can, like, totally absorb them. And then I think, like, the goal of the centralized team is to, like, figure out, like, how can we build tooling to help people do that? And how can we take the best ideas that come up and make them more robust and more usable firm-wide and kind of make them more standard?"
+  },
+  {
+   "start": 40.05,
+   "end": 74.53,
+   "speaker_id": 1,
+   "text": "And in the cases where there isn't a best, uh, how can we build tools that are, like, modular to the fact that people want to plug this particular piece? Like, maybe they, we have a bunch of, uh, we have a bunch of systems that use LLMs to do, to do code review, too. So an LLM, this is an LLM looking at code to determine if it has bugs, or if it has security issues, or if, uh, maybe it's, like, cause regressions in certain ways. And it seems like there's probably not going to be one of those that's right. So, in a sense, we want to build, like, a little pluggable layer where people can kind of bring their own, share them, and we can see which ones do best."
+  },
+  {
+   "start": 74.53,
+   "end": 96.73,
+   "speaker_id": 0,
+   "text": "Right, and it's almost necessarily domain-specific, right? The advice that you want to give the LLM when it's, when you're trying to, like, analyze a piece of code and figure out if there are issues with it. It's going to depend on where in the code base it is and what are the standards and what are the goals of the particular group of people who are building it. So, like, some of the stuff is just, like, fundamental diversity that you want to have in the system."
+  },
+  {
+   "start": 96.73,
+   "end": 136.85,
+   "speaker_id": 1,
+   "text": "There are also just different approaches you can take to this. So, like, one approach might involve you creating, like, a little team of agents. We have this thing called the review squad that kind of works like that. Or one might be, like, an agent just kind of looking at the code and looking for problems, but it can also see the previous code as it was. Or another might be that you actually let an agent, like, run with a full environment where it can, like, apply different code changes or add tests and see how those tests, like, you know, roll the result. And, like, it's not obvious to us which of those approaches is best. And there are a lot of people interested in experimenting. So our job kind of turns into, like, how can we figure out how to make experimentation possible?"
+  },
+  {
+   "start": 136.85,
+   "end": 140.32,
+   "speaker_id": 1,
+   "text": "Make it so that all of these different attempts can kind of, like, live together."
+  },
+  {
+   "start": 140.32,
+   "end": 148.68,
+   "speaker_id": 0,
+   "text": "Right. So part of what you're doing is trying to build concrete developer tools for people. And part of what you're doing is building a platform for people to build their own developer tools."
+  },
+  {
+   "start": 148.76,
+   "end": 183.81,
+   "speaker_id": 1,
+   "text": "And for a while we thought about that mostly as the tools that we give to the LLM, but increasingly we're thinking about it as things like the harness and how the harness works or how you plug in, uh, code review tools or even like, um, you know, we, we have a system for monitoring all of the different LLM work that's happening on your behalf and We built our own interface for showing all of those different LLM things in progress. But then we also built, like, a set of APIs that are, like, a monitor set of APIs that a bunch of other people have built their own kind of tooling on top of."
+  },
+  {
+   "start": 183.81,
+   "end": 210.39,
+   "speaker_id": 0,
+   "text": "So, we talked some about AIs as tools for understanding and code review is, like, one focus. And this nice thing of, like, oh, we could have the LLM tell its story, right? It can, like, decide how to organize the diffs and how to present it to you and how to kind of... Do the work of laying out the concepts in an order that's easy for the human to understand. That seems great. But it's also, in some ways, kind of very textual. And that feels like a limitation that kind of shouldn't be there."
+  },
+  {
+   "start": 210.39,
+   "end": 236.61,
+   "speaker_id": 0,
+   "text": "Like, one of the things that feels to me like it should be all over the place is leveraging the fact that AIs are actually really good at minting visualizations to build more, like, custom ad hoc, one-time-only visualizers. To help people understand all sorts of technical issues, including understanding what's happening in their code. Like, how much of that have you seen? And, like, like, is it important? Should we be doing things to generate more of it?"
+  },
+  {
+   "start": 236.61,
+   "end": 250.16,
+   "speaker_id": 1,
+   "text": "I haven't seen much of that personally. I think it's extremely exciting, though. So you're talking about, like, having the LLM maybe make little diagrams of how the code is laid out or how different pieces interact with each other so that it can explain a concept to you?"
+  },
+  {
+   "start": 250.16,
+   "end": 277.53,
+   "speaker_id": 0,
+   "text": "Yeah, or, like, you know, there's a performance problem. Can you, like, build me a custom visualization of what's going on there? Like, we lean a huge amount on, on great visualization tools. Um, and I think often very, like, high quality, simple, repeatable tools. So we've gotten a huge amount of use of Google's Perfetto, and we have, like, our own hacked up version of Perfetto that has, like, a few different improvements to it. We've hooked it into our magic trace and other kind of performance analysis tools."
+  },
+  {
+   "start": 277.53,
+   "end": 278.52,
+   "speaker_id": 0,
+   "text": "But, like,"
+  },
+  {
+   "start": 278.52,
+   "end": 314.47,
+   "speaker_id": 0,
+   "text": "It's really focused on one relatively narrow class of visualizations. And there's all sorts of other ways that you might want to understand what's going on technically in a code base. And it feels to me like there should be lots of good examples of ways of doing this. But, like, I haven't seen quite as much of this as I feel like there should be. And I kind of wonder, wonder why we don't, why we don't get more of it, both, like, internally, but also, like, in things in the outside world. I felt like, I don't know, six months ago, I was seeing more stories about this, but, like, Fewer compelling examples. And, like, I'm wondering, like, maybe it's less good than I think it is, or maybe it's harder than I think it is, or maybe we're just, like, not there yet."
+  },
+  {
+   "start": 314.47,
+   "end": 330.0,
+   "speaker_id": 1,
+   "text": "I think it's, it goes back to the point I was saying earlier about, like, if the models stopped their progress, we would still have multiple years of work to do. That, like, a lot of the ways that we apply models now are either reflections of how the software processing"
+  }
+ ],
+ "gen_tokens": 1854,
+ "text": "[{\"Start\":0,\"End\":3.78,\"Speaker\":0,\"Content\":\"The defractor tool itself works, like, what information does it use for analyzing?\"},{\"Start\":3.78,\"End\":5.65,\"Speaker\":1,\"Content\":\"I don't know.\"},{\"Start\":5.65,\"End\":40.05,\"Speaker\":0,\"Content\":\"I mean, this actually highlights, like, a nice thing about these tools, which is one of the ways in which the character of the work has changed is that, like, everybody everywhere is thinking about this and there are tools bubbling up, you know, between the cracks in the sidewalk. Like, people are just, like, creating stuff faster than any centralized team can, like, totally absorb them. And then I think, like, the goal of the centralized team is to, like, figure out, like, how can we build tooling to help people do that? And how can we take the best ideas that come up and make them more robust and more usable firm-wide and kind of make them more standard?\"},{\"Start\":40.05,\"End\":74.53,\"Speaker\":1,\"Content\":\"And in the cases where there isn't a best, uh, how can we build tools that are, like, modular to the fact that people want to plug this particular piece? Like, maybe they, we have a bunch of, uh, we have a bunch of systems that use LLMs to do, to do code review, too. So an LLM, this is an LLM looking at code to determine if it has bugs, or if it has security issues, or if, uh, maybe it's, like, cause regressions in certain ways. And it seems like there's probably not going to be one of those that's right. So, in a sense, we want to build, like, a little pluggable layer where people can kind of bring their own, share them, and we can see which ones do best.\"},{\"Start\":74.53,\"End\":96.73,\"Speaker\":0,\"Content\":\"Right, and it's almost necessarily domain-specific, right? The advice that you want to give the LLM when it's, when you're trying to, like, analyze a piece of code and figure out if there are issues with it. It's going to depend on where in the code base it is and what are the standards and what are the goals of the particular group of people who are building it. So, like, some of the stuff is just, like, fundamental diversity that you want to have in the system.\"},{\"Start\":96.73,\"End\":136.85,\"Speaker\":1,\"Content\":\"There are also just different approaches you can take to this. So, like, one approach might involve you creating, like, a little team of agents. We have this thing called the review squad that kind of works like that. Or one might be, like, an agent just kind of looking at the code and looking for problems, but it can also see the previous code as it was. Or another might be that you actually let an agent, like, run with a full environment where it can, like, apply different code changes or add tests and see how those tests, like, you know, roll the result. And, like, it's not obvious to us which of those approaches is best. And there are a lot of people interested in experimenting. So our job kind of turns into, like, how can we figure out how to make experimentation possible?\"},{\"Start\":136.85,\"End\":140.32,\"Speaker\":1,\"Content\":\"Make it so that all of these different attempts can kind of, like, live together.\"},{\"Start\":140.32,\"End\":148.68,\"Speaker\":0,\"Content\":\"Right. So part of what you're doing is trying to build concrete developer tools for people. And part of what you're doing is building a platform for people to build their own developer tools.\"},{\"Start\":148.76,\"End\":183.81,\"Speaker\":1,\"Content\":\"And for a while we thought about that mostly as the tools that we give to the LLM, but increasingly we're thinking about it as things like the harness and how the harness works or how you plug in, uh, code review tools or even like, um, you know, we, we have a system for monitoring all of the different LLM work that's happening on your behalf and We built our own interface for showing all of those different LLM things in progress. But then we also built, like, a set of APIs that are, like, a monitor set of APIs that a bunch of other people have built their own kind of tooling on top of.\"},{\"Start\":183.81,\"End\":210.39,\"Speaker\":0,\"Content\":\"So, we talked some about AIs as tools for understanding and code review is, like, one focus. And this nice thing of, like, oh, we could have the LLM tell its story, right? It can, like, decide how to organize the diffs and how to present it to you and how to kind of... Do the work of laying out the concepts in an order that's easy for the human to understand. That seems great. But it's also, in some ways, kind of very textual. And that feels like a limitation that kind of shouldn't be there.\"},{\"Start\":210.39,\"End\":236.61,\"Speaker\":0,\"Content\":\"Like, one of the things that feels to me like it should be all over the place is leveraging the fact that AIs are actually really good at minting visualizations to build more, like, custom ad hoc, one-time-only visualizers. To help people understand all sorts of technical issues, including understanding what's happening in their code. Like, how much of that have you seen? And, like, like, is it important? Should we be doing things to generate more of it?\"},{\"Start\":236.61,\"End\":250.16,\"Speaker\":1,\"Content\":\"I haven't seen much of that personally. I think it's extremely exciting, though. So you're talking about, like, having the LLM maybe make little diagrams of how the code is laid out or how different pieces interact with each other so that it can explain a concept to you?\"},{\"Start\":250.16,\"End\":277.53,\"Speaker\":0,\"Content\":\"Yeah, or, like, you know, there's a performance problem. Can you, like, build me a custom visualization of what's going on there? Like, we lean a huge amount on, on great visualization tools. Um, and I think often very, like, high quality, simple, repeatable tools. So we've gotten a huge amount of use of Google's Perfetto, and we have, like, our own hacked up version of Perfetto that has, like, a few different improvements to it. We've hooked it into our magic trace and other kind of performance analysis tools.\"},{\"Start\":277.53,\"End\":278.52,\"Speaker\":0,\"Content\":\"But, like,\"},{\"Start\":278.52,\"End\":314.47,\"Speaker\":0,\"Content\":\"It's really focused on one relatively narrow class of visualizations. And there's all sorts of other ways that you might want to understand what's going on technically in a code base. And it feels to me like there should be lots of good examples of ways of doing this. But, like, I haven't seen quite as much of this as I feel like there should be. And I kind of wonder, wonder why we don't, why we don't get more of it, both, like, internally, but also, like, in things in the outside world. I felt like, I don't know, six months ago, I was seeing more stories about this, but, like, Fewer compelling examples. And, like, I'm wondering, like, maybe it's less good than I think it is, or maybe it's harder than I think it is, or maybe we're just, like, not there yet.\"},{\"Start\":314.47,\"End\":330.0,\"Speaker\":1,\"Content\":\"I think it's, it goes back to the point I was saying earlier about, like, if the models stopped their progress, we would still have multiple years of work to do. That, like, a lot of the ways that we apply models now are either reflections of how the software processing\"}]"
+}

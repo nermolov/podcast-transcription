@@ -1,0 +1,20 @@
+{"t": 3.914, "kind": "prepared", "audio_s": 6509.112}
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 1468.47it/s]
+{"t": 6.938, "kind": "loaded"}
+{"t": 6.938, "kind": "plan", "plan": [[0.0, 0.0, 120.0], [90.0, 120.0, 1020.0], [990.0, 1020.0, 3420.0], [3390.0, 3420.0, 5820.0], [5790.0, 5820.0, 6509.112]]}
+{"t": 11.12, "kind": "chunk_start", "chunk": 0, "audio": [0.0, 120.0], "new_start": 0.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 964, "encode_s": 4.18}
+{"t": 13.134, "kind": "first_token", "chunk": 0, "secs": 6.2}
+{"t": 36.805, "kind": "chunk_end", "chunk": 0, "gen_tokens": 750, "n_segs": 9, "secs": 29.87, "mlx_peak_gb": 12.33}
+{"t": 65.972, "kind": "chunk_start", "chunk": 1, "audio": [90.0, 1020.0], "new_start": 120.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 7039, "encode_s": 29.13}
+{"t": 80.912, "kind": "first_token", "chunk": 1, "secs": 44.07}
+{"t": 271.091, "kind": "chunk_end", "chunk": 1, "gen_tokens": 5540, "n_segs": 64, "secs": 234.25, "mlx_peak_gb": 17.42}
+{"t": 347.93, "kind": "chunk_start", "chunk": 2, "audio": [990.0, 3420.0], "new_start": 1020.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 18290, "encode_s": 76.82}
+{"t": 392.687, "kind": "first_token", "chunk": 2, "secs": 121.58}
+{"t": 894.719, "kind": "chunk_end", "chunk": 2, "gen_tokens": 13352, "n_segs": 131, "secs": 623.61, "mlx_peak_gb": 26.99}
+{"t": 971.492, "kind": "chunk_start", "chunk": 3, "audio": [3390.0, 5820.0], "new_start": 3420.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 18290, "encode_s": 76.76}
+{"t": 1016.25, "kind": "first_token", "chunk": 3, "secs": 121.51}
+{"t": 1520.292, "kind": "chunk_end", "chunk": 3, "gen_tokens": 13376, "n_segs": 124, "secs": 625.56, "mlx_peak_gb": 27.15}
+{"t": 1542.925, "kind": "chunk_start", "chunk": 4, "audio": [5790.0, 6509.112], "new_start": 5820.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 5458, "encode_s": 22.63}
+{"t": 1554.326, "kind": "first_token", "chunk": 4, "secs": 34.03}
+{"t": 1682.774, "kind": "chunk_end", "chunk": 4, "gen_tokens": 3834, "n_segs": 33, "secs": 162.48, "mlx_peak_gb": 27.15}
+{"t": 1682.775, "kind": "done"}

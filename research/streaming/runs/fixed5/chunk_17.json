@@ -1,0 +1,164 @@
+{
+ "chunk": 17,
+ "audio": [
+  5070.0,
+  5400.0
+ ],
+ "new_start": 5100.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 13.79,
+   "speaker_id": 0,
+   "text": "you know, talk to people who talk about how code review has gotten easier because you can use the models to help answer questions. Like you go through and you see if like why why did we why did the person do that? Like what about the API would make that happen? And of course,"
+  },
+  {
+   "start": 13.79,
+   "end": 27.27,
+   "speaker_id": 0,
+   "text": "There are still hallucinations, there's less, but they're still there. The explanation might be confidently wrong. Of course, if you tell the model that it's wrong, it'll be like, I'm so sorry, you're totally right. It's very compliant, but it does make mistakes. And yet, I think"
+  },
+  {
+   "start": 27.36,
+   "end": 38.23,
+   "speaker_id": 0,
+   "text": "it can be a really powerful tool for understanding. And I'm curious how much do you see this like tool for understanding thing both in the things that people are like off building in the firm and in the things that you want to build in the future."
+  },
+  {
+   "start": 38.23,
+   "end": 70.45,
+   "speaker_id": 1,
+   "text": "I see code review as a big part of this. Um, so it seems like there's a lot more work we have to do here, but there are opportunities to do things like break up the feature or pull request that you're reviewing into chunks that actually maybe don't appear in the original in the form that they are. One example of a tool here that's been helping uh along these lines is a tool called Defractor, which is basically a code review tool that shows you um, you know, pieces of code laid out in a way that explains uh the change."
+  },
+  {
+   "start": 70.45,
+   "end": 87.51,
+   "speaker_id": 1,
+   "text": "but each of the chunks of code that you're viewing is not actually necessarily from the original diff. In a way, like you can break up the change in a way that the diffs apply on top of each other to make the original diff, but kind of tell a little bit more of a story of like why why this change was made."
+  },
+  {
+   "start": 87.51,
+   "end": 111.72,
+   "speaker_id": 0,
+   "text": "Right, it's maybe worth saying a little bit like how does our ordinary code review tooling work? And so, like Iron, you go to review a feature, it shows you each file one at a time. It actually has the files ordered in the kind of definition order because OCaml it turns out has a kind of strict notion of like what is the order in which things happen that are kind of that respects the dependency structure of the files."
+  },
+  {
+   "start": 111.72,
+   "end": 116.78,
+   "speaker_id": 0,
+   "text": "Yep, uh which is kind of useful because you can sort of understand like the definitions before the uses of the definitions."
+  },
+  {
+   "start": 116.78,
+   "end": 118.48,
+   "speaker_id": 1,
+   "text": "and then like the tests at the end or"
+  },
+  {
+   "start": 118.48,
+   "end": 119.06,
+   "speaker_id": 0,
+   "text": "Right"
+  },
+  {
+   "start": 119.06,
+   "end": 122.4,
+   "speaker_id": 1,
+   "text": "And it's not it's not always right, though. I mean like"
+  },
+  {
+   "start": 122.4,
+   "end": 124.01,
+   "speaker_id": 0,
+   "text": "It's not always the order you want."
+  },
+  {
+   "start": 124.01,
+   "end": 162.16,
+   "speaker_id": 1,
+   "text": "Yeah, it's not always the order. When we were at GitHub and we were thinking about code review, a lot of times we were thinking we we were talking about these things called narrative code review, which are basically like, I don't know, could we instead of showing, for example, on a pull request page, a like description and then a series of commit like commit IDs that most most people don't read, and then a diff pane, could we instead use the commits to lay out more of like a story of a code of code review, right? How did the user like go from the first thing that they wanted to do to the change that eventually ended up in the pull request? And that at the time requires like a lot of work on behalf of the developer who wrote the change."
+  },
+  {
+   "start": 162.16,
+   "end": 174.69,
+   "speaker_id": 1,
+   "text": "They have to like write individual commits, they have to write nice descriptions, they have to do things like rebase when they make a change, uh, that didn't end up being in the final. They want to like make a change to make it like historically make sense so the story plays out nice."
+  },
+  {
+   "start": 174.69,
+   "end": 194.44,
+   "speaker_id": 0,
+   "text": "the developer has to tell the story from the beginning. Correct. And often, and that story is almost inevitably going to be a lie. It's not like the real story of what happened, because the real developer's journey towards getting a coherent feature is like many mistakes and back and forth that you don't that are not part of like the explanatory story of the nice thing you got to at the end, because you made a lot of mistakes along the way."
+  },
+  {
+   "start": 194.44,
+   "end": 204.1,
+   "speaker_id": 1,
+   "text": "But the mistakes are, um, so the narrative code review would tell a story of the diff end to end. Um, but there's a couple of things there. One is like, like you said, you have to the developer has to do the work."
+  },
+  {
+   "start": 204.1,
+   "end": 204.58,
+   "speaker_id": 0,
+   "text": "Mhm"
+  },
+  {
+   "start": 204.58,
+   "end": 219.53,
+   "speaker_id": 1,
+   "text": "So, that seems like a pretty interesting thing for an LLM to do. Like what if you could get the same benefit of it laid out kind of chronologically, um but laid out in a way that, uh, you know, the human didn't have to put in extra effort. And then another thing that happens is, um..."
+  },
+  {
+   "start": 219.53,
+   "end": 223.5,
+   "speaker_id": 0,
+   "text": "chronologically or like in some order that just makes sense."
+  },
+  {
+   "start": 223.5,
+   "end": 230.38,
+   "speaker_id": 1,
+   "text": "in some order that makes sense. So like in some order that is the order that you would want in order to understand why the change was made."
+  },
+  {
+   "start": 230.38,
+   "end": 247.81,
+   "speaker_id": 0,
+   "text": "I you want to start off with like, here's the end API that we wanted to achieve, right? And now let's talk about like the pieces fitting into it after. It may be doing at least in a limited way the opposite of what our tooling does by default, which is to start like at the, you know, at the leaves and go all the way from there."
+  },
+  {
+   "start": 247.81,
+   "end": 281.88,
+   "speaker_id": 1,
+   "text": "Yeah. There's also information lost in all of the commits and directions that people have gone down that they ended up having to back out of, right? So sometimes when I go to, for example, a pull request, I'm just saying to myself, \"Oh, you made this choice, but why did you make that choice? Why didn't you go this other way?\" And wow, the information that they did try to go that way and then decided that it wouldn't work would be really, really useful to surface. And of course, I can go ask the human and they can go try to remember, but ideally we could use LLMs to build tools that have a better sense of like what kind of ways the human went."
+  },
+  {
+   "start": 281.88,
+   "end": 298.15,
+   "speaker_id": 1,
+   "text": "In its simplest form, if you take something like the original LLM session that a user used when trying to develop the feature, and make kind of the log of it available to another LLM, where the reviewer is asking questions about why certain decisions were made, really seems like you could get a lot of the way there."
+  },
+  {
+   "start": 298.15,
+   "end": 303.78,
+   "speaker_id": 0,
+   "text": "Do you know how the defractor tool itself works, like what information does it use for analyzing?"
+  },
+  {
+   "start": 303.78,
+   "end": 305.68,
+   "speaker_id": 1,
+   "text": "I don't know."
+  },
+  {
+   "start": 305.68,
+   "end": 330.0,
+   "speaker_id": 0,
+   "text": "I mean, this actually highlights like a nice thing about these tools, which is one of the ways in which the character of the work has changed is that like everybody everywhere is thinking about this and there are tools bubbling up, you know, between the cracks in the sidewalk. Like people are just like creating stuff faster than any centralized team can like totally absorb them. And then I think like the goal of the centralized team is to like figure out like"
+  }
+ ],
+ "gen_tokens": 2017,
+ "text": "[{\"Start\":0,\"End\":13.79,\"Speaker\":0,\"Content\":\"you know, talk to people who talk about how code review has gotten easier because you can use the models to help answer questions. Like you go through and you see if like why why did we why did the person do that? Like what about the API would make that happen? And of course,\"},{\"Start\":13.79,\"End\":27.27,\"Speaker\":0,\"Content\":\"There are still hallucinations, there's less, but they're still there. The explanation might be confidently wrong. Of course, if you tell the model that it's wrong, it'll be like, I'm so sorry, you're totally right. It's very compliant, but it does make mistakes. And yet, I think\"},{\"Start\":27.36,\"End\":38.23,\"Speaker\":0,\"Content\":\"it can be a really powerful tool for understanding. And I'm curious how much do you see this like tool for understanding thing both in the things that people are like off building in the firm and in the things that you want to build in the future.\"},{\"Start\":38.23,\"End\":70.45,\"Speaker\":1,\"Content\":\"I see code review as a big part of this. Um, so it seems like there's a lot more work we have to do here, but there are opportunities to do things like break up the feature or pull request that you're reviewing into chunks that actually maybe don't appear in the original in the form that they are. One example of a tool here that's been helping uh along these lines is a tool called Defractor, which is basically a code review tool that shows you um, you know, pieces of code laid out in a way that explains uh the change.\"},{\"Start\":70.45,\"End\":87.51,\"Speaker\":1,\"Content\":\"but each of the chunks of code that you're viewing is not actually necessarily from the original diff. In a way, like you can break up the change in a way that the diffs apply on top of each other to make the original diff, but kind of tell a little bit more of a story of like why why this change was made.\"},{\"Start\":87.51,\"End\":111.72,\"Speaker\":0,\"Content\":\"Right, it's maybe worth saying a little bit like how does our ordinary code review tooling work? And so, like Iron, you go to review a feature, it shows you each file one at a time. It actually has the files ordered in the kind of definition order because OCaml it turns out has a kind of strict notion of like what is the order in which things happen that are kind of that respects the dependency structure of the files.\"},{\"Start\":111.72,\"End\":116.78,\"Speaker\":0,\"Content\":\"Yep, uh which is kind of useful because you can sort of understand like the definitions before the uses of the definitions.\"},{\"Start\":116.78,\"End\":118.48,\"Speaker\":1,\"Content\":\"and then like the tests at the end or\"},{\"Start\":118.48,\"End\":119.06,\"Speaker\":0,\"Content\":\"Right\"},{\"Start\":119.06,\"End\":122.4,\"Speaker\":1,\"Content\":\"And it's not it's not always right, though. I mean like\"},{\"Start\":122.4,\"End\":124.01,\"Speaker\":0,\"Content\":\"It's not always the order you want.\"},{\"Start\":124.01,\"End\":162.16,\"Speaker\":1,\"Content\":\"Yeah, it's not always the order. When we were at GitHub and we were thinking about code review, a lot of times we were thinking we we were talking about these things called narrative code review, which are basically like, I don't know, could we instead of showing, for example, on a pull request page, a like description and then a series of commit like commit IDs that most most people don't read, and then a diff pane, could we instead use the commits to lay out more of like a story of a code of code review, right? How did the user like go from the first thing that they wanted to do to the change that eventually ended up in the pull request? And that at the time requires like a lot of work on behalf of the developer who wrote the change.\"},{\"Start\":162.16,\"End\":174.69,\"Speaker\":1,\"Content\":\"They have to like write individual commits, they have to write nice descriptions, they have to do things like rebase when they make a change, uh, that didn't end up being in the final. They want to like make a change to make it like historically make sense so the story plays out nice.\"},{\"Start\":174.69,\"End\":194.44,\"Speaker\":0,\"Content\":\"the developer has to tell the story from the beginning. Correct. And often, and that story is almost inevitably going to be a lie. It's not like the real story of what happened, because the real developer's journey towards getting a coherent feature is like many mistakes and back and forth that you don't that are not part of like the explanatory story of the nice thing you got to at the end, because you made a lot of mistakes along the way.\"},{\"Start\":194.44,\"End\":204.1,\"Speaker\":1,\"Content\":\"But the mistakes are, um, so the narrative code review would tell a story of the diff end to end. Um, but there's a couple of things there. One is like, like you said, you have to the developer has to do the work.\"},{\"Start\":204.1,\"End\":204.58,\"Speaker\":0,\"Content\":\"Mhm\"},{\"Start\":204.58,\"End\":219.53,\"Speaker\":1,\"Content\":\"So, that seems like a pretty interesting thing for an LLM to do. Like what if you could get the same benefit of it laid out kind of chronologically, um but laid out in a way that, uh, you know, the human didn't have to put in extra effort. And then another thing that happens is, um...\"},{\"Start\":219.53,\"End\":223.5,\"Speaker\":0,\"Content\":\"chronologically or like in some order that just makes sense.\"},{\"Start\":223.5,\"End\":230.38,\"Speaker\":1,\"Content\":\"in some order that makes sense. So like in some order that is the order that you would want in order to understand why the change was made.\"},{\"Start\":230.38,\"End\":247.81,\"Speaker\":0,\"Content\":\"I you want to start off with like, here's the end API that we wanted to achieve, right? And now let's talk about like the pieces fitting into it after. It may be doing at least in a limited way the opposite of what our tooling does by default, which is to start like at the, you know, at the leaves and go all the way from there.\"},{\"Start\":247.81,\"End\":281.88,\"Speaker\":1,\"Content\":\"Yeah. There's also information lost in all of the commits and directions that people have gone down that they ended up having to back out of, right? So sometimes when I go to, for example, a pull request, I'm just saying to myself, \\\"Oh, you made this choice, but why did you make that choice? Why didn't you go this other way?\\\" And wow, the information that they did try to go that way and then decided that it wouldn't work would be really, really useful to surface. And of course, I can go ask the human and they can go try to remember, but ideally we could use LLMs to build tools that have a better sense of like what kind of ways the human went.\"},{\"Start\":281.88,\"End\":298.15,\"Speaker\":1,\"Content\":\"In its simplest form, if you take something like the original LLM session that a user used when trying to develop the feature, and make kind of the log of it available to another LLM, where the reviewer is asking questions about why certain decisions were made, really seems like you could get a lot of the way there.\"},{\"Start\":298.15,\"End\":303.78,\"Speaker\":0,\"Content\":\"Do you know how the defractor tool itself works, like what information does it use for analyzing?\"},{\"Start\":303.78,\"End\":305.68,\"Speaker\":1,\"Content\":\"I don't know.\"},{\"Start\":305.68,\"End\":330.0,\"Speaker\":0,\"Content\":\"I mean, this actually highlights like a nice thing about these tools, which is one of the ways in which the character of the work has changed is that like everybody everywhere is thinking about this and there are tools bubbling up, you know, between the cracks in the sidewalk. Like people are just like creating stuff faster than any centralized team can like totally absorb them. And then I think like the goal of the centralized team is to like figure out like\"}]"
+}

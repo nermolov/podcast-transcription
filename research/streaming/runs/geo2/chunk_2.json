@@ -1,0 +1,242 @@
+{
+ "chunk": 2,
+ "audio": [
+  330.0,
+  840.0
+ ],
+ "new_start": 360.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0.0,
+   "end": 1.32,
+   "speaker_id": 0,
+   "text": "One thing."
+  },
+  {
+   "start": 1.32,
+   "end": 18.2,
+   "speaker_id": 1,
+   "text": "It's really neat is I would like, you know, I would maybe have a rough day at work and I would walk down the subway and I would see people like using the Tumblr app and I'd be like, okay, well that's that's pretty neat. People are using that. Or I worked at Square and I would go into businesses and see people like conducting business with with the terminal, right?"
+  },
+  {
+   "start": 18.2,
+   "end": 34.06,
+   "speaker_id": 1,
+   "text": "Oh, that's pretty cool. Um, but you never really, it's like a different feeling to build something that you use. And GitHub was my first real experience being like, the point of this company is to make people like me have a better experience with their work. And that's just like a totally different kind of satisfaction for for me."
+  },
+  {
+   "start": 34.06,
+   "end": 42.95,
+   "speaker_id": 0,
+   "text": "That's interesting. Like you you can you can imagine that like cutting both ways, right? Because it's the the cool thing about Tumblr is who uses it? Everybody uses Tumblr. It's yeah, I mean not anymore."
+  },
+  {
+   "start": 42.95,
+   "end": 57.56,
+   "speaker_id": 1,
+   "text": "But GitHub's this nice like middle ground, right? Because it's like a lot of people use it, right? So you get you get kind of the feeling of uh you're you're benefiting the whole world in in your work. Um but also the people are mostly developers, right?"
+  },
+  {
+   "start": 57.56,
+   "end": 59.45,
+   "speaker_id": 1,
+   "text": "So I think it's like it's a nice middle ground."
+  },
+  {
+   "start": 59.45,
+   "end": 66.14,
+   "speaker_id": 0,
+   "text": "or you can live in Silicon Valley and then it feels like everyone is using it. Everyone's using it. All of the ads in the subway are about software engineering and yeah."
+  },
+  {
+   "start": 66.14,
+   "end": 71.34,
+   "speaker_id": 1,
+   "text": "You just got to stick to the Silicon Valley coffee shops. It'll be just like Tumblr."
+  },
+  {
+   "start": 71.34,
+   "end": 78.58,
+   "speaker_id": 0,
+   "text": "And now you're working on developer tools at James Street, which is like in some ways an even more focused version of that experience, right?"
+  },
+  {
+   "start": 78.58,
+   "end": 89.11,
+   "speaker_id": 0,
+   "text": "like GitHub is used by many millions of people and the tools you build at James Street are used by hundreds, a few thousand people. Yep. Um, how like how does that feel different?"
+  },
+  {
+   "start": 89.11,
+   "end": 103.52,
+   "speaker_id": 1,
+   "text": "I think one difference is the the depth that you can go to and that's I think why I ended up here mostly is that you at GitHub you're building things for a lot of people but a lot of times you're building things kind of to the greatest common denominator use case, right?"
+  },
+  {
+   "start": 103.52,
+   "end": 142.44,
+   "speaker_id": 1,
+   "text": "like you're making things that work in all the programming languages because people use different ones. You're making things that work with uh maybe the most mainstream build systems or the most mainstream test setups. Like maybe you'll support um the most common Java testing libraries or Ruby ones because GitHub is built in Ruby. Um but maybe all of the other ones not so much. What's neat here is that we can really go deep on all of our implementations. So we can build things that like really make some general assumptions about the way that people are working. We can assume that they're using the build system that is the build system pretty much everyone uses here. We can assume they're pretty much using OCaml uh and Python."
+  },
+  {
+   "start": 142.44,
+   "end": 154.53,
+   "speaker_id": 1,
+   "text": "uh and we can make assumptions about uh I don't know what code review tool they're using or how they're getting their code merged to production. That uh means that we can make things uh work better and be more seamless for people."
+  },
+  {
+   "start": 154.53,
+   "end": 161.41,
+   "speaker_id": 0,
+   "text": "Right, so essentially you can just build better end-to-end integrations because you know what are the things that people are actually using. Exactly."
+  },
+  {
+   "start": 161.41,
+   "end": 175.69,
+   "speaker_id": 0,
+   "text": "Is there like a downside to that of that encourage you to like lock into the particular ways things work now and if when you want to do more general things like like I worry a little bit about a kind of like like premature concretization of the workflows?"
+  },
+  {
+   "start": 175.69,
+   "end": 186.25,
+   "speaker_id": 1,
+   "text": "That's an interesting question. So are you asking like when you when you start building something, do you end up stuck because of choices that were made previously? Yeah."
+  },
+  {
+   "start": 186.25,
+   "end": 193.61,
+   "speaker_id": 0,
+   "text": "like a good like just to give like a good concrete example, almost all of almost all of our programming is in OCaml and Python, right?"
+  },
+  {
+   "start": 193.61,
+   "end": 207.8,
+   "speaker_id": 0,
+   "text": "And there's a couple of other languages we have like another fun internal language for like a kind of big complicated modeling thing called Webs that does like, think of it as like a weird alternate universe version of Excel. But sometimes we want to do new things, right?"
+  },
+  {
+   "start": 207.8,
+   "end": 239.98,
+   "speaker_id": 0,
+   "text": "So, you know, at some point we didn't used to use very much Python and then we started doing a lot more of it. We've recently started doing a lot more GPU programming. And like, boy, there's like a lot of different programming languages and like all the tooling around it is pretty different. To what degree does this specialization have a downside of you can end up hyper-specializing on the particular things that we do in a way that might lead you to build things that are too inflexible so that when you want to do new things, you can kind of get tied up in having like overly supported the kind of particularity, the particularities of the internal infrastructure. Yeah."
+  },
+  {
+   "start": 239.98,
+   "end": 272.7,
+   "speaker_id": 1,
+   "text": "I feel like there's a balance between trying to go really deep but still trying to leave enough doors open to changes that might come in the future. Um, it's also worth saying, as you know, because you you lead the group, that we have this whole uh department called tools and compilers, which is mostly focused on uh making these developer tools. So in a way we've made decisions that um I think get us the depth but at the cost of some inflexibility, but we also have a team that kind of works to take us out of that when we need to. I think we're pretty robust to change, but I think it's a good question."
+  },
+  {
+   "start": 272.81,
+   "end": 288.21,
+   "speaker_id": 0,
+   "text": "Yeah, and I I do think part of doing a good job of this is just picking good abstractions, like both making it so you can take advantage of the particularities but also trying to like put the joints in the right place so that when you want to replace pieces of it, it's not like a complete disaster. Yeah."
+  },
+  {
+   "start": 288.21,
+   "end": 313.37,
+   "speaker_id": 1,
+   "text": "I think some of this takes real work. Like for example, we are using a lot more Python, right? And Python is getting integrated into a lot more of our systems, but I think it'd be an overstatement to say that it's integrated everywhere in the same way that OCaml is, right? Like it doesn't, um, not all of the Python code that we write is like checked into version control in the same way as our OCaml code or not all of the uh Python code that we write works well with the build system that we have. And this is like real stuff that we have to work on to make better."
+  },
+  {
+   "start": 313.37,
+   "end": 321.85,
+   "speaker_id": 0,
+   "text": "So I want to jump back for a second to a thing you mentioned about GitHub, which is that like GitHub was a Ruby shop. I had like, you know, you're a serious like Ruby guy and like you worked a lot on Ruby."
+  },
+  {
+   "start": 321.85,
+   "end": 332.81,
+   "speaker_id": 0,
+   "text": "at GitHub, gone to conferences, given talks, and now you've spent a few years in a very different ecosystem, working in OCaml, which is just like a much more, you know, I mean"
+  },
+  {
+   "start": 332.81,
+   "end": 362.04,
+   "speaker_id": 0,
+   "text": "there's this technical difference of like Ruby is a dynamically typed language and OCaml is a statically typed language, but just like the orientation is very different. OCaml's language is very focused on kind of static controls and guarantees of various different kinds, and like Ruby, not so much. It's like a very different approach to engineering and a very different development environment. I'm curious just what you've learned from the process of like having shifted from very much being on one kind of technology to now using a very different set of tools."
+  },
+  {
+   "start": 362.04,
+   "end": 374.45,
+   "speaker_id": 1,
+   "text": "Yeah, uh so I think I just to start by saying I love Ruby. I've not I've not traded off on my position here. Um but I do think that uh when I first started working with OCaml uh"
+  },
+  {
+   "start": 374.45,
+   "end": 387.03,
+   "speaker_id": 1,
+   "text": "it struck me that I felt slower. I felt like everything was moving slower. Um, I think it is true that uh Ruby and Rails results in uh less code written more quickly."
+  },
+  {
+   "start": 387.03,
+   "end": 401.86,
+   "speaker_id": 1,
+   "text": "Um, and the differences feel like they're really about, um, how the maintainability of that code is, but also about kind of the guarantees that you get while you're writing code. So, when you first learn, for example, about exhausted batch statements, you might be like, well,"
+  },
+  {
+   "start": 401.86,
+   "end": 407.61,
+   "speaker_id": 1,
+   "text": "that doesn't really seem that necessary. I always make sure all of my matches have all of the right arms inside of them. Yeah."
+  },
+  {
+   "start": 407.61,
+   "end": 422.07,
+   "speaker_id": 1,
+   "text": "So the first time that you make a mistake in Ruby of this type, you're going to end up with an error, a runtime error. And in OCaml, you can just kind of guarantee that this type of issue doesn't exist. And that's a pretty nice property. I think there are also other things that happen, like in the design space, for example."
+  },
+  {
+   "start": 422.07,
+   "end": 431.36,
+   "speaker_id": 1,
+   "text": "where when you're designing some kind of new functionality in Ruby, what you're probably going to end up doing is you're going to like write a doc describing how all the different types interact with each other."
+  },
+  {
+   "start": 431.36,
+   "end": 440.92,
+   "speaker_id": 1,
+   "text": "Uh in OCaml you can do the same thing. You can kind of write out how all the types interact with each other, but with the added benefit that you can you can like compile them and make sure that the types you're writing actually agree with each other."
+  },
+  {
+   "start": 440.92,
+   "end": 449.61,
+   "speaker_id": 0,
+   "text": "So is that right? Do people who think about Ruby, do they explicitly talk in a language of types even though there's no types in the actual formal definition of the language?"
+  },
+  {
+   "start": 449.61,
+   "end": 463.73,
+   "speaker_id": 1,
+   "text": "I wouldn't say it's talking in the language of types as much as it's talking about the language of objects where you're basically saying like this object has a property with this name and kind of the the type detail almost doesn't matter. Maybe sometimes you're uh wanting to say, you know,"
+  },
+  {
+   "start": 463.73,
+   "end": 471.43,
+   "speaker_id": 1,
+   "text": "this property is um of this particular type but mostly it's just kind of understood that if something is like text it's a string"
+  },
+  {
+   "start": 471.43,
+   "end": 484.12,
+   "speaker_id": 1,
+   "text": "and uh you know the duck typing helps you when when actually there's like a mismatch between what you need and what the what the property actually holds. Which I know is like a crazy it's very different."
+  },
+  {
+   "start": 484.12,
+   "end": 498.23,
+   "speaker_id": 0,
+   "text": "It's very different. And I think I guess so the the the point about like Ruby helps you be more concise, I think one of the things that a lot of Ruby people care about a lot is like it has really nice metaprogramming facilities. Yep."
+  },
+  {
+   "start": 498.23,
+   "end": 510.0,
+   "speaker_id": 0,
+   "text": "which seems great as a way of like condensing what you need to actually express explicitly in code, um, at the expense of being in many ways harder to reason about. Yep. Um, but the thing that I always worry about"
+  }
+ ],
+ "gen_tokens": 3059,
+ "text": "[{\"Start\":0.0,\"End\":1.32,\"Speaker\":0,\"Content\":\"One thing.\"},{\"Start\":1.32,\"End\":18.2,\"Speaker\":1,\"Content\":\"It's really neat is I would like, you know, I would maybe have a rough day at work and I would walk down the subway and I would see people like using the Tumblr app and I'd be like, okay, well that's that's pretty neat. People are using that. Or I worked at Square and I would go into businesses and see people like conducting business with with the terminal, right?\"},{\"Start\":18.2,\"End\":34.06,\"Speaker\":1,\"Content\":\"Oh, that's pretty cool. Um, but you never really, it's like a different feeling to build something that you use. And GitHub was my first real experience being like, the point of this company is to make people like me have a better experience with their work. And that's just like a totally different kind of satisfaction for for me.\"},{\"Start\":34.06,\"End\":42.95,\"Speaker\":0,\"Content\":\"That's interesting. Like you you can you can imagine that like cutting both ways, right? Because it's the the cool thing about Tumblr is who uses it? Everybody uses Tumblr. It's yeah, I mean not anymore.\"},{\"Start\":42.95,\"End\":57.56,\"Speaker\":1,\"Content\":\"But GitHub's this nice like middle ground, right? Because it's like a lot of people use it, right? So you get you get kind of the feeling of uh you're you're benefiting the whole world in in your work. Um but also the people are mostly developers, right?\"},{\"Start\":57.56,\"End\":59.45,\"Speaker\":1,\"Content\":\"So I think it's like it's a nice middle ground.\"},{\"Start\":59.45,\"End\":66.14,\"Speaker\":0,\"Content\":\"or you can live in Silicon Valley and then it feels like everyone is using it. Everyone's using it. All of the ads in the subway are about software engineering and yeah.\"},{\"Start\":66.14,\"End\":71.34,\"Speaker\":1,\"Content\":\"You just got to stick to the Silicon Valley coffee shops. It'll be just like Tumblr.\"},{\"Start\":71.34,\"End\":78.58,\"Speaker\":0,\"Content\":\"And now you're working on developer tools at James Street, which is like in some ways an even more focused version of that experience, right?\"},{\"Start\":78.58,\"End\":89.11,\"Speaker\":0,\"Content\":\"like GitHub is used by many millions of people and the tools you build at James Street are used by hundreds, a few thousand people. Yep. Um, how like how does that feel different?\"},{\"Start\":89.11,\"End\":103.52,\"Speaker\":1,\"Content\":\"I think one difference is the the depth that you can go to and that's I think why I ended up here mostly is that you at GitHub you're building things for a lot of people but a lot of times you're building things kind of to the greatest common denominator use case, right?\"},{\"Start\":103.52,\"End\":142.44,\"Speaker\":1,\"Content\":\"like you're making things that work in all the programming languages because people use different ones. You're making things that work with uh maybe the most mainstream build systems or the most mainstream test setups. Like maybe you'll support um the most common Java testing libraries or Ruby ones because GitHub is built in Ruby. Um but maybe all of the other ones not so much. What's neat here is that we can really go deep on all of our implementations. So we can build things that like really make some general assumptions about the way that people are working. We can assume that they're using the build system that is the build system pretty much everyone uses here. We can assume they're pretty much using OCaml uh and Python.\"},{\"Start\":142.44,\"End\":154.53,\"Speaker\":1,\"Content\":\"uh and we can make assumptions about uh I don't know what code review tool they're using or how they're getting their code merged to production. That uh means that we can make things uh work better and be more seamless for people.\"},{\"Start\":154.53,\"End\":161.41,\"Speaker\":0,\"Content\":\"Right, so essentially you can just build better end-to-end integrations because you know what are the things that people are actually using. Exactly.\"},{\"Start\":161.41,\"End\":175.69,\"Speaker\":0,\"Content\":\"Is there like a downside to that of that encourage you to like lock into the particular ways things work now and if when you want to do more general things like like I worry a little bit about a kind of like like premature concretization of the workflows?\"},{\"Start\":175.69,\"End\":186.25,\"Speaker\":1,\"Content\":\"That's an interesting question. So are you asking like when you when you start building something, do you end up stuck because of choices that were made previously? Yeah.\"},{\"Start\":186.25,\"End\":193.61,\"Speaker\":0,\"Content\":\"like a good like just to give like a good concrete example, almost all of almost all of our programming is in OCaml and Python, right?\"},{\"Start\":193.61,\"End\":207.8,\"Speaker\":0,\"Content\":\"And there's a couple of other languages we have like another fun internal language for like a kind of big complicated modeling thing called Webs that does like, think of it as like a weird alternate universe version of Excel. But sometimes we want to do new things, right?\"},{\"Start\":207.8,\"End\":239.98,\"Speaker\":0,\"Content\":\"So, you know, at some point we didn't used to use very much Python and then we started doing a lot more of it. We've recently started doing a lot more GPU programming. And like, boy, there's like a lot of different programming languages and like all the tooling around it is pretty different. To what degree does this specialization have a downside of you can end up hyper-specializing on the particular things that we do in a way that might lead you to build things that are too inflexible so that when you want to do new things, you can kind of get tied up in having like overly supported the kind of particularity, the particularities of the internal infrastructure. Yeah.\"},{\"Start\":239.98,\"End\":272.7,\"Speaker\":1,\"Content\":\"I feel like there's a balance between trying to go really deep but still trying to leave enough doors open to changes that might come in the future. Um, it's also worth saying, as you know, because you you lead the group, that we have this whole uh department called tools and compilers, which is mostly focused on uh making these developer tools. So in a way we've made decisions that um I think get us the depth but at the cost of some inflexibility, but we also have a team that kind of works to take us out of that when we need to. I think we're pretty robust to change, but I think it's a good question.\"},{\"Start\":272.81,\"End\":288.21,\"Speaker\":0,\"Content\":\"Yeah, and I I do think part of doing a good job of this is just picking good abstractions, like both making it so you can take advantage of the particularities but also trying to like put the joints in the right place so that when you want to replace pieces of it, it's not like a complete disaster. Yeah.\"},{\"Start\":288.21,\"End\":313.37,\"Speaker\":1,\"Content\":\"I think some of this takes real work. Like for example, we are using a lot more Python, right? And Python is getting integrated into a lot more of our systems, but I think it'd be an overstatement to say that it's integrated everywhere in the same way that OCaml is, right? Like it doesn't, um, not all of the Python code that we write is like checked into version control in the same way as our OCaml code or not all of the uh Python code that we write works well with the build system that we have. And this is like real stuff that we have to work on to make better.\"},{\"Start\":313.37,\"End\":321.85,\"Speaker\":0,\"Content\":\"So I want to jump back for a second to a thing you mentioned about GitHub, which is that like GitHub was a Ruby shop. I had like, you know, you're a serious like Ruby guy and like you worked a lot on Ruby.\"},{\"Start\":321.85,\"End\":332.81,\"Speaker\":0,\"Content\":\"at GitHub, gone to conferences, given talks, and now you've spent a few years in a very different ecosystem, working in OCaml, which is just like a much more, you know, I mean\"},{\"Start\":332.81,\"End\":362.04,\"Speaker\":0,\"Content\":\"there's this technical difference of like Ruby is a dynamically typed language and OCaml is a statically typed language, but just like the orientation is very different. OCaml's language is very focused on kind of static controls and guarantees of various different kinds, and like Ruby, not so much. It's like a very different approach to engineering and a very different development environment. I'm curious just what you've learned from the process of like having shifted from very much being on one kind of technology to now using a very different set of tools.\"},{\"Start\":362.04,\"End\":374.45,\"Speaker\":1,\"Content\":\"Yeah, uh so I think I just to start by saying I love Ruby. I've not I've not traded off on my position here. Um but I do think that uh when I first started working with OCaml uh\"},{\"Start\":374.45,\"End\":387.03,\"Speaker\":1,\"Content\":\"it struck me that I felt slower. I felt like everything was moving slower. Um, I think it is true that uh Ruby and Rails results in uh less code written more quickly.\"},{\"Start\":387.03,\"End\":401.86,\"Speaker\":1,\"Content\":\"Um, and the differences feel like they're really about, um, how the maintainability of that code is, but also about kind of the guarantees that you get while you're writing code. So, when you first learn, for example, about exhausted batch statements, you might be like, well,\"},{\"Start\":401.86,\"End\":407.61,\"Speaker\":1,\"Content\":\"that doesn't really seem that necessary. I always make sure all of my matches have all of the right arms inside of them. Yeah.\"},{\"Start\":407.61,\"End\":422.07,\"Speaker\":1,\"Content\":\"So the first time that you make a mistake in Ruby of this type, you're going to end up with an error, a runtime error. And in OCaml, you can just kind of guarantee that this type of issue doesn't exist. And that's a pretty nice property. I think there are also other things that happen, like in the design space, for example.\"},{\"Start\":422.07,\"End\":431.36,\"Speaker\":1,\"Content\":\"where when you're designing some kind of new functionality in Ruby, what you're probably going to end up doing is you're going to like write a doc describing how all the different types interact with each other.\"},{\"Start\":431.36,\"End\":440.92,\"Speaker\":1,\"Content\":\"Uh in OCaml you can do the same thing. You can kind of write out how all the types interact with each other, but with the added benefit that you can you can like compile them and make sure that the types you're writing actually agree with each other.\"},{\"Start\":440.92,\"End\":449.61,\"Speaker\":0,\"Content\":\"So is that right? Do people who think about Ruby, do they explicitly talk in a language of types even though there's no types in the actual formal definition of the language?\"},{\"Start\":449.61,\"End\":463.73,\"Speaker\":1,\"Content\":\"I wouldn't say it's talking in the language of types as much as it's talking about the language of objects where you're basically saying like this object has a property with this name and kind of the the type detail almost doesn't matter. Maybe sometimes you're uh wanting to say, you know,\"},{\"Start\":463.73,\"End\":471.43,\"Speaker\":1,\"Content\":\"this property is um of this particular type but mostly it's just kind of understood that if something is like text it's a string\"},{\"Start\":471.43,\"End\":484.12,\"Speaker\":1,\"Content\":\"and uh you know the duck typing helps you when when actually there's like a mismatch between what you need and what the what the property actually holds. Which I know is like a crazy it's very different.\"},{\"Start\":484.12,\"End\":498.23,\"Speaker\":0,\"Content\":\"It's very different. And I think I guess so the the the point about like Ruby helps you be more concise, I think one of the things that a lot of Ruby people care about a lot is like it has really nice metaprogramming facilities. Yep.\"},{\"Start\":498.23,\"End\":510.0,\"Speaker\":0,\"Content\":\"which seems great as a way of like condensing what you need to actually express explicitly in code, um, at the expense of being in many ways harder to reason about. Yep. Um, but the thing that I always worry about\"}]"
+}

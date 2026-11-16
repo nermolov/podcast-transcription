@@ -1,0 +1,128 @@
+{
+ "chunk": 3,
+ "audio": [
+  870.0,
+  1200.0
+ ],
+ "new_start": 900.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 29.1,
+   "speaker_id": 0,
+   "text": "tended set of rules and invariants and structures about the code base. And you know, somebody else writes code somewhere else and like the compiler now, you know, conveys the message from the person who wrote down the types to the person who's trying to change something that uses those types in a way that really helps large groups of people coordinate more effectively. And now, when we have all these AIs running around, a whole bunch of like virtual people who are also operating in the code base, it feels like it provides useful structures there as well."
+  },
+  {
+   "start": 29.1,
+   "end": 49.59,
+   "speaker_id": 0,
+   "text": "So I'm kind of curious, like I know like at various points GitHub has had internal questions about how they should build their own development environment and what language they should use. And I'm curious like how you now reflect on that question and like, like does it make sense for something like GitHub at the scale that it's in now to be in a dynamically typed language? Or if you were to do it yourself now, would you make different choices?"
+  },
+  {
+   "start": 49.59,
+   "end": 56.96,
+   "speaker_id": 1,
+   "text": "Yeah, I think so one of the first things you mentioned was the performance side, and I think this is something that gets brought up a lot with languages like Ruby or Python."
+  },
+  {
+   "start": 57.2,
+   "end": 97.3,
+   "speaker_id": 1,
+   "text": "Um, it's true that like if you have maybe some kind of uh, I don't know, performance-oriented code, it's going to be faster not in one of these um dynamically typed inferred languages. But realistically, most operations in GitHub are like bound by I/O, right? It's like a call to a database or it's a call to like the Git subsystem. And that's where most of the time gets spent in a request. Um, I think like most things that are happening are actually just like happening in the viewer controller layer and most of the cost is actually like most of the problems that we had, um, you know, running and keeping GitHub up, you know, centered around like the MySQL database is at the core of the whole thing."
+  },
+  {
+   "start": 97.3,
+   "end": 115.89,
+   "speaker_id": 1,
+   "text": "Um, maybe not too surprisingly, they get really big and uh, you know, keeping them working well is hard. Um, even things like running migrations at that scale is like kind of impossible. So there's a bunch of tooling for uh making it so you wouldn't have to do altered data table statements that are have the risk of making parts of the database locked."
+  },
+  {
+   "start": 115.89,
+   "end": 116.68,
+   "speaker_id": 0,
+   "text": "Mhm."
+  },
+  {
+   "start": 116.68,
+   "end": 130.68,
+   "speaker_id": 1,
+   "text": "The second thing that you mentioned, oh, sorry, and then there's a bunch of like low-level git operations that happen, and at GitHub those mostly don't happen in Ruby, they happen in languages like Go. Um, so any kind of compute-intensive stuff is like tucked away in other services."
+  },
+  {
+   "start": 130.68,
+   "end": 135.2,
+   "speaker_id": 0,
+   "text": "So one of the solutions to Ruby isn't fast enough is where that's matters don't use Ruby. Yep."
+  },
+  {
+   "start": 135.24,
+   "end": 159.34,
+   "speaker_id": 1,
+   "text": "Sure. Yeah, or where you want certain guarantees. And I think that that's that's, you know, a nice, um, middle line to draw. I think the other thing you mentioned was about, uh, the kind of like large code base or large organization maintainability of Ruby. Uh, there's a reason probably that a lot of organizations that were built on Ruby in like their startup days moved away from Ruby later and it's probably related to this exact thing that you're saying is that"
+  },
+  {
+   "start": 159.34,
+   "end": 175.16,
+   "speaker_id": 0,
+   "text": "And and also a reason that like languages like Ruby and Python have gotten optional type systems tacked onto the end. The reason that Meta put all this work into creating Hack, which started out as an optionally typed programming language and over time has been locked down so it's now mandatorily typed."
+  },
+  {
+   "start": 175.3,
+   "end": 189.78,
+   "speaker_id": 1,
+   "text": "Yeah, and Ruby has one of these called Sorbet. Ruby also has its own internal, uh, optional type system built by the language maintainers. So, this is like definitely a thing in Ruby as well as it is in Python, and I guess also JavaScript with like things like TypeScript."
+  },
+  {
+   "start": 189.78,
+   "end": 190.52,
+   "speaker_id": 0,
+   "text": "For sure."
+  },
+  {
+   "start": 190.52,
+   "end": 207.2,
+   "speaker_id": 1,
+   "text": "the large organization maintainability is a real problem. And I think you have to decide how what the cost of a mistake is in in systems like this. I mean, GitHub has also a lot of like downtime and issues staying up. So I feel like it's a little bit of a loaded question."
+  },
+  {
+   "start": 207.2,
+   "end": 214.65,
+   "speaker_id": 0,
+   "text": "Yeah, right now especially. I feel like it's a very awkward time. Just a couple days ago, some of my home projects were being slowed down by GitHub."
+  },
+  {
+   "start": 214.65,
+   "end": 249.92,
+   "speaker_id": 1,
+   "text": "There's also a trade that you're making there, right? Every time that you're making a decision to, you know, to use a language like this, you're also making a decision to be slower. And what, or sorry, slower in some ways. And one, like one example of that, uh, is for example, uh, is Rails has a database ORM. ORM is a object relational mapper which basically maps the database concepts directly onto Rails code or Ruby code in this, um, it's called Active Record. And what it lets you do is basically think of the database as a series of objects. So you actually define on the objects the relationships between them."
+  },
+  {
+   "start": 249.92,
+   "end": 255.33,
+   "speaker_id": 1,
+   "text": "so you say like, um, a a book has has one author."
+  },
+  {
+   "start": 255.33,
+   "end": 291.3,
+   "speaker_id": 1,
+   "text": "Right, and then just by writing that one single line, all of a sudden all of your book objects get an author method and all of your author objects get books as a method also. And you can get that all through just like a single line that you have to write on the class. And kind of the OCaml equivalent of that, I guess, or equivalent is Petrel. And in Petrel, there's like a lot of kind of working with the type system to try to get it into the situation where you want it to be. And it's a little unnatural. I think it is very powerful in that it points out a bunch of problems that you might mistake, but that like power has a cost."
+  },
+  {
+   "start": 291.3,
+   "end": 326.63,
+   "speaker_id": 0,
+   "text": "Yeah, and I think this is a general issue, especially with things that have a kind of like meta programming feel to them, which is a lot of meta programmers have just came out of like the untyped programming language world, Lisp and Scheme and the like. And it is just easier to do things in that domain and figuring out how to marry meta programming and types is hard. And like we have work on this internally, they have like better meta programming for OCaml and there's a lot of fun research on this, but like it requires like serious academic research to build the systems to do this. So there's a real a real spot where you are creating complexity that otherwise doesn't necessarily need to exist."
+  },
+  {
+   "start": 326.63,
+   "end": 330.0,
+   "speaker_id": 1,
+   "text": "Yeah, it seems like the taking that complexity on in some of the"
+  }
+ ],
+ "gen_tokens": 1789,
+ "text": "[{\"Start\":0,\"End\":29.1,\"Speaker\":0,\"Content\":\"tended set of rules and invariants and structures about the code base. And you know, somebody else writes code somewhere else and like the compiler now, you know, conveys the message from the person who wrote down the types to the person who's trying to change something that uses those types in a way that really helps large groups of people coordinate more effectively. And now, when we have all these AIs running around, a whole bunch of like virtual people who are also operating in the code base, it feels like it provides useful structures there as well.\"},{\"Start\":29.1,\"End\":49.59,\"Speaker\":0,\"Content\":\"So I'm kind of curious, like I know like at various points GitHub has had internal questions about how they should build their own development environment and what language they should use. And I'm curious like how you now reflect on that question and like, like does it make sense for something like GitHub at the scale that it's in now to be in a dynamically typed language? Or if you were to do it yourself now, would you make different choices?\"},{\"Start\":49.59,\"End\":56.96,\"Speaker\":1,\"Content\":\"Yeah, I think so one of the first things you mentioned was the performance side, and I think this is something that gets brought up a lot with languages like Ruby or Python.\"},{\"Start\":57.2,\"End\":97.3,\"Speaker\":1,\"Content\":\"Um, it's true that like if you have maybe some kind of uh, I don't know, performance-oriented code, it's going to be faster not in one of these um dynamically typed inferred languages. But realistically, most operations in GitHub are like bound by I/O, right? It's like a call to a database or it's a call to like the Git subsystem. And that's where most of the time gets spent in a request. Um, I think like most things that are happening are actually just like happening in the viewer controller layer and most of the cost is actually like most of the problems that we had, um, you know, running and keeping GitHub up, you know, centered around like the MySQL database is at the core of the whole thing.\"},{\"Start\":97.3,\"End\":115.89,\"Speaker\":1,\"Content\":\"Um, maybe not too surprisingly, they get really big and uh, you know, keeping them working well is hard. Um, even things like running migrations at that scale is like kind of impossible. So there's a bunch of tooling for uh making it so you wouldn't have to do altered data table statements that are have the risk of making parts of the database locked.\"},{\"Start\":115.89,\"End\":116.68,\"Speaker\":0,\"Content\":\"Mhm.\"},{\"Start\":116.68,\"End\":130.68,\"Speaker\":1,\"Content\":\"The second thing that you mentioned, oh, sorry, and then there's a bunch of like low-level git operations that happen, and at GitHub those mostly don't happen in Ruby, they happen in languages like Go. Um, so any kind of compute-intensive stuff is like tucked away in other services.\"},{\"Start\":130.68,\"End\":135.2,\"Speaker\":0,\"Content\":\"So one of the solutions to Ruby isn't fast enough is where that's matters don't use Ruby. Yep.\"},{\"Start\":135.24,\"End\":159.34,\"Speaker\":1,\"Content\":\"Sure. Yeah, or where you want certain guarantees. And I think that that's that's, you know, a nice, um, middle line to draw. I think the other thing you mentioned was about, uh, the kind of like large code base or large organization maintainability of Ruby. Uh, there's a reason probably that a lot of organizations that were built on Ruby in like their startup days moved away from Ruby later and it's probably related to this exact thing that you're saying is that\"},{\"Start\":159.34,\"End\":175.16,\"Speaker\":0,\"Content\":\"And and also a reason that like languages like Ruby and Python have gotten optional type systems tacked onto the end. The reason that Meta put all this work into creating Hack, which started out as an optionally typed programming language and over time has been locked down so it's now mandatorily typed.\"},{\"Start\":175.3,\"End\":189.78,\"Speaker\":1,\"Content\":\"Yeah, and Ruby has one of these called Sorbet. Ruby also has its own internal, uh, optional type system built by the language maintainers. So, this is like definitely a thing in Ruby as well as it is in Python, and I guess also JavaScript with like things like TypeScript.\"},{\"Start\":189.78,\"End\":190.52,\"Speaker\":0,\"Content\":\"For sure.\"},{\"Start\":190.52,\"End\":207.2,\"Speaker\":1,\"Content\":\"the large organization maintainability is a real problem. And I think you have to decide how what the cost of a mistake is in in systems like this. I mean, GitHub has also a lot of like downtime and issues staying up. So I feel like it's a little bit of a loaded question.\"},{\"Start\":207.2,\"End\":214.65,\"Speaker\":0,\"Content\":\"Yeah, right now especially. I feel like it's a very awkward time. Just a couple days ago, some of my home projects were being slowed down by GitHub.\"},{\"Start\":214.65,\"End\":249.92,\"Speaker\":1,\"Content\":\"There's also a trade that you're making there, right? Every time that you're making a decision to, you know, to use a language like this, you're also making a decision to be slower. And what, or sorry, slower in some ways. And one, like one example of that, uh, is for example, uh, is Rails has a database ORM. ORM is a object relational mapper which basically maps the database concepts directly onto Rails code or Ruby code in this, um, it's called Active Record. And what it lets you do is basically think of the database as a series of objects. So you actually define on the objects the relationships between them.\"},{\"Start\":249.92,\"End\":255.33,\"Speaker\":1,\"Content\":\"so you say like, um, a a book has has one author.\"},{\"Start\":255.33,\"End\":291.3,\"Speaker\":1,\"Content\":\"Right, and then just by writing that one single line, all of a sudden all of your book objects get an author method and all of your author objects get books as a method also. And you can get that all through just like a single line that you have to write on the class. And kind of the OCaml equivalent of that, I guess, or equivalent is Petrel. And in Petrel, there's like a lot of kind of working with the type system to try to get it into the situation where you want it to be. And it's a little unnatural. I think it is very powerful in that it points out a bunch of problems that you might mistake, but that like power has a cost.\"},{\"Start\":291.3,\"End\":326.63,\"Speaker\":0,\"Content\":\"Yeah, and I think this is a general issue, especially with things that have a kind of like meta programming feel to them, which is a lot of meta programmers have just came out of like the untyped programming language world, Lisp and Scheme and the like. And it is just easier to do things in that domain and figuring out how to marry meta programming and types is hard. And like we have work on this internally, they have like better meta programming for OCaml and there's a lot of fun research on this, but like it requires like serious academic research to build the systems to do this. So there's a real a real spot where you are creating complexity that otherwise doesn't necessarily need to exist.\"},{\"Start\":326.63,\"End\":330.0,\"Speaker\":1,\"Content\":\"Yeah, it seems like the taking that complexity on in some of the\"}]"
+}

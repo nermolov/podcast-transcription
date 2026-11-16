@@ -1,0 +1,350 @@
+{
+ "chunk": 3,
+ "audio": [
+  810.0,
+  1800.0
+ ],
+ "new_start": 840.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0.0,
+   "end": 4.05,
+   "speaker_id": 0,
+   "text": "which I know is like a crazy, it's very different."
+  },
+  {
+   "start": 4.05,
+   "end": 27.4,
+   "speaker_id": 1,
+   "text": "It's very different. And I think I guess so the the the point about like Ruby helps you be more concise, I think one of the things that a lot of Ruby people care about a lot is like it has really nice metaprogramming facilities. Yep. Which seems great as a way of like condensing what you need to actually express explicitly in code. Um at the expense of being in many ways harder to reason about. Yep."
+  },
+  {
+   "start": 27.71,
+   "end": 63.69,
+   "speaker_id": 1,
+   "text": "Um, but the thing that I always worry about is the kind of maintainability angle. And I actually wonder like GitHub is like a big place with a big software infrastructure, and to me it's always seemed kind of wild to run a software infrastructure of that size and scale in a language like Ruby, both for performance reasons, and then also for the kind of like scale of software engineering, right? Like in many ways, I think the most valuable thing about type systems is as a communication tool between people, right? You like, you know, so one some person writes down a set of types and that expresses some intended set of rules and invariants and structures about the code base."
+  },
+  {
+   "start": 63.69,
+   "end": 96.62,
+   "speaker_id": 1,
+   "text": "And you know, somebody else writes code somewhere else and like the compiler now, you know, conveys the message from the person who wrote down the types to the person who's trying to change something that uses those types in a way that really helps large groups of people coordinate more effectively. And now, when we have all these AIs running around, a whole bunch of like virtual people who are also operating in the code base, it feels like it provides useful structures there as well. So I'm kind of curious, like I know like at various points GitHub has had internal questions about how they should build their own development environment and what language they should use."
+  },
+  {
+   "start": 96.62,
+   "end": 109.35,
+   "speaker_id": 1,
+   "text": "And I'm curious like how you now reflect on that question and like like does it make sense for something like GitHub at the scale that it's in now to be in a dynamically typed language? Or if you were to do it yourself now, would you make different choices?"
+  },
+  {
+   "start": 109.35,
+   "end": 145.37,
+   "speaker_id": 0,
+   "text": "Yeah, I think so one of the first things you mentioned was the performance side, and I think this is something that gets brought up a lot with languages like Ruby or Python. Um, it's true that like if you have maybe some kind of uh, I don't know, performance-oriented code, it's going to be faster not in one of these um dynamically typed inferred languages. But realistically, most operations in GitHub are like bound by I/O, right? It's like a call to a database or it's a call to like the Git subsystem. And that's where most of the time gets spent in a request. Um, I think like most things that are happening are actually just like happening in the viewer controller layer."
+  },
+  {
+   "start": 145.37,
+   "end": 175.76,
+   "speaker_id": 0,
+   "text": "and most of the cost is actually like most of the problems that we had, um, you know, running and keeping GitHub up, you know, centered around like the MySQL database is at the core of the whole thing. Um, maybe not too surprisingly, they get really big and uh, you know, keeping them working well is hard. Um, even things like running migrations at that scale is like kind of impossible. So there's a bunch of tooling for uh making it so you wouldn't have to do altered data statements that are have the risk of making parts of the database locked."
+  },
+  {
+   "start": 175.76,
+   "end": 176.54,
+   "speaker_id": 1,
+   "text": "Mhm."
+  },
+  {
+   "start": 176.54,
+   "end": 190.56,
+   "speaker_id": 0,
+   "text": "The second thing that you mentioned, oh, sorry, and then there's a bunch of like low-level git operations that happen, and at GitHub those mostly don't happen in Ruby, they happen in languages like Go. Um, so any kind of compute-intensive stuff is like tucked away in other services. Got it."
+  },
+  {
+   "start": 190.56,
+   "end": 195.06,
+   "speaker_id": 1,
+   "text": "So one of the solutions to Ruby isn't fast enough is where that's matters, don't use Ruby. Yep."
+  },
+  {
+   "start": 195.34,
+   "end": 219.22,
+   "speaker_id": 0,
+   "text": "Sure. Yeah, or where you want certain guarantees. And I think that that's that's, you know, a nice, um, middle line to draw. I think the other thing you mentioned was about, uh, the kind of like large code base or large organization maintainability of Ruby. Uh, there's a reason probably that a lot of organizations that were built on Ruby in like their startup days moved away from Ruby later and it's probably related to this exact thing that you're saying is that..."
+  },
+  {
+   "start": 219.22,
+   "end": 235.04,
+   "speaker_id": 1,
+   "text": "And and also a reason that like languages like Ruby and Python have gotten optional type systems tacked onto the end. The reason that Meta put all this work into creating Hack, which started out as an optionally typed programming language and over time has been locked down so it's now mandatorily typed."
+  },
+  {
+   "start": 235.14,
+   "end": 249.65,
+   "speaker_id": 0,
+   "text": "Yeah, and Ruby has one of these called Sorbet. Ruby also has its own internal, uh, optional type system built by the language maintainers. So, this is like definitely a thing in Ruby as well as it is in Python, and I guess also JavaScript with like things like TypeScript."
+  },
+  {
+   "start": 249.65,
+   "end": 250.4,
+   "speaker_id": 1,
+   "text": "For sure."
+  },
+  {
+   "start": 250.4,
+   "end": 267.08,
+   "speaker_id": 0,
+   "text": "the large organization maintainability is a real problem. And I think you have to decide how what the cost of a mistake is in in systems like this. I mean, GitHub has also a lot of like downtime and issues staying up. So I feel like it's a little bit of a loaded question."
+  },
+  {
+   "start": 267.08,
+   "end": 274.53,
+   "speaker_id": 1,
+   "text": "Yeah, right now especially. I feel like it's a very awkward time. Just a couple days ago, some of my home projects were being slowed down by GitHub."
+  },
+  {
+   "start": 274.53,
+   "end": 309.81,
+   "speaker_id": 0,
+   "text": "There's also a trade that you're making there, right? Every time that you're making a decision to, you know, to use a language like this, you're also making a decision to be slower. And what, or sorry, slower in some ways. And one, like one example of that, uh, is for example, uh, is Rails has a database ORM. ORM is a object relational mapper which basically maps the database concepts directly onto Rails code or Ruby code in this, um, it's called Active Record. And what it lets you do is basically think of the database as a series of objects. So you actually define on the objects the relationships between them."
+  },
+  {
+   "start": 309.81,
+   "end": 344.61,
+   "speaker_id": 0,
+   "text": "So you say like, um, a a book has has one author, right? And then just by writing that one single line, all of a sudden all of your book objects get an author method and all of your author objects get books as a method also. And you can get that all through just like a single line that you have to write on the class. And kind of the OCaml equivalent of that, I guess, or equivalent is Petrel. And in Petrel, there's like a lot of kind of working with the type system to try to get it into the situation where you want it to be. And it's a little unnatural."
+  },
+  {
+   "start": 344.61,
+   "end": 351.19,
+   "speaker_id": 0,
+   "text": "I think it is very powerful in that it points out a bunch of problems that you might mistake, but that like power has a cost."
+  },
+  {
+   "start": 351.19,
+   "end": 386.52,
+   "speaker_id": 1,
+   "text": "Yeah, and I think this is a general issue, especially with things that have a kind of like meta programming feel to them, which is a lot of meta programmers have just came out of like the untyped programming language world, Lisp and Scheme and the like. And it is just easier to do things in that domain and figuring out how to marry meta programming and types is hard. And like we have work on this internally, they have like better meta programming for OCaml and there's a lot of fun research on this, but like it requires like serious academic research to build the systems to do this. So there's a real a real spot where you are creating complexity that otherwise doesn't necessarily need to exist."
+  },
+  {
+   "start": 386.52,
+   "end": 415.86,
+   "speaker_id": 0,
+   "text": "Yeah, it seems like the taking that complexity on in some of the common libraries that people use might be like a worthwhile trade. And I'm I'm pretty excited about the metaprogramming stuff in OCaml because maybe it could give us more expressibility where it counts and then we can kind of just tell everyone else maybe don't use these functions. I think that's another another thing that we sometimes can run into is that you have a lot of ability to express constraints in the type system, but you maybe always shouldn't. Like maybe you shouldn't always use that. So that's another kind of like tension that exists."
+  },
+  {
+   "start": 415.86,
+   "end": 426.04,
+   "speaker_id": 1,
+   "text": "That's right. Like the types are a very powerful system for expressing constraints and there's a lot of very clever things you can do and you mostly shouldn't be that clever. It's like cleverness itself is kind of a bad idea. Yep."
+  },
+  {
+   "start": 426.22,
+   "end": 442.69,
+   "speaker_id": 0,
+   "text": "And something that seems clever, it starts simple, right? And then later you're like, well, okay, in order to test that now, we actually have to have this like kind of bulky setup attached to the side. So I think like sometimes something seems simple and it's not until later that you realize the actual cost of using it."
+  },
+  {
+   "start": 442.69,
+   "end": 455.52,
+   "speaker_id": 1,
+   "text": "Yeah. And in the end, like the thing you're trying to focus on when you're engineering systems is keeping them having the functionality you need while keeping them really simple. And that simplicity is critical and like you have to be careful not to trade it away for the wrong things. Yeah."
+  },
+  {
+   "start": 455.78,
+   "end": 473.61,
+   "speaker_id": 0,
+   "text": "Um, I should also say like I I think I'm maybe not giving entirely enough credit to some of the the OCaml points here. There are many times where I'm like fighting against some annoying type system issue with with OCaml, only to realize that like it's telling me something."
+  },
+  {
+   "start": 473.61,
+   "end": 475.71,
+   "speaker_id": 1,
+   "text": "It's giving me some piece of information, right?"
+  },
+  {
+   "start": 475.71,
+   "end": 489.85,
+   "speaker_id": 0,
+   "text": "it's saying like, oh like this thing that you thought you could put here, uh, you know, it's an option. And this function doesn't take an option, right? That's a really useful thing to know. And I guess in in Ruby that would have just resulted in like a nil error."
+  },
+  {
+   "start": 489.85,
+   "end": 501.64,
+   "speaker_id": 1,
+   "text": "Right, again, types as a way of communicating things. And well, let's move on to talk about the AI work you've done here. I I do actually feel like this question of like, I do feel like this question about the role of types"
+  },
+  {
+   "start": 501.92,
+   "end": 505.41,
+   "speaker_id": 1,
+   "text": "and AI actually interlace in interesting ways."
+  },
+  {
+   "start": 505.41,
+   "end": 510.19,
+   "speaker_id": 0,
+   "text": "Does seem like it made the the whole thing more complicated, right? Like a like, yes, sorry, we're going to talk about it."
+  },
+  {
+   "start": 510.19,
+   "end": 524.53,
+   "speaker_id": 1,
+   "text": "Yeah, but the fact you talk about the the work you've done here, like on our AI tooling, you didn't start out with a plan of working on AI stuff because like that wasn't the obviously right thing to do when we hired you. But it's what you ended up doing. So maybe tell me a little of the story of how you got into all this stuff."
+  },
+  {
+   "start": 524.53,
+   "end": 540.38,
+   "speaker_id": 0,
+   "text": "Yeah, I joined with the intention of working on code search. We wanted to build something like Hoogle, which is a Haskell search engine for code. We wanted to build like an internal Hoogle for OCaml. And that that was like the guiding uh reason that I joined. That's what I wanted. Oh, I guess, sorry, that's what you all wanted me to do."
+  },
+  {
+   "start": 540.38,
+   "end": 543.34,
+   "speaker_id": 1,
+   "text": "And a good first project. It wasn't the only thing, but you know."
+  },
+  {
+   "start": 543.34,
+   "end": 553.62,
+   "speaker_id": 0,
+   "text": "it was it was going to be really fun. So I started doing that and then, um, maybe like a week into working on that when I just joined the company, ChatGPT came out. So this was, I think, like"
+  },
+  {
+   "start": 554.02,
+   "end": 593.22,
+   "speaker_id": 0,
+   "text": "December of 2022, maybe I shouldn't commit to a date there, but sometime around then. And we start uh looking at uh ChatGPT and you could actually see it at the time, you could walk up and down the rows here and see people like pulling their phones out and using ChatGPT because we had no way for them to use it. So then we started looking into like how to get everyone access to ChatGPT. And uh the way that it worked at the time was that there were only personal accounts, there weren't pro accounts. So I guess the path would have been like go to our procurement department and say like buy everyone an individual pro account with with separate credit cards, which uh I don't know, that probably they probably would have done it."
+  },
+  {
+   "start": 593.22,
+   "end": 625.08,
+   "speaker_id": 0,
+   "text": "they wouldn't have been very happy about it though. Right. Another caveat at the time was that, um, any use of ChatGPT, the website, was like subject to collecting data for training. Um, but we noticed on the website that there was a carve-out for the API, that if you use the API that it wouldn't be subject to training. So I built this prototype that it was called JaneGPT. It was actually originally written in Rails, which is kind of, you know, I was new, I didn't have a strong grasp of OCaml. Um, so I wrote it in Rails. Uh, came in the next day and then everyone was like, yeah, let's build this."
+  },
+  {
+   "start": 625.08,
+   "end": 658.07,
+   "speaker_id": 0,
+   "text": "and then we took a couple more people, uh and three of us built over I think three days or something like that, built the first version of this chat application that we use internally called JaneGPT. Uh which is basically similar to ChatGPT. And we have the entire firm use that. They all go through like a central um set of credentials that we maintain in our service and that's how we got started. Uh that was three and a half years ago and since then we've we've continued to find things to work on. I've never gotten back to the code search part. But someday, I guess."
+  },
+  {
+   "start": 658.07,
+   "end": 660.36,
+   "speaker_id": 1,
+   "text": "I think other people have worked on this."
+  },
+  {
+   "start": 660.36,
+   "end": 661.5,
+   "speaker_id": 0,
+   "text": "Yeah, that's true. [Laughter]"
+  },
+  {
+   "start": 662.08,
+   "end": 697.48,
+   "speaker_id": 1,
+   "text": "And and yeah, I mean it was worth like sketching out like what the value that we got out of like doing our own thing was there. Like, I guess one point to make early on is like, boy, when ChatGPT came out, they were not immediately thinking about it as like a commercial product for companies to use. Yep. Right. In fact, they were like totally surprised by how popular it was and how effective it was and it kind of reshaped like kind of the entire industry. But early on, they were like, yeah, we're just not like we're not ready for you companies. So by doing our own thing, we kind of pretty immediately got a thing where we had more control of our data."
+  },
+  {
+   "start": 698.26,
+   "end": 711.1,
+   "speaker_id": 1,
+   "text": "uh and where we had a way of deploying it to all of the different people internally and dealing with like all of like authentication and data management problems that came up from that. Um, were there any other benefits that we got from building our own thing?"
+  },
+  {
+   "start": 711.1,
+   "end": 751.0,
+   "speaker_id": 0,
+   "text": "Uh, I guess another benefit is that maybe a couple weeks after, uh, Claude had come out. So this was Claude AI. Uh, and I I don't know what we would have done if we had just given everyone ChatGPT and now they wanted to have Claude too. I guess we would have just made them all Claude accounts too. But what we were able to do because we had this service was we were able to add a model switcher inside of the chat application so they could switch back back and forth between the two. And then while we were doing that, we built a a layer kind of underneath that that was like a made for people to program with. So we put out a set of client libraries that people at the firm, they could now write code without having to worry about which LLM they were hitting."
+  },
+  {
+   "start": 751.0,
+   "end": 760.94,
+   "speaker_id": 0,
+   "text": "And what's nice about that is that they, uh, as new models come out, if the, you know, best model for their use case is not from the same vendor, they can just switch it without having to change all their code."
+  },
+  {
+   "start": 760.94,
+   "end": 761.72,
+   "speaker_id": 1,
+   "text": "Right"
+  },
+  {
+   "start": 761.72,
+   "end": 788.25,
+   "speaker_id": 1,
+   "text": "and all of that can go through the same set of rate limits and data controls and all of that and just like we got to as an organization have like control over our fate and our data, uh but also give people APIs, both like APIs for people and rather interfaces for people and then APIs for the software engineering part of it, so that we could like use AI in lots of different ways and have like the whole thing be kind of coherently managed."
+  },
+  {
+   "start": 788.25,
+   "end": 819.22,
+   "speaker_id": 0,
+   "text": "At the time we we weren't too rate limit constrained, right? So it's kind of like we're we're building these rate limits but they're almost like, oh, hypothetically, we don't want to be in a situation where one part of the firm is like using a ton of uh LLM usage and it's it's starving out a different part of the firm's usage. But like now in 2026, we're really happy that we have all of this infrastructure because it is the case that uh you know, you don't want one thing that maybe someone's developing in test to take rate away from a production use case."
+  },
+  {
+   "start": 819.78,
+   "end": 825.35,
+   "speaker_id": 0,
+   "text": "Um maybe it's worth stepping back just a little bit and saying like more what the team does is that"
+  },
+  {
+   "start": 825.35,
+   "end": 834.89,
+   "speaker_id": 1,
+   "text": "Yeah. like it's like what the team does today, right? It's been a few years since that like early stuff and and there's a lot more infrastructure now. So yeah, it would be great to have a tour of the things we actually do."
+  },
+  {
+   "start": 834.89,
+   "end": 868.39,
+   "speaker_id": 0,
+   "text": "So the first thing is we build, like I said, a platform for developers at the firm to build LLM-powered applications on top of. So this includes, uh, client libraries for making just kind of one-off LLM calls. It also includes the ability to like specify, uh, functions in OCaml or in Python that get passed to the LLM that it can use, which also includes a, uh, ability to specify with OCaml types the types that will be presented to the LLM for the function calls that it uses. So it kind of bridges over, um, you know, the difference between JSON types and OCaml types."
+  },
+  {
+   "start": 868.39,
+   "end": 888.45,
+   "speaker_id": 1,
+   "text": "Right, and this is like the difference between like old school, you just like give some text to an LLM and it completes it, to kind of modern agentic flows where the LLM emits tool calls and then you execute those tool calls and feed the results back in and like this whole cycle of things that allows the models to take action in the world. Like that's what these function calls give you."
+  },
+  {
+   "start": 888.45,
+   "end": 903.41,
+   "speaker_id": 0,
+   "text": "And then, uh, on top of that we build a series of products that people use. So one example of that is this GenGPT application. Uh, another example that I'm sure we'll talk about a bunch is we build a uh CLI-based coding assistant which is called Aid."
+  },
+  {
+   "start": 903.41,
+   "end": 904.19,
+   "speaker_id": 1,
+   "text": "Mhm."
+  },
+  {
+   "start": 904.19,
+   "end": 919.36,
+   "speaker_id": 0,
+   "text": "uh, aid CLI, and then we also put those inside of editors, and then we've also increasingly been starting to like put surfaces inside of things like Python notebooks or inside of um the interface for Webs, the programming language you were talking about earlier. Right."
+  },
+  {
+   "start": 919.78,
+   "end": 924.14,
+   "speaker_id": 0,
+   "text": "And so that's the the set of tools that we make for humans."
+  },
+  {
+   "start": 924.18,
+   "end": 960.34,
+   "speaker_id": 0,
+   "text": "Then there's also a set of tools that we make kind of for the LLMs, right? The LLMs have to like do things to the world, so they need to be able to uh read the wiki or they need to be able to like run bash commands on people's computers. We'll talk more about that too. Um but all of the things that the LLMs do and the ecosystem of tools that the firm has built, some of these are built by us, um and some of them are built by different parts of the firm. There are like over a thousand different tools that different parts of the firm have made to do things related to their particular business. Another thing that our team does is we work on evaluations."
+  },
+  {
+   "start": 960.34,
+   "end": 990.0,
+   "speaker_id": 0,
+   "text": "So this is like essentially writing tests for the models where the models try to do uh some amount of work and then we we grade them, right, to say how they did on the test. And in doing this work, we both get an idea of like how models are doing so we can make decisions about which ones to put in front of people by default. And we also gain the ability to make improvements to kind of the harnesses and how we set things up. Um so how do we prompt it or what tools do we give it by default or"
+  }
+ ],
+ "gen_tokens": 5481,
+ "text": "[{\"Start\":0.0,\"End\":4.05,\"Speaker\":0,\"Content\":\"which I know is like a crazy, it's very different.\"},{\"Start\":4.05,\"End\":27.4,\"Speaker\":1,\"Content\":\"It's very different. And I think I guess so the the the point about like Ruby helps you be more concise, I think one of the things that a lot of Ruby people care about a lot is like it has really nice metaprogramming facilities. Yep. Which seems great as a way of like condensing what you need to actually express explicitly in code. Um at the expense of being in many ways harder to reason about. Yep.\"},{\"Start\":27.71,\"End\":63.69,\"Speaker\":1,\"Content\":\"Um, but the thing that I always worry about is the kind of maintainability angle. And I actually wonder like GitHub is like a big place with a big software infrastructure, and to me it's always seemed kind of wild to run a software infrastructure of that size and scale in a language like Ruby, both for performance reasons, and then also for the kind of like scale of software engineering, right? Like in many ways, I think the most valuable thing about type systems is as a communication tool between people, right? You like, you know, so one some person writes down a set of types and that expresses some intended set of rules and invariants and structures about the code base.\"},{\"Start\":63.69,\"End\":96.62,\"Speaker\":1,\"Content\":\"And you know, somebody else writes code somewhere else and like the compiler now, you know, conveys the message from the person who wrote down the types to the person who's trying to change something that uses those types in a way that really helps large groups of people coordinate more effectively. And now, when we have all these AIs running around, a whole bunch of like virtual people who are also operating in the code base, it feels like it provides useful structures there as well. So I'm kind of curious, like I know like at various points GitHub has had internal questions about how they should build their own development environment and what language they should use.\"},{\"Start\":96.62,\"End\":109.35,\"Speaker\":1,\"Content\":\"And I'm curious like how you now reflect on that question and like like does it make sense for something like GitHub at the scale that it's in now to be in a dynamically typed language? Or if you were to do it yourself now, would you make different choices?\"},{\"Start\":109.35,\"End\":145.37,\"Speaker\":0,\"Content\":\"Yeah, I think so one of the first things you mentioned was the performance side, and I think this is something that gets brought up a lot with languages like Ruby or Python. Um, it's true that like if you have maybe some kind of uh, I don't know, performance-oriented code, it's going to be faster not in one of these um dynamically typed inferred languages. But realistically, most operations in GitHub are like bound by I/O, right? It's like a call to a database or it's a call to like the Git subsystem. And that's where most of the time gets spent in a request. Um, I think like most things that are happening are actually just like happening in the viewer controller layer.\"},{\"Start\":145.37,\"End\":175.76,\"Speaker\":0,\"Content\":\"and most of the cost is actually like most of the problems that we had, um, you know, running and keeping GitHub up, you know, centered around like the MySQL database is at the core of the whole thing. Um, maybe not too surprisingly, they get really big and uh, you know, keeping them working well is hard. Um, even things like running migrations at that scale is like kind of impossible. So there's a bunch of tooling for uh making it so you wouldn't have to do altered data statements that are have the risk of making parts of the database locked.\"},{\"Start\":175.76,\"End\":176.54,\"Speaker\":1,\"Content\":\"Mhm.\"},{\"Start\":176.54,\"End\":190.56,\"Speaker\":0,\"Content\":\"The second thing that you mentioned, oh, sorry, and then there's a bunch of like low-level git operations that happen, and at GitHub those mostly don't happen in Ruby, they happen in languages like Go. Um, so any kind of compute-intensive stuff is like tucked away in other services. Got it.\"},{\"Start\":190.56,\"End\":195.06,\"Speaker\":1,\"Content\":\"So one of the solutions to Ruby isn't fast enough is where that's matters, don't use Ruby. Yep.\"},{\"Start\":195.34,\"End\":219.22,\"Speaker\":0,\"Content\":\"Sure. Yeah, or where you want certain guarantees. And I think that that's that's, you know, a nice, um, middle line to draw. I think the other thing you mentioned was about, uh, the kind of like large code base or large organization maintainability of Ruby. Uh, there's a reason probably that a lot of organizations that were built on Ruby in like their startup days moved away from Ruby later and it's probably related to this exact thing that you're saying is that...\"},{\"Start\":219.22,\"End\":235.04,\"Speaker\":1,\"Content\":\"And and also a reason that like languages like Ruby and Python have gotten optional type systems tacked onto the end. The reason that Meta put all this work into creating Hack, which started out as an optionally typed programming language and over time has been locked down so it's now mandatorily typed.\"},{\"Start\":235.14,\"End\":249.65,\"Speaker\":0,\"Content\":\"Yeah, and Ruby has one of these called Sorbet. Ruby also has its own internal, uh, optional type system built by the language maintainers. So, this is like definitely a thing in Ruby as well as it is in Python, and I guess also JavaScript with like things like TypeScript.\"},{\"Start\":249.65,\"End\":250.4,\"Speaker\":1,\"Content\":\"For sure.\"},{\"Start\":250.4,\"End\":267.08,\"Speaker\":0,\"Content\":\"the large organization maintainability is a real problem. And I think you have to decide how what the cost of a mistake is in in systems like this. I mean, GitHub has also a lot of like downtime and issues staying up. So I feel like it's a little bit of a loaded question.\"},{\"Start\":267.08,\"End\":274.53,\"Speaker\":1,\"Content\":\"Yeah, right now especially. I feel like it's a very awkward time. Just a couple days ago, some of my home projects were being slowed down by GitHub.\"},{\"Start\":274.53,\"End\":309.81,\"Speaker\":0,\"Content\":\"There's also a trade that you're making there, right? Every time that you're making a decision to, you know, to use a language like this, you're also making a decision to be slower. And what, or sorry, slower in some ways. And one, like one example of that, uh, is for example, uh, is Rails has a database ORM. ORM is a object relational mapper which basically maps the database concepts directly onto Rails code or Ruby code in this, um, it's called Active Record. And what it lets you do is basically think of the database as a series of objects. So you actually define on the objects the relationships between them.\"},{\"Start\":309.81,\"End\":344.61,\"Speaker\":0,\"Content\":\"So you say like, um, a a book has has one author, right? And then just by writing that one single line, all of a sudden all of your book objects get an author method and all of your author objects get books as a method also. And you can get that all through just like a single line that you have to write on the class. And kind of the OCaml equivalent of that, I guess, or equivalent is Petrel. And in Petrel, there's like a lot of kind of working with the type system to try to get it into the situation where you want it to be. And it's a little unnatural.\"},{\"Start\":344.61,\"End\":351.19,\"Speaker\":0,\"Content\":\"I think it is very powerful in that it points out a bunch of problems that you might mistake, but that like power has a cost.\"},{\"Start\":351.19,\"End\":386.52,\"Speaker\":1,\"Content\":\"Yeah, and I think this is a general issue, especially with things that have a kind of like meta programming feel to them, which is a lot of meta programmers have just came out of like the untyped programming language world, Lisp and Scheme and the like. And it is just easier to do things in that domain and figuring out how to marry meta programming and types is hard. And like we have work on this internally, they have like better meta programming for OCaml and there's a lot of fun research on this, but like it requires like serious academic research to build the systems to do this. So there's a real a real spot where you are creating complexity that otherwise doesn't necessarily need to exist.\"},{\"Start\":386.52,\"End\":415.86,\"Speaker\":0,\"Content\":\"Yeah, it seems like the taking that complexity on in some of the common libraries that people use might be like a worthwhile trade. And I'm I'm pretty excited about the metaprogramming stuff in OCaml because maybe it could give us more expressibility where it counts and then we can kind of just tell everyone else maybe don't use these functions. I think that's another another thing that we sometimes can run into is that you have a lot of ability to express constraints in the type system, but you maybe always shouldn't. Like maybe you shouldn't always use that. So that's another kind of like tension that exists.\"},{\"Start\":415.86,\"End\":426.04,\"Speaker\":1,\"Content\":\"That's right. Like the types are a very powerful system for expressing constraints and there's a lot of very clever things you can do and you mostly shouldn't be that clever. It's like cleverness itself is kind of a bad idea. Yep.\"},{\"Start\":426.22,\"End\":442.69,\"Speaker\":0,\"Content\":\"And something that seems clever, it starts simple, right? And then later you're like, well, okay, in order to test that now, we actually have to have this like kind of bulky setup attached to the side. So I think like sometimes something seems simple and it's not until later that you realize the actual cost of using it.\"},{\"Start\":442.69,\"End\":455.52,\"Speaker\":1,\"Content\":\"Yeah. And in the end, like the thing you're trying to focus on when you're engineering systems is keeping them having the functionality you need while keeping them really simple. And that simplicity is critical and like you have to be careful not to trade it away for the wrong things. Yeah.\"},{\"Start\":455.78,\"End\":473.61,\"Speaker\":0,\"Content\":\"Um, I should also say like I I think I'm maybe not giving entirely enough credit to some of the the OCaml points here. There are many times where I'm like fighting against some annoying type system issue with with OCaml, only to realize that like it's telling me something.\"},{\"Start\":473.61,\"End\":475.71,\"Speaker\":1,\"Content\":\"It's giving me some piece of information, right?\"},{\"Start\":475.71,\"End\":489.85,\"Speaker\":0,\"Content\":\"it's saying like, oh like this thing that you thought you could put here, uh, you know, it's an option. And this function doesn't take an option, right? That's a really useful thing to know. And I guess in in Ruby that would have just resulted in like a nil error.\"},{\"Start\":489.85,\"End\":501.64,\"Speaker\":1,\"Content\":\"Right, again, types as a way of communicating things. And well, let's move on to talk about the AI work you've done here. I I do actually feel like this question of like, I do feel like this question about the role of types\"},{\"Start\":501.92,\"End\":505.41,\"Speaker\":1,\"Content\":\"and AI actually interlace in interesting ways.\"},{\"Start\":505.41,\"End\":510.19,\"Speaker\":0,\"Content\":\"Does seem like it made the the whole thing more complicated, right? Like a like, yes, sorry, we're going to talk about it.\"},{\"Start\":510.19,\"End\":524.53,\"Speaker\":1,\"Content\":\"Yeah, but the fact you talk about the the work you've done here, like on our AI tooling, you didn't start out with a plan of working on AI stuff because like that wasn't the obviously right thing to do when we hired you. But it's what you ended up doing. So maybe tell me a little of the story of how you got into all this stuff.\"},{\"Start\":524.53,\"End\":540.38,\"Speaker\":0,\"Content\":\"Yeah, I joined with the intention of working on code search. We wanted to build something like Hoogle, which is a Haskell search engine for code. We wanted to build like an internal Hoogle for OCaml. And that that was like the guiding uh reason that I joined. That's what I wanted. Oh, I guess, sorry, that's what you all wanted me to do.\"},{\"Start\":540.38,\"End\":543.34,\"Speaker\":1,\"Content\":\"And a good first project. It wasn't the only thing, but you know.\"},{\"Start\":543.34,\"End\":553.62,\"Speaker\":0,\"Content\":\"it was it was going to be really fun. So I started doing that and then, um, maybe like a week into working on that when I just joined the company, ChatGPT came out. So this was, I think, like\"},{\"Start\":554.02,\"End\":593.22,\"Speaker\":0,\"Content\":\"December of 2022, maybe I shouldn't commit to a date there, but sometime around then. And we start uh looking at uh ChatGPT and you could actually see it at the time, you could walk up and down the rows here and see people like pulling their phones out and using ChatGPT because we had no way for them to use it. So then we started looking into like how to get everyone access to ChatGPT. And uh the way that it worked at the time was that there were only personal accounts, there weren't pro accounts. So I guess the path would have been like go to our procurement department and say like buy everyone an individual pro account with with separate credit cards, which uh I don't know, that probably they probably would have done it.\"},{\"Start\":593.22,\"End\":625.08,\"Speaker\":0,\"Content\":\"they wouldn't have been very happy about it though. Right. Another caveat at the time was that, um, any use of ChatGPT, the website, was like subject to collecting data for training. Um, but we noticed on the website that there was a carve-out for the API, that if you use the API that it wouldn't be subject to training. So I built this prototype that it was called JaneGPT. It was actually originally written in Rails, which is kind of, you know, I was new, I didn't have a strong grasp of OCaml. Um, so I wrote it in Rails. Uh, came in the next day and then everyone was like, yeah, let's build this.\"},{\"Start\":625.08,\"End\":658.07,\"Speaker\":0,\"Content\":\"and then we took a couple more people, uh and three of us built over I think three days or something like that, built the first version of this chat application that we use internally called JaneGPT. Uh which is basically similar to ChatGPT. And we have the entire firm use that. They all go through like a central um set of credentials that we maintain in our service and that's how we got started. Uh that was three and a half years ago and since then we've we've continued to find things to work on. I've never gotten back to the code search part. But someday, I guess.\"},{\"Start\":658.07,\"End\":660.36,\"Speaker\":1,\"Content\":\"I think other people have worked on this.\"},{\"Start\":660.36,\"End\":661.5,\"Speaker\":0,\"Content\":\"Yeah, that's true. [Laughter]\"},{\"Start\":662.08,\"End\":697.48,\"Speaker\":1,\"Content\":\"And and yeah, I mean it was worth like sketching out like what the value that we got out of like doing our own thing was there. Like, I guess one point to make early on is like, boy, when ChatGPT came out, they were not immediately thinking about it as like a commercial product for companies to use. Yep. Right. In fact, they were like totally surprised by how popular it was and how effective it was and it kind of reshaped like kind of the entire industry. But early on, they were like, yeah, we're just not like we're not ready for you companies. So by doing our own thing, we kind of pretty immediately got a thing where we had more control of our data.\"},{\"Start\":698.26,\"End\":711.1,\"Speaker\":1,\"Content\":\"uh and where we had a way of deploying it to all of the different people internally and dealing with like all of like authentication and data management problems that came up from that. Um, were there any other benefits that we got from building our own thing?\"},{\"Start\":711.1,\"End\":751.0,\"Speaker\":0,\"Content\":\"Uh, I guess another benefit is that maybe a couple weeks after, uh, Claude had come out. So this was Claude AI. Uh, and I I don't know what we would have done if we had just given everyone ChatGPT and now they wanted to have Claude too. I guess we would have just made them all Claude accounts too. But what we were able to do because we had this service was we were able to add a model switcher inside of the chat application so they could switch back back and forth between the two. And then while we were doing that, we built a a layer kind of underneath that that was like a made for people to program with. So we put out a set of client libraries that people at the firm, they could now write code without having to worry about which LLM they were hitting.\"},{\"Start\":751.0,\"End\":760.94,\"Speaker\":0,\"Content\":\"And what's nice about that is that they, uh, as new models come out, if the, you know, best model for their use case is not from the same vendor, they can just switch it without having to change all their code.\"},{\"Start\":760.94,\"End\":761.72,\"Speaker\":1,\"Content\":\"Right\"},{\"Start\":761.72,\"End\":788.25,\"Speaker\":1,\"Content\":\"and all of that can go through the same set of rate limits and data controls and all of that and just like we got to as an organization have like control over our fate and our data, uh but also give people APIs, both like APIs for people and rather interfaces for people and then APIs for the software engineering part of it, so that we could like use AI in lots of different ways and have like the whole thing be kind of coherently managed.\"},{\"Start\":788.25,\"End\":819.22,\"Speaker\":0,\"Content\":\"At the time we we weren't too rate limit constrained, right? So it's kind of like we're we're building these rate limits but they're almost like, oh, hypothetically, we don't want to be in a situation where one part of the firm is like using a ton of uh LLM usage and it's it's starving out a different part of the firm's usage. But like now in 2026, we're really happy that we have all of this infrastructure because it is the case that uh you know, you don't want one thing that maybe someone's developing in test to take rate away from a production use case.\"},{\"Start\":819.78,\"End\":825.35,\"Speaker\":0,\"Content\":\"Um maybe it's worth stepping back just a little bit and saying like more what the team does is that\"},{\"Start\":825.35,\"End\":834.89,\"Speaker\":1,\"Content\":\"Yeah. like it's like what the team does today, right? It's been a few years since that like early stuff and and there's a lot more infrastructure now. So yeah, it would be great to have a tour of the things we actually do.\"},{\"Start\":834.89,\"End\":868.39,\"Speaker\":0,\"Content\":\"So the first thing is we build, like I said, a platform for developers at the firm to build LLM-powered applications on top of. So this includes, uh, client libraries for making just kind of one-off LLM calls. It also includes the ability to like specify, uh, functions in OCaml or in Python that get passed to the LLM that it can use, which also includes a, uh, ability to specify with OCaml types the types that will be presented to the LLM for the function calls that it uses. So it kind of bridges over, um, you know, the difference between JSON types and OCaml types.\"},{\"Start\":868.39,\"End\":888.45,\"Speaker\":1,\"Content\":\"Right, and this is like the difference between like old school, you just like give some text to an LLM and it completes it, to kind of modern agentic flows where the LLM emits tool calls and then you execute those tool calls and feed the results back in and like this whole cycle of things that allows the models to take action in the world. Like that's what these function calls give you.\"},{\"Start\":888.45,\"End\":903.41,\"Speaker\":0,\"Content\":\"And then, uh, on top of that we build a series of products that people use. So one example of that is this GenGPT application. Uh, another example that I'm sure we'll talk about a bunch is we build a uh CLI-based coding assistant which is called Aid.\"},{\"Start\":903.41,\"End\":904.19,\"Speaker\":1,\"Content\":\"Mhm.\"},{\"Start\":904.19,\"End\":919.36,\"Speaker\":0,\"Content\":\"uh, aid CLI, and then we also put those inside of editors, and then we've also increasingly been starting to like put surfaces inside of things like Python notebooks or inside of um the interface for Webs, the programming language you were talking about earlier. Right.\"},{\"Start\":919.78,\"End\":924.14,\"Speaker\":0,\"Content\":\"And so that's the the set of tools that we make for humans.\"},{\"Start\":924.18,\"End\":960.34,\"Speaker\":0,\"Content\":\"Then there's also a set of tools that we make kind of for the LLMs, right? The LLMs have to like do things to the world, so they need to be able to uh read the wiki or they need to be able to like run bash commands on people's computers. We'll talk more about that too. Um but all of the things that the LLMs do and the ecosystem of tools that the firm has built, some of these are built by us, um and some of them are built by different parts of the firm. There are like over a thousand different tools that different parts of the firm have made to do things related to their particular business. Another thing that our team does is we work on evaluations.\"},{\"Start\":960.34,\"End\":990.0,\"Speaker\":0,\"Content\":\"So this is like essentially writing tests for the models where the models try to do uh some amount of work and then we we grade them, right, to say how they did on the test. And in doing this work, we both get an idea of like how models are doing so we can make decisions about which ones to put in front of people by default. And we also gain the ability to make improvements to kind of the harnesses and how we set things up. Um so how do we prompt it or what tools do we give it by default or\"}]"
+}

@@ -1,0 +1,26 @@
+{"t": 3.914, "kind": "prepared", "audio_s": 6509.112}
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 4036.87it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{"t": 5.365, "kind": "loaded"}
+{"t": 5.365, "kind": "plan", "plan": [[0.0, 0.0, 120.0], [90.0, 120.0, 480.0], [450.0, 480.0, 1680.0], [1650.0, 1680.0, 4080.0], [4050.0, 4080.0, 6509.112]]}
+{"t": 6.849, "kind": "words", "chunk": 0, "n_tokens": 728, "secs": 1.48}
+{"t": 10.993, "kind": "chunk_start", "chunk": 0, "audio": [0.0, 120.0], "new_start": 0.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 964, "encode_s": 4.14}
+{"t": 13.008, "kind": "first_token", "chunk": 0, "secs": 6.16}
+{"t": 36.798, "kind": "chunk_end", "chunk": 0, "gen_tokens": 750, "n_segs": 9, "secs": 29.95, "mlx_peak_gb": 13.63}
+{"t": 41.589, "kind": "words", "chunk": 1, "n_tokens": 2336, "secs": 4.79}
+{"t": 53.859, "kind": "chunk_start", "chunk": 1, "audio": [90.0, 480.0], "new_start": 120.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 2989, "encode_s": 12.27}
+{"t": 59.945, "kind": "first_token", "chunk": 1, "secs": 18.35}
+{"t": 145.182, "kind": "chunk_end", "chunk": 1, "gen_tokens": 2630, "n_segs": 37, "secs": 103.59, "mlx_peak_gb": 15.33}
+{"t": 160.785, "kind": "words", "chunk": 2, "n_tokens": 7386, "secs": 15.59}
+{"t": 200.195, "kind": "chunk_start", "chunk": 2, "audio": [450.0, 1680.0], "new_start": 480.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 9290, "encode_s": 39.4}
+{"t": 220.573, "kind": "first_token", "chunk": 2, "secs": 59.78}
+{"t": 462.56, "kind": "chunk_end", "chunk": 2, "gen_tokens": 6898, "n_segs": 69, "secs": 301.76, "mlx_peak_gb": 22.45}
+{"t": 492.366, "kind": "words", "chunk": 3, "n_tokens": 13847, "secs": 29.79}
+{"t": 569.298, "kind": "chunk_start", "chunk": 3, "audio": [1650.0, 4080.0], "new_start": 1680.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 18290, "encode_s": 76.91}
+{"t": 614.014, "kind": "first_token", "chunk": 3, "secs": 121.63}
+{"t": 1103.527, "kind": "chunk_end", "chunk": 3, "gen_tokens": 12987, "n_segs": 121, "secs": 611.14, "mlx_peak_gb": 28.31}
+{"t": 1134.547, "kind": "words", "chunk": 4, "n_tokens": 14528, "secs": 31.0}
+{"t": 1212.973, "kind": "chunk_start", "chunk": 4, "audio": [4050.0, 6509.112], "new_start": 4080.0, "prefix_s": 0.0, "roster": [], "prompt_tokens": 18509, "encode_s": 78.4}
+{"t": 1258.422, "kind": "first_token", "chunk": 4, "secs": 123.85}
+{"t": 1771.827, "kind": "chunk_end", "chunk": 4, "gen_tokens": 13641, "n_segs": 124, "secs": 637.26, "mlx_peak_gb": 28.81}
+{"t": 1771.827, "kind": "done"}

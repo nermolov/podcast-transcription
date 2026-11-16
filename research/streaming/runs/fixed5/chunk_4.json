@@ -1,0 +1,146 @@
+{
+ "chunk": 4,
+ "audio": [
+  1170.0,
+  1500.0
+ ],
+ "new_start": 1200.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 26.66,
+   "speaker_id": 0,
+   "text": "out of like the untyped programming language world, Lisp and Scheme and the like. And it is just easier to do things in that domain and figuring out how to marry metaprogramming and types is hard. And like we have work on this internally, they have like better metaprogramming for OCaml and there's a lot of fun research on this, but like it requires like serious academic research to build the systems to do this. So there's a real a real spot where you are creating complexity that otherwise doesn't necessarily need to exist."
+  },
+  {
+   "start": 26.66,
+   "end": 56.0,
+   "speaker_id": 1,
+   "text": "Yeah, it seems like the taking that complexity on in some of the common libraries that people use might be like a worthwhile trade. And I'm I'm pretty excited about the metaprogramming stuff in OCaml because maybe it could give us more expressibility where it counts and then we can kind of just tell everyone else maybe don't use these functions. I think that's another another thing that we sometimes can run into is that you have a lot of ability to express constraints in the type system, but you maybe always shouldn't. Like maybe you shouldn't always use that. So that's another kind of like tension that exists."
+  },
+  {
+   "start": 56.0,
+   "end": 66.17,
+   "speaker_id": 0,
+   "text": "That's right. Like the types are a very powerful system for expressing constraints and there's a lot of very clever things you can do and you mostly shouldn't be that clever. It's like cleverness itself is kind of a bad idea. Yep."
+  },
+  {
+   "start": 66.35,
+   "end": 82.83,
+   "speaker_id": 1,
+   "text": "And something that seems clever, it starts simple, right? And then later you're like, well, okay, in order to test that now, we actually have to have this like kind of bulky setup attached to the side. So I think like sometimes something seems simple and it's not until later that you realize the actual cost of using it."
+  },
+  {
+   "start": 82.83,
+   "end": 95.66,
+   "speaker_id": 0,
+   "text": "Yeah. And in the end, like the thing you're trying to focus on when you're engineering systems is keeping them having the functionality you need while keeping them really simple. And that simplicity is critical and like you have to be careful not to trade it away for the wrong things. Yeah."
+  },
+  {
+   "start": 95.92,
+   "end": 113.77,
+   "speaker_id": 1,
+   "text": "Um, I should also say like I I think I'm maybe not giving entirely enough credit to some of the the OCaml points here. There are many times where I'm like fighting against some annoying type system issue with with OCaml, only to realize that like it's telling me something."
+  },
+  {
+   "start": 113.77,
+   "end": 115.84,
+   "speaker_id": 0,
+   "text": "It's giving me some piece of information, right?"
+  },
+  {
+   "start": 115.84,
+   "end": 129.99,
+   "speaker_id": 1,
+   "text": "it's saying like, oh like this thing that you thought you could put here, uh, you know, it's an option. And this function doesn't take an option, right? That's a really useful thing to know. And I guess in in Ruby that would have just resulted in like a nil error."
+  },
+  {
+   "start": 129.99,
+   "end": 141.78,
+   "speaker_id": 0,
+   "text": "Right, again, types are a way of communicating things. And well, let's move on to talk about the AI work you've done here. I I do actually feel like this question of like, I do feel like this question about the role of types..."
+  },
+  {
+   "start": 142.06,
+   "end": 145.54,
+   "speaker_id": 0,
+   "text": "and AI actually interlace in interesting ways."
+  },
+  {
+   "start": 145.54,
+   "end": 150.33,
+   "speaker_id": 1,
+   "text": "Does seem like it made the the whole thing more complicated, right? Like a like, yes, sorry, we're going to talk about it."
+  },
+  {
+   "start": 150.33,
+   "end": 164.66,
+   "speaker_id": 0,
+   "text": "Yeah, but the fact you talk about the the work you've done here, like on our AI tooling, you didn't start out with a plan of working on AI stuff because like that wasn't the obviously right thing to do when we hired you. But it's what you ended up doing. So maybe tell me a little of the story of how you got into all this stuff."
+  },
+  {
+   "start": 164.66,
+   "end": 180.48,
+   "speaker_id": 1,
+   "text": "Yeah, I joined with the intention of working on code search. We wanted to build something like Hoogle, which is a Haskell search engine for code. We wanted to build like an internal Hoogle for OCaml. And that that was like the guiding uh reason that I joined. That's what I wanted. I guess, sorry, that's what you all wanted me to do."
+  },
+  {
+   "start": 180.48,
+   "end": 181.31,
+   "speaker_id": 1,
+   "text": "And"
+  },
+  {
+   "start": 181.31,
+   "end": 183.46,
+   "speaker_id": 0,
+   "text": "a good first project It wasn't the only thing, but you know."
+  },
+  {
+   "start": 183.46,
+   "end": 193.74,
+   "speaker_id": 1,
+   "text": "it was it was going to be really fun. So I started doing that and then, um, maybe like a week into working on that when I just joined the company, ChatGPT came out. So this was, I think, like"
+  },
+  {
+   "start": 194.16,
+   "end": 233.34,
+   "speaker_id": 1,
+   "text": "December of 2022, maybe I shouldn't commit to a date there, but sometime around then. And we start uh looking at uh ChatGPT and you could actually see it at the time, you could walk up and down the rows here and see people like pulling their phones out and using ChatGPT because we had no way for them to use it. So then we started looking into like how to get everyone access to ChatGPT. And uh the way that it worked at the time was that there were only personal accounts, there weren't pro accounts. So I guess the path would have been like go to our procurement department and say like buy everyone an individual pro account with with separate credit cards, which uh I don't know, that probably they probably would have done it."
+  },
+  {
+   "start": 233.34,
+   "end": 265.19,
+   "speaker_id": 1,
+   "text": "they wouldn't have been very happy about it though. Right. Another caveat at the time was that, um, any use of ChatGPT, the website, was like subject to collecting data for training. Um, but we noticed on the website that there was a carve out for the API, that if you use the API that it wouldn't be subject to training. So I built this prototype that it was called JaneGPT. It was actually originally written in Rails, which is kind of, you know, I was new, I didn't have a strong grasp of OCaml. Um, so I wrote it in Rails. Uh, came in the next day and then everyone was like, yeah, let's build this."
+  },
+  {
+   "start": 265.19,
+   "end": 298.19,
+   "speaker_id": 1,
+   "text": "and then we took a couple more people, uh, and three of us built over, I think, three days or something like that, built the first version of this chat application that we use internally called JaneGPT. Uh, which is basically similar to ChatGPT. And we have the entire firm use that. They all go through like a central, um, set of credentials that we maintain in our service. And that's how we got started. Uh, that was three and a half years ago, and since then we've we've continued to find things to work on. I've never gotten back to the code search part. But someday, I guess."
+  },
+  {
+   "start": 298.19,
+   "end": 300.47,
+   "speaker_id": 0,
+   "text": "I think other people have worked on this."
+  },
+  {
+   "start": 300.47,
+   "end": 301.62,
+   "speaker_id": 1,
+   "text": "Yeah, that's true. [Laughter]"
+  },
+  {
+   "start": 302.2,
+   "end": 330.0,
+   "speaker_id": 0,
+   "text": "And and yeah, I mean it was worth like sketching out like what the value that we got out of like doing our own thing was there. Like, I guess one point to make early on is like, boy, when ChatGPT came out, they were not immediately thinking about it as like a commercial product for companies to use. Yep. Right. In fact, they were like totally surprised by how popular it was and how effective it was and it kind of reshaped like kind of the entire industry. But early on they were like, yeah, we just like"
+  }
+ ],
+ "gen_tokens": 1983,
+ "text": "[{\"Start\":0,\"End\":26.66,\"Speaker\":0,\"Content\":\"out of like the untyped programming language world, Lisp and Scheme and the like. And it is just easier to do things in that domain and figuring out how to marry metaprogramming and types is hard. And like we have work on this internally, they have like better metaprogramming for OCaml and there's a lot of fun research on this, but like it requires like serious academic research to build the systems to do this. So there's a real a real spot where you are creating complexity that otherwise doesn't necessarily need to exist.\"},{\"Start\":26.66,\"End\":56.0,\"Speaker\":1,\"Content\":\"Yeah, it seems like the taking that complexity on in some of the common libraries that people use might be like a worthwhile trade. And I'm I'm pretty excited about the metaprogramming stuff in OCaml because maybe it could give us more expressibility where it counts and then we can kind of just tell everyone else maybe don't use these functions. I think that's another another thing that we sometimes can run into is that you have a lot of ability to express constraints in the type system, but you maybe always shouldn't. Like maybe you shouldn't always use that. So that's another kind of like tension that exists.\"},{\"Start\":56.0,\"End\":66.17,\"Speaker\":0,\"Content\":\"That's right. Like the types are a very powerful system for expressing constraints and there's a lot of very clever things you can do and you mostly shouldn't be that clever. It's like cleverness itself is kind of a bad idea. Yep.\"},{\"Start\":66.35,\"End\":82.83,\"Speaker\":1,\"Content\":\"And something that seems clever, it starts simple, right? And then later you're like, well, okay, in order to test that now, we actually have to have this like kind of bulky setup attached to the side. So I think like sometimes something seems simple and it's not until later that you realize the actual cost of using it.\"},{\"Start\":82.83,\"End\":95.66,\"Speaker\":0,\"Content\":\"Yeah. And in the end, like the thing you're trying to focus on when you're engineering systems is keeping them having the functionality you need while keeping them really simple. And that simplicity is critical and like you have to be careful not to trade it away for the wrong things. Yeah.\"},{\"Start\":95.92,\"End\":113.77,\"Speaker\":1,\"Content\":\"Um, I should also say like I I think I'm maybe not giving entirely enough credit to some of the the OCaml points here. There are many times where I'm like fighting against some annoying type system issue with with OCaml, only to realize that like it's telling me something.\"},{\"Start\":113.77,\"End\":115.84,\"Speaker\":0,\"Content\":\"It's giving me some piece of information, right?\"},{\"Start\":115.84,\"End\":129.99,\"Speaker\":1,\"Content\":\"it's saying like, oh like this thing that you thought you could put here, uh, you know, it's an option. And this function doesn't take an option, right? That's a really useful thing to know. And I guess in in Ruby that would have just resulted in like a nil error.\"},{\"Start\":129.99,\"End\":141.78,\"Speaker\":0,\"Content\":\"Right, again, types are a way of communicating things. And well, let's move on to talk about the AI work you've done here. I I do actually feel like this question of like, I do feel like this question about the role of types...\"},{\"Start\":142.06,\"End\":145.54,\"Speaker\":0,\"Content\":\"and AI actually interlace in interesting ways.\"},{\"Start\":145.54,\"End\":150.33,\"Speaker\":1,\"Content\":\"Does seem like it made the the whole thing more complicated, right? Like a like, yes, sorry, we're going to talk about it.\"},{\"Start\":150.33,\"End\":164.66,\"Speaker\":0,\"Content\":\"Yeah, but the fact you talk about the the work you've done here, like on our AI tooling, you didn't start out with a plan of working on AI stuff because like that wasn't the obviously right thing to do when we hired you. But it's what you ended up doing. So maybe tell me a little of the story of how you got into all this stuff.\"},{\"Start\":164.66,\"End\":180.48,\"Speaker\":1,\"Content\":\"Yeah, I joined with the intention of working on code search. We wanted to build something like Hoogle, which is a Haskell search engine for code. We wanted to build like an internal Hoogle for OCaml. And that that was like the guiding uh reason that I joined. That's what I wanted. I guess, sorry, that's what you all wanted me to do.\"},{\"Start\":180.48,\"End\":181.31,\"Speaker\":1,\"Content\":\"And\"},{\"Start\":181.31,\"End\":183.46,\"Speaker\":0,\"Content\":\"a good first project It wasn't the only thing, but you know.\"},{\"Start\":183.46,\"End\":193.74,\"Speaker\":1,\"Content\":\"it was it was going to be really fun. So I started doing that and then, um, maybe like a week into working on that when I just joined the company, ChatGPT came out. So this was, I think, like\"},{\"Start\":194.16,\"End\":233.34,\"Speaker\":1,\"Content\":\"December of 2022, maybe I shouldn't commit to a date there, but sometime around then. And we start uh looking at uh ChatGPT and you could actually see it at the time, you could walk up and down the rows here and see people like pulling their phones out and using ChatGPT because we had no way for them to use it. So then we started looking into like how to get everyone access to ChatGPT. And uh the way that it worked at the time was that there were only personal accounts, there weren't pro accounts. So I guess the path would have been like go to our procurement department and say like buy everyone an individual pro account with with separate credit cards, which uh I don't know, that probably they probably would have done it.\"},{\"Start\":233.34,\"End\":265.19,\"Speaker\":1,\"Content\":\"they wouldn't have been very happy about it though. Right. Another caveat at the time was that, um, any use of ChatGPT, the website, was like subject to collecting data for training. Um, but we noticed on the website that there was a carve out for the API, that if you use the API that it wouldn't be subject to training. So I built this prototype that it was called JaneGPT. It was actually originally written in Rails, which is kind of, you know, I was new, I didn't have a strong grasp of OCaml. Um, so I wrote it in Rails. Uh, came in the next day and then everyone was like, yeah, let's build this.\"},{\"Start\":265.19,\"End\":298.19,\"Speaker\":1,\"Content\":\"and then we took a couple more people, uh, and three of us built over, I think, three days or something like that, built the first version of this chat application that we use internally called JaneGPT. Uh, which is basically similar to ChatGPT. And we have the entire firm use that. They all go through like a central, um, set of credentials that we maintain in our service. And that's how we got started. Uh, that was three and a half years ago, and since then we've we've continued to find things to work on. I've never gotten back to the code search part. But someday, I guess.\"},{\"Start\":298.19,\"End\":300.47,\"Speaker\":0,\"Content\":\"I think other people have worked on this.\"},{\"Start\":300.47,\"End\":301.62,\"Speaker\":1,\"Content\":\"Yeah, that's true. [Laughter]\"},{\"Start\":302.2,\"End\":330.0,\"Speaker\":0,\"Content\":\"And and yeah, I mean it was worth like sketching out like what the value that we got out of like doing our own thing was there. Like, I guess one point to make early on is like, boy, when ChatGPT came out, they were not immediately thinking about it as like a commercial product for companies to use. Yep. Right. In fact, they were like totally surprised by how popular it was and how effective it was and it kind of reshaped like kind of the entire industry. But early on they were like, yeah, we just like\"}]"
+}

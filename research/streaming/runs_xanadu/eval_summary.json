@@ -1,0 +1,318 @@
+{
+ "episode": "xanadu",
+ "reference": "output/xanadu_ref_full.json",
+ "scored_until_s": 5820.0,
+ "lenient_merge": {
+  "SPEAKER_05": "SPEAKER_03"
+ },
+ "runs": {
+  "fixed5": {
+   "overlap": {
+    "speaker_agree_pct": 72.83,
+    "lenient_pct": 72.83,
+    "n_speakers": 10,
+    "text_vs_ref": {
+     "wer": 2.51,
+     "sub": 190,
+     "ins": 168,
+     "dele": 115,
+     "ref_words": 18816,
+     "hyp_words": 18869
+    },
+    "time_to_playback_s": 30.0,
+    "seams": {
+     "start": 17,
+     "start-unmatched": 0,
+     "dedupe": 4
+    }
+   },
+   "embed@0.45": {
+    "speaker_agree_pct": 92.61,
+    "lenient_pct": 93.93,
+    "n_speakers": 8,
+    "text_vs_ref": {
+     "wer": 2.51,
+     "sub": 190,
+     "ins": 168,
+     "dele": 115,
+     "ref_words": 18816,
+     "hyp_words": 18869
+    },
+    "time_to_playback_s": 30.0,
+    "seams": {
+     "start": 17,
+     "start-unmatched": 0,
+     "dedupe": 4
+    }
+   },
+   "embed@0.5": {
+    "speaker_agree_pct": 84.8,
+    "lenient_pct": 85.57,
+    "n_speakers": 9,
+    "text_vs_ref": {
+     "wer": 2.51,
+     "sub": 190,
+     "ins": 168,
+     "dele": 115,
+     "ref_words": 18816,
+     "hyp_words": 18869
+    },
+    "time_to_playback_s": 30.0,
+    "seams": {
+     "start": 17,
+     "start-unmatched": 0,
+     "dedupe": 4
+    }
+   },
+   "embed@0.55": {
+    "speaker_agree_pct": 82.93,
+    "lenient_pct": 83.71,
+    "n_speakers": 10,
+    "text_vs_ref": {
+     "wer": 2.51,
+     "sub": 190,
+     "ins": 168,
+     "dele": 115,
+     "ref_words": 18816,
+     "hyp_words": 18869
+    },
+    "time_to_playback_s": 30.0,
+    "seams": {
+     "start": 17,
+     "start-unmatched": 0,
+     "dedupe": 4
+    }
+   },
+   "embed@0.6": {
+    "speaker_agree_pct": 86.53,
+    "lenient_pct": 87.3,
+    "n_speakers": 14,
+    "text_vs_ref": {
+     "wer": 2.51,
+     "sub": 190,
+     "ins": 168,
+     "dele": 115,
+     "ref_words": 18816,
+     "hyp_words": 18869
+    },
+    "time_to_playback_s": 30.0,
+    "seams": {
+     "start": 17,
+     "start-unmatched": 0,
+     "dedupe": 4
+    }
+   },
+   "overlap_structure": {
+    "seams": 21,
+    "single_speaker_overlaps": 5
+   },
+   "centroid_separation": {
+    "same_min": -0.017,
+    "same_mean": 0.518,
+    "cross_max": 0.958,
+    "cross_mean": 0.295
+   }
+  },
+  "geo3": {
+   "overlap": {
+    "speaker_agree_pct": 90.02,
+    "lenient_pct": 91.37,
+    "n_speakers": 5,
+    "text_vs_ref": {
+     "wer": 2.41,
+     "sub": 170,
+     "ins": 146,
+     "dele": 137,
+     "ref_words": 18816,
+     "hyp_words": 18825
+    },
+    "time_to_playback_s": 17.8,
+    "seams": {
+     "start": 2,
+     "start-unmatched": 0,
+     "dedupe": 2
+    }
+   },
+   "embed@0.45": {
+    "speaker_agree_pct": 96.55,
+    "lenient_pct": 97.97,
+    "n_speakers": 5,
+    "text_vs_ref": {
+     "wer": 2.41,
+     "sub": 170,
+     "ins": 146,
+     "dele": 137,
+     "ref_words": 18816,
+     "hyp_words": 18825
+    },
+    "time_to_playback_s": 17.8,
+    "seams": {
+     "start": 2,
+     "start-unmatched": 0,
+     "dedupe": 2
+    }
+   },
+   "embed@0.5": {
+    "speaker_agree_pct": 96.55,
+    "lenient_pct": 97.97,
+    "n_speakers": 5,
+    "text_vs_ref": {
+     "wer": 2.41,
+     "sub": 170,
+     "ins": 146,
+     "dele": 137,
+     "ref_words": 18816,
+     "hyp_words": 18825
+    },
+    "time_to_playback_s": 17.8,
+    "seams": {
+     "start": 2,
+     "start-unmatched": 0,
+     "dedupe": 2
+    }
+   },
+   "embed@0.55": {
+    "speaker_agree_pct": 96.55,
+    "lenient_pct": 97.97,
+    "n_speakers": 5,
+    "text_vs_ref": {
+     "wer": 2.41,
+     "sub": 170,
+     "ins": 146,
+     "dele": 137,
+     "ref_words": 18816,
+     "hyp_words": 18825
+    },
+    "time_to_playback_s": 17.8,
+    "seams": {
+     "start": 2,
+     "start-unmatched": 0,
+     "dedupe": 2
+    }
+   },
+   "embed@0.6": {
+    "speaker_agree_pct": 96.36,
+    "lenient_pct": 97.78,
+    "n_speakers": 6,
+    "text_vs_ref": {
+     "wer": 2.41,
+     "sub": 170,
+     "ins": 146,
+     "dele": 137,
+     "ref_words": 18816,
+     "hyp_words": 18825
+    },
+    "time_to_playback_s": 17.8,
+    "seams": {
+     "start": 2,
+     "start-unmatched": 0,
+     "dedupe": 2
+    }
+   },
+   "overlap_structure": {
+    "seams": 4,
+    "single_speaker_overlaps": 2
+   },
+   "centroid_separation": {
+    "same_min": 0.29,
+    "same_mean": 0.767,
+    "cross_max": 0.952,
+    "cross_mean": 0.212
+   }
+  },
+  "fixed5_ex": {
+   "overlap": {
+    "speaker_agree_pct": 74.0,
+    "lenient_pct": 74.0,
+    "n_speakers": 8,
+    "text_vs_ref": {
+     "wer": 4.86,
+     "sub": 240,
+     "ins": 526,
+     "dele": 148,
+     "ref_words": 18816,
+     "hyp_words": 19194
+    },
+    "ttfp_stream_s": 28.6
+   },
+   "exemplar": {
+    "speaker_agree_pct": 92.17,
+    "lenient_pct": 92.17,
+    "n_speakers": 8,
+    "text_vs_ref": {
+     "wer": 4.86,
+     "sub": 240,
+     "ins": 526,
+     "dele": 148,
+     "ref_words": 18816,
+     "hyp_words": 19194
+    },
+    "ttfp_stream_s": 28.6
+   }
+  }
+ },
+ "embedding_model_separation": {
+  "nemo_en_titanet_small.onnx": {
+   "segments": 514,
+   "argmax_correct_pct": 98.4,
+   "thr_0.45": {
+    "own_ge": 93.8,
+    "best_other_ge": 2.3
+   },
+   "thr_0.5": {
+    "own_ge": 92.0,
+    "best_other_ge": 0.8
+   },
+   "thr_0.55": {
+    "own_ge": 88.3,
+    "best_other_ge": 0.6
+   },
+   "thr_0.6": {
+    "own_ge": 83.1,
+    "best_other_ge": 0.2
+   }
+  },
+  "nemo_en_titanet_large.onnx": {
+   "segments": 514,
+   "argmax_correct_pct": 99.0,
+   "thr_0.45": {
+    "own_ge": 94.7,
+    "best_other_ge": 1.4
+   },
+   "thr_0.5": {
+    "own_ge": 92.8,
+    "best_other_ge": 0.8
+   },
+   "thr_0.55": {
+    "own_ge": 90.7,
+    "best_other_ge": 0.6
+   },
+   "thr_0.6": {
+    "own_ge": 87.9,
+    "best_other_ge": 0.4
+   }
+  }
+ },
+ "service_run": {
+  "time_to_playback_s": 20.1,
+  "total_s": 2331.68,
+  "headroom_by_chunk_s": [
+   -0.0,
+   63.5,
+   200.2,
+   987.9,
+   2512.3
+  ],
+  "speaker_agree_pct": 96.96,
+  "lenient_pct": 98.37,
+  "n_speakers": 5,
+  "text_vs_ref": {
+   "wer": 2.41,
+   "sub": 170,
+   "ins": 146,
+   "dele": 137,
+   "ref_words": 18816,
+   "hyp_words": 18825
+  }
+ }
+}

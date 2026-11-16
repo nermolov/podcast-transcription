@@ -1,0 +1,811 @@
+{
+ "chunk": 3,
+ "audio": [
+  3390.0,
+  5820.0
+ ],
+ "new_start": 3420.0,
+ "prefix_s": 22.0,
+ "roster": [
+  {
+   "g": 0,
+   "src": [
+    2968.73,
+    2978.73
+   ],
+   "at": [
+    0.0,
+    10.0
+   ]
+  },
+  {
+   "g": 1,
+   "src": [
+    2919.41,
+    2929.41
+   ],
+   "at": [
+    11.0,
+    21.0
+   ]
+  }
+ ],
+ "segs": [
+  {
+   "start": 0,
+   "end": 10.22,
+   "speaker_id": 0,
+   "text": "you could see in the outside world like, you know, GitHub released, you know, this these integrations for VS Code which were like all autocomplete based and the way you used LLMs, right, was Copilot."
+  },
+  {
+   "start": 10.44,
+   "end": 49.67,
+   "speaker_id": 1,
+   "text": "because they know that the caller is an AI version of you. It also means that in other places, like we've built other systems that take use of this AI dash concept. Um one example point we also were uh we had functionality for autocomplete similar to Copilot inside of our editors, which are, I should say, primarily not, I guess like we we do use VS Code, but we also use a bunch of like Neovim and Emacs here. So we had built um editor extensions into those. And then people were asking to be able to use the chat models inside of the editor. And they didn't want the chat models to like do a bunch of stuff, maybe it would be able to like edit a file."
+  },
+  {
+   "start": 49.67,
+   "end": 57.82,
+   "speaker_id": 1,
+   "text": "but the the hope wasn't that they're going to start writing whole giant pieces of software. It was just that you can ask them quick questions inside the editor. So we built that."
+  },
+  {
+   "start": 57.82,
+   "end": 89.55,
+   "speaker_id": 1,
+   "text": "we built a a markdown buffer version of talking with a model, which is actually pretty cool, I think. There's something there. Uh it was basically like a markdown document that you type a question into and then when you uh when you like hit enter in the document in normal mode it would then uh let the assistant fill in the next piece. So we built that and then at some point um the people that were working on that noticed that it was like incredibly annoying to have to restart the editor over and over again when working with it. So they built this like"
+  },
+  {
+   "start": 89.55,
+   "end": 102.47,
+   "speaker_id": 1,
+   "text": "testing tool, which was basically like, we will just have the chat part hooked up to a CLI tool, but not inside the editor, just so that they could like quickly iterate on it without having to open the editor every time."
+  },
+  {
+   "start": 102.47,
+   "end": 110.76,
+   "speaker_id": 0,
+   "text": "Oh, you're saying they had it's the point is the people who were working on the tool didn't want to have to reboot. So this is not like an end user problem of like"
+  },
+  {
+   "start": 110.76,
+   "end": 114.96,
+   "speaker_id": 1,
+   "text": "No, it's not like I have a developer problem. It's just like annoying to have to open it over and over again."
+  },
+  {
+   "start": 114.96,
+   "end": 118.63,
+   "speaker_id": 0,
+   "text": "I think people just like made their own like command line version. Got it."
+  },
+  {
+   "start": 118.63,
+   "end": 119.52,
+   "speaker_id": 1,
+   "text": "and"
+  },
+  {
+   "start": 119.54,
+   "end": 154.38,
+   "speaker_id": 1,
+   "text": "right around this time, the model started calling the tools a little bit more. Just like a little bit more. And we were like, wait, I think this thing is really useful. This like tool, this command line tool. Um, and that is the nugget of what eventually ended up turning into this aid CLI tool, which you can think of kind of like Cloud Code or Codex CLI. Um, and that kind of brings us into this new part where, um, you know, the models, that new tool has like grown in a bunch of ways and now it is a tool that people use for agentic coding."
+  },
+  {
+   "start": 154.38,
+   "end": 191.23,
+   "speaker_id": 1,
+   "text": "uh we've also, oh, and then and then the last thing we've done is we've made this like very large change, uh seeing the models do more and more and having them often limited by, um, you know, where they can reach into, we've made a change in how the actual work gets orchestrated so that the LLMs can essentially distribute work onto any of the developer machines at the firm and actually a bunch of other places too. And then the most recent change that we've made is we've actually made a change to kind of invert the control of how the LLM, uh, operates when it's trying to do things like bash calls."
+  },
+  {
+   "start": 191.23,
+   "end": 227.2,
+   "speaker_id": 1,
+   "text": "So when you use something like Cloud Code, you're typing into terminal on your computer and then the bash calls are running also on your computer. And it's like fairly easy because the the the prompting loop and the place that the work is running are in the same place. And you kind of saw this opportunity to make a change to split those apart so that people could do things like use the chat application, ChainGPT, to be able to do work that actually ends up happening on a computer totally somewhere else. So we have made it so that there's like a central orchestrator that takes in all of the prompts and is able to distribute work onto"
+  },
+  {
+   "start": 227.2,
+   "end": 233.93,
+   "speaker_id": 1,
+   "text": "any of the hosts connected to it, where the hosts are roughly all of the developer machines at the firm plus a bunch of build boxes."
+  },
+  {
+   "start": 233.93,
+   "end": 234.53,
+   "speaker_id": 0,
+   "text": "Right."
+  },
+  {
+   "start": 234.53,
+   "end": 267.7,
+   "speaker_id": 0,
+   "text": "And this is like not so different from some of the directions that the kind of prompting engines kind of in the outside world have moved in, of wanting to like take that same session and instead of having it just like sit locally on your box, be in some kind of distributed system where you can access it through a web UI or from your phone or... Yeah, like from Slack. From Slack or whatever. Um, we've done this kind of in our infrastructure, uh so that we can orchestrate with whatever model we want, with whatever internal tools we want, and keep control of our data. And that's sort of what the kind of centralized version of the system looks like."
+  },
+  {
+   "start": 267.7,
+   "end": 306.81,
+   "speaker_id": 1,
+   "text": "And it's enabled new ways to work. Like one way to work is we have this thing called Aid Mint, which is a system by which you mostly via Slack, but there's a few other ways that you can interact with it. You tell it the thing that you want to happen and it goes and creates a new feature, which is essentially our term for pull request. It spins up a build inside of that feature and then it kicks off the agent to go do some work. And you can actually do this totally from Slack. So you say, oh, this is the thing that I want to happen in this area of the code base, and the agent will go off and do it. But importantly, the work that it's actually doing, it's like running as you on your computer."
+  },
+  {
+   "start": 306.81,
+   "end": 314.96,
+   "speaker_id": 1,
+   "text": "It's not like we, you know, have a bunch of AI build boxes out there. It's just like actually distributing the work back to, um, your development machine."
+  },
+  {
+   "start": 314.96,
+   "end": 318.5,
+   "speaker_id": 0,
+   "text": "Right, although maybe not running exactly as you, maybe it's running as your AI user. True."
+  },
+  {
+   "start": 319.86,
+   "end": 320.8,
+   "speaker_id": 0,
+   "text": "Right."
+  },
+  {
+   "start": 320.8,
+   "end": 359.07,
+   "speaker_id": 0,
+   "text": "And I think the interesting thing about that last piece, this kind of mint system, is that in some sense, it seems like totally trivial. It's like, I could have spun up a new piece of work by like, you know, going off and creating a feature and then starting an agent inside of it and asking the agent to do it. And it's a relatively small UX change to make it so that you can just say something in Slack and have an agent pick it up and create the feature for you and start the work. But that relatively small user experience change was a really big difference to people's behavior. It's a little bit like conflated because it's like also at around the time that models were getting significantly better."
+  },
+  {
+   "start": 359.07,
+   "end": 368.88,
+   "speaker_id": 0,
+   "text": "But we just saw like a huge uptake in this and I think the amount of work that was done with agents authoring that work like dramatically shot up. Yeah."
+  },
+  {
+   "start": 368.88,
+   "end": 409.35,
+   "speaker_id": 1,
+   "text": "Yeah, it's something like like 45% of the total released features PRs, uh, that get, uh, made at the firm are start with this flow. This like kind of asynchronous, uh, flow involving an LLM. I think in a way it gets you past the kind of blank page problem, like you were talking about before with a document. Like you're, you know, writing a document, oh, what do I write? It might be the case that the LLM writes something for you and you change most of the details, but there's still value in it kind of doing the first bit. And also, like it's worth saying that, you know, there's a lot of toil involved in just creating a new, um, pull request, right? You have to like go create a branch, you have to switch to that branch."
+  },
+  {
+   "start": 409.35,
+   "end": 421.33,
+   "speaker_id": 1,
+   "text": "you have to figure out what build targets to put in place, you have to like create a name for it, you have to get the whole like workspace set up correctly, you have to figure out what files are involved in the change you want to make, and the LLM can kind of just jump right through all that."
+  },
+  {
+   "start": 421.33,
+   "end": 444.34,
+   "speaker_id": 0,
+   "text": "And I think another interesting aspect of this is how much of the work is stuff that you just kind of let the agent just kind of do, and how much do you kind of hard set up. And I think there were a bunch of good choices that were made about what things you just kind of hard set up, not because the agent couldn't do it at all, but because it made things faster and more reliable and more consistent to kind of do them in advance in this way."
+  },
+  {
+   "start": 444.34,
+   "end": 469.88,
+   "speaker_id": 1,
+   "text": "And then we're even noticing places where like the setup that we've provided for the agent is useful for the humans too. Like in a way the problem that I just described of like picking the build targets, uh, that are appropriate for your work, well, like it's annoying for a human to do too, right? So like the same systems that we put in place for maybe authors to say, oh, in this part of the tree the build targets that I probably want are these, once we do that work, now humans can benefit from that change too."
+  },
+  {
+   "start": 470.2,
+   "end": 509.34,
+   "speaker_id": 0,
+   "text": "I had an interesting conversation earlier this week with someone who was thinking about the kind of vibe coding problem with uh web apps. So like one thing that like everyone now knows is like the models are really good at is like thracking together a quick web UI. And this is actually an area where we're really excited about, you know, real deal vibe coding, meaning like having agents write stuff that like maybe no human looks at it all. And one of the reasons why it's useful is, first of all, it lets you write code, it's less about, you know, changing how you write the code you were going to write before and instead let you write code that you would have never bothered to write at all."
+  },
+  {
+   "start": 509.34,
+   "end": 543.79,
+   "speaker_id": 0,
+   "text": "'cause it's like it's now just so cheap to do that you can have this kind of like disposable tool that you like quickly throw together to solve some particular problem. Is it exactly right? Uh, probably not, but it doesn't totally matter. It gives you enough insight and it's useful for that one use case and you kind of throw it away when you're done. And trying to build workflows that make it really easy and natural to do that. And it turns out the models are best at the things that they know best. And so, you know what they don't know best? They don't know like OCaml and like Bonsai, which is our internal system for building web apps and stuff."
+  },
+  {
+   "start": 543.79,
+   "end": 582.27,
+   "speaker_id": 0,
+   "text": "So they're they are going to like know more off the top of their head how to go off and, you know, build something in pure HTML and JavaScript than they're going to be able to build something that like fits naturally into our internal ecosystem. And like part of our answer to that has been like, \"Oh yeah, we can like do some of that. Like, you know, JavaScript works here too. We can do some things in that style.\" But the people who think about the web platform here have been trying to like think about and understand what's the gap? Like, why does it take much longer to build an app in Bonsai than it does to build an app in JavaScript? And one of the things they've been discovering recently is some of it has nothing to do with the language stuff."
+  },
+  {
+   "start": 582.27,
+   "end": 615.24,
+   "speaker_id": 0,
+   "text": "some of it is just like, oh, before I was just like doing a single index.html that like had the JavaScript and HTML in that one file and there was no anything to do. It just like could generate the text and it was kind of fine. And now, there's like a feature in Iron, which is our code review system, that has to be created and a build process that has to be kicked off. And there's just like more steps and tool calls and the thing that actually represents there's like 30 seconds of like actual work to go and like generate the code."
+  },
+  {
+   "start": 615.24,
+   "end": 620.42,
+   "speaker_id": 1,
+   "text": "You probably want to grab like the bonsai starter template and like get your code off to a good start."
+  },
+  {
+   "start": 620.42,
+   "end": 659.22,
+   "speaker_id": 0,
+   "text": "And so like the whole thing in reality takes 10 minutes when it would have taken 30 seconds in the pure index.html world. And I think at first we were like, oh, maybe this is just like the cost we're paying because of like internal languages and libraries. Like, no, actually this is maybe stuff that we can fix by exactly as you're suggesting, doing like more like hard deterministic setup stuff so that like things are just there and ready and like the agent doesn't have to go and discover again how to use all the tools. That's again, kind of like the the agents are kind of like amazing and one of their thing that makes them amazing is also one of the deficiencies, which is they are perpetual beginners, right?"
+  },
+  {
+   "start": 659.22,
+   "end": 669.46,
+   "speaker_id": 0,
+   "text": "They never learn how to use the tools, right? It's just they rediscover every time how to use the tools. And so you kind of have to build your whole system around them being these kind of perpetual beginners."
+  },
+  {
+   "start": 669.46,
+   "end": 670.52,
+   "speaker_id": 1,
+   "text": "Right."
+  },
+  {
+   "start": 670.52,
+   "end": 707.15,
+   "speaker_id": 1,
+   "text": "Yeah, I think another part of this is you can maybe like instill them with a little bit of repeated knowledge by like writing skills, right? But then there's a question, uh so skills for anyone that doesn't know are these like little documents that you write to kind of guide the model on things that it does often. And models can also like help you write these skills and put them in place, but it takes time to write them. And it takes time to like know that you're writing them well. And once you have a, you know, large organization using a bunch of skills, they also become a little bit hard to change because changes to skills might have kind of untold impact on different parts of the firm. So this is also a problem that we end up having to think a lot about."
+  },
+  {
+   "start": 707.15,
+   "end": 746.04,
+   "speaker_id": 0,
+   "text": "Yeah, actually, we've talked a little bit about things like skills, we talked about function calling. There's like we built our own APIs for it. There's APIs like MCP, which have come out in the outside world, like which became public and popular after we'd already built our own version of it. Skills is another example of this. We had a thing that we built called Context Bundles, and then later this kind of public standard of skills came out. So this is kind of like treadmill that's going on of like things are always changing. We're building things and then often the outside world builds things, and that's like a complicated balance. Also, like we have our own command line tools like HCL."
+  },
+  {
+   "start": 746.04,
+   "end": 780.76,
+   "speaker_id": 1,
+   "text": "Yeah, one nice part about having our own tools, right, is that we can, like if we see a need for something, we can go make it. Um, but then there's also this thing you have to do sometimes of being like, okay, well the outside world has really kind of set their standard against this. For example, skills. And like context bundles are probably not the right answer. So there's like a little bit of acknowledgement. You know, like it would be a bad decision to be stuck to the decisions that you made even when you see the outside world starting to do something different. So sometimes you have to like go undo work that we did, which we recently did with context bundles. We've taken context bundles away, we've replaced them with skills."
+  },
+  {
+   "start": 780.76,
+   "end": 805.77,
+   "speaker_id": 0,
+   "text": "And then I think the other thing which which is maybe not as obvious from what we've said thus far is that we actually use third-party tools. So, Claude Code and Codex are things that we use inside of our world. And that's also been an interesting experience of like it it makes some things harder, it makes some things better. Like, can you say a little bit more about like why do we both like go to the trouble of building our own tools and use external third-party tools at the same time?"
+  },
+  {
+   "start": 805.77,
+   "end": 806.63,
+   "speaker_id": 1,
+   "text": "Yeah."
+  },
+  {
+   "start": 806.63,
+   "end": 845.04,
+   "speaker_id": 1,
+   "text": "Uh, so I guess like there's there's two sides of this. One is like you want control over the harness, you want control over what models get used, even doing things like combining different models to give users a better experience. You also, I think with our tooling on the user-facing side, want to have a little bit more uh deep integration into the tools that you know that they're using. For example, in the bottom of our CLI tool, and this is a fairly minor thing, but in the bottom of our CLI tool, we like show what feature the model is currently working in, and we let you switch between different features. So you can have the model and know that the workspace that it's working in is kind of locked to the feature that it's currently operating inside of."
+  },
+  {
+   "start": 845.04,
+   "end": 884.63,
+   "speaker_id": 1,
+   "text": "The model can see like the build status for that current feature, and these are these are not things that we have to tell the model. We like have given it a tool that's like compile, right? And it gets back the status of the current compilation. We also want to use external tools because, I mean, in a lot of ways, they're moving in different directions and sometimes faster than we are. Um, these are constantly coming out with new functionality. Uh, like, um, I guess the memory system in Cloud Code feels like a good example of this. Of a place where they're kind of like coming out with functionality that feels in a lot of ways more advanced than the thing that we have to solve the same problem. Um, we want to let people use the tool that works best for them."
+  },
+  {
+   "start": 884.63,
+   "end": 920.27,
+   "speaker_id": 1,
+   "text": "we also want to learn. I think one thing that came up early on is like it felt, at least I felt this like tension of like, oh, I'm building this tool, I really want, you know, this tool to be used by everyone because otherwise like why are we even making it? Um, but then there's this kind of realization that if your tool is only the best because you've like closed out uh competition from the outside world artificially, then it's not it's not really the best tool for the job. And the decision we want to make is the one that's going to be best for people here. So as a result, we give them access to to all the tools. And then we try as hard as we can to make ours as good as it can be."
+  },
+  {
+   "start": 920.27,
+   "end": 920.93,
+   "speaker_id": 0,
+   "text": "Right."
+  },
+  {
+   "start": 920.93,
+   "end": 947.91,
+   "speaker_id": 0,
+   "text": "Yeah, there's a form of just like internal virtuous competition where, you know, the fact that you get to see these tools in action inside our inside of our codebase, you get to see what advantages they have, and that helps us learn what we need to build and how we need to make things better. Um, I also think there are real challenges to it. Like every time you support an external tool, there's like real problems you have to think about. There's a bunch of security questions that get significantly more complicated."
+  },
+  {
+   "start": 947.91,
+   "end": 976.44,
+   "speaker_id": 1,
+   "text": "Yeah, they don't always have all the right plug points, right? Like even uh sandboxing, right? They a lot of the tools have their own sandboxing. And if we want sandboxing that's consistent across all of them, kind of hard to use the sandboxing that they provide because it doesn't provide all the same functionality. And maybe mapping our sandboxing rules onto their sandbox is kind of a a losing effort. So instead, we've tried to find ways to kind of shim our sandbox in in the right places so that it uh gets used across all the clients."
+  },
+  {
+   "start": 977.16,
+   "end": 1013.46,
+   "speaker_id": 0,
+   "text": "Right, and at the end of the day, I think an ecosystem where we both try and build really good tools that are adapted specifically for like our use cases and can really advance in ways that are hard for external tools to advance, and at the same time have a platform that's really good at supporting third-party tools, like is a kind of like mixed mode interaction. I think we've actually done this in other places. Another another thing that I think makes us a little unusual is just as an organization we've done a huge amount of work on having our own data centers and having control over the physical machines that we use. Like, you know, you mentioned control."
+  },
+  {
+   "start": 1013.46,
+   "end": 1049.77,
+   "speaker_id": 0,
+   "text": "control comes up a lot when you're building, you know, low latency high performance trading systems, you want a lot of control of the physical layer. And we found that control to also be useful as we like scale up enormously in the kind of GPU fleets that we build. And also at the same time as we've grown, we found it's also really useful to use cloud offerings. And like in part because sometimes there are capacities they have that we don't. Sometimes they're just better at us. Like we've learned things from like we've like run the same workload in the cloud and it's like way faster and we're like, oh, what did we get wrong? And we've like learned important things that way. Often it goes the other direction."
+  },
+  {
+   "start": 1049.77,
+   "end": 1087.73,
+   "speaker_id": 0,
+   "text": "uh but we've been able to scale up, do new things faster, find more compute capacity, and just generally I think do a better job on all sides of the work by doing what seems like in some ways a kind of crazy thing of like, oh, are we going to take this simple path or that simple path and we're going to do both at the same time. And it is hard to do both at the same time, but I think there are real rewards to it and I feel very similarly here where I think both building our own stuff and having a really having really good support for using third-party tools is important. And I don't think we do any of this perfectly. Uh, I think neither our internal tools are perfect nor is our support for using third-party tools ideal."
+  },
+  {
+   "start": 1087.73,
+   "end": 1091.13,
+   "speaker_id": 0,
+   "text": "but I think that's that I think that's the right strategy for the work here."
+  },
+  {
+   "start": 1091.13,
+   "end": 1095.36,
+   "speaker_id": 1,
+   "text": "there's there's a thing that we end up doing fairly often uh where we see"
+  },
+  {
+   "start": 1095.52,
+   "end": 1123.24,
+   "speaker_id": 1,
+   "text": "We see a place where people are leaning heavily on not our tool, and then we end up making changes to our tool to kind of accommodate why they're going to do that. Like the permissioning changes is one of these. And I think you could follow the kind of logic of that and you could say, well, then why do the work if you're always just trying to like catch up, you know, to the work that the vendor is doing? And I feel like that's not the like charitable read on it."
+  },
+  {
+   "start": 1123.24,
+   "end": 1142.37,
+   "speaker_id": 1,
+   "text": "What actually is happening is that there are also a lot of ways that like we're building things that the vendors aren't building, or we're building deeper integrations, or we can fix like usability bugs that people here specifically have earlier. Or we can provide tools that feel more natural to use inside of our system. And then also we should keep up with all the things that are happening in these external clients."
+  },
+  {
+   "start": 1142.37,
+   "end": 1152.54,
+   "speaker_id": 0,
+   "text": "Yeah, if you're not getting some kind of unique advantage from building your own thing, you're just wasting your time. Yep. So we've talked a bunch about the tooling that we've built to make all of this better. I want to"
+  },
+  {
+   "start": 1152.54,
+   "end": 1171.05,
+   "speaker_id": 0,
+   "text": "Talk a little bit about just like the experience of programming, right? I mean, I feel like kind of everyone in the software engineering world has experienced some of this, but I'm kind of curious just from your perspective, how what have you seen in your from your kind of vantage point working on all this AI tooling about how the tooling has changed the experience of coding?"
+  },
+  {
+   "start": 1171.05,
+   "end": 1193.47,
+   "speaker_id": 1,
+   "text": "Probably a lot of people, I got into coding because I liked coding, right? I liked solving problems. I liked even just like, you know, sometimes you're solving a problem and it feels like a fun puzzle. I even like the part, maybe I'm crazy, I like the part where like I know exactly what I'm writing and I'm just going to write it right now. Like, I think that's that part feels really good too."
+  },
+  {
+   "start": 1193.47,
+   "end": 1204.27,
+   "speaker_id": 0,
+   "text": "Yeah. And like knitting, right? Yeah. You're not maybe solving any big ideas, but just like the craft of putting the code together bit by bit, you know, making it it's it's it's a little artistic, right?"
+  },
+  {
+   "start": 1204.27,
+   "end": 1241.08,
+   "speaker_id": 1,
+   "text": "I don't want it to always be, I know exactly what I'm doing, but sometimes. Sometimes it's just like, you know, it's like uh uh it's like at the end of a video game, some new games have started doing this thing where they like at the end, there's like a fun level where they just like let you, you know, you're operating with like complete immunity or something. It's like, you know, you're just you're just sitting down and you're doing the actual thing. Um, and you can get into this nice flow state and it's very good. Um, and I think that both of these are like at different levels of like, I don't know, not the same as they were before, right?"
+  },
+  {
+   "start": 1241.08,
+   "end": 1268.62,
+   "speaker_id": 1,
+   "text": "like the just do the thing one, the the second one. It seems like LLMs are actually just pretty good at doing that. Uh so if the thing that you liked was, you know, feeling like you had a full command of the type system and that you could like quickly roll out changes that feel complicated to other people or you have the whole world in your head and you just want to go implement it, that's probably just becoming like less of a needed skill. It just seems that way. Um and then on the on on the other side, there's like a lot of places where, um"
+  },
+  {
+   "start": 1268.62,
+   "end": 1301.33,
+   "speaker_id": 1,
+   "text": "you know, the thing you have to do is uh design a solution to a problem, a code problem, and kind of like work through the ramifications of implementing that and maybe there's some like particularly performance sensitive pieces, and your job there has changed a little bit too in the sense that the model is like doing a lot of authoring and you're doing a lot of like making sure that it did the right thing, right? You're kind of like watching the code that it wrote and offering adjustments where you can, um and kind of your role has shifted a lot in a lot of cases more toward like code review."
+  },
+  {
+   "start": 1301.33,
+   "end": 1336.64,
+   "speaker_id": 1,
+   "text": "Um, and then there's this like third part which I feel like is still fairly protected, although we're on the cusp of, is like the actual like software design part. But like what, uh, what will you do, how will you do it, what are the pieces involved, what will it feel like to use this thing once you're done doing it? Um, and this is a place where obviously people are using LLMs a lot too, in things like like plan mode. Um, but this feels like the, I don't know, the least, the least like entirely changed version. In a way, the LLM is like just a collaborator that you're working with rather than someone doing the thing that you like to do."
+  },
+  {
+   "start": 1336.64,
+   "end": 1337.19,
+   "speaker_id": 0,
+   "text": "Right."
+  },
+  {
+   "start": 1337.19,
+   "end": 1356.32,
+   "speaker_id": 0,
+   "text": "So I think one thing you're pointing to is that like there's a lot of different parts of the work that people gain satisfaction from, and the tools are just kind of changing which parts of those work are available. Like what what actually will you do? How will you spend your time? There's like some parts of the work that like people are going to spend much less time on because they're more automated."
+  },
+  {
+   "start": 1356.62,
+   "end": 1364.34,
+   "speaker_id": 0,
+   "text": "and that's like good for some people and bad for others, right? It's like changes the shape of the work in a way that adjusts people's level of satisfaction."
+  },
+  {
+   "start": 1364.34,
+   "end": 1364.91,
+   "speaker_id": 1,
+   "text": "Yeah"
+  },
+  {
+   "start": 1364.91,
+   "end": 1385.72,
+   "speaker_id": 1,
+   "text": "I think I hear this pretty often. People that are like, even people that were maybe less technical at some point are just like, this is the best thing ever. All of a sudden like this, you know, this thing that felt closed to me is open, right? But then people that maybe were making uh more rote changes for most of their time are like, you know, the thing I loved is gone. More of more of that feeling."
+  },
+  {
+   "start": 1385.72,
+   "end": 1412.32,
+   "speaker_id": 0,
+   "text": "Yeah, one one thing I heard from a very strong engineer here was he just highlighted that like the way the character of how his job worked, at some point felt like, you know, 10% of his time was thinking really hard and deeply about what to do. And then, you know, 90% of the time is on the execution of that, which is the, you know, this knitting thing that we were talking about of like taking these ideas and unfolding them and like learning along the way from that process, but like, you know, kind of getting your fingers into the warp and weft of the code."
+  },
+  {
+   "start": 1412.66,
+   "end": 1449.9,
+   "speaker_id": 0,
+   "text": "And now, he does that 10% and then like sends a model to do the other piece. And then does like another one of those 10% and then sends a model to do the other piece. And in some ways it's good, you get to spend more of your time thinking about hard problems. And it's also kind of tiring, right? It's like there's like a relaxing piece in the middle that you just kind of get less access to. Another thing I worry about here is what it means about how people learn. Because I think I think that knitting time is also a time where you learn important things, right? First of all, you learn important things about the ideas. Like you spend that 10% thinking hard about what to do and it turns out the result of the 10% is you're wrong, right?"
+  },
+  {
+   "start": 1449.9,
+   "end": 1453.87,
+   "speaker_id": 0,
+   "text": "you have some idea that you've thought really hard about it and it doesn't really match reality."
+  },
+  {
+   "start": 1453.87,
+   "end": 1462.74,
+   "speaker_id": 1,
+   "text": "How many times you've like done a refactor, you get through most of it and then you're right at the end you're like, oh, that's why this can't work. Yeah. It's like, roll it back."
+  },
+  {
+   "start": 1462.74,
+   "end": 1499.71,
+   "speaker_id": 0,
+   "text": "Right, and another example of this feedback I've gotten. So talking to Leo White who has has been on this podcast uh long ago about like a new syntax extension he was he was building. Building a new system for basically changing how we think about code coverage. Um and you know, he had the high-level idea and you know, got an agent to go off and implement it. And it's sort of interesting like he felt like he was really close to being done then because he'd had the core idea and had the agent go off and do the work. Um and then he was like, well, but of course it has to be good, so I have to read the code."
+  },
+  {
+   "start": 1499.71,
+   "end": 1536.54,
+   "speaker_id": 0,
+   "text": "And then in reading the code, actually a lot of the work that he would have done in the process of authoring himself, authoring it himself, he now had to do in the process of reviewing it, of being like, \"Oh, well, that's a bad idea.\" Right? And you would have, you know, as you went through the code and tried to make the changes, you would have learned these things along the way, but instead he learned it in the course of reading and then giving the feedback to the model to clean it up. And it's this kind of uncanny thing where it feels like the models are doing more work for you than they really are, because this verification piece is is as hard as it ever was. In fact, maybe harder."
+  },
+  {
+   "start": 1536.54,
+   "end": 1541.42,
+   "speaker_id": 1,
+   "text": "seems harder. Yeah. Yeah, like the model. It's harder to verify code that you didn't write. Right."
+  },
+  {
+   "start": 1541.42,
+   "end": 1545.17,
+   "speaker_id": 0,
+   "text": "Right, I mean you're always verifying code you didn't write in the sense that it's code review."
+  },
+  {
+   "start": 1545.17,
+   "end": 1547.54,
+   "speaker_id": 1,
+   "text": "and like some... There's code review but someone else wrote it. Right."
+  },
+  {
+   "start": 1547.76,
+   "end": 1552.56,
+   "speaker_id": 0,
+   "text": "Right, it's hard, I think in some ways it's harder to verify code that no person wrote."
+  },
+  {
+   "start": 1552.56,
+   "end": 1553.76,
+   "speaker_id": 1,
+   "text": "Yes, that's sorry, yes."
+  },
+  {
+   "start": 1553.76,
+   "end": 1569.0,
+   "speaker_id": 0,
+   "text": "Right. The codes generated by the model, they just like, it's not that they're worse in any kind of strict way. They just have different error characteristics. And like, our techniques for noticing what's wrong and thinking through what might go wrong are just like, they just don't work the same way."
+  },
+  {
+   "start": 1569.0,
+   "end": 1590.79,
+   "speaker_id": 1,
+   "text": "Yeah, sometimes you see the model do something, right, and you're like, uh, well a human never would have done that. That's just like, you know, and it's not it can be wrong in like a very subtle way that that isn't obvious when you first look at it. Yeah. And I guess part of the risk of all this is that some people, uh, might not, like it's it's when the code is there, it's compiling, it does the thing you want it to do."
+  },
+  {
+   "start": 1590.81,
+   "end": 1597.25,
+   "speaker_id": 1,
+   "text": "It's kind of tempting to not understand it, you know? And there's a risk in that."
+  },
+  {
+   "start": 1597.73,
+   "end": 1615.05,
+   "speaker_id": 0,
+   "text": "Yep. And there's a real question of like, what do we want to understand and at what level? People often bring up the compiler as a kind of analogy in the space of like it used to be back in the ancient days, people would like write programs in machine code or assembly code."
+  },
+  {
+   "start": 1615.48,
+   "end": 1640.57,
+   "speaker_id": 0,
+   "text": "and then there were compilers and people stopped doing that and it was okay. And I think that's like both like a good and a bad analogy in the sense that like it it correctly highlights that we don't need to maintain understanding of every level of the system in the way that we did in the past. It's possible to go from one level to another and to be okay with it. And also, boy are these things not compilers."
+  },
+  {
+   "start": 1640.57,
+   "end": 1642.18,
+   "speaker_id": 1,
+   "text": "Yeah, like they're not deterministic."
+  },
+  {
+   "start": 1642.18,
+   "end": 1647.16,
+   "speaker_id": 0,
+   "text": "They are not deterministic, they are hard to predict, they do weird stuff. They do weird stuff at every level."
+  },
+  {
+   "start": 1647.16,
+   "end": 1667.37,
+   "speaker_id": 0,
+   "text": "This is super dumb. Like, I went to an LLM like earlier this week to make a little infographic for myself for like some exercises I wanted to do. And it was amazing. It happened super fast. It did a great job. Like, of the seven exercises, it rendered them all perfectly well, except for the one at the bottom where it had the arms coming out of the floor."
+  },
+  {
+   "start": 1667.37,
+   "end": 1668.82,
+   "speaker_id": 0,
+   "text": "[Laughter] It was like..."
+  },
+  {
+   "start": 1668.82,
+   "end": 1708.62,
+   "speaker_id": 0,
+   "text": "Wow, that's like a mistake a human would never in a million years have made. Um, and I feel like that same kind of like arms coming out of the floor thing happens in the code too. Yep. And certainly in the current regime where we're in, human understanding is as critical as ever, kind of the whole way through. Like you can't really trust the models to do any piece of it without you understanding it. Right. Um, so I think it's really essential to figure out how to use the models as tools for human understanding. And and I do I feel like people do this. Like I hear, you know, I've talked to people who talk about how code review has gotten easier because you can use the models to help answer questions."
+  },
+  {
+   "start": 1708.62,
+   "end": 1724.54,
+   "speaker_id": 0,
+   "text": "It's like you go through and you see if like why why did we why did the person do that? Like what about the API would make that happen? And of course, there are still hallucinations. There's less, but they're still there. The explanation might be confidently wrong. Of course, if you tell the model that it's wrong, it'll be like, I'm so sorry."
+  },
+  {
+   "start": 1724.54,
+   "end": 1725.88,
+   "speaker_id": 0,
+   "text": "You're totally right."
+  },
+  {
+   "start": 1725.88,
+   "end": 1740.06,
+   "speaker_id": 0,
+   "text": "It's very compliant, but it does make mistakes. And yet, I think it can be a really powerful tool for understanding. And I'm curious how much do you see this like tool for understanding thing both in the things that people are like off building in the firm and in the things that you want to build in the future."
+  },
+  {
+   "start": 1740.06,
+   "end": 1778.33,
+   "speaker_id": 1,
+   "text": "I see code review as a big part of this. Um, so it seems like there's a lot more work we have to do here, but there are opportunities to do things like break up the feature or pull request that you're reviewing into chunks that actually maybe don't appear in the original in the form that they are. One example of a tool here that's been helping uh along these lines is a tool called Diffractor, which is basically a code review tool that shows you um, you know, pieces of code laid out in a way that explains uh the change, but each of the chunks of code that you're viewing is not actually necessarily from the original diff."
+  },
+  {
+   "start": 1778.33,
+   "end": 1789.78,
+   "speaker_id": 1,
+   "text": "in a way like you can break up the change in a way that the diffs apply on top of each other to make the original diff, but kind of tell a little bit more of a story of like why why this change was made."
+  },
+  {
+   "start": 1789.78,
+   "end": 1818.8,
+   "speaker_id": 0,
+   "text": "Right, it's maybe worth saying a little bit like how does our ordinary code review tooling work? And so, like Iron, you go to review a feature, it shows you each file one at a time. It actually has the files ordered in the kind of definition order because OCaml it turns out has a kind of strict notion of like what is the order in which things happen that are kind of that respects the dependency structure of the files. Yep. Uh, which is kind of useful because you can sort of understand like the definitions before the uses of the definitions."
+  },
+  {
+   "start": 1818.8,
+   "end": 1820.49,
+   "speaker_id": 1,
+   "text": "and then like the tests at the end or"
+  },
+  {
+   "start": 1820.49,
+   "end": 1821.06,
+   "speaker_id": 0,
+   "text": "Right"
+  },
+  {
+   "start": 1821.06,
+   "end": 1824.4,
+   "speaker_id": 1,
+   "text": "And it's not it's not always right, though. I mean like"
+  },
+  {
+   "start": 1824.4,
+   "end": 1826.02,
+   "speaker_id": 0,
+   "text": "It's not always the order you want."
+  },
+  {
+   "start": 1826.02,
+   "end": 1864.17,
+   "speaker_id": 1,
+   "text": "Yeah, it's not always the order. When we were at GitHub and we were thinking about code review, a lot of times we were thinking we we were talking about these things called narrative code review, which are basically like, I don't know, could we instead of showing, for example, on a pull request page, a like description and then a series of commit like commit IDs that most most people don't read, and then a diff pane, could we instead use the commits to lay out more of like a story of a code of code review, right? How did the user like go from the first thing that they wanted to do to the change that eventually ended up in the pull request? And that at the time requires like a lot of work on behalf of the developer who wrote the change."
+  },
+  {
+   "start": 1864.17,
+   "end": 1876.7,
+   "speaker_id": 1,
+   "text": "They have to like write individual commits, they have to write nice descriptions, they have to do things like rebase when they make a change, uh, that didn't end up being in the final. They want to like make a change to make it like historically make sense so the story plays out nice."
+  },
+  {
+   "start": 1876.7,
+   "end": 1896.45,
+   "speaker_id": 0,
+   "text": "the developer has to tell the story from the beginning. Correct. And often, and that story is almost inevitably going to be a lie. It's not like the real story of what happened, because the real developer's journey towards getting a coherent feature is like many mistakes and back and forth that you don't that are not part of like the explanatory story of the nice thing you got to at the end, because you made a lot of mistakes along the way."
+  },
+  {
+   "start": 1896.45,
+   "end": 1906.1,
+   "speaker_id": 1,
+   "text": "But the mistakes are, um, so the narrative code review would tell a story of the diff end to end. Um, but there's a couple of things there. One is like, like you said, you have to the developer has to do the work."
+  },
+  {
+   "start": 1906.1,
+   "end": 1906.58,
+   "speaker_id": 0,
+   "text": "Mhm"
+  },
+  {
+   "start": 1906.58,
+   "end": 1921.54,
+   "speaker_id": 1,
+   "text": "So, that seems like a pretty interesting thing for an LLM to do. Like what if you could get the same benefit of it laid out kind of chronologically, um but laid out in a way that, uh, you know, the human didn't have to put in extra effort. And then another thing that happens is, um..."
+  },
+  {
+   "start": 1921.54,
+   "end": 1925.5,
+   "speaker_id": 0,
+   "text": "chronologically or like in some order that just makes sense."
+  },
+  {
+   "start": 1925.5,
+   "end": 1932.38,
+   "speaker_id": 1,
+   "text": "in some order that makes sense. So like in some order that is the order that you would want in order to understand why the change was made."
+  },
+  {
+   "start": 1932.38,
+   "end": 1949.81,
+   "speaker_id": 0,
+   "text": "I you might start off with like, here's the end API that we wanted to achieve, right? And now let's talk about like the pieces fitting into it after. It may be doing at least in a limited way the opposite of what our tooling does by default, which is to start like at the, you know, at the leaves and go all the way from there."
+  },
+  {
+   "start": 1949.81,
+   "end": 1983.89,
+   "speaker_id": 1,
+   "text": "Yeah. There's also information lost in all of the commits and directions that people have gone down that they ended up having to back out of, right? So sometimes when I go to, for example, a pull request, I'm just saying to myself, \"Oh, you made this choice, but why did you make that choice? Why didn't you go this other way?\" And wow, the information that they did try to go that way and then decided that it wouldn't work would be really, really useful to surface. And of course, I can go ask the human and they can go try to remember, but ideally we could use LLMs to build tools that have a better sense of like what kind of ways the human went."
+  },
+  {
+   "start": 1983.89,
+   "end": 2000.16,
+   "speaker_id": 1,
+   "text": "In its simplest form, if you take something like the original LLM session that a user used when trying to develop the feature, and make kind of the log of it available to another LLM, where the reviewer is asking questions about why certain decisions were made, really seems like you could get a lot of the way there."
+  },
+  {
+   "start": 2000.16,
+   "end": 2005.79,
+   "speaker_id": 0,
+   "text": "Do you know how the diffractor tool itself works, like what information does it use for analyzing?"
+  },
+  {
+   "start": 2005.79,
+   "end": 2007.7,
+   "speaker_id": 1,
+   "text": "I don't know."
+  },
+  {
+   "start": 2007.7,
+   "end": 2042.11,
+   "speaker_id": 0,
+   "text": "I mean, this actually highlights like a nice thing about these tools, which is one of the ways in which the character of the work has changed is that like everybody everywhere is thinking about this and there are tools bubbling up, you know, between the cracks in the sidewalk. Like people are just like creating stuff faster than any centralized team can like totally absorb them. And then I think like the goal of the centralized team is to like figure out like how can we build tooling to help people do that? And how can we take the best ideas that come up and make them more robust and more usable firm-wide and kind of make them more standard."
+  },
+  {
+   "start": 2042.11,
+   "end": 2076.6,
+   "speaker_id": 1,
+   "text": "And in the cases where there isn't a best, uh how can we build tools that are like modular to the fact that people want to plug this particular piece? Like maybe they we have a bunch of uh we have a bunch of systems that use LLMs to do to do code review too. So an LLM, this is an LLM looking at code to determine if it has bugs or if it has security issues or if uh maybe it's like caused regressions in certain ways. And it seems like there's probably not going to be one of those that's right. So in a sense, we want to build like a little pluggable layer where people can kind of bring their own, share them, and we can see which ones do best."
+  },
+  {
+   "start": 2076.6,
+   "end": 2098.79,
+   "speaker_id": 0,
+   "text": "Right, and it's it's almost necessarily domain specific, right? The advice that you want to give the LLM when it's when you're trying to like analyze a piece of code and figure out if there are issues with it is going to depend on where in the code base it is and what are the standards and what are the goals of the particular group of people who are building it. So like some of the stuff is just like fundamental diversity that you want to have in the system."
+  },
+  {
+   "start": 2098.79,
+   "end": 2138.91,
+   "speaker_id": 1,
+   "text": "There are also just different approaches you can take to this. So like one approach might involve you creating like a little team of agents. We have this thing called the review squad that kind of works like that. Or one might be like an agent just kind of looking at the code and looking for problems, but it can also see the previous code as it was. Or another might be that you actually let an agent like run with a full environment where it can like apply different code changes or add tests and see how those tests like, you know, roll result. And like it's not obvious to us which of those approaches is best. And there are a lot of people interested in experimenting. So our job kind of turns into like how can we figure out how to make experimentation possible?"
+  },
+  {
+   "start": 2138.91,
+   "end": 2142.38,
+   "speaker_id": 1,
+   "text": "make it so that all of these different attempts can kind of like live together."
+  },
+  {
+   "start": 2142.38,
+   "end": 2150.51,
+   "speaker_id": 0,
+   "text": "Right, so part of what you're doing is trying to build concrete developer tools for people and part of what you're doing is building a platform for people to build their own developer tools."
+  },
+  {
+   "start": 2150.51,
+   "end": 2185.86,
+   "speaker_id": 1,
+   "text": "Yep, that's right. And for a while we thought about that mostly as the tools that we give to the LLM, but increasingly we're thinking about it as things like the harness and how the harness works, or how you plug in uh code review tools, or even like um you know, we we have a system for monitoring all of the different LLM work that's happening on your behalf. And we built our own interface for showing all of those different LLM things in progress. But then we also built like a set of APIs that are like a a monitor set of APIs that a bunch of other people have built their own kind of tooling on top of."
+  },
+  {
+   "start": 2185.86,
+   "end": 2212.45,
+   "speaker_id": 0,
+   "text": "So we talked some about AI as tools for understanding and code review is like one focus, and this nice thing of like, oh, we could have the LLM tell its story, right? It can like decide how to organize the diffs and how to present it to you, and how to kind of do the work of laying out the concepts in an order that's easy for the human to understand. That seems great. But it's also in some ways kind of very textual, and that feels like a limitation that kind of shouldn't be there."
+  },
+  {
+   "start": 2212.45,
+   "end": 2238.67,
+   "speaker_id": 0,
+   "text": "like one of the things that feels to me like it should be all over the place is leveraging the fact that AIs are actually really good at minting visualizations to build more like custom ad hoc one-time-only visualizers to help people understand all sorts of technical issues, including understanding what's happening in their code. Like, how much of that have you seen and like, like, is it important, should we be doing things to generate more of it?"
+  },
+  {
+   "start": 2238.67,
+   "end": 2252.22,
+   "speaker_id": 1,
+   "text": "I haven't seen much of that personally. I think it's extremely exciting though. So you're talking about like having the LLM maybe make little diagrams of how the code is laid out or how different pieces interact with each other so that it can explain a concept to you?"
+  },
+  {
+   "start": 2252.22,
+   "end": 2289.95,
+   "speaker_id": 0,
+   "text": "Yeah, or like, you know, there's a performance problem. Can you like build me a custom visualization of what's going on there? Like, we lean a huge amount on on great visualization tools. Um, and I think often very like high quality, simple, repeatable tools. So we've gotten a huge amount of use of Google's Perfetto and we have like our own hacked up version of Perfetto that has like a few different improvements to it. We've hooked it into our Magic Trace and other kind of performance analysis tools. But like, it's really focused on one relatively narrow class of visualizations. And there's all sorts of other ways that you might want to understand what's going on technically in a code base."
+  },
+  {
+   "start": 2289.95,
+   "end": 2316.53,
+   "speaker_id": 0,
+   "text": "And it feels to me like there should be lots of good examples of ways of doing this, but like I haven't seen quite as much of this as I feel like there should be and I kind of wonder, wonder why we don't, why we don't get more of it, both like internally but also like in things in the outside world. I felt like, I don't know, six months ago I was seeing more stories about this, but like fewer compelling examples. And like I'm wondering like maybe it's less good than I think it is or maybe it's harder than I think it is or maybe we're just like not there yet."
+  },
+  {
+   "start": 2316.53,
+   "end": 2352.69,
+   "speaker_id": 1,
+   "text": "I think it's it goes back to the point I was saying earlier about like if the models stopped their progress, we would still have multiple years of work to do. That like a lot of the ways that we apply models now are either reflections of how the software process existed before the models were around, meaning we're just trying to plug them into places where a human would do exactly the the process, but we're having an LLM help with it. Or they're a reflection of how the the models interface works. And what I mean by that is that a lot of the interfaces that we have for interacting with models, they feel like chat because that's how the APIs work for the vendors."
+  },
+  {
+   "start": 2352.69,
+   "end": 2376.61,
+   "speaker_id": 1,
+   "text": "And I feel like we're just now starting to really get into like, maybe chat's not the right interface. Like, maybe the thing you actually want to present to people when you're writing code is something more like little tidbits about the exact code changes that you've made. And maybe chat is almost like, yeah, you want to have the log there in case the human has a question about why the model did a thing, but maybe it's not like the primary artifact you want to show back."
+  },
+  {
+   "start": 2376.61,
+   "end": 2386.63,
+   "speaker_id": 0,
+   "text": "I think this is a little bit of a artifact of this kind of move from interacting with a single agent to interacting with multiple agents."
+  },
+  {
+   "start": 2386.63,
+   "end": 2387.27,
+   "speaker_id": 1,
+   "text": "Yeah."
+  },
+  {
+   "start": 2387.27,
+   "end": 2408.71,
+   "speaker_id": 0,
+   "text": "and I think we're this is like both inside our world and outside of it, there's like more and more support for these kind of orchestration level work where, yeah, like you're you're you need to talk to an agent to do some things, but you also want to be able to like visualize and absorb and manage and have in fact have LLMs manage for you the work of many different agents."
+  },
+  {
+   "start": 2408.71,
+   "end": 2419.63,
+   "speaker_id": 1,
+   "text": "Um, and there's the flip of that too. You want to have them not just working on like one one thing. One one, we keep saying artifact, so I'm trying not to say. You don't want them just to work on one"
+  },
+  {
+   "start": 2419.63,
+   "end": 2420.86,
+   "speaker_id": 0,
+   "text": "one code change"
+  },
+  {
+   "start": 2420.86,
+   "end": 2430.62,
+   "speaker_id": 1,
+   "text": "one code change or one uh diagram or one research study. You kind of want them working across multiple at once. So there's the the other side as well. It's like a many to many."
+  },
+  {
+   "start": 2430.62,
+   "end": 2452.0,
+   "speaker_id": 0,
+   "text": "So, I'm curious what you think is coming next in this regard. Like what do we need to be building to better support this kind of ecosystem of like many different agents working on various different problems, communicating with each other in various ways. Like, seems kind of like horrifying from a like reproducibility standpoint, but like, I don't know, what do what do what are the kinds of things that we need to like..."
+  }
+ ],
+ "gen_tokens": 13609,
+ "text": "[{\"Start\":0,\"End\":10.22,\"Speaker\":0,\"Content\":\"you could see in the outside world like, you know, GitHub released, you know, this these integrations for VS Code which were like all autocomplete based and the way you used LLMs, right, was Copilot.\"},{\"Start\":10.44,\"End\":49.67,\"Speaker\":1,\"Content\":\"because they know that the caller is an AI version of you. It also means that in other places, like we've built other systems that take use of this AI dash concept. Um one example point we also were uh we had functionality for autocomplete similar to Copilot inside of our editors, which are, I should say, primarily not, I guess like we we do use VS Code, but we also use a bunch of like Neovim and Emacs here. So we had built um editor extensions into those. And then people were asking to be able to use the chat models inside of the editor. And they didn't want the chat models to like do a bunch of stuff, maybe it would be able to like edit a file.\"},{\"Start\":49.67,\"End\":57.82,\"Speaker\":1,\"Content\":\"but the the hope wasn't that they're going to start writing whole giant pieces of software. It was just that you can ask them quick questions inside the editor. So we built that.\"},{\"Start\":57.82,\"End\":89.55,\"Speaker\":1,\"Content\":\"we built a a markdown buffer version of talking with a model, which is actually pretty cool, I think. There's something there. Uh it was basically like a markdown document that you type a question into and then when you uh when you like hit enter in the document in normal mode it would then uh let the assistant fill in the next piece. So we built that and then at some point um the people that were working on that noticed that it was like incredibly annoying to have to restart the editor over and over again when working with it. So they built this like\"},{\"Start\":89.55,\"End\":102.47,\"Speaker\":1,\"Content\":\"testing tool, which was basically like, we will just have the chat part hooked up to a CLI tool, but not inside the editor, just so that they could like quickly iterate on it without having to open the editor every time.\"},{\"Start\":102.47,\"End\":110.76,\"Speaker\":0,\"Content\":\"Oh, you're saying they had it's the point is the people who were working on the tool didn't want to have to reboot. So this is not like an end user problem of like\"},{\"Start\":110.76,\"End\":114.96,\"Speaker\":1,\"Content\":\"No, it's not like I have a developer problem. It's just like annoying to have to open it over and over again.\"},{\"Start\":114.96,\"End\":118.63,\"Speaker\":0,\"Content\":\"I think people just like made their own like command line version. Got it.\"},{\"Start\":118.63,\"End\":119.52,\"Speaker\":1,\"Content\":\"and\"},{\"Start\":119.54,\"End\":154.38,\"Speaker\":1,\"Content\":\"right around this time, the model started calling the tools a little bit more. Just like a little bit more. And we were like, wait, I think this thing is really useful. This like tool, this command line tool. Um, and that is the nugget of what eventually ended up turning into this aid CLI tool, which you can think of kind of like Cloud Code or Codex CLI. Um, and that kind of brings us into this new part where, um, you know, the models, that new tool has like grown in a bunch of ways and now it is a tool that people use for agentic coding.\"},{\"Start\":154.38,\"End\":191.23,\"Speaker\":1,\"Content\":\"uh we've also, oh, and then and then the last thing we've done is we've made this like very large change, uh seeing the models do more and more and having them often limited by, um, you know, where they can reach into, we've made a change in how the actual work gets orchestrated so that the LLMs can essentially distribute work onto any of the developer machines at the firm and actually a bunch of other places too. And then the most recent change that we've made is we've actually made a change to kind of invert the control of how the LLM, uh, operates when it's trying to do things like bash calls.\"},{\"Start\":191.23,\"End\":227.2,\"Speaker\":1,\"Content\":\"So when you use something like Cloud Code, you're typing into terminal on your computer and then the bash calls are running also on your computer. And it's like fairly easy because the the the prompting loop and the place that the work is running are in the same place. And you kind of saw this opportunity to make a change to split those apart so that people could do things like use the chat application, ChainGPT, to be able to do work that actually ends up happening on a computer totally somewhere else. So we have made it so that there's like a central orchestrator that takes in all of the prompts and is able to distribute work onto\"},{\"Start\":227.2,\"End\":233.93,\"Speaker\":1,\"Content\":\"any of the hosts connected to it, where the hosts are roughly all of the developer machines at the firm plus a bunch of build boxes.\"},{\"Start\":233.93,\"End\":234.53,\"Speaker\":0,\"Content\":\"Right.\"},{\"Start\":234.53,\"End\":267.7,\"Speaker\":0,\"Content\":\"And this is like not so different from some of the directions that the kind of prompting engines kind of in the outside world have moved in, of wanting to like take that same session and instead of having it just like sit locally on your box, be in some kind of distributed system where you can access it through a web UI or from your phone or... Yeah, like from Slack. From Slack or whatever. Um, we've done this kind of in our infrastructure, uh so that we can orchestrate with whatever model we want, with whatever internal tools we want, and keep control of our data. And that's sort of what the kind of centralized version of the system looks like.\"},{\"Start\":267.7,\"End\":306.81,\"Speaker\":1,\"Content\":\"And it's enabled new ways to work. Like one way to work is we have this thing called Aid Mint, which is a system by which you mostly via Slack, but there's a few other ways that you can interact with it. You tell it the thing that you want to happen and it goes and creates a new feature, which is essentially our term for pull request. It spins up a build inside of that feature and then it kicks off the agent to go do some work. And you can actually do this totally from Slack. So you say, oh, this is the thing that I want to happen in this area of the code base, and the agent will go off and do it. But importantly, the work that it's actually doing, it's like running as you on your computer.\"},{\"Start\":306.81,\"End\":314.96,\"Speaker\":1,\"Content\":\"It's not like we, you know, have a bunch of AI build boxes out there. It's just like actually distributing the work back to, um, your development machine.\"},{\"Start\":314.96,\"End\":318.5,\"Speaker\":0,\"Content\":\"Right, although maybe not running exactly as you, maybe it's running as your AI user. True.\"},{\"Start\":319.86,\"End\":320.8,\"Speaker\":0,\"Content\":\"Right.\"},{\"Start\":320.8,\"End\":359.07,\"Speaker\":0,\"Content\":\"And I think the interesting thing about that last piece, this kind of mint system, is that in some sense, it seems like totally trivial. It's like, I could have spun up a new piece of work by like, you know, going off and creating a feature and then starting an agent inside of it and asking the agent to do it. And it's a relatively small UX change to make it so that you can just say something in Slack and have an agent pick it up and create the feature for you and start the work. But that relatively small user experience change was a really big difference to people's behavior. It's a little bit like conflated because it's like also at around the time that models were getting significantly better.\"},{\"Start\":359.07,\"End\":368.88,\"Speaker\":0,\"Content\":\"But we just saw like a huge uptake in this and I think the amount of work that was done with agents authoring that work like dramatically shot up. Yeah.\"},{\"Start\":368.88,\"End\":409.35,\"Speaker\":1,\"Content\":\"Yeah, it's something like like 45% of the total released features PRs, uh, that get, uh, made at the firm are start with this flow. This like kind of asynchronous, uh, flow involving an LLM. I think in a way it gets you past the kind of blank page problem, like you were talking about before with a document. Like you're, you know, writing a document, oh, what do I write? It might be the case that the LLM writes something for you and you change most of the details, but there's still value in it kind of doing the first bit. And also, like it's worth saying that, you know, there's a lot of toil involved in just creating a new, um, pull request, right? You have to like go create a branch, you have to switch to that branch.\"},{\"Start\":409.35,\"End\":421.33,\"Speaker\":1,\"Content\":\"you have to figure out what build targets to put in place, you have to like create a name for it, you have to get the whole like workspace set up correctly, you have to figure out what files are involved in the change you want to make, and the LLM can kind of just jump right through all that.\"},{\"Start\":421.33,\"End\":444.34,\"Speaker\":0,\"Content\":\"And I think another interesting aspect of this is how much of the work is stuff that you just kind of let the agent just kind of do, and how much do you kind of hard set up. And I think there were a bunch of good choices that were made about what things you just kind of hard set up, not because the agent couldn't do it at all, but because it made things faster and more reliable and more consistent to kind of do them in advance in this way.\"},{\"Start\":444.34,\"End\":469.88,\"Speaker\":1,\"Content\":\"And then we're even noticing places where like the setup that we've provided for the agent is useful for the humans too. Like in a way the problem that I just described of like picking the build targets, uh, that are appropriate for your work, well, like it's annoying for a human to do too, right? So like the same systems that we put in place for maybe authors to say, oh, in this part of the tree the build targets that I probably want are these, once we do that work, now humans can benefit from that change too.\"},{\"Start\":470.2,\"End\":509.34,\"Speaker\":0,\"Content\":\"I had an interesting conversation earlier this week with someone who was thinking about the kind of vibe coding problem with uh web apps. So like one thing that like everyone now knows is like the models are really good at is like thracking together a quick web UI. And this is actually an area where we're really excited about, you know, real deal vibe coding, meaning like having agents write stuff that like maybe no human looks at it all. And one of the reasons why it's useful is, first of all, it lets you write code, it's less about, you know, changing how you write the code you were going to write before and instead let you write code that you would have never bothered to write at all.\"},{\"Start\":509.34,\"End\":543.79,\"Speaker\":0,\"Content\":\"'cause it's like it's now just so cheap to do that you can have this kind of like disposable tool that you like quickly throw together to solve some particular problem. Is it exactly right? Uh, probably not, but it doesn't totally matter. It gives you enough insight and it's useful for that one use case and you kind of throw it away when you're done. And trying to build workflows that make it really easy and natural to do that. And it turns out the models are best at the things that they know best. And so, you know what they don't know best? They don't know like OCaml and like Bonsai, which is our internal system for building web apps and stuff.\"},{\"Start\":543.79,\"End\":582.27,\"Speaker\":0,\"Content\":\"So they're they are going to like know more off the top of their head how to go off and, you know, build something in pure HTML and JavaScript than they're going to be able to build something that like fits naturally into our internal ecosystem. And like part of our answer to that has been like, \\\"Oh yeah, we can like do some of that. Like, you know, JavaScript works here too. We can do some things in that style.\\\" But the people who think about the web platform here have been trying to like think about and understand what's the gap? Like, why does it take much longer to build an app in Bonsai than it does to build an app in JavaScript? And one of the things they've been discovering recently is some of it has nothing to do with the language stuff.\"},{\"Start\":582.27,\"End\":615.24,\"Speaker\":0,\"Content\":\"some of it is just like, oh, before I was just like doing a single index.html that like had the JavaScript and HTML in that one file and there was no anything to do. It just like could generate the text and it was kind of fine. And now, there's like a feature in Iron, which is our code review system, that has to be created and a build process that has to be kicked off. And there's just like more steps and tool calls and the thing that actually represents there's like 30 seconds of like actual work to go and like generate the code.\"},{\"Start\":615.24,\"End\":620.42,\"Speaker\":1,\"Content\":\"You probably want to grab like the bonsai starter template and like get your code off to a good start.\"},{\"Start\":620.42,\"End\":659.22,\"Speaker\":0,\"Content\":\"And so like the whole thing in reality takes 10 minutes when it would have taken 30 seconds in the pure index.html world. And I think at first we were like, oh, maybe this is just like the cost we're paying because of like internal languages and libraries. Like, no, actually this is maybe stuff that we can fix by exactly as you're suggesting, doing like more like hard deterministic setup stuff so that like things are just there and ready and like the agent doesn't have to go and discover again how to use all the tools. That's again, kind of like the the agents are kind of like amazing and one of their thing that makes them amazing is also one of the deficiencies, which is they are perpetual beginners, right?\"},{\"Start\":659.22,\"End\":669.46,\"Speaker\":0,\"Content\":\"They never learn how to use the tools, right? It's just they rediscover every time how to use the tools. And so you kind of have to build your whole system around them being these kind of perpetual beginners.\"},{\"Start\":669.46,\"End\":670.52,\"Speaker\":1,\"Content\":\"Right.\"},{\"Start\":670.52,\"End\":707.15,\"Speaker\":1,\"Content\":\"Yeah, I think another part of this is you can maybe like instill them with a little bit of repeated knowledge by like writing skills, right? But then there's a question, uh so skills for anyone that doesn't know are these like little documents that you write to kind of guide the model on things that it does often. And models can also like help you write these skills and put them in place, but it takes time to write them. And it takes time to like know that you're writing them well. And once you have a, you know, large organization using a bunch of skills, they also become a little bit hard to change because changes to skills might have kind of untold impact on different parts of the firm. So this is also a problem that we end up having to think a lot about.\"},{\"Start\":707.15,\"End\":746.04,\"Speaker\":0,\"Content\":\"Yeah, actually, we've talked a little bit about things like skills, we talked about function calling. There's like we built our own APIs for it. There's APIs like MCP, which have come out in the outside world, like which became public and popular after we'd already built our own version of it. Skills is another example of this. We had a thing that we built called Context Bundles, and then later this kind of public standard of skills came out. So this is kind of like treadmill that's going on of like things are always changing. We're building things and then often the outside world builds things, and that's like a complicated balance. Also, like we have our own command line tools like HCL.\"},{\"Start\":746.04,\"End\":780.76,\"Speaker\":1,\"Content\":\"Yeah, one nice part about having our own tools, right, is that we can, like if we see a need for something, we can go make it. Um, but then there's also this thing you have to do sometimes of being like, okay, well the outside world has really kind of set their standard against this. For example, skills. And like context bundles are probably not the right answer. So there's like a little bit of acknowledgement. You know, like it would be a bad decision to be stuck to the decisions that you made even when you see the outside world starting to do something different. So sometimes you have to like go undo work that we did, which we recently did with context bundles. We've taken context bundles away, we've replaced them with skills.\"},{\"Start\":780.76,\"End\":805.77,\"Speaker\":0,\"Content\":\"And then I think the other thing which which is maybe not as obvious from what we've said thus far is that we actually use third-party tools. So, Claude Code and Codex are things that we use inside of our world. And that's also been an interesting experience of like it it makes some things harder, it makes some things better. Like, can you say a little bit more about like why do we both like go to the trouble of building our own tools and use external third-party tools at the same time?\"},{\"Start\":805.77,\"End\":806.63,\"Speaker\":1,\"Content\":\"Yeah.\"},{\"Start\":806.63,\"End\":845.04,\"Speaker\":1,\"Content\":\"Uh, so I guess like there's there's two sides of this. One is like you want control over the harness, you want control over what models get used, even doing things like combining different models to give users a better experience. You also, I think with our tooling on the user-facing side, want to have a little bit more uh deep integration into the tools that you know that they're using. For example, in the bottom of our CLI tool, and this is a fairly minor thing, but in the bottom of our CLI tool, we like show what feature the model is currently working in, and we let you switch between different features. So you can have the model and know that the workspace that it's working in is kind of locked to the feature that it's currently operating inside of.\"},{\"Start\":845.04,\"End\":884.63,\"Speaker\":1,\"Content\":\"The model can see like the build status for that current feature, and these are these are not things that we have to tell the model. We like have given it a tool that's like compile, right? And it gets back the status of the current compilation. We also want to use external tools because, I mean, in a lot of ways, they're moving in different directions and sometimes faster than we are. Um, these are constantly coming out with new functionality. Uh, like, um, I guess the memory system in Cloud Code feels like a good example of this. Of a place where they're kind of like coming out with functionality that feels in a lot of ways more advanced than the thing that we have to solve the same problem. Um, we want to let people use the tool that works best for them.\"},{\"Start\":884.63,\"End\":920.27,\"Speaker\":1,\"Content\":\"we also want to learn. I think one thing that came up early on is like it felt, at least I felt this like tension of like, oh, I'm building this tool, I really want, you know, this tool to be used by everyone because otherwise like why are we even making it? Um, but then there's this kind of realization that if your tool is only the best because you've like closed out uh competition from the outside world artificially, then it's not it's not really the best tool for the job. And the decision we want to make is the one that's going to be best for people here. So as a result, we give them access to to all the tools. And then we try as hard as we can to make ours as good as it can be.\"},{\"Start\":920.27,\"End\":920.93,\"Speaker\":0,\"Content\":\"Right.\"},{\"Start\":920.93,\"End\":947.91,\"Speaker\":0,\"Content\":\"Yeah, there's a form of just like internal virtuous competition where, you know, the fact that you get to see these tools in action inside our inside of our codebase, you get to see what advantages they have, and that helps us learn what we need to build and how we need to make things better. Um, I also think there are real challenges to it. Like every time you support an external tool, there's like real problems you have to think about. There's a bunch of security questions that get significantly more complicated.\"},{\"Start\":947.91,\"End\":976.44,\"Speaker\":1,\"Content\":\"Yeah, they don't always have all the right plug points, right? Like even uh sandboxing, right? They a lot of the tools have their own sandboxing. And if we want sandboxing that's consistent across all of them, kind of hard to use the sandboxing that they provide because it doesn't provide all the same functionality. And maybe mapping our sandboxing rules onto their sandbox is kind of a a losing effort. So instead, we've tried to find ways to kind of shim our sandbox in in the right places so that it uh gets used across all the clients.\"},{\"Start\":977.16,\"End\":1013.46,\"Speaker\":0,\"Content\":\"Right, and at the end of the day, I think an ecosystem where we both try and build really good tools that are adapted specifically for like our use cases and can really advance in ways that are hard for external tools to advance, and at the same time have a platform that's really good at supporting third-party tools, like is a kind of like mixed mode interaction. I think we've actually done this in other places. Another another thing that I think makes us a little unusual is just as an organization we've done a huge amount of work on having our own data centers and having control over the physical machines that we use. Like, you know, you mentioned control.\"},{\"Start\":1013.46,\"End\":1049.77,\"Speaker\":0,\"Content\":\"control comes up a lot when you're building, you know, low latency high performance trading systems, you want a lot of control of the physical layer. And we found that control to also be useful as we like scale up enormously in the kind of GPU fleets that we build. And also at the same time as we've grown, we found it's also really useful to use cloud offerings. And like in part because sometimes there are capacities they have that we don't. Sometimes they're just better at us. Like we've learned things from like we've like run the same workload in the cloud and it's like way faster and we're like, oh, what did we get wrong? And we've like learned important things that way. Often it goes the other direction.\"},{\"Start\":1049.77,\"End\":1087.73,\"Speaker\":0,\"Content\":\"uh but we've been able to scale up, do new things faster, find more compute capacity, and just generally I think do a better job on all sides of the work by doing what seems like in some ways a kind of crazy thing of like, oh, are we going to take this simple path or that simple path and we're going to do both at the same time. And it is hard to do both at the same time, but I think there are real rewards to it and I feel very similarly here where I think both building our own stuff and having a really having really good support for using third-party tools is important. And I don't think we do any of this perfectly. Uh, I think neither our internal tools are perfect nor is our support for using third-party tools ideal.\"},{\"Start\":1087.73,\"End\":1091.13,\"Speaker\":0,\"Content\":\"but I think that's that I think that's the right strategy for the work here.\"},{\"Start\":1091.13,\"End\":1095.36,\"Speaker\":1,\"Content\":\"there's there's a thing that we end up doing fairly often uh where we see\"},{\"Start\":1095.52,\"End\":1123.24,\"Speaker\":1,\"Content\":\"We see a place where people are leaning heavily on not our tool, and then we end up making changes to our tool to kind of accommodate why they're going to do that. Like the permissioning changes is one of these. And I think you could follow the kind of logic of that and you could say, well, then why do the work if you're always just trying to like catch up, you know, to the work that the vendor is doing? And I feel like that's not the like charitable read on it.\"},{\"Start\":1123.24,\"End\":1142.37,\"Speaker\":1,\"Content\":\"What actually is happening is that there are also a lot of ways that like we're building things that the vendors aren't building, or we're building deeper integrations, or we can fix like usability bugs that people here specifically have earlier. Or we can provide tools that feel more natural to use inside of our system. And then also we should keep up with all the things that are happening in these external clients.\"},{\"Start\":1142.37,\"End\":1152.54,\"Speaker\":0,\"Content\":\"Yeah, if you're not getting some kind of unique advantage from building your own thing, you're just wasting your time. Yep. So we've talked a bunch about the tooling that we've built to make all of this better. I want to\"},{\"Start\":1152.54,\"End\":1171.05,\"Speaker\":0,\"Content\":\"Talk a little bit about just like the experience of programming, right? I mean, I feel like kind of everyone in the software engineering world has experienced some of this, but I'm kind of curious just from your perspective, how what have you seen in your from your kind of vantage point working on all this AI tooling about how the tooling has changed the experience of coding?\"},{\"Start\":1171.05,\"End\":1193.47,\"Speaker\":1,\"Content\":\"Probably a lot of people, I got into coding because I liked coding, right? I liked solving problems. I liked even just like, you know, sometimes you're solving a problem and it feels like a fun puzzle. I even like the part, maybe I'm crazy, I like the part where like I know exactly what I'm writing and I'm just going to write it right now. Like, I think that's that part feels really good too.\"},{\"Start\":1193.47,\"End\":1204.27,\"Speaker\":0,\"Content\":\"Yeah. And like knitting, right? Yeah. You're not maybe solving any big ideas, but just like the craft of putting the code together bit by bit, you know, making it it's it's it's a little artistic, right?\"},{\"Start\":1204.27,\"End\":1241.08,\"Speaker\":1,\"Content\":\"I don't want it to always be, I know exactly what I'm doing, but sometimes. Sometimes it's just like, you know, it's like uh uh it's like at the end of a video game, some new games have started doing this thing where they like at the end, there's like a fun level where they just like let you, you know, you're operating with like complete immunity or something. It's like, you know, you're just you're just sitting down and you're doing the actual thing. Um, and you can get into this nice flow state and it's very good. Um, and I think that both of these are like at different levels of like, I don't know, not the same as they were before, right?\"},{\"Start\":1241.08,\"End\":1268.62,\"Speaker\":1,\"Content\":\"like the just do the thing one, the the second one. It seems like LLMs are actually just pretty good at doing that. Uh so if the thing that you liked was, you know, feeling like you had a full command of the type system and that you could like quickly roll out changes that feel complicated to other people or you have the whole world in your head and you just want to go implement it, that's probably just becoming like less of a needed skill. It just seems that way. Um and then on the on on the other side, there's like a lot of places where, um\"},{\"Start\":1268.62,\"End\":1301.33,\"Speaker\":1,\"Content\":\"you know, the thing you have to do is uh design a solution to a problem, a code problem, and kind of like work through the ramifications of implementing that and maybe there's some like particularly performance sensitive pieces, and your job there has changed a little bit too in the sense that the model is like doing a lot of authoring and you're doing a lot of like making sure that it did the right thing, right? You're kind of like watching the code that it wrote and offering adjustments where you can, um and kind of your role has shifted a lot in a lot of cases more toward like code review.\"},{\"Start\":1301.33,\"End\":1336.64,\"Speaker\":1,\"Content\":\"Um, and then there's this like third part which I feel like is still fairly protected, although we're on the cusp of, is like the actual like software design part. But like what, uh, what will you do, how will you do it, what are the pieces involved, what will it feel like to use this thing once you're done doing it? Um, and this is a place where obviously people are using LLMs a lot too, in things like like plan mode. Um, but this feels like the, I don't know, the least, the least like entirely changed version. In a way, the LLM is like just a collaborator that you're working with rather than someone doing the thing that you like to do.\"},{\"Start\":1336.64,\"End\":1337.19,\"Speaker\":0,\"Content\":\"Right.\"},{\"Start\":1337.19,\"End\":1356.32,\"Speaker\":0,\"Content\":\"So I think one thing you're pointing to is that like there's a lot of different parts of the work that people gain satisfaction from, and the tools are just kind of changing which parts of those work are available. Like what what actually will you do? How will you spend your time? There's like some parts of the work that like people are going to spend much less time on because they're more automated.\"},{\"Start\":1356.62,\"End\":1364.34,\"Speaker\":0,\"Content\":\"and that's like good for some people and bad for others, right? It's like changes the shape of the work in a way that adjusts people's level of satisfaction.\"},{\"Start\":1364.34,\"End\":1364.91,\"Speaker\":1,\"Content\":\"Yeah\"},{\"Start\":1364.91,\"End\":1385.72,\"Speaker\":1,\"Content\":\"I think I hear this pretty often. People that are like, even people that were maybe less technical at some point are just like, this is the best thing ever. All of a sudden like this, you know, this thing that felt closed to me is open, right? But then people that maybe were making uh more rote changes for most of their time are like, you know, the thing I loved is gone. More of more of that feeling.\"},{\"Start\":1385.72,\"End\":1412.32,\"Speaker\":0,\"Content\":\"Yeah, one one thing I heard from a very strong engineer here was he just highlighted that like the way the character of how his job worked, at some point felt like, you know, 10% of his time was thinking really hard and deeply about what to do. And then, you know, 90% of the time is on the execution of that, which is the, you know, this knitting thing that we were talking about of like taking these ideas and unfolding them and like learning along the way from that process, but like, you know, kind of getting your fingers into the warp and weft of the code.\"},{\"Start\":1412.66,\"End\":1449.9,\"Speaker\":0,\"Content\":\"And now, he does that 10% and then like sends a model to do the other piece. And then does like another one of those 10% and then sends a model to do the other piece. And in some ways it's good, you get to spend more of your time thinking about hard problems. And it's also kind of tiring, right? It's like there's like a relaxing piece in the middle that you just kind of get less access to. Another thing I worry about here is what it means about how people learn. Because I think I think that knitting time is also a time where you learn important things, right? First of all, you learn important things about the ideas. Like you spend that 10% thinking hard about what to do and it turns out the result of the 10% is you're wrong, right?\"},{\"Start\":1449.9,\"End\":1453.87,\"Speaker\":0,\"Content\":\"you have some idea that you've thought really hard about it and it doesn't really match reality.\"},{\"Start\":1453.87,\"End\":1462.74,\"Speaker\":1,\"Content\":\"How many times you've like done a refactor, you get through most of it and then you're right at the end you're like, oh, that's why this can't work. Yeah. It's like, roll it back.\"},{\"Start\":1462.74,\"End\":1499.71,\"Speaker\":0,\"Content\":\"Right, and another example of this feedback I've gotten. So talking to Leo White who has has been on this podcast uh long ago about like a new syntax extension he was he was building. Building a new system for basically changing how we think about code coverage. Um and you know, he had the high-level idea and you know, got an agent to go off and implement it. And it's sort of interesting like he felt like he was really close to being done then because he'd had the core idea and had the agent go off and do the work. Um and then he was like, well, but of course it has to be good, so I have to read the code.\"},{\"Start\":1499.71,\"End\":1536.54,\"Speaker\":0,\"Content\":\"And then in reading the code, actually a lot of the work that he would have done in the process of authoring himself, authoring it himself, he now had to do in the process of reviewing it, of being like, \\\"Oh, well, that's a bad idea.\\\" Right? And you would have, you know, as you went through the code and tried to make the changes, you would have learned these things along the way, but instead he learned it in the course of reading and then giving the feedback to the model to clean it up. And it's this kind of uncanny thing where it feels like the models are doing more work for you than they really are, because this verification piece is is as hard as it ever was. In fact, maybe harder.\"},{\"Start\":1536.54,\"End\":1541.42,\"Speaker\":1,\"Content\":\"seems harder. Yeah. Yeah, like the model. It's harder to verify code that you didn't write. Right.\"},{\"Start\":1541.42,\"End\":1545.17,\"Speaker\":0,\"Content\":\"Right, I mean you're always verifying code you didn't write in the sense that it's code review.\"},{\"Start\":1545.17,\"End\":1547.54,\"Speaker\":1,\"Content\":\"and like some... There's code review but someone else wrote it. Right.\"},{\"Start\":1547.76,\"End\":1552.56,\"Speaker\":0,\"Content\":\"Right, it's hard, I think in some ways it's harder to verify code that no person wrote.\"},{\"Start\":1552.56,\"End\":1553.76,\"Speaker\":1,\"Content\":\"Yes, that's sorry, yes.\"},{\"Start\":1553.76,\"End\":1569.0,\"Speaker\":0,\"Content\":\"Right. The codes generated by the model, they just like, it's not that they're worse in any kind of strict way. They just have different error characteristics. And like, our techniques for noticing what's wrong and thinking through what might go wrong are just like, they just don't work the same way.\"},{\"Start\":1569.0,\"End\":1590.79,\"Speaker\":1,\"Content\":\"Yeah, sometimes you see the model do something, right, and you're like, uh, well a human never would have done that. That's just like, you know, and it's not it can be wrong in like a very subtle way that that isn't obvious when you first look at it. Yeah. And I guess part of the risk of all this is that some people, uh, might not, like it's it's when the code is there, it's compiling, it does the thing you want it to do.\"},{\"Start\":1590.81,\"End\":1597.25,\"Speaker\":1,\"Content\":\"It's kind of tempting to not understand it, you know? And there's a risk in that.\"},{\"Start\":1597.73,\"End\":1615.05,\"Speaker\":0,\"Content\":\"Yep. And there's a real question of like, what do we want to understand and at what level? People often bring up the compiler as a kind of analogy in the space of like it used to be back in the ancient days, people would like write programs in machine code or assembly code.\"},{\"Start\":1615.48,\"End\":1640.57,\"Speaker\":0,\"Content\":\"and then there were compilers and people stopped doing that and it was okay. And I think that's like both like a good and a bad analogy in the sense that like it it correctly highlights that we don't need to maintain understanding of every level of the system in the way that we did in the past. It's possible to go from one level to another and to be okay with it. And also, boy are these things not compilers.\"},{\"Start\":1640.57,\"End\":1642.18,\"Speaker\":1,\"Content\":\"Yeah, like they're not deterministic.\"},{\"Start\":1642.18,\"End\":1647.16,\"Speaker\":0,\"Content\":\"They are not deterministic, they are hard to predict, they do weird stuff. They do weird stuff at every level.\"},{\"Start\":1647.16,\"End\":1667.37,\"Speaker\":0,\"Content\":\"This is super dumb. Like, I went to an LLM like earlier this week to make a little infographic for myself for like some exercises I wanted to do. And it was amazing. It happened super fast. It did a great job. Like, of the seven exercises, it rendered them all perfectly well, except for the one at the bottom where it had the arms coming out of the floor.\"},{\"Start\":1667.37,\"End\":1668.82,\"Speaker\":0,\"Content\":\"[Laughter] It was like...\"},{\"Start\":1668.82,\"End\":1708.62,\"Speaker\":0,\"Content\":\"Wow, that's like a mistake a human would never in a million years have made. Um, and I feel like that same kind of like arms coming out of the floor thing happens in the code too. Yep. And certainly in the current regime where we're in, human understanding is as critical as ever, kind of the whole way through. Like you can't really trust the models to do any piece of it without you understanding it. Right. Um, so I think it's really essential to figure out how to use the models as tools for human understanding. And and I do I feel like people do this. Like I hear, you know, I've talked to people who talk about how code review has gotten easier because you can use the models to help answer questions.\"},{\"Start\":1708.62,\"End\":1724.54,\"Speaker\":0,\"Content\":\"It's like you go through and you see if like why why did we why did the person do that? Like what about the API would make that happen? And of course, there are still hallucinations. There's less, but they're still there. The explanation might be confidently wrong. Of course, if you tell the model that it's wrong, it'll be like, I'm so sorry.\"},{\"Start\":1724.54,\"End\":1725.88,\"Speaker\":0,\"Content\":\"You're totally right.\"},{\"Start\":1725.88,\"End\":1740.06,\"Speaker\":0,\"Content\":\"It's very compliant, but it does make mistakes. And yet, I think it can be a really powerful tool for understanding. And I'm curious how much do you see this like tool for understanding thing both in the things that people are like off building in the firm and in the things that you want to build in the future.\"},{\"Start\":1740.06,\"End\":1778.33,\"Speaker\":1,\"Content\":\"I see code review as a big part of this. Um, so it seems like there's a lot more work we have to do here, but there are opportunities to do things like break up the feature or pull request that you're reviewing into chunks that actually maybe don't appear in the original in the form that they are. One example of a tool here that's been helping uh along these lines is a tool called Diffractor, which is basically a code review tool that shows you um, you know, pieces of code laid out in a way that explains uh the change, but each of the chunks of code that you're viewing is not actually necessarily from the original diff.\"},{\"Start\":1778.33,\"End\":1789.78,\"Speaker\":1,\"Content\":\"in a way like you can break up the change in a way that the diffs apply on top of each other to make the original diff, but kind of tell a little bit more of a story of like why why this change was made.\"},{\"Start\":1789.78,\"End\":1818.8,\"Speaker\":0,\"Content\":\"Right, it's maybe worth saying a little bit like how does our ordinary code review tooling work? And so, like Iron, you go to review a feature, it shows you each file one at a time. It actually has the files ordered in the kind of definition order because OCaml it turns out has a kind of strict notion of like what is the order in which things happen that are kind of that respects the dependency structure of the files. Yep. Uh, which is kind of useful because you can sort of understand like the definitions before the uses of the definitions.\"},{\"Start\":1818.8,\"End\":1820.49,\"Speaker\":1,\"Content\":\"and then like the tests at the end or\"},{\"Start\":1820.49,\"End\":1821.06,\"Speaker\":0,\"Content\":\"Right\"},{\"Start\":1821.06,\"End\":1824.4,\"Speaker\":1,\"Content\":\"And it's not it's not always right, though. I mean like\"},{\"Start\":1824.4,\"End\":1826.02,\"Speaker\":0,\"Content\":\"It's not always the order you want.\"},{\"Start\":1826.02,\"End\":1864.17,\"Speaker\":1,\"Content\":\"Yeah, it's not always the order. When we were at GitHub and we were thinking about code review, a lot of times we were thinking we we were talking about these things called narrative code review, which are basically like, I don't know, could we instead of showing, for example, on a pull request page, a like description and then a series of commit like commit IDs that most most people don't read, and then a diff pane, could we instead use the commits to lay out more of like a story of a code of code review, right? How did the user like go from the first thing that they wanted to do to the change that eventually ended up in the pull request? And that at the time requires like a lot of work on behalf of the developer who wrote the change.\"},{\"Start\":1864.17,\"End\":1876.7,\"Speaker\":1,\"Content\":\"They have to like write individual commits, they have to write nice descriptions, they have to do things like rebase when they make a change, uh, that didn't end up being in the final. They want to like make a change to make it like historically make sense so the story plays out nice.\"},{\"Start\":1876.7,\"End\":1896.45,\"Speaker\":0,\"Content\":\"the developer has to tell the story from the beginning. Correct. And often, and that story is almost inevitably going to be a lie. It's not like the real story of what happened, because the real developer's journey towards getting a coherent feature is like many mistakes and back and forth that you don't that are not part of like the explanatory story of the nice thing you got to at the end, because you made a lot of mistakes along the way.\"},{\"Start\":1896.45,\"End\":1906.1,\"Speaker\":1,\"Content\":\"But the mistakes are, um, so the narrative code review would tell a story of the diff end to end. Um, but there's a couple of things there. One is like, like you said, you have to the developer has to do the work.\"},{\"Start\":1906.1,\"End\":1906.58,\"Speaker\":0,\"Content\":\"Mhm\"},{\"Start\":1906.58,\"End\":1921.54,\"Speaker\":1,\"Content\":\"So, that seems like a pretty interesting thing for an LLM to do. Like what if you could get the same benefit of it laid out kind of chronologically, um but laid out in a way that, uh, you know, the human didn't have to put in extra effort. And then another thing that happens is, um...\"},{\"Start\":1921.54,\"End\":1925.5,\"Speaker\":0,\"Content\":\"chronologically or like in some order that just makes sense.\"},{\"Start\":1925.5,\"End\":1932.38,\"Speaker\":1,\"Content\":\"in some order that makes sense. So like in some order that is the order that you would want in order to understand why the change was made.\"},{\"Start\":1932.38,\"End\":1949.81,\"Speaker\":0,\"Content\":\"I you might start off with like, here's the end API that we wanted to achieve, right? And now let's talk about like the pieces fitting into it after. It may be doing at least in a limited way the opposite of what our tooling does by default, which is to start like at the, you know, at the leaves and go all the way from there.\"},{\"Start\":1949.81,\"End\":1983.89,\"Speaker\":1,\"Content\":\"Yeah. There's also information lost in all of the commits and directions that people have gone down that they ended up having to back out of, right? So sometimes when I go to, for example, a pull request, I'm just saying to myself, \\\"Oh, you made this choice, but why did you make that choice? Why didn't you go this other way?\\\" And wow, the information that they did try to go that way and then decided that it wouldn't work would be really, really useful to surface. And of course, I can go ask the human and they can go try to remember, but ideally we could use LLMs to build tools that have a better sense of like what kind of ways the human went.\"},{\"Start\":1983.89,\"End\":2000.16,\"Speaker\":1,\"Content\":\"In its simplest form, if you take something like the original LLM session that a user used when trying to develop the feature, and make kind of the log of it available to another LLM, where the reviewer is asking questions about why certain decisions were made, really seems like you could get a lot of the way there.\"},{\"Start\":2000.16,\"End\":2005.79,\"Speaker\":0,\"Content\":\"Do you know how the diffractor tool itself works, like what information does it use for analyzing?\"},{\"Start\":2005.79,\"End\":2007.7,\"Speaker\":1,\"Content\":\"I don't know.\"},{\"Start\":2007.7,\"End\":2042.11,\"Speaker\":0,\"Content\":\"I mean, this actually highlights like a nice thing about these tools, which is one of the ways in which the character of the work has changed is that like everybody everywhere is thinking about this and there are tools bubbling up, you know, between the cracks in the sidewalk. Like people are just like creating stuff faster than any centralized team can like totally absorb them. And then I think like the goal of the centralized team is to like figure out like how can we build tooling to help people do that? And how can we take the best ideas that come up and make them more robust and more usable firm-wide and kind of make them more standard.\"},{\"Start\":2042.11,\"End\":2076.6,\"Speaker\":1,\"Content\":\"And in the cases where there isn't a best, uh how can we build tools that are like modular to the fact that people want to plug this particular piece? Like maybe they we have a bunch of uh we have a bunch of systems that use LLMs to do to do code review too. So an LLM, this is an LLM looking at code to determine if it has bugs or if it has security issues or if uh maybe it's like caused regressions in certain ways. And it seems like there's probably not going to be one of those that's right. So in a sense, we want to build like a little pluggable layer where people can kind of bring their own, share them, and we can see which ones do best.\"},{\"Start\":2076.6,\"End\":2098.79,\"Speaker\":0,\"Content\":\"Right, and it's it's almost necessarily domain specific, right? The advice that you want to give the LLM when it's when you're trying to like analyze a piece of code and figure out if there are issues with it is going to depend on where in the code base it is and what are the standards and what are the goals of the particular group of people who are building it. So like some of the stuff is just like fundamental diversity that you want to have in the system.\"},{\"Start\":2098.79,\"End\":2138.91,\"Speaker\":1,\"Content\":\"There are also just different approaches you can take to this. So like one approach might involve you creating like a little team of agents. We have this thing called the review squad that kind of works like that. Or one might be like an agent just kind of looking at the code and looking for problems, but it can also see the previous code as it was. Or another might be that you actually let an agent like run with a full environment where it can like apply different code changes or add tests and see how those tests like, you know, roll result. And like it's not obvious to us which of those approaches is best. And there are a lot of people interested in experimenting. So our job kind of turns into like how can we figure out how to make experimentation possible?\"},{\"Start\":2138.91,\"End\":2142.38,\"Speaker\":1,\"Content\":\"make it so that all of these different attempts can kind of like live together.\"},{\"Start\":2142.38,\"End\":2150.51,\"Speaker\":0,\"Content\":\"Right, so part of what you're doing is trying to build concrete developer tools for people and part of what you're doing is building a platform for people to build their own developer tools.\"},{\"Start\":2150.51,\"End\":2185.86,\"Speaker\":1,\"Content\":\"Yep, that's right. And for a while we thought about that mostly as the tools that we give to the LLM, but increasingly we're thinking about it as things like the harness and how the harness works, or how you plug in uh code review tools, or even like um you know, we we have a system for monitoring all of the different LLM work that's happening on your behalf. And we built our own interface for showing all of those different LLM things in progress. But then we also built like a set of APIs that are like a a monitor set of APIs that a bunch of other people have built their own kind of tooling on top of.\"},{\"Start\":2185.86,\"End\":2212.45,\"Speaker\":0,\"Content\":\"So we talked some about AI as tools for understanding and code review is like one focus, and this nice thing of like, oh, we could have the LLM tell its story, right? It can like decide how to organize the diffs and how to present it to you, and how to kind of do the work of laying out the concepts in an order that's easy for the human to understand. That seems great. But it's also in some ways kind of very textual, and that feels like a limitation that kind of shouldn't be there.\"},{\"Start\":2212.45,\"End\":2238.67,\"Speaker\":0,\"Content\":\"like one of the things that feels to me like it should be all over the place is leveraging the fact that AIs are actually really good at minting visualizations to build more like custom ad hoc one-time-only visualizers to help people understand all sorts of technical issues, including understanding what's happening in their code. Like, how much of that have you seen and like, like, is it important, should we be doing things to generate more of it?\"},{\"Start\":2238.67,\"End\":2252.22,\"Speaker\":1,\"Content\":\"I haven't seen much of that personally. I think it's extremely exciting though. So you're talking about like having the LLM maybe make little diagrams of how the code is laid out or how different pieces interact with each other so that it can explain a concept to you?\"},{\"Start\":2252.22,\"End\":2289.95,\"Speaker\":0,\"Content\":\"Yeah, or like, you know, there's a performance problem. Can you like build me a custom visualization of what's going on there? Like, we lean a huge amount on on great visualization tools. Um, and I think often very like high quality, simple, repeatable tools. So we've gotten a huge amount of use of Google's Perfetto and we have like our own hacked up version of Perfetto that has like a few different improvements to it. We've hooked it into our Magic Trace and other kind of performance analysis tools. But like, it's really focused on one relatively narrow class of visualizations. And there's all sorts of other ways that you might want to understand what's going on technically in a code base.\"},{\"Start\":2289.95,\"End\":2316.53,\"Speaker\":0,\"Content\":\"And it feels to me like there should be lots of good examples of ways of doing this, but like I haven't seen quite as much of this as I feel like there should be and I kind of wonder, wonder why we don't, why we don't get more of it, both like internally but also like in things in the outside world. I felt like, I don't know, six months ago I was seeing more stories about this, but like fewer compelling examples. And like I'm wondering like maybe it's less good than I think it is or maybe it's harder than I think it is or maybe we're just like not there yet.\"},{\"Start\":2316.53,\"End\":2352.69,\"Speaker\":1,\"Content\":\"I think it's it goes back to the point I was saying earlier about like if the models stopped their progress, we would still have multiple years of work to do. That like a lot of the ways that we apply models now are either reflections of how the software process existed before the models were around, meaning we're just trying to plug them into places where a human would do exactly the the process, but we're having an LLM help with it. Or they're a reflection of how the the models interface works. And what I mean by that is that a lot of the interfaces that we have for interacting with models, they feel like chat because that's how the APIs work for the vendors.\"},{\"Start\":2352.69,\"End\":2376.61,\"Speaker\":1,\"Content\":\"And I feel like we're just now starting to really get into like, maybe chat's not the right interface. Like, maybe the thing you actually want to present to people when you're writing code is something more like little tidbits about the exact code changes that you've made. And maybe chat is almost like, yeah, you want to have the log there in case the human has a question about why the model did a thing, but maybe it's not like the primary artifact you want to show back.\"},{\"Start\":2376.61,\"End\":2386.63,\"Speaker\":0,\"Content\":\"I think this is a little bit of a artifact of this kind of move from interacting with a single agent to interacting with multiple agents.\"},{\"Start\":2386.63,\"End\":2387.27,\"Speaker\":1,\"Content\":\"Yeah.\"},{\"Start\":2387.27,\"End\":2408.71,\"Speaker\":0,\"Content\":\"and I think we're this is like both inside our world and outside of it, there's like more and more support for these kind of orchestration level work where, yeah, like you're you're you need to talk to an agent to do some things, but you also want to be able to like visualize and absorb and manage and have in fact have LLMs manage for you the work of many different agents.\"},{\"Start\":2408.71,\"End\":2419.63,\"Speaker\":1,\"Content\":\"Um, and there's the flip of that too. You want to have them not just working on like one one thing. One one, we keep saying artifact, so I'm trying not to say. You don't want them just to work on one\"},{\"Start\":2419.63,\"End\":2420.86,\"Speaker\":0,\"Content\":\"one code change\"},{\"Start\":2420.86,\"End\":2430.62,\"Speaker\":1,\"Content\":\"one code change or one uh diagram or one research study. You kind of want them working across multiple at once. So there's the the other side as well. It's like a many to many.\"},{\"Start\":2430.62,\"End\":2452.0,\"Speaker\":0,\"Content\":\"So, I'm curious what you think is coming next in this regard. Like what do we need to be building to better support this kind of ecosystem of like many different agents working on various different problems, communicating with each other in various ways. Like, seems kind of like horrifying from a like reproducibility standpoint, but like, I don't know, what do what do what are the kinds of things that we need to like...\"}]"
+}

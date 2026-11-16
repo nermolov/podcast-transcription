@@ -1,0 +1,92 @@
+{
+ "chunk": 2,
+ "audio": [
+  570.0,
+  900.0
+ ],
+ "new_start": 600.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 32.68,
+   "speaker_id": 0,
+   "text": "Yeah, I feel like there's a balance between trying to go really deep but still trying to leave enough doors open to changes that might come in the future. Um, it's also worth saying, as you know, because you you lead the group, that we have this whole uh department called tools and compilers, which is mostly focused on uh making these developer tools. So in a way we've made decisions that um I think get us the depth but at the cost of some inflexibility, but we also have a team that kind of works to take us out of that when we need to. I think we're pretty robust to change, but I think it's a good question."
+  },
+  {
+   "start": 32.68,
+   "end": 47.6,
+   "speaker_id": 1,
+   "text": "Yeah, and I I do think part of doing a good job of this is just picking good abstractions. Like, both making it so you can take advantage of the particularities, but also trying to like put the joints in the right place so that when you want to replace pieces of it, it's not like a complete disaster."
+  },
+  {
+   "start": 47.6,
+   "end": 73.42,
+   "speaker_id": 0,
+   "text": "Yeah, I think some of this takes real work. Like for example, we're using a lot more Python, right? And Python is getting integrated into a lot more of our systems, but I think it'd be an overstatement to say that it's integrated everywhere in the same way that OCaml is, right? Like it doesn't, um, not all of the Python code that we write is like checked into version control in the same way as our OCaml code or not all of the uh Python code that we write works well with the build system that we have. And this is like real stuff that we have to work on to make better."
+  },
+  {
+   "start": 73.42,
+   "end": 112.95,
+   "speaker_id": 1,
+   "text": "So I want to jump back for a second to a thing you mentioned about GitHub, which is that like GitHub was a Ruby shop. I think like, you know, you're a serious like Ruby guy and like you worked a lot on Ruby at GitHub, gone to conferences, given talks. And now you've spent a few years in a very different ecosystem, working in OCaml, which is just like a much more, you know, I mean, there's this technical difference of like Ruby is a dynamically typed language and OCaml is a statically typed language, but just like the orientation is very different. OCaml's language is very focused on kind of static controls and guarantees of various different kinds. And like Ruby, not so much. It's like a very different approach to engineering and a very different development environment."
+  },
+  {
+   "start": 112.95,
+   "end": 122.39,
+   "speaker_id": 1,
+   "text": "and I'm curious just what you've learned from the process of like having shifted from very much being on one kind of technology to now using a very different set of tools."
+  },
+  {
+   "start": 122.53,
+   "end": 156.5,
+   "speaker_id": 0,
+   "text": "Yeah. Uh, so I think I just to start by saying I love Ruby. I've not I've not traded off on my position here. Um, but I do think that uh when I first started working with OCaml, uh it struck me that I felt slower. I felt like everything was moving slower. Um, I think it is true that uh Ruby and Rails results in uh less code written more quickly. Um, and the differences feel like they're really about um how the maintainability of that code is, but also about kind of the guarantees that you get while you're writing code."
+  },
+  {
+   "start": 156.5,
+   "end": 167.65,
+   "speaker_id": 0,
+   "text": "So, when you first learn for example about exhausted match statements, you might be like, well, that doesn't really seem that necessary. I always make sure all of my matches have all of the right arms inside of them. Yeah."
+  },
+  {
+   "start": 167.65,
+   "end": 200.92,
+   "speaker_id": 0,
+   "text": "So the first time that you make a mistake in Ruby of this type, you're going to end up with an error, a runtime error. And in OCaml, you can just kind of guarantee that this type of issue doesn't exist, and that's a pretty nice property. I think there are also other things that happen, like in the design space, for example, where when you're designing some kind of new functionality in Ruby, what you're probably going to end up doing is you're going to like write a doc describing how all the different types interact with each other. Uh, in OCaml, you can do the same thing. You can kind of write out how all the types interact with each other, but with the added benefit that you can you can like compile them and make sure that the types you're writing actually agree with each other."
+  },
+  {
+   "start": 200.92,
+   "end": 209.53,
+   "speaker_id": 1,
+   "text": "So is that right? Do people who think about Ruby, do they explicitly talk in a language of types even though there's no types in the actual formal definition of the language?"
+  },
+  {
+   "start": 209.53,
+   "end": 244.18,
+   "speaker_id": 0,
+   "text": "I wouldn't say it's talking in the language of types as much as it's talking about the language of objects where you're basically saying like this object has a property with this name and kind of the the type detail almost doesn't matter. Maybe sometimes you're uh wanting to say, you know, this property is um of this particular type, but mostly it's just kind of understood that if something is like text, it's a string and uh you know, the duck typing helps you when when actually there's like a mismatch between what you need and what the what the property actually holds. Which I know is like a crazy, it's very different."
+  },
+  {
+   "start": 244.18,
+   "end": 277.52,
+   "speaker_id": 1,
+   "text": "It's very different. And I think I guess so the the the point about like Ruby helps you be more concise, I think one of the things that a lot of Ruby people care about a lot is like it has really nice metaprogramming facilities. Yep. Which seems great as a way of like condensing what you need to actually express explicitly in code. Um at the expense of being in many ways harder to reason about. Yep. Um but the thing that I always worry about is the kind of maintainability angle. And I actually wonder like GitHub is like a big place with a big software infrastructure and"
+  },
+  {
+   "start": 277.52,
+   "end": 306.52,
+   "speaker_id": 1,
+   "text": "To me, it's always seemed kind of wild to run a software infrastructure of that size and scale in a language like Ruby, both for performance reasons and then also for the kind of like scale of software engineering, right? Like in many ways, I think the most valuable thing about type systems is as a communication tool between people, right? You like, you know, so one some person writes down a set of types and that expresses some intended set of rules and invariants and structures about the code base. And you know, somebody else writes code somewhere else and like"
+  },
+  {
+   "start": 306.52,
+   "end": 330.0,
+   "speaker_id": 1,
+   "text": "The compiler now, you know, conveys the message from the person who wrote down the types to the person who's trying to change something that uses those types in a way that really helps large groups of people coordinate more effectively. And now, when we have all these AIs running around, a whole bunch of like virtual people who are also operating in the code base, it feels like it provides useful structures there as well. So I'm kind of curious."
+  }
+ ],
+ "gen_tokens": 1697,
+ "text": "[{\"Start\":0,\"End\":32.68,\"Speaker\":0,\"Content\":\"Yeah, I feel like there's a balance between trying to go really deep but still trying to leave enough doors open to changes that might come in the future. Um, it's also worth saying, as you know, because you you lead the group, that we have this whole uh department called tools and compilers, which is mostly focused on uh making these developer tools. So in a way we've made decisions that um I think get us the depth but at the cost of some inflexibility, but we also have a team that kind of works to take us out of that when we need to. I think we're pretty robust to change, but I think it's a good question.\"},{\"Start\":32.68,\"End\":47.6,\"Speaker\":1,\"Content\":\"Yeah, and I I do think part of doing a good job of this is just picking good abstractions. Like, both making it so you can take advantage of the particularities, but also trying to like put the joints in the right place so that when you want to replace pieces of it, it's not like a complete disaster.\"},{\"Start\":47.6,\"End\":73.42,\"Speaker\":0,\"Content\":\"Yeah, I think some of this takes real work. Like for example, we're using a lot more Python, right? And Python is getting integrated into a lot more of our systems, but I think it'd be an overstatement to say that it's integrated everywhere in the same way that OCaml is, right? Like it doesn't, um, not all of the Python code that we write is like checked into version control in the same way as our OCaml code or not all of the uh Python code that we write works well with the build system that we have. And this is like real stuff that we have to work on to make better.\"},{\"Start\":73.42,\"End\":112.95,\"Speaker\":1,\"Content\":\"So I want to jump back for a second to a thing you mentioned about GitHub, which is that like GitHub was a Ruby shop. I think like, you know, you're a serious like Ruby guy and like you worked a lot on Ruby at GitHub, gone to conferences, given talks. And now you've spent a few years in a very different ecosystem, working in OCaml, which is just like a much more, you know, I mean, there's this technical difference of like Ruby is a dynamically typed language and OCaml is a statically typed language, but just like the orientation is very different. OCaml's language is very focused on kind of static controls and guarantees of various different kinds. And like Ruby, not so much. It's like a very different approach to engineering and a very different development environment.\"},{\"Start\":112.95,\"End\":122.39,\"Speaker\":1,\"Content\":\"and I'm curious just what you've learned from the process of like having shifted from very much being on one kind of technology to now using a very different set of tools.\"},{\"Start\":122.53,\"End\":156.5,\"Speaker\":0,\"Content\":\"Yeah. Uh, so I think I just to start by saying I love Ruby. I've not I've not traded off on my position here. Um, but I do think that uh when I first started working with OCaml, uh it struck me that I felt slower. I felt like everything was moving slower. Um, I think it is true that uh Ruby and Rails results in uh less code written more quickly. Um, and the differences feel like they're really about um how the maintainability of that code is, but also about kind of the guarantees that you get while you're writing code.\"},{\"Start\":156.5,\"End\":167.65,\"Speaker\":0,\"Content\":\"So, when you first learn for example about exhausted match statements, you might be like, well, that doesn't really seem that necessary. I always make sure all of my matches have all of the right arms inside of them. Yeah.\"},{\"Start\":167.65,\"End\":200.92,\"Speaker\":0,\"Content\":\"So the first time that you make a mistake in Ruby of this type, you're going to end up with an error, a runtime error. And in OCaml, you can just kind of guarantee that this type of issue doesn't exist, and that's a pretty nice property. I think there are also other things that happen, like in the design space, for example, where when you're designing some kind of new functionality in Ruby, what you're probably going to end up doing is you're going to like write a doc describing how all the different types interact with each other. Uh, in OCaml, you can do the same thing. You can kind of write out how all the types interact with each other, but with the added benefit that you can you can like compile them and make sure that the types you're writing actually agree with each other.\"},{\"Start\":200.92,\"End\":209.53,\"Speaker\":1,\"Content\":\"So is that right? Do people who think about Ruby, do they explicitly talk in a language of types even though there's no types in the actual formal definition of the language?\"},{\"Start\":209.53,\"End\":244.18,\"Speaker\":0,\"Content\":\"I wouldn't say it's talking in the language of types as much as it's talking about the language of objects where you're basically saying like this object has a property with this name and kind of the the type detail almost doesn't matter. Maybe sometimes you're uh wanting to say, you know, this property is um of this particular type, but mostly it's just kind of understood that if something is like text, it's a string and uh you know, the duck typing helps you when when actually there's like a mismatch between what you need and what the what the property actually holds. Which I know is like a crazy, it's very different.\"},{\"Start\":244.18,\"End\":277.52,\"Speaker\":1,\"Content\":\"It's very different. And I think I guess so the the the point about like Ruby helps you be more concise, I think one of the things that a lot of Ruby people care about a lot is like it has really nice metaprogramming facilities. Yep. Which seems great as a way of like condensing what you need to actually express explicitly in code. Um at the expense of being in many ways harder to reason about. Yep. Um but the thing that I always worry about is the kind of maintainability angle. And I actually wonder like GitHub is like a big place with a big software infrastructure and\"},{\"Start\":277.52,\"End\":306.52,\"Speaker\":1,\"Content\":\"To me, it's always seemed kind of wild to run a software infrastructure of that size and scale in a language like Ruby, both for performance reasons and then also for the kind of like scale of software engineering, right? Like in many ways, I think the most valuable thing about type systems is as a communication tool between people, right? You like, you know, so one some person writes down a set of types and that expresses some intended set of rules and invariants and structures about the code base. And you know, somebody else writes code somewhere else and like\"},{\"Start\":306.52,\"End\":330.0,\"Speaker\":1,\"Content\":\"The compiler now, you know, conveys the message from the person who wrote down the types to the person who's trying to change something that uses those types in a way that really helps large groups of people coordinate more effectively. And now, when we have all these AIs running around, a whole bunch of like virtual people who are also operating in the code base, it feels like it provides useful structures there as well. So I'm kind of curious.\"}]"
+}

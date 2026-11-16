@@ -1,0 +1,116 @@
+{
+ "chunk": 5,
+ "audio": [
+  1470.0,
+  1800.0
+ ],
+ "new_start": 1500.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 1.64,
+   "speaker_id": 0,
+   "text": "work on. Yeah, that's true."
+  },
+  {
+   "start": 2.26,
+   "end": 37.63,
+   "speaker_id": 0,
+   "text": "And and yeah, I mean it was worth like sketching out like what the value that we got out of like doing our own thing was there. Like, I guess one point to make early on is like, boy, when ChatGPT came out, they were not immediately thinking about it as like a commercial product for companies to use. Yep. Right. In fact, they were like totally surprised by how popular it was and how effective it was and it kind of reshaped like kind of the entire industry. But early on, they were like, yeah, we're just not like we're not ready for you companies. So by doing our own thing, we kind of pretty immediately got a thing where we had more control over our data. Yep."
+  },
+  {
+   "start": 37.89,
+   "end": 51.22,
+   "speaker_id": 0,
+   "text": "Right. Uh, and where we had a way of deploying it to all of the different people internally and dealing with like all of like authentication and data management problems that came up from that. Um, were there any other benefits that we got from building our own thing?"
+  },
+  {
+   "start": 51.22,
+   "end": 91.15,
+   "speaker_id": 1,
+   "text": "Uh, I guess another benefit is that maybe a couple weeks after, uh, Claude had come out. So this was Claude AI. Uh, and I I don't know what we would have done if we had just given everyone ChatGPT and now they wanted to have Claude too. I guess we would have just made them all Claude accounts too. But what we were able to do because we had this service was we were able to add a model switcher inside of the chat application so they could switch back back and forth between the two. And then while we were doing that, we built a a layer kind of underneath that that was like a made for people to program with. So we put out a set of client libraries to people at the firm. They could now write code without having to worry about which LLM they were hitting."
+  },
+  {
+   "start": 91.15,
+   "end": 101.09,
+   "speaker_id": 1,
+   "text": "And what's nice about that is that they, uh, as new models come out, if the, you know, best model for their use case is not from the same vendor, they can just switch it without having to change all their code."
+  },
+  {
+   "start": 101.09,
+   "end": 101.86,
+   "speaker_id": 0,
+   "text": "Right"
+  },
+  {
+   "start": 101.86,
+   "end": 128.4,
+   "speaker_id": 0,
+   "text": "and all of that can go through the same set of rate limits and data controls and all of that and just like we got to as an organization have like control over our fate and our data, uh but also give people APIs, both like APIs for people and rather interfaces for people and then APIs for the software engineering part of it, so that we could like use AI in lots of different ways and have like the whole thing be kind of coherently managed."
+  },
+  {
+   "start": 128.4,
+   "end": 159.04,
+   "speaker_id": 1,
+   "text": "At the time we we weren't too rate limit constrained, right? So it's kind of like we're we're building these rate limits, but they're almost like, oh, hypothetically, we don't want to be in a situation where one part of the firm is like using a ton of uh LLM usage and it's it's starving out a different part of the firm's usage. But like now in 2026, we're really happy that we have all of this infrastructure because it is the case that uh you know, you don't want one thing that maybe someone's developing in test to take rate away from a production use case."
+  },
+  {
+   "start": 159.04,
+   "end": 159.95,
+   "speaker_id": 0,
+   "text": "Right."
+  },
+  {
+   "start": 159.95,
+   "end": 165.48,
+   "speaker_id": 1,
+   "text": "Um, maybe it's worth stepping back just a little bit and saying like more what the team does is that"
+  },
+  {
+   "start": 165.48,
+   "end": 175.03,
+   "speaker_id": 0,
+   "text": "Yeah. like it's like what the team does today, right? It's been a few years since that like early stuff and and there's a lot more infrastructure now. So yeah, it would be great to have a tour of the things we actually do."
+  },
+  {
+   "start": 175.03,
+   "end": 208.54,
+   "speaker_id": 1,
+   "text": "So the first thing is we build, like I said, a platform for developers at the firm to build LLM-powered applications on top of. So this includes, uh, client libraries for making just kind of one-off LLM calls. It also includes the ability to like specify, uh, functions in OCaml or in Python that get passed to the LLM that it can use, which also includes a, uh, ability to specify with OCaml types the types that will be presented to the LLM for the function calls that it uses. So it kind of bridges over, um, you know, the difference between JSON types and OCaml types."
+  },
+  {
+   "start": 208.54,
+   "end": 228.62,
+   "speaker_id": 0,
+   "text": "Right, and this is like the difference between like old school, you just like give some text to an LLM and it completes it, to kind of modern agentic flows where the LLM emits tool calls and then you execute those tool calls and feed the results back in and like this whole cycle of things that allows the models to take action in the world. Like that's what these function calls give you."
+  },
+  {
+   "start": 228.62,
+   "end": 259.5,
+   "speaker_id": 1,
+   "text": "And then, uh, on top of that we build a series of products that people use. So one example of that is this JaneGPT application. Uh, another example that I'm sure we'll talk about a bunch is we build a uh CLI-based coding assistant which is called Aid. Uh, Aid CLI. And then we also put those inside of editors. And then we've also increasingly been starting to like put surfaces inside of things like Python notebooks or inside of um the interface for Webs, the programming language you were talking about earlier."
+  },
+  {
+   "start": 260.0,
+   "end": 264.3,
+   "speaker_id": 1,
+   "text": "And so that's the the set of tools that we make for humans."
+  },
+  {
+   "start": 264.34,
+   "end": 300.35,
+   "speaker_id": 1,
+   "text": "Then there's also a set of tools that we make kind of for the LLMs, right? The LLMs have to like do things to the world, so they need to be able to uh read the wiki or they need to be able to like run bash commands on people's computers. We'll talk more about that too. Um but all of the things that the LLMs do and the ecosystem of tools that the firm has built, some of these are built by us, um and some of them are built by different parts of the firm. There are like over a thousand different tools that different parts of the firm have made to do things related to their particular business. Another thing that our team does is we work on evaluation."
+  },
+  {
+   "start": 300.35,
+   "end": 330.0,
+   "speaker_id": 1,
+   "text": "So this is like essentially writing tests for the models where the models try to do uh some amount of work and then we we grade them, right, to say how they did on the test. And in doing this work, we both get an idea of like how models are doing so we can make decisions about which ones to put in front of people by default. And we also gain the ability to make improvements to kind of the harnesses and how we set things up. Um so how do we prompt it or what tools do we give it by default or"
+  }
+ ],
+ "gen_tokens": 1753,
+ "text": "[{\"Start\":0,\"End\":1.64,\"Speaker\":0,\"Content\":\"work on. Yeah, that's true.\"},{\"Start\":2.26,\"End\":37.63,\"Speaker\":0,\"Content\":\"And and yeah, I mean it was worth like sketching out like what the value that we got out of like doing our own thing was there. Like, I guess one point to make early on is like, boy, when ChatGPT came out, they were not immediately thinking about it as like a commercial product for companies to use. Yep. Right. In fact, they were like totally surprised by how popular it was and how effective it was and it kind of reshaped like kind of the entire industry. But early on, they were like, yeah, we're just not like we're not ready for you companies. So by doing our own thing, we kind of pretty immediately got a thing where we had more control over our data. Yep.\"},{\"Start\":37.89,\"End\":51.22,\"Speaker\":0,\"Content\":\"Right. Uh, and where we had a way of deploying it to all of the different people internally and dealing with like all of like authentication and data management problems that came up from that. Um, were there any other benefits that we got from building our own thing?\"},{\"Start\":51.22,\"End\":91.15,\"Speaker\":1,\"Content\":\"Uh, I guess another benefit is that maybe a couple weeks after, uh, Claude had come out. So this was Claude AI. Uh, and I I don't know what we would have done if we had just given everyone ChatGPT and now they wanted to have Claude too. I guess we would have just made them all Claude accounts too. But what we were able to do because we had this service was we were able to add a model switcher inside of the chat application so they could switch back back and forth between the two. And then while we were doing that, we built a a layer kind of underneath that that was like a made for people to program with. So we put out a set of client libraries to people at the firm. They could now write code without having to worry about which LLM they were hitting.\"},{\"Start\":91.15,\"End\":101.09,\"Speaker\":1,\"Content\":\"And what's nice about that is that they, uh, as new models come out, if the, you know, best model for their use case is not from the same vendor, they can just switch it without having to change all their code.\"},{\"Start\":101.09,\"End\":101.86,\"Speaker\":0,\"Content\":\"Right\"},{\"Start\":101.86,\"End\":128.4,\"Speaker\":0,\"Content\":\"and all of that can go through the same set of rate limits and data controls and all of that and just like we got to as an organization have like control over our fate and our data, uh but also give people APIs, both like APIs for people and rather interfaces for people and then APIs for the software engineering part of it, so that we could like use AI in lots of different ways and have like the whole thing be kind of coherently managed.\"},{\"Start\":128.4,\"End\":159.04,\"Speaker\":1,\"Content\":\"At the time we we weren't too rate limit constrained, right? So it's kind of like we're we're building these rate limits, but they're almost like, oh, hypothetically, we don't want to be in a situation where one part of the firm is like using a ton of uh LLM usage and it's it's starving out a different part of the firm's usage. But like now in 2026, we're really happy that we have all of this infrastructure because it is the case that uh you know, you don't want one thing that maybe someone's developing in test to take rate away from a production use case.\"},{\"Start\":159.04,\"End\":159.95,\"Speaker\":0,\"Content\":\"Right.\"},{\"Start\":159.95,\"End\":165.48,\"Speaker\":1,\"Content\":\"Um, maybe it's worth stepping back just a little bit and saying like more what the team does is that\"},{\"Start\":165.48,\"End\":175.03,\"Speaker\":0,\"Content\":\"Yeah. like it's like what the team does today, right? It's been a few years since that like early stuff and and there's a lot more infrastructure now. So yeah, it would be great to have a tour of the things we actually do.\"},{\"Start\":175.03,\"End\":208.54,\"Speaker\":1,\"Content\":\"So the first thing is we build, like I said, a platform for developers at the firm to build LLM-powered applications on top of. So this includes, uh, client libraries for making just kind of one-off LLM calls. It also includes the ability to like specify, uh, functions in OCaml or in Python that get passed to the LLM that it can use, which also includes a, uh, ability to specify with OCaml types the types that will be presented to the LLM for the function calls that it uses. So it kind of bridges over, um, you know, the difference between JSON types and OCaml types.\"},{\"Start\":208.54,\"End\":228.62,\"Speaker\":0,\"Content\":\"Right, and this is like the difference between like old school, you just like give some text to an LLM and it completes it, to kind of modern agentic flows where the LLM emits tool calls and then you execute those tool calls and feed the results back in and like this whole cycle of things that allows the models to take action in the world. Like that's what these function calls give you.\"},{\"Start\":228.62,\"End\":259.5,\"Speaker\":1,\"Content\":\"And then, uh, on top of that we build a series of products that people use. So one example of that is this JaneGPT application. Uh, another example that I'm sure we'll talk about a bunch is we build a uh CLI-based coding assistant which is called Aid. Uh, Aid CLI. And then we also put those inside of editors. And then we've also increasingly been starting to like put surfaces inside of things like Python notebooks or inside of um the interface for Webs, the programming language you were talking about earlier.\"},{\"Start\":260.0,\"End\":264.3,\"Speaker\":1,\"Content\":\"And so that's the the set of tools that we make for humans.\"},{\"Start\":264.34,\"End\":300.35,\"Speaker\":1,\"Content\":\"Then there's also a set of tools that we make kind of for the LLMs, right? The LLMs have to like do things to the world, so they need to be able to uh read the wiki or they need to be able to like run bash commands on people's computers. We'll talk more about that too. Um but all of the things that the LLMs do and the ecosystem of tools that the firm has built, some of these are built by us, um and some of them are built by different parts of the firm. There are like over a thousand different tools that different parts of the firm have made to do things related to their particular business. Another thing that our team does is we work on evaluation.\"},{\"Start\":300.35,\"End\":330.0,\"Speaker\":1,\"Content\":\"So this is like essentially writing tests for the models where the models try to do uh some amount of work and then we we grade them, right, to say how they did on the test. And in doing this work, we both get an idea of like how models are doing so we can make decisions about which ones to put in front of people by default. And we also gain the ability to make improvements to kind of the harnesses and how we set things up. Um so how do we prompt it or what tools do we give it by default or\"}]"
+}

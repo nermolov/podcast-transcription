@@ -6,10 +6,16 @@ Setup: Signals and Threads "The Changing Craft of Programming with John Crepezzi
 Model: VibeVoice-ASR 8-bit (mlx-audio 0.6.5, mlx 0.32.4), plus Parakeet-TDT v3 for word timestamps.
 Reference: `output/full_episode` (current pipeline, 3 × 37-min chunks).
 
-How to reproduce:
+How to reproduce. Every number in this file comes from a committed script plus committed data, except where marked:
 
-- Inference: `research/streaming/run_queue.sh name:args ...` runs `bench.py`.
-- Scoring: `analyze.py [--embed]` (needs jiwer, scipy and sherpa-onnx in a separate venv).
+- **Inference** (hours, needs an idle GPU): `run_queue.sh name:args ...` runs `bench.py` per strategy. The raw Signals and Threads runs are committed in `runs/<name>/`: `events.jsonl` (wall time of every segment), `chunk_*.json` (raw model output), `pk_tokens_*.json` (Parakeet) and logs. For Xanadu, `runs_xanadu/queue.sh` documents every step, but only metric summaries are committed (private feed).
+- **Scoring** (minutes, CPU): run under `uv run --with jiwer --python .venv/bin/python python ...`.
+  - `analyze.py RUN... [--ref --wav --embed]`: latency model and seam rules, writes `summary.json`.
+  - `replay.py`: the production `Stitcher` replayed with recorded timing, writes `replay_summary.json`.
+  - `eval_speakers.py sat|xanadu`: every speaker-method number, threshold sweep, overlap structure, centroid separation, titanet-small vs -large and the service run, writes `eval_summary.json`.
+  - `build_reference.py`: the Xanadu reference and its checks, writes `runs_xanadu/reference.json`.
+- **Service measurement:** `client_probe.py` against a running service (`runs_xanadu/service_probe.json`).
+- **Not reproducible from the repo:** the two 2-min probe runs quoted under "Where the time goes" (first text at 19.6 s, encode 4.7 s, decode about 31 tok/s) were lost with a temporary directory. The same quantities appear in every committed run's `events.jsonl`.
 
 ## Metric
 
@@ -124,7 +130,8 @@ What separated the methods:
   1. **Majority votes.** Each label's segments vote for their own best match, instead of using one label centroid. VibeVoice sometimes gives two people one label inside a chunk; that mixed centroid matched nobody, and the host was declared a new speaker mid-episode (71% → 93% on `fixed5`).
   2. **Pure centroids.** Global centroids only absorb segments that match them, so mixed labels can't drift them.
   3. **Short labels.** Labels with too little speech to embed (a 0.6 s "No.") take the overlap match instead of holding back finalization (+4.4 s time to playback before this fix). Any wait is capped at 30 s of audio.
-- **Thresholds:** a vote threshold of 0.45 is best (0.5–0.6 split speakers). Titanet-large separates voices no better than titanet-small (93.0% against 92.7% per-segment argmax accuracy) at 1.5× the CPU.
+- **Thresholds:** a vote threshold of 0.45 is best (0.5–0.6 split speakers). Titanet-large separates voices barely better than titanet-small (99.0% against 98.4% per-segment argmax accuracy against reference centroids, 0–97 min) at 1.5× the CPU.
+- **Centroid separation:** the cosines quoted for Signals and Threads (same speaker ≥ 0.886, cross-speaker ≤ 0.353; `runs/eval_summary.json`) group labels by overlap matching. On Xanadu that grouping is itself wrong, so the `centroid_separation` entry in `runs_xanadu/eval_summary.json` is not meaningful.
 - **Remaining error is inside chunks, not at seams.** Both mappers score the same in the final 43-min chunk, where VibeVoice merges the clip voice into the producer's label.
 
 ### Decoding loops: a production risk found while building the reference

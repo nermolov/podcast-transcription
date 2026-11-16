@@ -1,0 +1,145 @@
+{
+ "chunk": 6,
+ "audio": [
+  6090.0,
+  6509.112
+ ],
+ "new_start": 6120.0,
+ "prefix_s": 0.0,
+ "roster": [],
+ "segs": [
+  {
+   "start": 0,
+   "end": 31.71,
+   "speaker_id": 0,
+   "text": "team that's going to figure out all of the things that we need to do with our with our tooling and and the kind of robust kind of experimentation that's happening out there has got to be a part of how how we figure it out. So we talked some about ways in which maybe the the work is made like harder in some ways, like, you know, emotionally less satisfying in some components. I'm curious about like what you think about the flip side of that. Like, what are ways in which having these agents running around makes the work more satisfying and more fun and and, you know, better in other dimensions?"
+  },
+  {
+   "start": 31.71,
+   "end": 54.12,
+   "speaker_id": 1,
+   "text": "Yeah, I think there are a lot of ideas that I would have in my head for a long time but wouldn't actually see uh realized. Um one idea I had for a long time is this thing I keep talking about with people called loosey-goosey mode. Um so the the idea here is that um you're in an editor, you can enter this mode, loosey-goosey mode."
+  },
+  {
+   "start": 55.28,
+   "end": 88.27,
+   "speaker_id": 1,
+   "text": "you um you essentially go into you go into insert mode and you type pseudo code instead of real code. And then when you exit insert mode, it takes your pseudo code and it turns it into real code. Um, just like that little area and it can only edit really the area that you typed in and not the rest of the the buffer. And um, you know, I built a prototype of this back when LLMs were kind of nascent, but like it wasn't very good. And recently, I thought of it again. I thought this would be really helpful to me. I had an LLM do it and like 30 minutes later, I had an extension that worked exactly the way that I wanted."
+  },
+  {
+   "start": 88.27,
+   "end": 103.12,
+   "speaker_id": 1,
+   "text": "Um, so this idea, this ability to like rapidly prototype and get out tools for yourself seems like a a pretty big transformative thing that has happened. So that seems great. I guess another is, that's probably the that's my favorite one."
+  },
+  {
+   "start": 103.12,
+   "end": 104.73,
+   "speaker_id": 1,
+   "text": "Yeah, I think."
+  },
+  {
+   "start": 104.73,
+   "end": 119.4,
+   "speaker_id": 1,
+   "text": "Um, yeah, I guess another thing is like, you know, the the non-prototype version of that too, that like you can move more quickly through like the uh more rote parts of your work so that you can focus on the interesting bits. Yep."
+  },
+  {
+   "start": 119.54,
+   "end": 158.43,
+   "speaker_id": 0,
+   "text": "I think another thing that that people worry about, but that I think also there's real upside to, is people worry about like the AI slop problem of like, you know, we talked about how code review is in some ways harder. And sometimes like really intellectually harder, sometimes just like emotionally harder. Um, and one of the results you could imagine is just like there's going to be a lot of like mediocre code that isn't like fully informed on what's important, you know, written by LLMs that like get better in big jumps when new versions come out, but don't get better by learning over long periods of time about your problem space and your standards and what you need to do to solve problems in the particular domain that you're in."
+  },
+  {
+   "start": 158.43,
+   "end": 194.91,
+   "speaker_id": 0,
+   "text": "and and then we're just going to have like over time like worse and messier and hard to deal with codebases. But but I do think like the LLMs are also a tool that makes change easier and you can use them as a way of like improving the quality of codebases, of like that refactor that seemed like not worth it and too hard, like, well, maybe now you can do it because it's just like much easier to achieve. And you know, even in the context of code review where like someone give you like something to read and you're like, uh, I would like to make this much better before releasing, but also we should get it done and maybe I should just like make sure it's reasonable and get it out even though it's not in an ideal shape. But if it's much easier to like"
+  },
+  {
+   "start": 195.02,
+   "end": 207.98,
+   "speaker_id": 0,
+   "text": "take those changes and improvements and like turn them into a reality, then you can end up with like higher quality code that comes out of it. So I do think like a lot of a lot of what comes out of all this technology depends on what we make out of it."
+  },
+  {
+   "start": 207.98,
+   "end": 234.01,
+   "speaker_id": 1,
+   "text": "Yeah, and and how you respond to it. I mean, like one if you're worried about slop, one way you can kind of protect is like holding your code still to a relatively high standard. You can you can make that choice. And maybe you don't want to make that choice everywhere consistently. Maybe some cases you want to say, okay, we're like pretty tolerable of slop here, and in this other place we we don't want to be. There's like another thing related to slop, which is whether or not you deem a feature worth building."
+  },
+  {
+   "start": 234.01,
+   "end": 254.48,
+   "speaker_id": 1,
+   "text": "This is like another interesting one where I think the line has like moved more toward like yes it is worth building but maybe in a way that's making people feel uncomfortable where they're kind of like um have to raise this question of like if you weren't going to build it before and you weren't going to put your time toward it and now you have an LLM that can like do this thing should you actually"
+  },
+  {
+   "start": 254.48,
+   "end": 260.06,
+   "speaker_id": 1,
+   "text": "do it. Should you have the LLM go do this uh piece of work that you were uh kind of skip."
+  },
+  {
+   "start": 260.06,
+   "end": 260.73,
+   "speaker_id": 0,
+   "text": "Mhm"
+  },
+  {
+   "start": 260.73,
+   "end": 279.93,
+   "speaker_id": 1,
+   "text": "This is also hard for people making tools sometimes because it's like the um, I don't know, maybe your user wants a thing that you think shouldn't exist, but now they're not coming to you with like a request, they're coming to you with with code. And it feels like a little bit harder socially to be like, no, we don't want it when the thing they're presenting is kind of a finished product."
+  },
+  {
+   "start": 279.93,
+   "end": 316.19,
+   "speaker_id": 0,
+   "text": "That's right. Like there's a way in which the whole like existence of AI agents has kind of broken the social contract around code review where it used to be when someone would hand you a feature, like you were, you know, it made more sense for you to like help get that thing over the line because like they put in a lot of work, a lot of sweat equity that went into creating that. Yeah. And now like all you need is like a prompt and a dream and like you can like for free create a plausible looking problem. But it's still hard work to verify that it makes sense and like you don't want to like add lots of things to a system that will make it overall like messy and complicated."
+  },
+  {
+   "start": 316.19,
+   "end": 346.68,
+   "speaker_id": 0,
+   "text": "Even if the code is good, it might be that it makes the system that you're building conceptually complicated for the end user, right? If everyone gets every knob that they want, like you just get too many knobs. Yeah. And so, yeah, figuring out like what's the appropriate kind of pushback, right? And it's just like the shape of it is different. Like you've always had to deal with these kind of questions. Prioritization questions have always been hard, but they now just present themselves in different ways and I think it's just something that we have to like learn to adapt to, basically at a cultural level."
+  },
+  {
+   "start": 346.68,
+   "end": 375.29,
+   "speaker_id": 1,
+   "text": "Yeah, I think that's right. One framing I've found helpful that I've heard recently is just think of like they are coming to you with code, they probably put some time into it. Think of it as a prototype and then just still have the discussion about whether or not the thing is warranted. Yeah. It's like culturally, you know, at a, you know, for the whole engineering organization, we need to be like more comfortable kind of understanding, yes, that is code, it's useful to look at so that we have the thing that we're talking about together, but like let's talk about the merit of the change instead."
+  },
+  {
+   "start": 375.29,
+   "end": 403.42,
+   "speaker_id": 0,
+   "text": "That's right. And the prototypes can be amazing, right? It can be like someone has an idea of what to do and there's like the prototypes they hand you, but the amazing thing is all the prototypes they threw away. Like they tried a thing and they're like, yeah, this sucks, and they get rid of it. It's like, you know, there's real work in refining the idea and presenting it, and then, you know, and then maybe the implementation isn't good and you don't want to use that, but I do think at the end of the day it's a powerful new way of people to work together and exchange ideas and and in the end, I think that's really exciting."
+  },
+  {
+   "start": 403.98,
+   "end": 408.03,
+   "speaker_id": 0,
+   "text": "Alright. Well, maybe that's a good place to stop. Thanks so much for joining me."
+  },
+  {
+   "start": 408.03,
+   "end": 409.38,
+   "speaker_id": 1,
+   "text": "Thank you for having me."
+  },
+  {
+   "start": 409.92,
+   "end": 415.52,
+   "speaker_id": 0,
+   "text": "You'll find a complete transcript of the episode along with show notes and links at signalsandthreads.com."
+  },
+  {
+   "start": 415.52,
+   "end": 419.11,
+   "text": "[Music]"
+  }
+ ],
+ "gen_tokens": 2318,
+ "text": "[{\"Start\":0,\"End\":31.71,\"Speaker\":0,\"Content\":\"team that's going to figure out all of the things that we need to do with our with our tooling and and the kind of robust kind of experimentation that's happening out there has got to be a part of how how we figure it out. So we talked some about ways in which maybe the the work is made like harder in some ways, like, you know, emotionally less satisfying in some components. I'm curious about like what you think about the flip side of that. Like, what are ways in which having these agents running around makes the work more satisfying and more fun and and, you know, better in other dimensions?\"},{\"Start\":31.71,\"End\":54.12,\"Speaker\":1,\"Content\":\"Yeah, I think there are a lot of ideas that I would have in my head for a long time but wouldn't actually see uh realized. Um one idea I had for a long time is this thing I keep talking about with people called loosey-goosey mode. Um so the the idea here is that um you're in an editor, you can enter this mode, loosey-goosey mode.\"},{\"Start\":55.28,\"End\":88.27,\"Speaker\":1,\"Content\":\"you um you essentially go into you go into insert mode and you type pseudo code instead of real code. And then when you exit insert mode, it takes your pseudo code and it turns it into real code. Um, just like that little area and it can only edit really the area that you typed in and not the rest of the the buffer. And um, you know, I built a prototype of this back when LLMs were kind of nascent, but like it wasn't very good. And recently, I thought of it again. I thought this would be really helpful to me. I had an LLM do it and like 30 minutes later, I had an extension that worked exactly the way that I wanted.\"},{\"Start\":88.27,\"End\":103.12,\"Speaker\":1,\"Content\":\"Um, so this idea, this ability to like rapidly prototype and get out tools for yourself seems like a a pretty big transformative thing that has happened. So that seems great. I guess another is, that's probably the that's my favorite one.\"},{\"Start\":103.12,\"End\":104.73,\"Speaker\":1,\"Content\":\"Yeah, I think.\"},{\"Start\":104.73,\"End\":119.4,\"Speaker\":1,\"Content\":\"Um, yeah, I guess another thing is like, you know, the the non-prototype version of that too, that like you can move more quickly through like the uh more rote parts of your work so that you can focus on the interesting bits. Yep.\"},{\"Start\":119.54,\"End\":158.43,\"Speaker\":0,\"Content\":\"I think another thing that that people worry about, but that I think also there's real upside to, is people worry about like the AI slop problem of like, you know, we talked about how code review is in some ways harder. And sometimes like really intellectually harder, sometimes just like emotionally harder. Um, and one of the results you could imagine is just like there's going to be a lot of like mediocre code that isn't like fully informed on what's important, you know, written by LLMs that like get better in big jumps when new versions come out, but don't get better by learning over long periods of time about your problem space and your standards and what you need to do to solve problems in the particular domain that you're in.\"},{\"Start\":158.43,\"End\":194.91,\"Speaker\":0,\"Content\":\"and and then we're just going to have like over time like worse and messier and hard to deal with codebases. But but I do think like the LLMs are also a tool that makes change easier and you can use them as a way of like improving the quality of codebases, of like that refactor that seemed like not worth it and too hard, like, well, maybe now you can do it because it's just like much easier to achieve. And you know, even in the context of code review where like someone give you like something to read and you're like, uh, I would like to make this much better before releasing, but also we should get it done and maybe I should just like make sure it's reasonable and get it out even though it's not in an ideal shape. But if it's much easier to like\"},{\"Start\":195.02,\"End\":207.98,\"Speaker\":0,\"Content\":\"take those changes and improvements and like turn them into a reality, then you can end up with like higher quality code that comes out of it. So I do think like a lot of a lot of what comes out of all this technology depends on what we make out of it.\"},{\"Start\":207.98,\"End\":234.01,\"Speaker\":1,\"Content\":\"Yeah, and and how you respond to it. I mean, like one if you're worried about slop, one way you can kind of protect is like holding your code still to a relatively high standard. You can you can make that choice. And maybe you don't want to make that choice everywhere consistently. Maybe some cases you want to say, okay, we're like pretty tolerable of slop here, and in this other place we we don't want to be. There's like another thing related to slop, which is whether or not you deem a feature worth building.\"},{\"Start\":234.01,\"End\":254.48,\"Speaker\":1,\"Content\":\"This is like another interesting one where I think the line has like moved more toward like yes it is worth building but maybe in a way that's making people feel uncomfortable where they're kind of like um have to raise this question of like if you weren't going to build it before and you weren't going to put your time toward it and now you have an LLM that can like do this thing should you actually\"},{\"Start\":254.48,\"End\":260.06,\"Speaker\":1,\"Content\":\"do it. Should you have the LLM go do this uh piece of work that you were uh kind of skip.\"},{\"Start\":260.06,\"End\":260.73,\"Speaker\":0,\"Content\":\"Mhm\"},{\"Start\":260.73,\"End\":279.93,\"Speaker\":1,\"Content\":\"This is also hard for people making tools sometimes because it's like the um, I don't know, maybe your user wants a thing that you think shouldn't exist, but now they're not coming to you with like a request, they're coming to you with with code. And it feels like a little bit harder socially to be like, no, we don't want it when the thing they're presenting is kind of a finished product.\"},{\"Start\":279.93,\"End\":316.19,\"Speaker\":0,\"Content\":\"That's right. Like there's a way in which the whole like existence of AI agents has kind of broken the social contract around code review where it used to be when someone would hand you a feature, like you were, you know, it made more sense for you to like help get that thing over the line because like they put in a lot of work, a lot of sweat equity that went into creating that. Yeah. And now like all you need is like a prompt and a dream and like you can like for free create a plausible looking problem. But it's still hard work to verify that it makes sense and like you don't want to like add lots of things to a system that will make it overall like messy and complicated.\"},{\"Start\":316.19,\"End\":346.68,\"Speaker\":0,\"Content\":\"Even if the code is good, it might be that it makes the system that you're building conceptually complicated for the end user, right? If everyone gets every knob that they want, like you just get too many knobs. Yeah. And so, yeah, figuring out like what's the appropriate kind of pushback, right? And it's just like the shape of it is different. Like you've always had to deal with these kind of questions. Prioritization questions have always been hard, but they now just present themselves in different ways and I think it's just something that we have to like learn to adapt to, basically at a cultural level.\"},{\"Start\":346.68,\"End\":375.29,\"Speaker\":1,\"Content\":\"Yeah, I think that's right. One framing I've found helpful that I've heard recently is just think of like they are coming to you with code, they probably put some time into it. Think of it as a prototype and then just still have the discussion about whether or not the thing is warranted. Yeah. It's like culturally, you know, at a, you know, for the whole engineering organization, we need to be like more comfortable kind of understanding, yes, that is code, it's useful to look at so that we have the thing that we're talking about together, but like let's talk about the merit of the change instead.\"},{\"Start\":375.29,\"End\":403.42,\"Speaker\":0,\"Content\":\"That's right. And the prototypes can be amazing, right? It can be like someone has an idea of what to do and there's like the prototypes they hand you, but the amazing thing is all the prototypes they threw away. Like they tried a thing and they're like, yeah, this sucks, and they get rid of it. It's like, you know, there's real work in refining the idea and presenting it, and then, you know, and then maybe the implementation isn't good and you don't want to use that, but I do think at the end of the day it's a powerful new way of people to work together and exchange ideas and and in the end, I think that's really exciting.\"},{\"Start\":403.98,\"End\":408.03,\"Speaker\":0,\"Content\":\"Alright. Well, maybe that's a good place to stop. Thanks so much for joining me.\"},{\"Start\":408.03,\"End\":409.38,\"Speaker\":1,\"Content\":\"Thank you for having me.\"},{\"Start\":409.92,\"End\":415.52,\"Speaker\":0,\"Content\":\"You'll find a complete transcript of the episode along with show notes and links at signalsandthreads.com.\"},{\"Start\":415.52,\"End\":419.11,\"Content\":\"[Music]\"}]"
+}
