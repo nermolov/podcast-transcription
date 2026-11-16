@@ -1,5 +1,8 @@
 # transcribe_episode
 
+> [!WARNING]  
+> This is vibecode. No warranty is provided.
+
 End-to-end podcast transcription with speaker turns and word timestamps, on Apple Silicon (MLX).
 
     uv run transcribe_episode.py <audio file | mp3 URL | RSS URL> -o <outdir>
