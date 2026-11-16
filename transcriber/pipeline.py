@@ -14,12 +14,15 @@ class TranscribeError(Exception):
 
 
 # ---------------------------------------------------------------- child process management
-_CHILDREN = set(); _CH_LOCK = threading.Lock()
+_CHILDREN = set(); _CH_LOCK = threading.Lock(); _BLOCKED = [False]
 
 
-def kill_children(grace=5.0):
-    """SIGTERM (then SIGKILL after `grace` s) every live child started by run_child, including its process group."""
-    with _CH_LOCK: procs = list(_CHILDREN)
+def kill_children(grace=5.0, block=False):
+    """SIGTERM (then SIGKILL after `grace` s) every live child started by run_child, including its process group.
+    block=True also makes later spawns fail until allow_children(), so a child about to start cannot slip past a cancel."""
+    with _CH_LOCK:
+        procs = list(_CHILDREN)
+        if block: _BLOCKED[0] = True
     def sig(p, s):
         try: os.killpg(p.pid, s)  # children lead their own session/group (start_new_session)
         except (ProcessLookupError, PermissionError): pass
@@ -31,6 +34,17 @@ def kill_children(grace=5.0):
 
 
 atexit.register(kill_children, 2.0)
+
+
+def allow_children():
+    with _CH_LOCK: _BLOCKED[0] = False
+
+
+def _spawn(cmd, **kw):
+    with _CH_LOCK:
+        if _BLOCKED[0]: raise TranscribeError("cancelled")
+        p = subprocess.Popen(cmd, start_new_session=True, **kw); _CHILDREN.add(p)
+    return p
 
 
 def install_signal_handlers():
@@ -45,8 +59,7 @@ def install_signal_handlers():
 def run_child(cmd, env=None):
     """subprocess.run(check=False) that tracks the child so kill_children()/atexit can stop it; returns the exit code.
     The child is in its own session, so a terminal Ctrl-C does not reach it directly (the parent's handler kills it)."""
-    p = subprocess.Popen(cmd, env=env, start_new_session=True)
-    with _CH_LOCK: _CHILDREN.add(p)
+    p = _spawn(cmd, env=env)
     try: return p.wait()
     except BaseException: kill_children(); raise
     finally:
@@ -113,8 +126,7 @@ def fixed_plan(dur, chunk_s, ov):
 
 def stream_child(cmd, env=None):
     """Like run_child, but yields the child's stdout lines parsed as JSON; raises TranscribeError on a nonzero exit."""
-    p = subprocess.Popen(cmd, env=env, start_new_session=True, stdout=subprocess.PIPE, text=True, bufsize=1)
-    with _CH_LOCK: _CHILDREN.add(p)
+    p = _spawn(cmd, env=env, stdout=subprocess.PIPE, text=True, bufsize=1)
     try:
         for line in p.stdout:
             line = line.strip()
