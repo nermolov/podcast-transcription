@@ -127,15 +127,115 @@ def test_cancel_and_delete(tmp_path):
         b = c.post("/jobs", files={"file": ("b.wav", b"abc")}).json()["id"]
         wait(c, a, want=("running",))
         assert c.get(f"/jobs/{b}").json()["status"] == "queued"
-        assert c.delete(f"/jobs/{a}").status_code == 409  # running
         assert c.delete(f"/jobs/{b}").status_code == 200  # queued -> cancelled
         assert c.get(f"/jobs/{b}").status_code == 404 and os.listdir(tmp_path / "uploads") == []
+        assert c.delete(f"/jobs/{b}").status_code == 404
         gate.set()
         assert wait(c, a)["status"] == "done"
         tid = c.get(f"/jobs/{a}").json()["transcript_id"]
         assert os.path.isdir(tmp_path / "transcripts" / tid)
-        assert c.delete(f"/jobs/{a}").status_code == 200
+        assert c.delete(f"/jobs/{a}").json() == {"id": a, "deleted": True, "was": "done"}
         assert os.path.isdir(tmp_path / "transcripts" / tid) and c.get("/jobs").json() == []
+
+
+def _child_run(pidfile):
+    """run_fn that blocks in a pipeline child like the real VibeVoice worker, after writing to the job dir and chunk cache."""
+    from transcriber.pipeline import run_child
+    def run(input, outdir, *, progress=None, cache_dir=None, **kw):
+        progress("vibevoice", 0.1, "chunk 1/1")
+        os.makedirs(outdir, exist_ok=True); open(os.path.join(outdir, "partial.json"), "w").write("{}")
+        open(os.path.join(cache_dir, "chunk0.json"), "w").write("{}")
+        rc = run_child([sys.executable, "-c", f"import os,time; open({str(pidfile)!r},'w').write(str(os.getpid())); time.sleep(300)"])
+        raise TranscribeError(f"worker failed (exit {rc})")
+    return run
+
+
+def _wait_pid(pidfile):
+    for _ in range(250):
+        if pidfile.exists() and pidfile.read_text(): return int(pidfile.read_text())
+        time.sleep(0.02)
+    raise AssertionError("child never started")
+
+
+def test_cancel_running_kills_child_and_next_job_runs(tmp_path):
+    pidfile = tmp_path / "child.pid"; slow = _child_run(pidfile)
+    def run(input, outdir, **kw):
+        return fake_run(input, outdir, **kw) if b"next" in open(input, "rb").read() else slow(input, outdir, **kw)
+    with TestClient(create_app(str(tmp_path / "s"), run_fn=run)) as c:
+        a = up(c, b"long episode").json()["id"]
+        pid = _wait_pid(pidfile); assert _alive(pid)
+        b = c.post("/jobs", data={"url": "http://x/next"}).json()["id"]
+        r = c.delete(f"/jobs/{a}")
+        assert r.status_code == 200 and r.json() == {"id": a, "deleted": True, "was": "running"}
+        assert not _alive(pid)  # DELETE returns only once the child is gone
+        assert c.get(f"/jobs/{a}").status_code == 404
+        assert wait(c, b)["status"] == "done"
+        s = tmp_path / "s"
+        assert not (s / "jobs" / a).exists() and os.listdir(s / "uploads") == []
+        assert os.listdir(s / "cache" / "chunks" / sha(b"long episode")) == ["chunk0.json"]  # resumable later
+        assert [j["id"] for j in c.get("/jobs").json()] == [b]
+        # same audio again is a fresh job, not a dedupe hit on the cancelled one
+        r = up(c, b"long episode")
+        assert r.status_code == 202 and r.json()["id"] != a
+        assert [x["id"] for x in c.delete("/jobs").json()["cancelled"]] == [r.json()["id"]]
+
+
+def test_cancel_running_in_process_work(tmp_path):
+    # no child to kill: the next progress() call stops the job, and nothing is published
+    gate, entered = threading.Event(), threading.Event()
+    def run(input, outdir, *, progress=None, **kw):
+        progress("vibevoice", 0.1, "chunk 1/2"); entered.set(); gate.wait(5)
+        progress("vibevoice", 0.5, "chunk 2/2")
+        return fake_run(input, outdir, progress=progress, **kw)
+    with TestClient(create_app(str(tmp_path), run_fn=run)) as c:
+        a = c.post("/jobs", data={"url": "http://x/a"}).json()["id"]
+        assert entered.wait(5)
+        assert c.delete(f"/jobs/{a}").json()["was"] == "running"
+        gate.set()
+        b = c.post("/jobs", data={"url": "http://x/b"}).json()["id"]
+        assert wait(c, b)["status"] == "done"
+        assert c.get(f"/jobs/{a}").status_code == 404 and len(os.listdir(tmp_path / "transcripts")) == 1
+        assert not (tmp_path / "jobs" / a).exists()
+
+
+def test_cancel_before_child_starts(tmp_path):
+    # cancelled while still preparing (download, ffmpeg, model load): the child it was about to spawn must not start
+    from transcriber.pipeline import run_child
+    gate, entered, started = threading.Event(), threading.Event(), []
+    def run(input, outdir, *, progress=None, **kw):
+        if b"next" in open(input, "rb").read(): return fake_run(input, outdir, progress=progress, **kw)
+        entered.set(); gate.wait(5)
+        started.append(1); run_child([sys.executable, "-c", "import time; time.sleep(300)"])
+    with TestClient(create_app(str(tmp_path), run_fn=run)) as c:
+        a = c.post("/jobs", data={"url": "http://x/a"}).json()["id"]
+        assert entered.wait(5)
+        assert c.delete(f"/jobs/{a}").json()["was"] == "running"
+        gate.set()
+        b = c.post("/jobs", data={"url": "http://x/next"}).json()["id"]
+        assert wait(c, b)["status"] == "done"  # and spawning works again for the next job
+        assert started == [1] and c.get("/jobs").json()[0]["id"] == b
+
+
+def test_cancel_all(tmp_path):
+    pidfile = tmp_path / "child.pid"; slow = _child_run(pidfile)
+    def run(input, outdir, **kw):
+        return fake_run(input, outdir, **kw) if b"quick" in open(input, "rb").read() else slow(input, outdir, **kw)
+    with TestClient(create_app(str(tmp_path / "s"), run_fn=run)) as c:
+        assert c.delete("/jobs").json() == {"cancelled": []}
+        done = c.post("/jobs", data={"url": "http://x/quick1"}).json()["id"]
+        assert wait(c, done)["status"] == "done"
+        a = c.post("/jobs", data={"url": "http://x/long"}).json()["id"]
+        pid = _wait_pid(pidfile)
+        q1 = up(c, b"q1").json()["id"]; q2 = c.post("/jobs", data={"url": "http://x/q2"}).json()["id"]
+        r = c.delete("/jobs")
+        assert r.status_code == 200
+        assert sorted((x["id"], x["was"]) for x in r.json()["cancelled"]) == sorted([(a, "running"), (q1, "queued"), (q2, "queued")])
+        assert not _alive(pid)
+        assert [j["id"] for j in c.get("/jobs").json()] == [done]  # finished jobs stay
+        assert os.listdir(tmp_path / "s" / "uploads") == []
+        fresh = c.post("/jobs", data={"url": "http://x/quick2"}).json()["id"]
+        assert wait(c, fresh)["status"] == "done"
+        h = c.get("/healthz").json(); assert h["queued"] == 0 and h["running"] == 0
 
 
 def test_one_at_a_time(tmp_path):

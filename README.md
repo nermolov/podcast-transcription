@@ -89,7 +89,8 @@ below `CACHE_MAX_GB`, and anything unused for `CACHE_TTL_DAYS` is dropped. The n
 | `GET /jobs/{id}` | `status` (queued, running, done, failed), `stage` (queued, prepare, vibevoice, write, done), `progress` (0..1 or null, within the stage; for vibevoice the final share of the audio), `overall_progress` (0..1 across stages), `queue_position` (jobs ahead, when queued), `message`, `error`, `params`, `transcript_id`, `cached`, `audio_s`, `ready_s` (audio seconds of final transcript so far), `sha256`, `key`, `created_at`/`started_at`/`finished_at` |
 | `GET /jobs/{id}/partial?since=<n>` | transcript so far, for starting playback before the job is done: `{status, complete, audio_s, ready_until, speakers, n_turns, since, turns}`; `turns` are final (same format as `transcript.json`, append-only, so `since` skips the first n). Start playback once `ready_until` covers the first turn (~15 s after the job starts running on an idle M4 Pro) and keep polling; queued jobs return no turns, done jobs the whole transcript, failed 409 |
 | `GET /jobs/{id}/result?format=json\|txt\|srt\|stats` | 409 until `done` (default json); 404 if the transcript was evicted |
-| `DELETE /jobs/{id}` | cancels a queued job / removes a finished or failed one; the transcript stays cached; 409 while running |
+| `DELETE /jobs/{id}` | cancels a queued or running job / removes a finished or failed one: `{id, deleted, was}`; the transcript and chunk cache stay. A running job's pipeline child is killed and the call returns once it is gone, so the next job starts with the memory free |
+| `DELETE /jobs` | cancels every queued and running job in one step (for a single client taking over the server): `{cancelled: [{id, was}]}`; finished jobs stay |
 | `GET /transcripts?sha256=<hex>` or `?key=<key>` | lookup with the default settings (sha256 wins): 200 `{status:"done", transcript_id, job_id, audio_s, sha256, key}` or `{status:"queued"\|"running", job_id, transcript_id:null, ...}`; 404 if unknown |
 | `GET /transcripts/{tid}/result?format=...` | result files of a cached transcript |
 | `DELETE /transcripts/{tid}` | drops a transcript; 409 if an active job works on the same audio |
@@ -104,7 +105,8 @@ curl -H "$H" localhost:8000/jobs/3f2a...                                        
 curl -H "$H" "localhost:8000/jobs/3f2a.../partial?since=0"                                   # turns so far + ready_until
 curl -H "$H" "localhost:8000/jobs/3f2a.../result?format=srt" -o episode.srt
 curl -H "$H" "localhost:8000/transcripts?sha256=$(sha256sum episode.mp3 | cut -d' ' -f1)"      # already transcribed?
-curl -H "$H" -X DELETE localhost:8000/jobs/3f2a...
+curl -H "$H" -X DELETE localhost:8000/jobs/3f2a...                                          # cancel one job
+curl -H "$H" -X DELETE localhost:8000/jobs                                                  # cancel everything, then POST a fresh job
 ```
 
 ## Operations (launchd)

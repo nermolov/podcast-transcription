@@ -156,6 +156,10 @@ def default_fetch(url, work):
     return get_audio(url, work)
 
 
+class Cancelled(Exception):
+    pass
+
+
 class Service:
     def __init__(self, state_dir, run_fn=None, start_worker=True, fetch_fn=None, cache_max_gb=None, cache_ttl_days=None):
         self.state = os.path.abspath(state_dir)
@@ -168,6 +172,8 @@ class Service:
         self.store = Store(os.path.join(self.state, "jobs.db"))
         self.run_fn = run_fn or default_run; self.fetch_fn = fetch_fn or default_fetch
         self.queue = queue.Queue(); self.stop = threading.Event(); self.thread = None
+        # the worker's current job; cancelling it sets `cancelled`. Lock order: run_lock before store.lock
+        self.run_lock = threading.Lock(); self.current = None; self.cancelled = threading.Event()
         self.migrate()
         # crash/restart recovery: running jobs resume (chunk cache makes that cheap), queued jobs keep their order
         self.store.execute("UPDATE jobs SET status='queued', stage='queued', message='re-queued after restart', started_at=NULL WHERE status='running'")
@@ -273,9 +279,33 @@ class Service:
             id = self.queue.get()
             if id is None: break
             # claim atomically; skips jobs cancelled/deleted while queued
-            if self.store.execute("UPDATE jobs SET status='running', stage='starting', started_at=?, finished_at=NULL WHERE id=? AND status='queued'", (time.time(), id)) != 1:
-                continue
-            self._run(id)
+            with self.run_lock:
+                if self.store.execute("UPDATE jobs SET status='running', stage='starting', started_at=?, finished_at=NULL WHERE id=? AND status='queued'", (time.time(), id)) != 1:
+                    continue
+                self.current = id; self.cancelled.clear()
+                from transcriber.pipeline import allow_children
+                allow_children()
+            try: self._run(id)
+            finally:
+                with self.run_lock: self.current = None
+
+    def cancel(self, ids=None):
+        """Delete the given jobs (None = every queued/running one) and stop the worker if it is on one of them; returns the
+        deleted rows. Blocks until the pipeline child (if any) is dead, so the next job starts with the memory free. Transcripts and
+        the chunk cache stay. The worker drops the cancelled job's files once _run unwinds."""
+        with self.run_lock:
+            with self.store.lock:
+                rows = self.store.q(f"SELECT id,status FROM jobs WHERE {ACTIVE}") if ids is None else \
+                       [r for r in (self.store.get(i) for i in ids) if r is not None]
+                for r in rows: self.store.execute("DELETE FROM jobs WHERE id=?", (r["id"],))
+            cur = self.current if any(r["id"] == self.current and r["status"] == "running" for r in rows) else None
+            if cur is not None:
+                self.cancelled.set()
+                from transcriber.pipeline import kill_children
+                kill_children(block=True)
+        for r in rows:
+            if r["id"] != cur: self.remove_files(r["id"])
+        return rows
 
     def _link_cached(self, id, sha, fps, upload):
         with self.store.lock:
@@ -310,6 +340,7 @@ class Service:
         r = self.store.get(id); p = json.loads(r["params"]); outdir = self.job_dir(id); dl = os.path.join(outdir, "dl")
         upload = not is_url(r["source"]); tid = sha = None
         def progress(stage, fraction, message, ready_s=None, audio_s=None):
+            if self.cancelled.is_set(): raise Cancelled()  # stops in-process work the child kill does not reach
             self.store.execute("UPDATE jobs SET stage=?, progress=?, message=?, ready_s=COALESCE(?, ready_s), audio_s=COALESCE(?, audio_s) WHERE id=? AND status='running'",
                                (stage, fraction, message, ready_s, audio_s, id))
         try:
@@ -326,9 +357,13 @@ class Service:
             self.run_fn(src, outdir, chunk_minutes=p["chunk_minutes"], overlap_seconds=p["overlap_seconds"], context=p["context"],
                         words=p["words"], progressive=p["progressive"], speakers=p["speakers"], progress=progress, input_name=r["name"], cache_dir=cache_dir)
             os.utime(cache_dir)
+            if self.cancelled.is_set(): raise Cancelled()
             tid = self._publish(id, r, p, sha)
             if upload: self._rm(r["source"])  # upload no longer needed once done
         except BaseException as e:
+            if self.cancelled.is_set():  # row already deleted by cancel(); only the files are left
+                self.remove_files(id)
+                return
             if self.stop.is_set():  # interrupted by service shutdown (SIGTERM): resume on next start
                 self.store.execute("UPDATE jobs SET status='queued', stage='queued', message='re-queued after shutdown', started_at=NULL WHERE id=? AND status='running'", (id,))
                 return
@@ -479,13 +514,17 @@ def create_app(state_dir=None, run_fn=None, api_token=None, start_worker=True, f
         n = len(d["turns"]); since = max(0, since)
         return dict(d, status=r["status"], n_turns=n, since=since, turns=d["turns"][since:])
 
+    @app.delete("/jobs", dependencies=[Depends(auth)])
+    def cancel_all():
+        """Cancel every queued and running job (finished ones stay); returns once the running one has stopped."""
+        rows = svc.cancel()
+        return {"cancelled": [dict(id=r["id"], was=r["status"]) for r in rows]}
+
     @app.delete("/jobs/{id}", dependencies=[Depends(auth)])
     def delete(id: str):
-        r = need(id)
-        if r["status"] == "running": raise HTTPException(409, "job is running and cannot be cancelled")
-        svc.store.execute("DELETE FROM jobs WHERE id=? AND status!='running'", (id,))
-        svc.remove_files(id)  # the transcript stays cached
-        return {"id": id, "deleted": True, "was": r["status"]}
+        rows = svc.cancel([id])  # the transcript stays cached
+        if not rows: raise HTTPException(404, "no such job")
+        return {"id": id, "deleted": True, "was": rows[0]["status"]}
 
     @app.get("/transcripts", dependencies=[Depends(auth)])
     def lookup(sha256: str = None, key: str = None):
